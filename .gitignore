@@ -28,19 +28,26 @@ ENV/
 env/
 .env
 
-# Environment variables
+# ⚠️  CRITICAL SECURITY: Environment variables (API keys, secrets)
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
+*.key
+*.pem
+config.json
+secrets.json
 
-# IDE
+# IDE and Editor settings (개인 설정 파일)
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.settings/
 
-# OS
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -48,6 +55,12 @@ env/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
+
+# Windows system folders
+%PROGRAMDATA%/
+%programdata%/
+ProgramData/
 
 # Logs
 logs/
@@ -56,13 +69,19 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Data files
+# Data files (민감한 데이터 보호)
 data/*.csv
 data/index/*.bin
 data/index/*.pkl
+*.xlsx
+*.xls
 
-# PDF files
+# Large files (용량 최적화)
 *.pdf
+*.zip
+*.tar.gz
+*.rar
+*.7z
 
 # Temporary files
 *.tmp

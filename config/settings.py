@@ -40,6 +40,30 @@ class Settings:
     # 시스템 프롬프트
     SYSTEM_PROMPT = "너는 위기 대응 전문 전략가입니다. 이슈 맥락을 빠르게 파악해서 전문적인 조언을 제공해주세요."
     
+    # 위기 단계 정의 (4단계 체계)
+    CRISIS_STAGES = {
+        '관심': {
+            'level': 1,
+            'description': '잠재적 이슈 모니터링 단계',
+            'color': 'blue'
+        },
+        '주의': {
+            'level': 2, 
+            'description': '이슈 발생 및 초기 대응 단계',
+            'color': 'yellow'
+        },
+        '위기': {
+            'level': 3,
+            'description': '심각한 이슈로 확산된 위기 대응 단계', 
+            'color': 'orange'
+        },
+        '비상': {
+            'level': 4,
+            'description': '최고 수준의 비상 대응 단계',
+            'color': 'red'
+        }
+    }
+    
     # 파일 인코딩 설정
     PRIMARY_ENCODING = "cp949"
     FALLBACK_ENCODING = "utf-8-sig"

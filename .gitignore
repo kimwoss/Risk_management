@@ -83,6 +83,13 @@ data/index/*.pkl
 *.rar
 *.7z
 
+# Machine Learning models
+models/
+*.joblib
+*.pkl
+*.h5
+*.model
+
 # Temporary files
 *.tmp
 *.temp

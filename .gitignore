@@ -1,0 +1,36 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Windows special files
+NUL
+CON
+PRN
+AUX
+
+# Virtual environments
+.venv
+
+# 환경 변수 파일 (중요!)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 로그 파일
+*.log

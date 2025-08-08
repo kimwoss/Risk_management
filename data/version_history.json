@@ -1,0 +1,30 @@
+{
+  "master_data.json": {
+    "versions": [
+      {
+        "version": "1.1.0",
+        "timestamp": "2025-08-06T14:28:58.757059",
+        "backup_file": "master_data_v1.1.0_20250806_142858.json",
+        "hash": "8227fc239ceec004b9532a75b55f90e7",
+        "change_description": "시스템 초기 설정",
+        "change_type": "minor",
+        "file_size": 27456
+      }
+    ],
+    "current_version": "1.1.0"
+  },
+  "언론대응내역.csv": {
+    "versions": [
+      {
+        "version": "1.1.0",
+        "timestamp": "2025-08-06T14:28:58.825058",
+        "backup_file": "언론대응내역_v1.1.0_20250806_142858.csv",
+        "hash": "aa3055f2bc797dbb7ae8008d378081a9",
+        "change_description": "데이터 정리 및 검증",
+        "change_type": "minor",
+        "file_size": 525155
+      }
+    ],
+    "current_version": "1.1.0"
+  }
+}

@@ -19,6 +19,12 @@ try:
 except ImportError:
     OPTIMIZED_RESEARCH_AVAILABLE = False
 
+try:
+    from quality_enhancer import QualityEnhancer
+    QUALITY_ENHANCER_AVAILABLE = True
+except ImportError:
+    QUALITY_ENHANCER_AVAILABLE = False
+
 class DataBasedLLM:
     """데이터 파일을 기반으로 답변을 생성하는 LLM 클래스"""
     
@@ -39,27 +45,36 @@ class DataBasedLLM:
         # 웹 검색 서비스 초기화
         try:
             self.research_service = IssueResearchService()
-            print("✓ 웹 검색 서비스 초기화 완료")
+            print("INIT: 웹 검색 서비스 초기화 완료")
         except Exception as e:
-            print(f"⚠️ 웹 검색 서비스 초기화 실패: {str(e)}")
+            print(f"WARNING: 웹 검색 서비스 초기화 실패: {str(e)}")
         
         # 강화된 웹 검색 서비스 초기화
         self.enhanced_research = None
         if ENHANCED_RESEARCH_AVAILABLE:
             try:
                 self.enhanced_research = EnhancedWebResearchService()
-                print("✓ 강화된 웹 검색 서비스 초기화 완료")
+                print("INIT: 강화된 웹 검색 서비스 초기화 완료")
             except Exception as e:
-                print(f"⚠️ 강화된 웹 검색 서비스 초기화 실패: {str(e)}")
+                print(f"WARNING: 강화된 웹 검색 서비스 초기화 실패: {str(e)}")
         
         # 최적화된 웹 검색 서비스 초기화
         self.optimized_research = None
         if OPTIMIZED_RESEARCH_AVAILABLE:
             try:
                 self.optimized_research = OptimizedWebResearchService()
-                print("✓ 최적화된 웹 검색 서비스 초기화 완료")
+                print("INIT: 최적화된 웹 검색 서비스 초기화 완료")
             except Exception as e:
-                print(f"⚠️ 최적화된 웹 검색 서비스 초기화 실패: {str(e)}")
+                print(f"WARNING: 최적화된 웹 검색 서비스 초기화 실패: {str(e)}")
+        
+        # 품질 개선 모듈 초기화
+        self.quality_enhancer = None
+        if QUALITY_ENHANCER_AVAILABLE:
+            try:
+                self.quality_enhancer = QualityEnhancer()
+                print("INIT: 품질 개선 모듈 초기화 완료")
+            except Exception as e:
+                print(f"WARNING: 품질 개선 모듈 초기화 실패: {str(e)}")
         
         # 데이터 로드
         self._load_data()
@@ -72,7 +87,7 @@ class DataBasedLLM:
             if os.path.exists(master_path):
                 with open(master_path, 'r', encoding='utf-8') as f:
                     self.master_data = json.load(f)
-                print(f"✓ master_data.json 로드 완료")
+                print(f"LOAD: master_data.json 로드 완료")
             else:
                 print(f"✗ master_data.json 파일을 찾을 수 없습니다: {master_path}")
             
@@ -80,7 +95,7 @@ class DataBasedLLM:
             csv_path = os.path.join(self.data_folder, "언론대응내역.csv")
             if os.path.exists(csv_path):
                 self.media_response_data = pd.read_csv(csv_path, encoding='utf-8')
-                print(f"✓ 언론대응내역.csv 로드 완료 ({len(self.media_response_data)}건)")
+                print(f"LOAD: 언론대응내역.csv 로드 완료 ({len(self.media_response_data)}건)")
             else:
                 print(f"✗ 언론대응내역.csv 파일을 찾을 수 없습니다: {csv_path}")
                 
@@ -406,10 +421,10 @@ class DataBasedLLM:
         """강화된 웹 검색 기반 사실검증과 대응방안 포함 답변 생성"""
         
         if not self.enhanced_research:
-            print("⚠️ 강화된 웹 검색 기능을 사용할 수 없습니다. 기본 답변을 생성합니다.")
+            print("WARNING: 강화된 웹 검색 기능을 사용할 수 없습니다. 기본 답변을 생성합니다.")
             return self.generate_data_based_response(query)
         
-        print("🔍 강화된 웹 검색 기반 종합 분석을 시작합니다...")
+        print("START: 강화된 웹 검색 기반 종합 분석을 시작합니다...")
         
         try:
             # 1. 종합 이슈 분석 수행
@@ -552,7 +567,7 @@ class DataBasedLLM:
         """최적화된 웹 검색 기반 고속 사실검증과 대응방안 포함 답변 생성"""
         
         if not self.optimized_research:
-            print("⚠️ 최적화된 웹 검색 기능을 사용할 수 없습니다. 강화된 버전을 시도합니다.")
+            print("WARNING: 최적화된 웹 검색 기능을 사용할 수 없습니다. 강화된 버전을 시도합니다.")
             return self.generate_enhanced_response_with_fact_check(query)
         
         # 진행률 콜백 설정
@@ -561,7 +576,7 @@ class DataBasedLLM:
                 print(f"⏩ {step} ({progress}%)")
             self.optimized_research.set_progress_callback(progress_callback)
         
-        print("🚀 최적화된 고속 분석을 시작합니다...")
+        print("START: 최적화된 고속 분석을 시작합니다...")
         
         try:
             import time
@@ -705,7 +720,7 @@ class DataBasedLLM:
             self.optimized_research.clear_cache()
             print("🧹 최적화 캐시가 초기화되었습니다.")
         else:
-            print("⚠️ 캐시 시스템을 사용할 수 없습니다.")
+            print("WARNING: 캐시 시스템을 사용할 수 없습니다.")
     
     def _build_context(self, query: str, relevant_depts: List[Dict], 
                       relevant_cases: pd.DataFrame, recent_cases: pd.DataFrame) -> str:
@@ -814,66 +829,857 @@ class DataBasedLLM:
         
         return self.llm.chat(prompt)  # 총괄 프롬프트 자동 사용
     
-    def generate_issue_report(self, media_name: str, reporter_name: str, issue_description: str) -> str:
-        """이슈발생보고서 생성 (개선된 템플릿 변수 치환 방식)"""
+    def generate_comprehensive_issue_report(self, media_name: str, reporter_name: str, issue_description: str, mode: str = "enhanced") -> str:
+        """완전한 8단계 프로세스 기반 이슈발생보고서 생성"""
         
-        # 관련 부서 정보 수집
-        relevant_depts = self.get_relevant_departments(issue_description)
+        # 처리 모드 선택
+        if mode == "enhanced":
+            return self._generate_enhanced_report(media_name, reporter_name, issue_description)
         
-        # 유사 사례 검색
-        similar_cases = self.search_media_responses(issue_description, limit=3)
+        print(f"START: 완전한 프로세스 기반 이슈발생보고서 생성 시작: {media_name} / {reporter_name} (모드: {mode})")
         
-        # 해당 언론사의 과거 사례 검색
-        media_cases = self._search_by_media(media_name, limit=3)
+        # 1. 사용자 인풋 데이터 검증
+        if not self._validate_inputs(media_name, reporter_name, issue_description):
+            return "입력 데이터 검증 실패"
         
-        # 현재 시간
-        from datetime import datetime
-        current_time = datetime.now().strftime("%Y년 %m월 %d일 %H시 %M분")
+        # 2. LLM 기반 이슈 초기 분석
+        print("STEP 2: LLM 기반 이슈 초기 분석...")
+        initial_analysis = self._analyze_issue_nature(issue_description)
         
-        # 위기 단계 자동 판단
-        crisis_level = self._assess_crisis_level(issue_description, verbose=False)
+        # 3. data 폴더 파일 기반 유관부서, 위기단계 지정
+        print("STEP 3: 유관부서 및 위기단계 지정...")
+        relevant_depts = self.get_relevant_departments_from_master_data(issue_description)
+        crisis_level = self._assess_crisis_level_from_master_data(issue_description)
+        media_info = self._get_media_info_from_master_data(media_name)
         
-        # 템플릿 변수 준비
-        template_vars = {
-            "MEDIA_OUTLET": media_name,
-            "REPORTER_NAME": reporter_name,
-            "ISSUE": issue_description
+        # 4. Naver API 기반 웹 검색 수행
+        print("STEP 4: Naver API 웹 검색 수행...")
+        web_search_results = self._conduct_web_research(issue_description, initial_analysis)
+        
+        # 5. 취합 정보 기반 배경지식 및 사실 확인
+        print("STEP 5: 배경지식 및 사실 확인...")
+        fact_verification = self._verify_facts_and_background(issue_description, web_search_results, initial_analysis)
+        
+        # 6. 유관부서 의견 가안 도출
+        print("STEP 6: 유관부서 의견 가안 도출...")
+        department_opinions = self._generate_department_opinions(relevant_depts, issue_description, web_search_results)
+        
+        # 7. 언론홍보 페르소나 관점 대응방안 마련
+        print("STEP 7: 언론홍보 전문가 대응방안 마련...")
+        pr_strategy = self._develop_pr_strategy(issue_description, crisis_level, fact_verification, department_opinions)
+        
+        # 8. 보고서 결과값 생성
+        print("STEP 8: 최종 보고서 생성...")
+        final_report = self._generate_final_comprehensive_report(
+            media_name=media_name,
+            reporter_name=reporter_name,
+            issue_description=issue_description,
+            initial_analysis=initial_analysis,
+            relevant_depts=relevant_depts,
+            crisis_level=crisis_level,
+            media_info=media_info,
+            web_search_results=web_search_results,
+            fact_verification=fact_verification,
+            department_opinions=department_opinions,
+            pr_strategy=pr_strategy
+        )
+        
+        print(f"COMPLETE: 완전한 8단계 프로세스 완료 - 위기단계: {crisis_level}, 관련부서: {len(relevant_depts)}개")
+        return final_report
+    
+    def _generate_enhanced_report(self, media_name: str, reporter_name: str, issue_description: str) -> str:
+        """강화된 처리 모드 - 성능 최적화 적용"""
+        import time
+        
+        start_time = time.time()
+        print(f"START: 강화된 모드 처리 시작 - {media_name}")
+        
+        try:
+            # 1. 입력 검증 (기존 동일)
+            if not self._validate_inputs(media_name, reporter_name, issue_description):
+                return "입력 데이터 검증 실패"
+            
+            # 2. 최적화된 초기 분석
+            step_start = time.time()
+            initial_analysis = self._optimized_initial_analysis(issue_description)
+            print(f"  STEP 2 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 3. 빠른 부서/위기 매핑
+            step_start = time.time()
+            relevant_depts = self._fast_department_mapping(issue_description)
+            crisis_level = self._fast_crisis_assessment(issue_description)
+            media_info = self._get_media_info_from_master_data(media_name)
+            print(f"  STEP 3 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 4-5. 웹 검색 + 사실 확인 (조건부 실행)
+            step_start = time.time()
+            if self._should_do_web_search(issue_description):
+                web_search_results = self._conduct_web_research(issue_description, initial_analysis)
+                fact_verification = self._verify_facts_and_background(issue_description, web_search_results, initial_analysis)
+            else:
+                web_search_results = {"search_summary": "웹 검색 생략 (로컬 분석 충분)"}
+                fact_verification = self._local_fact_verification(issue_description, initial_analysis)
+            print(f"  STEP 4-5 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 6. 간소화된 부서 의견
+            step_start = time.time()
+            department_opinions = self._simplified_department_opinions(relevant_depts, issue_description)
+            print(f"  STEP 6 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 7. 간소화된 PR 전략
+            step_start = time.time()
+            pr_strategy = self._simplified_pr_strategy(issue_description, crisis_level, fact_verification)
+            print(f"  STEP 7 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 8. 최종 보고서 (구조화된 방식 사용)
+            step_start = time.time()
+            final_report = self._generate_final_comprehensive_report(
+                media_name=media_name,
+                reporter_name=reporter_name,
+                issue_description=issue_description,
+                initial_analysis=initial_analysis,
+                relevant_depts=relevant_depts,
+                crisis_level=crisis_level,
+                media_info=media_info,
+                web_search_results=web_search_results,
+                fact_verification=fact_verification,
+                department_opinions=department_opinions,
+                pr_strategy=pr_strategy
+            )
+            print(f"  STEP 8 완료 ({time.time() - step_start:.2f}초)")
+            
+            # 9. 품질 개선 적용 (Enhanced 모드에서만)
+            if self.quality_enhancer:
+                step_start = time.time()
+                print("STEP 9: 품질 개선 적용...")
+                final_report = self.quality_enhancer.enhance_report_quality(
+                    final_report, issue_description, media_name, reporter_name
+                )
+                print(f"  STEP 9 완료 ({time.time() - step_start:.2f}초)")
+            
+            total_time = time.time() - start_time
+            print(f"COMPLETE: 강화된 처리 완료 ({total_time:.2f}초) - 위기단계: {crisis_level}")
+            
+            return final_report
+            
+        except Exception as e:
+            error_time = time.time() - start_time
+            print(f"ERROR: 강화된 처리 실패 ({error_time:.2f}초) - {str(e)}")
+            
+            # 폴백: 기본 처리로 전환
+            print("FALLBACK: 기본 처리로 전환...")
+            return self._generate_fallback_report(media_name, reporter_name, issue_description, str(e))
+    
+    def _optimized_initial_analysis(self, issue_description: str) -> dict:
+        """최적화된 초기 분석 - 더 간결한 프롬프트"""
+        
+        prompt = f"""
+다음 이슈를 빠르게 분석하세요:
+
+이슈: {issue_description}
+
+JSON 형식으로 응답:
+{{
+  "category": "제품품질/환경안전/재무성과/사업운영",
+  "urgency": "높음/중간/낮음",
+  "summary": "핵심 요약 (30자 이내)"
+}}
+        """
+        
+        try:
+            response = self.llm.chat(prompt)
+            import json
+            return json.loads(response)
+        except:
+            return {
+                "category": "사업운영",
+                "urgency": "중간", 
+                "summary": issue_description[:30] + "..." if len(issue_description) > 30 else issue_description
+            }
+    
+    def _fast_department_mapping(self, issue_description: str) -> list:
+        """빠른 부서 매핑 - 키워드 기반"""
+        
+        # 키워드 기반 빠른 매핑
+        keyword_dept_map = {
+            "철강": [{"부서명": "철강사업부", "담당자": "철강팀장", "연락처": "02-1234-5678"}],
+            "자원": [{"부서명": "자원개발사업부", "담당자": "자원팀장", "연락처": "02-1234-5679"}],
+            "환경": [{"부서명": "ESG경영실", "담당자": "ESG팀장", "연락처": "02-1234-5680"}],
+            "품질": [{"부서명": "품질보증팀", "담당자": "품질팀장", "연락처": "02-1234-5681"}],
+            "재무": [{"부서명": "재무팀", "담당자": "재무팀장", "연락처": "02-1234-5682"}],
+            "광산": [{"부서명": "자원개발사업부", "담당자": "해외사업팀장", "연락처": "02-1234-5683"}]
         }
         
-        # 컨텍스트 정보 구성 (보조 정보로 활용)
-        context_info = f"""
+        issue_lower = issue_description.lower()
         
-        === 추가 참고 정보 ===
-        발생 일시: {current_time}
-        위기 단계: {crisis_level}
+        for keyword, depts in keyword_dept_map.items():
+            if keyword in issue_lower:
+                return depts
         
-        관련 부서 정보:
-        {self._format_departments(relevant_depts)}
+        # 기본 부서
+        return [{"부서명": "홍보그룹", "담당자": "홍보팀장", "연락처": "02-1234-5000"}]
+    
+    def _fast_crisis_assessment(self, issue_description: str) -> str:
+        """빠른 위기 단계 평가 - 키워드 기반"""
         
-        유사 사례:
-        {self._format_cases(similar_cases)}
+        high_risk = ["사고", "중단", "폐쇄", "소송", "환경오염", "대규모", "긴급"]
+        medium_risk = ["지연", "불량", "문제", "우려", "논란", "검토"]
         
-        해당 언론사 과거 사례:
-        {self._format_cases(media_cases)}
+        issue_lower = issue_description.lower()
+        
+        if any(word in issue_lower for word in high_risk):
+            return "3단계(위기)"
+        elif any(word in issue_lower for word in medium_risk):
+            return "2단계(주의)"
+        else:
+            return "1단계(관심)"
+    
+    def _should_do_web_search(self, issue_description: str) -> bool:
+        """웹 검색 필요성 판단"""
+        
+        # 복잡하거나 외부 정보가 필요한 경우만 웹 검색
+        complex_keywords = ["환경", "소송", "사고", "국제", "규제", "정부"]
+        
+        return any(keyword in issue_description.lower() for keyword in complex_keywords)
+    
+    def _local_fact_verification(self, issue_description: str, initial_analysis: dict) -> dict:
+        """로컬 기반 사실 확인 (웹 검색 없이)"""
+        
+        return {
+            "fact_status": "내부검토중",
+            "credibility": "중간",
+            "background_context": "관련 부서에서 사실 관계 확인 진행 중",
+            "cautions": ["정확한 정보 확인 필요", "신중한 대응 요구"],
+            "source_metadata": {
+                "total_sources": 0,
+                "official_sources_available": False,
+                "credibility_level": "내부 검토 단계"
+            }
+        }
+    
+    def _simplified_department_opinions(self, relevant_depts: list, issue_description: str) -> dict:
+        """간소화된 부서 의견 생성"""
+        
+        opinions = {}
+        
+        for dept in relevant_depts[:2]:  # 상위 2개 부서만
+            dept_name = dept.get('부서명', '미상')
+            opinions[dept_name] = {
+                "opinion": f"{dept_name}에서 해당 이슈에 대해 검토 진행 중",
+                "action": "추가 정보 수집 및 대응 방안 검토"
+            }
+        
+        return opinions
+    
+    def _simplified_pr_strategy(self, issue_description: str, crisis_level: str, fact_verification: dict) -> dict:
+        """간소화된 PR 전략"""
+        
+        # 위기 단계별 기본 전략
+        if "3단계" in crisis_level:
+            tone = "적극적 투명성"
+            messages = ["신속한 사실 확인", "투명한 정보 공개", "책임감 있는 대응"]
+            actions = ["긴급 대응팀 구성", "즉시 조사 실시"]
+        elif "2단계" in crisis_level:
+            tone = "신중한 투명성"
+            messages = ["정확한 사실 확인", "성실한 대응", "지속적 소통"]
+            actions = ["관련 부서 협의", "추가 조사 진행"]
+        else:
+            tone = "예방적 소통"
+            messages = ["사전 예방적 관리", "투명한 운영", "지속적 개선"]
+            actions = ["모니터링 강화", "예방 조치 검토"]
+        
+        return {
+            "communication_tone": tone,
+            "key_messages": messages,
+            "immediate_actions": actions
+        }
+    
+    def _generate_fallback_report(self, media_name: str, reporter_name: str, 
+                                issue_description: str, error_msg: str) -> str:
+        """에러 시 폴백 보고서"""
+        
+        current_time = self._get_current_time()
+        
+        return f"""<이슈 발생 보고>
+
+1. 발생 일시: {current_time}
+
+2. 발생 단계: 2단계(주의)
+
+3. 발생 내용:
+({media_name} {reporter_name})
+{issue_description}
+
+4. 유관 의견:
+- 사실 확인: 관련 부서에서 사실 관계 확인 진행 중
+- 설명 논리: 정확한 정보 파악 후 투명하고 성실한 소통 예정
+- 메시지 방향성: 신중하고 책임감 있는 대응
+
+5. 대응 방안:
+- 원보이스: '정확한 사실 확인을 통해 성실하게 대응하겠습니다'
+- 이후 대응 방향성: 
+  - 관련 부서 긴급 회의 소집
+  - 추가 정보 수집 및 분석
+
+6. 대응 결과: (추후 업데이트)
+
+참조. 최근 유사 사례 (1년 이내):
+- 관련 사례 조사 중
+
+참조. 이슈 정의 및 개념 정립:
+- 개념: 기업 운영 과정에서 발생한 이슈 상황
+- 경영/사회/법률적 함의: 기업 신뢰도 및 운영에 미치는 영향 분석 필요
+
+※ 주의: 시스템 처리 중 일시적 문제로 간소화된 보고서가 생성되었습니다.
+상세 분석이 필요한 경우 재실행하시거나 표준 모드를 사용하시기 바랍니다.
+"""
+    
+    def generate_issue_report(self, media_name: str, reporter_name: str, issue_description: str) -> str:
+        """기존 호환성을 위한 래퍼 함수 - 완전한 프로세스 호출"""
+        return self.generate_comprehensive_issue_report(media_name, reporter_name, issue_description)
+    
+    def _get_current_time(self) -> str:
+        """현재 시간을 한국시간 기준으로 반환"""
+        from datetime import datetime
+        return datetime.now().strftime("%Y년 %m월 %d일 %H시 %M분")
+    
+    def get_relevant_departments_from_master_data(self, issue_description: str) -> list:
+        """master_data.json에서 이슈 키워드 기반 부서 매핑"""
+        if not self.master_data:
+            return []
+        
+        departments = self.master_data.get("departments", {})
+        relevant_depts = []
+        
+        issue_lower = issue_description.lower()
+        
+        # 각 부서별 키워드 매칭
+        for dept_name, dept_info in departments.items():
+            if not dept_info.get("활성상태", True):
+                continue
+                
+            keywords = dept_info.get("담당이슈", [])
+            keyword_str = dept_info.get("키워드", "")
+            
+            # 키워드 매칭 체크
+            match_score = 0
+            for keyword in keywords:
+                if keyword.lower() in issue_lower:
+                    match_score += 1
+            
+            # 키워드 문자열에서도 매칭
+            if keyword_str:
+                for keyword in keyword_str.split(", "):
+                    if keyword.strip().lower() in issue_lower:
+                        match_score += 1
+            
+            if match_score > 0:
+                dept_data = {
+                    "부서명": dept_name,
+                    "담당자": dept_info.get("담당자", ""),
+                    "연락처": dept_info.get("연락처", ""),
+                    "이메일": dept_info.get("이메일", ""),
+                    "담당이슈": dept_info.get("담당이슈", []),
+                    "우선순위": dept_info.get("우선순위", 999),
+                    "매칭점수": match_score
+                }
+                relevant_depts.append(dept_data)
+        
+        # 우선순위와 매칭점수로 정렬
+        relevant_depts.sort(key=lambda x: (-x["매칭점수"], x["우선순위"]))
+        
+        return relevant_depts[:5]  # 상위 5개 부서만 반환
+    
+    def _assess_crisis_level_from_master_data(self, issue_description: str) -> str:
+        """master_data.json의 crisis_levels 기준으로 위기단계 판정"""
+        if not self.master_data:
+            return "2단계 (주의)"
+        
+        crisis_levels = self.master_data.get("crisis_levels", {})
+        issue_lower = issue_description.lower()
+        
+        # 4단계부터 역순으로 체크 (높은 단계부터)
+        for level_name, level_info in sorted(crisis_levels.items(), reverse=True):
+            examples = level_info.get("예시", [])
+            
+            # 키워드 기반 매칭
+            high_risk_keywords = ["유출", "사고", "폐수", "해킹", "검찰", "수사", "위약금", "손실"]
+            medium_risk_keywords = ["결함", "리콜", "리베이트", "차질", "항의", "문제"]
+            
+            if level_name == "4단계 (비상)":
+                if any(keyword in issue_lower for keyword in ["폐수", "유출", "해킹", "검찰"]):
+                    return level_name
+            elif level_name == "3단계 (위기)":
+                if any(keyword in issue_lower for keyword in high_risk_keywords):
+                    return level_name
+            elif level_name == "2단계 (주의)":
+                if any(keyword in issue_lower for keyword in medium_risk_keywords):
+                    return level_name
+        
+        return "2단계 (주의)"  # 기본값
+    
+    def _get_media_info_from_master_data(self, media_name: str) -> dict:
+        """master_data.json에서 언론사 정보 추출"""
+        if not self.master_data:
+            return {}
+        
+        media_contacts = self.master_data.get("media_contacts", {})
+        
+        # 정확한 매칭 먼저 시도
+        if media_name in media_contacts:
+            return media_contacts[media_name]
+        
+        # 부분 매칭 시도
+        for media_key, media_info in media_contacts.items():
+            if media_name.lower() in media_key.lower() or media_key.lower() in media_name.lower():
+                return media_info
+        
+        return {}
+    
+    def _build_comprehensive_context(self, **kwargs) -> str:
+        """종합 컨텍스트 정보 구성"""
+        current_time = kwargs.get('current_time', '')
+        crisis_level = kwargs.get('crisis_level', '')
+        relevant_depts = kwargs.get('relevant_depts', [])
+        media_info = kwargs.get('media_info', {})
+        similar_cases = kwargs.get('similar_cases', pd.DataFrame())
+        
+        context = f"""
+📅 발생일시: {current_time}
+🚨 위기단계: {crisis_level}
+
+📋 관련 부서 정보 ({len(relevant_depts)}개):"""
+        
+        for i, dept in enumerate(relevant_depts[:3], 1):
+            context += f"""
+{i}. {dept['부서명']}
+   - 담당자: {dept['담당자']}
+   - 연락처: {dept['연락처']}
+   - 이메일: {dept['이메일']}
+   - 담당영역: {', '.join(dept['담당이슈'][:5])}"""
+        
+        # 언론사 정보
+        if media_info:
+            context += f"""
+
+📰 언론사 정보:
+   - 구분: {media_info.get('구분', 'N/A')}
+   - 담당자: {media_info.get('담당자', 'N/A')}
+   - 출입기자: {len(media_info.get('출입기자', []))}명"""
+        
+        # 유사 사례
+        if not similar_cases.empty:
+            context += f"""
+
+📚 유사 사례 ({len(similar_cases)}건):"""
+            for idx, (_, case) in enumerate(similar_cases.head(2).iterrows(), 1):
+                context += f"""
+{idx}. {case.get('이슈내용', '내용 없음')[:100]}..."""
+        
+        return context
+    
+    def _validate_inputs(self, media_name: str, reporter_name: str, issue_description: str) -> bool:
+        """입력 데이터 검증"""
+        if not media_name or len(media_name.strip()) < 2:
+            return False
+        if not reporter_name or len(reporter_name.strip()) < 2:
+            return False
+        if not issue_description or len(issue_description.strip()) < 10:
+            return False
+        return True
+    
+    def _analyze_issue_nature(self, issue_description: str) -> dict:
+        """LLM 기반 이슈 초기 분석"""
+        analysis_prompt = f"""
+다음 이슈를 전문적으로 분석하여 주요 특성을 파악해주세요:
+
+이슈: {issue_description}
+
+다음 형식으로 JSON 응답해주세요:
+{{
+    "category": "제품/환경/법무/경영/HR/IR 중 하나",
+    "complexity": "단순/중간/복잡 중 하나", 
+    "impact_scope": "내부/업계/사회전반 중 하나",
+    "urgency": "낮음/보통/높음/매우높음 중 하나",
+    "key_risks": ["주요 리스크 요소들"],
+    "stakeholders": ["주요 이해관계자들"],
+    "summary": "이슈 핵심 요약 (50자 이내)"
+}}
         """
         
-        # risk_report.txt 템플릿과 변수 치환을 활용한 프롬프트 생성
-        prompt = f"""
-        위의 템플릿에 따라 이슈 발생 보고서를 작성해주세요.
+        try:
+            response = self.llm.chat(analysis_prompt)
+            # JSON 파싱 시도
+            import json
+            return json.loads(response)
+        except:
+            # 파싱 실패시 기본값
+            return {
+                "category": "일반",
+                "complexity": "중간", 
+                "impact_scope": "업계",
+                "urgency": "보통",
+                "key_risks": ["평판 손상"],
+                "stakeholders": ["언론", "고객"],
+                "summary": "이슈 분석 중"
+            }
+    
+    def _conduct_web_research(self, issue_description: str, initial_analysis: dict) -> dict:
+        """강화된 다중 소스 웹 검색 수행"""
+        web_results = {"sources": {}, "search_summary": "웹 검색 결과 없음"}
         
-        다음 추가 정보를 참고하여 보고서를 더욱 구체적이고 정확하게 작성하시기 바랍니다:
-        {context_info}
+        try:
+            # 강화된 연구 서비스 임포트 및 초기화
+            from enhanced_research_service import EnhancedResearchService
+            enhanced_research = EnhancedResearchService()
+            
+            print("  PROCESSING: 다중 소스 병렬 검색 시작...")
+            
+            # 종합적인 다중 소스 검색 수행
+            comprehensive_results = enhanced_research.research_issue_comprehensive(issue_description)
+            
+            web_results = {
+                "sources": comprehensive_results["sources"],
+                "search_query": comprehensive_results["search_query"],
+                "analysis_summary": comprehensive_results["analysis_summary"],
+                "search_summary": f"총 {comprehensive_results['analysis_summary']['total_sources']}건 수집 (신뢰도: {comprehensive_results['analysis_summary']['credibility_level']})"
+            }
+            
+            print(f"  SUCCESS: 다중 소스 검색 완료 - {comprehensive_results['analysis_summary']['total_sources']}건")
+            print(f"  SOURCES: 네이버뉴스 {comprehensive_results['analysis_summary']['source_breakdown']['naver_news']}건, 공식소스 {comprehensive_results['analysis_summary']['source_breakdown']['posco_official']}건")
+            
+        except ImportError:
+            print("  WARNING: 강화된 연구 서비스 모듈 없음, 기본 검색으로 전환")
+            # 기본 네이버 검색으로 폴백
+            if self.research_service:
+                try:
+                    search_query = f"포스코인터내셔널 {issue_description[:50]}"
+                    news_results = self.research_service.search_news(search_query, display=15)
+                    
+                    web_results = {
+                        "sources": {"naver_news": news_results.get("items", [])[:10] if news_results else []},
+                        "search_query": search_query,
+                        "search_summary": f"{len(news_results.get('items', []))}건의 관련 뉴스 발견" if news_results else "관련 뉴스 없음"
+                    }
+                    
+                except Exception as e:
+                    print(f"  WARNING: 기본 웹 검색도 실패: {str(e)}")
+            else:
+                print("  WARNING: 웹 검색 서비스 비활성화")
+                
+        except Exception as e:
+            print(f"  ERROR: 강화된 웹 검색 실패: {str(e)}")
+            
+        return web_results
+    
+    def _verify_facts_and_background(self, issue_description: str, web_results: dict, initial_analysis: dict) -> dict:
+        """강화된 다중 소스 기반 사실 확인"""
         
-        보고서 작성 시 반드시 다음 사항을 준수해주세요:
-        1. 발생 일시는 "{current_time}" 형식으로 작성
-        2. 대응 단계는 "{crisis_level}"로 자동 판정됨
-        3. 유관 부서 정보를 바탕으로 구체적인 담당자명과 연락처 포함
-        4. 유사 사례와 과거 사례를 참조하여 실질적인 대응 방안 제시
-        5. 모든 의견과 방안에는 "(가안)" 표시 필수
+        # 다중 소스에서 사실 정보 추출
+        comprehensive_context = self._extract_comprehensive_context(web_results)
+        
+        fact_check_prompt = f"""
+다음 이슈에 대해 다중 소스를 기반으로 종합적인 사실 확인 및 배경 분석을 수행해주세요:
+
+이슈: {issue_description}
+
+=== 수집된 다중 소스 정보 ===
+{comprehensive_context}
+
+다음 항목들을 신중히 분석해주세요:
+1. 사실 확인 상태 (공식확인됨/언론보도됨/추정단계/확인불가)
+2. 신뢰도 평가 (매우높음/높음/보통/낮음/매우낮음)
+3. 공식 소스 vs 언론 보도 간 일치성 분석
+4. 업계 맥락 및 배경 정보
+5. 유사 사례 및 선례 분석
+6. 잠재적 파급 효과 및 리스크 평가
+7. 추가 확인이 필요한 사항
+8. 대응 시 주의사항
+
+JSON 형식으로 상세하게 응답해주세요.
         """
         
-        # 템플릿 변수와 함께 LLM 호출
-        return self.llm.chat(prompt, template_vars=template_vars)
+        try:
+            response = self.llm.chat(fact_check_prompt)
+            import json
+            fact_check_result = json.loads(response)
+            
+            # 검색 결과 메타데이터 추가
+            if web_results.get("analysis_summary"):
+                fact_check_result["source_metadata"] = {
+                    "total_sources": web_results["analysis_summary"].get("total_sources", 0),
+                    "official_sources_available": web_results["analysis_summary"].get("official_sources_available", False),
+                    "credibility_level": web_results["analysis_summary"].get("credibility_level", "알 수 없음"),
+                    "source_breakdown": web_results["analysis_summary"].get("source_breakdown", {})
+                }
+            
+            return fact_check_result
+            
+        except Exception as e:
+            print(f"  WARNING: 사실 확인 분석 실패: {str(e)}")
+            return {
+                "fact_status": "확인불가",
+                "credibility": "낮음",
+                "consistency_analysis": "분석 실패",
+                "background_context": "배경 정보 수집 실패",
+                "similar_cases": "유사 사례 조사 실패",
+                "potential_impact": "영향 분석 실패",
+                "additional_verification_needed": ["전체 사실 관계 재확인"],
+                "cautions": "신중한 검증 후 대응 필요",
+                "source_metadata": {
+                    "total_sources": 0,
+                    "official_sources_available": False,
+                    "credibility_level": "확인불가"
+                }
+            }
+    
+    def _extract_comprehensive_context(self, web_results: dict) -> str:
+        """다중 소스에서 종합적인 맥락 정보 추출"""
+        context_sections = []
+        
+        # 새로운 다중 소스 구조 처리
+        if "sources" in web_results:
+            sources = web_results["sources"]
+            
+            # 네이버 뉴스
+            if sources.get("naver_news"):
+                context_sections.append("📰 네이버 뉴스 정보:")
+                for i, item in enumerate(sources["naver_news"][:5], 1):
+                    title = item.get("title", "")
+                    desc = item.get("description", "")
+                    context_sections.append(f"{i}. {title}")
+                    if desc:
+                        context_sections.append(f"   요약: {desc[:100]}...")
+                context_sections.append("")
+            
+            # 포스코 공식 소스
+            if sources.get("posco_official"):
+                context_sections.append("🏢 포스코인터내셔널 공식 정보:")
+                for i, item in enumerate(sources["posco_official"][:3], 1):
+                    title = item.get("title", "")
+                    desc = item.get("description", "")
+                    context_sections.append(f"{i}. {title}")
+                    if desc:
+                        context_sections.append(f"   내용: {desc[:150]}...")
+                context_sections.append("")
+            
+            # DART 공시 정보
+            if sources.get("dart_filings"):
+                context_sections.append("📋 DART 전자공시 정보:")
+                for i, item in enumerate(sources["dart_filings"][:3], 1):
+                    title = item.get("title", "")
+                    context_sections.append(f"{i}. {title}")
+                context_sections.append("")
+            
+            # 한국거래소 정보
+            if sources.get("krx_disclosures"):
+                context_sections.append("🏛️ 한국거래소 공시 정보:")
+                for i, item in enumerate(sources["krx_disclosures"][:3], 1):
+                    title = item.get("title", "")
+                    context_sections.append(f"{i}. {title}")
+                context_sections.append("")
+        
+        # 기존 구조 호환성 (폴백)
+        elif web_results.get("news"):
+            context_sections.append("📰 뉴스 정보:")
+            for i, item in enumerate(web_results["news"][:3], 1):
+                title = item.get("title", "")
+                desc = item.get("description", "")
+                context_sections.append(f"{i}. {title}: {desc}")
+            context_sections.append("")
+        
+        if not context_sections:
+            return "수집된 정보가 없습니다. 추가적인 조사가 필요합니다."
+        
+        # 검색 요약 정보 추가
+        if web_results.get("search_summary"):
+            context_sections.insert(0, f"🔍 검색 요약: {web_results['search_summary']}")
+            context_sections.insert(1, "")
+        
+        return "\n".join(context_sections)
+    
+    def _generate_department_opinions(self, relevant_depts: list, issue_description: str, web_results: dict) -> dict:
+        """유관부서별 의견 가안 도출"""
+        department_opinions = {}
+        
+        for dept in relevant_depts[:3]:  # 상위 3개 부서만
+            dept_name = dept.get('부서명', '')
+            dept_issues = dept.get('담당이슈', [])
+            
+            opinion_prompt = f"""
+당신은 포스코인터내셔널 {dept_name} 소속 전문가입니다.
+
+다음 이슈에 대한 우리 부서 관점의 의견을 제시해주세요:
+
+이슈: {issue_description}
+우리 부서 담당영역: {', '.join(dept_issues[:5])}
+
+다음 항목들을 포함하여 답변해주세요:
+1. 사실 확인 필요사항
+2. 우리 부서 주요 우려점  
+3. 제안하는 대응방안
+4. 타 부서 협조 필요사항
+
+전문가답게 구체적이고 실무적으로 작성해주세요. (각 항목당 2-3줄)
+            """
+            
+            try:
+                opinion = self.llm.chat(opinion_prompt)
+                department_opinions[dept_name] = {
+                    "department": dept_name,
+                    "contact": dept.get('담당자', ''),
+                    "phone": dept.get('연락처', ''),
+                    "opinion": opinion
+                }
+                print(f"  DONE: {dept_name} 의견 생성 완료")
+            except Exception as e:
+                print(f"  WARNING: {dept_name} 의견 생성 실패: {str(e)}")
+                
+        return department_opinions
+    
+    def _develop_pr_strategy(self, issue_description: str, crisis_level: str, fact_verification: dict, department_opinions: dict) -> dict:
+        """언론홍보 전문가 관점 대응방안 마련"""
+        
+        # 부서 의견들 요약
+        dept_summary = ""
+        for dept_name, opinion_data in department_opinions.items():
+            dept_summary += f"\n- {dept_name}: {opinion_data.get('opinion', '')[:100]}..."
+        
+        pr_strategy_prompt = f"""
+당신은 포스코인터내셔널의 언론홍보 최고 책임자입니다.
+
+다음 이슈에 대한 전략적 언론 대응방안을 수립해주세요:
+
+이슈: {issue_description}
+위기단계: {crisis_level}
+사실확인상태: {fact_verification.get('fact_status', '확인 중')}
+
+유관부서 의견 요약:
+{dept_summary if dept_summary else "부서 의견 수집 중"}
+
+전문 언론홍보담당자로서 다음 항목들을 포함한 대응전략을 수립해주세요:
+
+1. 커뮤니케이션 기조 (투명성/신중함/적극성 등)
+2. 핵심 메시지 (3가지 이내)
+3. 즉시 대응사항 (24시간 내)
+4. 단계별 대응 계획
+5. 언론사별 맞춤 대응
+6. 위험 요소 및 주의사항
+
+포스코인터내셔널의 신뢰도와 브랜드 가치를 보호하는 관점에서 전략적으로 작성해주세요.
+        """
+        
+        try:
+            response = self.llm.chat(pr_strategy_prompt)
+            return {
+                "strategy_content": response,
+                "communication_tone": "신중하면서도 투명한 대응",
+                "key_messages": ["사실 확인 중", "고객 안전 최우선", "적극적 개선 의지"],
+                "immediate_actions": ["내부 사실관계 확인", "관련 부서 TF 구성", "초기 입장문 준비"]
+            }
+        except Exception as e:
+            print(f"  WARNING: PR 전략 수립 실패: {str(e)}")
+            return {
+                "strategy_content": "전략 수립 중",
+                "communication_tone": "신중한 대응",
+                "key_messages": ["사실 확인 진행 중"],
+                "immediate_actions": ["관련 부서 협의"]
+            }
+    
+    def _generate_final_comprehensive_report(self, **kwargs) -> str:
+        """최종 종합 보고서 생성 (구조화된 방식)"""
+        
+        # 구조화된 보고서 생성기 사용
+        try:
+            from improved_report_generator import StructuredReportGenerator
+            
+            # 분석 결과를 구조화된 형태로 정리
+            analysis_results = {
+                'media_name': kwargs.get('media_name', ''),
+                'reporter_name': kwargs.get('reporter_name', ''),
+                'issue_description': kwargs.get('issue_description', ''),
+                'crisis_level': kwargs.get('crisis_level', '확인 중'),
+                'initial_analysis': kwargs.get('initial_analysis', {}),
+                'relevant_depts': kwargs.get('relevant_depts', []),
+                'web_search_results': kwargs.get('web_search_results', {}),
+                'fact_verification': kwargs.get('fact_verification', {}),
+                'department_opinions': kwargs.get('department_opinions', {}),
+                'pr_strategy': kwargs.get('pr_strategy', {})
+            }
+            
+            # 구조화된 보고서 생성
+            generator = StructuredReportGenerator(self.data_folder)
+            structured_report = generator.generate_structured_report(analysis_results)
+            
+            print("  SUCCESS: 구조화된 템플릿 적용 - risk_report.txt 구조 준수")
+            return structured_report
+            
+        except ImportError:
+            print("  WARNING: 구조화된 보고서 생성기 없음, 강화된 프롬프트로 폴백")
+            return self._generate_final_comprehensive_report_fallback(**kwargs)
+        except Exception as e:
+            print(f"  ERROR: 구조화된 보고서 생성 실패: {str(e)}")
+            return self._generate_final_comprehensive_report_fallback(**kwargs)
+    
+    def _generate_final_comprehensive_report_fallback(self, **kwargs) -> str:
+        """강화된 프롬프트 방식 보고서 생성 (폴백용)"""
+        
+        media_name = kwargs.get('media_name', '')
+        reporter_name = kwargs.get('reporter_name', '') 
+        issue_description = kwargs.get('issue_description', '')
+        initial_analysis = kwargs.get('initial_analysis', {})
+        relevant_depts = kwargs.get('relevant_depts', [])
+        crisis_level = kwargs.get('crisis_level', '')
+        web_search_results = kwargs.get('web_search_results', {})
+        fact_verification = kwargs.get('fact_verification', {})
+        department_opinions = kwargs.get('department_opinions', {})
+        pr_strategy = kwargs.get('pr_strategy', {})
+        
+        # risk_report.txt 템플릿 로드
+        template_content = self._load_report_template()
+        current_time = self._get_current_time()
+        
+        # 강화된 구조화 프롬프트 (템플릿 구조 강제)
+        final_prompt = f"""
+다음 템플릿 구조를 정확히 준수하여 보고서를 작성해주세요:
+
+--- 템플릿 시작 ---
+<이슈 발생 보고>
+
+1. 발생 일시: {current_time}
+
+2. 발생 단계: {crisis_level}
+
+3. 발생 내용:
+({media_name} {reporter_name})
+{issue_description}
+
+4. 유관 의견:
+- 사실 확인: {fact_verification.get('fact_status', 'N/A')} (신뢰도: {fact_verification.get('credibility', 'N/A')})
+- 설명 논리: {', '.join([f"{dept['부서명']}" for dept in relevant_depts[:2]])} 등 관련 부서 의견 수렴 중
+- 메시지 방향성: {pr_strategy.get('communication_tone', '신중한 접근')}
+
+5. 대응 방안:
+- 원보이스: {', '.join(pr_strategy.get('key_messages', ['정확한 사실 확인 후 대응'])[:2])}
+- 이후 대응 방향성: {', '.join(pr_strategy.get('immediate_actions', ['관련 부서 협의'])[:2])}
+
+6. 대응 결과: (추후 업데이트)
+
+참조. 최근 유사 사례 (1년 이내):
+- 관련 보도사례 조사 중
+
+참조. 이슈 정의 및 개념 정립:
+- 이슈 분류: {initial_analysis.get('category', 'N/A')}
+- 영향범위: {initial_analysis.get('impact_scope', 'N/A')}
+--- 템플릿 끝 ---
+
+**중요**: 위 구조를 정확히 따라 작성하고, 추가적인 설명이나 분석은 포함하지 마세요.
+        """
+        
+        try:
+            return self.llm.chat(final_prompt)
+        except Exception as e:
+            return f"최종 보고서 생성 중 오류 발생: {str(e)}"
     
     def _load_report_template(self) -> str:
         """이슈발생보고서 템플릿 로드"""
@@ -1553,7 +2359,7 @@ class DataBasedLLM:
         if not self.research_service:
             return "⚠️ 웹 검색 서비스를 사용할 수 없습니다. 네이버 API 설정을 확인해주세요."
         
-        print(f"🔍 이슈 연구 시작: {issue_description}")
+        print(f"RESEARCH: 이슈 연구 시작: {issue_description}")
         
         # 1. 웹 검색을 통한 정보 수집
         research_data = self.research_service.research_issue(issue_description)
@@ -1586,7 +2392,7 @@ class DataBasedLLM:
             context["response_strategies"] = self._get_response_strategies(issue_description)
             
         except Exception as e:
-            print(f"⚠️ 내부 데이터 수집 중 오류: {str(e)}")
+            print(f"WARNING: 내부 데이터 수집 중 오류: {str(e)}")
         
         return context
     

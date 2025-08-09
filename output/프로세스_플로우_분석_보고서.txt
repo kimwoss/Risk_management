@@ -1,0 +1,299 @@
+=== 포스코인터내셔널 위기관리 시스템 ===
+=== 프로세스 플로우 점검 및 개선 분석 보고서 ===
+
+작성일: 2025-08-09
+분석 대상: 이슈발생보고서 생성 전체 프로세스
+
+=== 1. 원하는 이상적 프로세스 vs 현재 구현 상태 ===
+
+┌─────────────────────────────────────────────────────────────┐
+│                   원하는 프로세스 플로우                     │
+├─────────────────────────────────────────────────────────────┤
+│ 1. 사용자 인풋 데이터 입력                                  │
+│    ↓                                                        │
+│ 2. LLM 판단 (초기 이슈 분석)                               │
+│    ↓                                                        │
+│ 3. data 폴더 파일 기반 유관부서, 위기단계 지정             │
+│    ↓                                                        │
+│ 4. naver API 기반 웹 검색 수행                              │
+│    ↓                                                        │
+│ 5. 취합 정보 기반 배경지식 및 사실 확인                    │
+│    ↓                                                        │
+│ 6. 유관부서 의견 가안 도출                                 │
+│    ↓                                                        │
+│ 7. 언론홍보 페르소나 관점 대응방안 마련                   │
+│    ↓                                                        │
+│ 8. 보고서 결과값 생성                                      │
+└─────────────────────────────────────────────────────────────┘
+
+=== 2. 현재 구현 상태 점검 결과 ===
+
+✅ 구현됨    ❌ 누락    ⚠️ 부분구현
+
+┌─────────────────────────────────────────────────────────────┐
+│                   현재 구현된 프로세스                       │
+├─────────────────────────────────────────────────────────────┤
+│ 1. ✅ 사용자 인풋 데이터 입력                               │
+│    - streamlit_app.py:419-434에서 완전 구현                │
+│    - 언론사명, 기자명, 이슈설명 3가지 입력 받음             │
+│    ↓                                                        │
+│ 2. ❌ LLM 판단 (초기 이슈 분석) → 완전 누락                │
+│    - 바로 템플릿 로딩으로 넘어감                            │
+│    - 이슈의 성격, 심각도 사전 판단 없음                     │
+│    ↓                                                        │
+│ 3. ✅ data 폴더 기반 유관부서/위기단계 지정                 │
+│    - data_based_llm.py:835-837에서 구현                    │
+│    - master_data.json 키워드 매칭 방식                     │
+│    ↓                                                        │
+│ 4. ❌ naver API 웹 검색 수행 → 누락                        │
+│    - IssueResearchService 클래스 존재하지만 미연결         │
+│    - generate_issue_report()에서 호출하지 않음              │
+│    ↓                                                        │
+│ 5. ❌ 배경지식/사실 확인 → 누락                             │
+│    - generate_enhanced_response_with_fact_check() 있지만    │
+│    - 메인 프로세스와 분리됨                                 │
+│    ↓                                                        │
+│ 6. ❌ 유관부서 의견 가안 도출 → 완전 누락                  │
+│    - 부서 정보만 식별하고 의견 생성 로직 없음               │
+│    ↓                                                        │
+│ 7. ⚠️ 언론홍보 페르소나 대응방안 → 부분구현                │
+│    - risk_report.txt 템플릿에 일부 포함                    │
+│    - 전문적 페르소나 관점 부족                              │
+│    ↓                                                        │
+│ 8. ✅ 보고서 결과값 생성                                    │
+│    - LLM 기반 최종 보고서 생성                              │
+│    - 다운로드 기능 포함                                     │
+└─────────────────────────────────────────────────────────────┘
+
+=== 3. 세부 단계별 문제점 분석 ===
+
+3.1 단계 2: LLM 초기 판단 누락
+문제: 이슈 내용을 받자마자 바로 부서 매핑으로 넘어감
+영향: 이슈의 본질, 복잡성, 우선순위 파악 없이 기계적 처리
+개선: 이슈 분석 → 카테고리 분류 → 심각도 평가 단계 추가
+
+3.2 단계 4: naver API 웹 검색 미연결
+문제: 
+- IssueResearchService 클래스는 존재 (naver_search.py)
+- data_based_llm.py에서 초기화는 하지만 generate_issue_report()에서 미사용
+- research_issue_with_web_search() 메소드가 별도 존재하지만 연결 안됨
+
+현재 코드:
+```python
+# 초기화만 됨
+self.research_service = IssueResearchService()
+
+# 사용 안됨 (generate_issue_report 메소드에서)
+similar_cases = self.search_media_responses(issue_description, limit=3)  # 내부 데이터만
+```
+
+필요한 개선:
+```python  
+# 웹 검색 결과도 포함해야 함
+web_search_results = self.research_service.comprehensive_search(issue_description)
+```
+
+3.3 단계 5: 사실 확인 프로세스 분리
+문제:
+- generate_enhanced_response_with_fact_check() 메소드 별도 존재
+- 메인 generate_issue_report()와 연결 안됨
+- 사실 검증이 선택적 기능으로만 존재
+
+3.4 단계 6: 유관부서 의견 가안 도출 완전 누락
+문제:
+- 부서 정보 (담당자, 연락처) 식별은 됨
+- 하지만 각 부서별 예상 의견이나 입장 생성 로직 없음
+- risk_report.txt에 "유관 의견" 섹션 있지만 구체적 구현 없음
+
+현재 구현:
+```python
+relevant_depts = self.get_relevant_departments_from_master_data(issue_description)
+# 부서 정보만 추출하고 끝
+```
+
+필요한 개선:
+```python
+dept_opinions = self._generate_department_opinions(relevant_depts, issue_description)
+# 각 부서별 예상 입장, 우려사항, 대응방안 생성
+```
+
+3.5 단계 7: 언론홍보 페르소나 관점 부족
+문제:
+- risk_report.txt에 언론홍보담당자 가이드 있음
+- 하지만 전문가적 페르소나가 충분히 반영 안됨
+- 톤앤매너, 메시지 전략 등 전문적 관점 부족
+
+=== 4. 기존 좋은 구현 요소들 ===
+
+4.1 ✅ Streamlit 사용자 인터페이스
+- 직관적 3가지 입력 필드
+- 실시간 피드백 및 다운로드 기능
+- 깔끔한 UI/UX 디자인
+
+4.2 ✅ master_data.json 기반 부서 매핑
+- 13개 부서별 키워드 정의
+- 매칭 점수 기반 정확한 부서 식별  
+- 우선순위 기반 정렬
+
+4.3 ✅ crisis_levels 기반 위기단계 판정
+- 4단계 체계적 위기 분류
+- 키워드 기반 자동 판정
+- 일관된 기준 적용
+
+4.4 ✅ 템플릿 기반 구조화된 출력
+- risk_report.txt 완전한 템플릿 구조
+- 변수 치환 정확한 구현
+- 전문적 보고서 형식
+
+=== 5. 누락된 핵심 기능들 ===
+
+5.1 ❌ LLM 기반 이슈 초기 분석
+- 이슈 복잡도 평가
+- 다면적 영향 분석  
+- 대응 시급성 판단
+
+5.2 ❌ 실시간 웹 검색 정보 수집
+- naver API 검색 결과
+- 관련 뉴스 및 여론 동향
+- 경쟁사 유사 사례
+
+5.3 ❌ 사실 검증 및 배경 조사
+- 이슈 관련 객관적 사실 확인
+- 업계 전반 영향도 분석
+- 규제 및 법적 쟁점 파악
+
+5.4 ❌ 부서별 의견 가안 생성
+- 각 부서 관점별 우려사항
+- 부서별 대응 방안 제안
+- 부서간 협조 필요사항
+
+5.5 ❌ 전문가 페르소나 기반 대응전략
+- 언론홍보 전문가 관점 강화
+- 커뮤니케이션 전략 수립
+- 메시지 톤앤매너 최적화
+
+=== 6. 통합 프로세스 구현을 위한 개선방안 ===
+
+6.1 generate_issue_report() 메소드 완전 재구성
+
+기존:
+```python
+def generate_issue_report(self, media_name, reporter_name, issue_description):
+    # 1. 템플릿 로드
+    # 2. 변수 치환  
+    # 3. 부서 매핑
+    # 4. 컨텍스트 구성
+    # 5. LLM 호출
+```
+
+개선안:
+```python  
+def generate_comprehensive_issue_report(self, media_name, reporter_name, issue_description):
+    # 1. 사용자 입력 검증
+    # 2. LLM 기반 이슈 초기 분석
+    # 3. data 폴더 기반 부서/위기단계 지정
+    # 4. naver API 웹 검색 수행
+    # 5. 사실 확인 및 배경 분석
+    # 6. 부서별 의견 가안 도출
+    # 7. 언론홍보 페르소나 대응방안 마련
+    # 8. 최종 보고서 생성
+```
+
+6.2 단계별 구현 세부방안
+
+단계 2: LLM 초기 분석
+```python
+def _analyze_issue_nature(self, issue_description):
+    """이슈 본질 분석"""
+    analysis_prompt = f"""
+    다음 이슈를 분석하여 주요 특성을 파악해주세요:
+    {issue_description}
+    
+    분석 항목:
+    1. 이슈 카테고리 (제품, 환경, 법무, 경영 등)
+    2. 복잡도 (단순/중간/복잡)
+    3. 영향 범위 (내부/업계/사회전반)
+    4. 시급성 (낮음/보통/높음/매우높음)
+    """
+    return self.llm.chat(analysis_prompt)
+```
+
+단계 4: 웹 검색 통합
+```python  
+def _conduct_web_research(self, issue_description, analysis_result):
+    """네이버 API 기반 웹 검색 수행"""
+    if self.research_service:
+        search_results = self.research_service.comprehensive_search(issue_description)
+        return search_results
+    return {}
+```
+
+단계 6: 부서 의견 생성
+```python
+def _generate_department_opinions(self, relevant_depts, issue_description, web_data):
+    """유관부서별 의견 가안 생성"""
+    opinions = {}
+    for dept in relevant_depts:
+        dept_prompt = f"""
+        {dept['부서명']} 담당자 관점에서 다음 이슈에 대한 의견을 제시해주세요:
+        이슈: {issue_description}
+        담당영역: {dept['담당이슈']}
+        
+        의견 항목:
+        1. 사실 확인 사항
+        2. 주요 우려점
+        3. 대응 방안 제안
+        """
+        opinions[dept['부서명']] = self.llm.chat(dept_prompt)
+    return opinions
+```
+
+=== 7. 구현 우선순위 및 로드맵 ===
+
+7.1 Phase 1 (긴급): 웹 검색 연동 (1주일)
+- generate_issue_report()에 naver API 검색 추가
+- 기존 research_service 활용
+- 검색 결과를 컨텍스트에 포함
+
+7.2 Phase 2 (중요): 프로세스 플로우 완성 (2주일)  
+- LLM 초기 이슈 분석 단계 추가
+- 부서별 의견 가안 생성 로직 구현
+- 사실 확인 프로세스 통합
+
+7.3 Phase 3 (개선): 페르소나 강화 (3주일)
+- 언론홍보 전문가 페르소나 고도화
+- 커뮤니케이션 전략 수립 로직
+- 톤앤매너 최적화
+
+=== 8. 기대 효과 ===
+
+8.1 정확성 향상
+- 웹 검색 기반 최신 정보 반영
+- 사실 검증을 통한 신뢰도 증가
+- 전문가 관점 강화
+
+8.2 완성도 향상  
+- 8단계 완전한 프로세스 구현
+- 부서별 구체적 의견 제시
+- 실무 적용 가능한 수준 달성
+
+8.3 사용자 만족도
+- 포괄적이고 실용적인 보고서
+- 즉시 활용 가능한 대응 방안
+- 전문가급 분석 품질
+
+=== 9. 결론 및 권고사항 ===
+
+현재 시스템은 8단계 중 3단계(사용자입력, 부서매핑, 보고서생성)만 완전 구현되었습니다.
+
+즉시 개선이 필요한 핵심 누락사항:
+1. ❌ LLM 기반 이슈 초기 분석  
+2. ❌ naver API 웹 검색 연동
+3. ❌ 사실 확인 프로세스 통합
+4. ❌ 부서별 의견 가안 도출
+5. ❌ 전문가 페르소나 강화
+
+권고사항: 
+완전한 8단계 프로세스 구현을 통해 진정한 "AI 기반 스마트 위기관리 시스템"으로 발전시켜야 합니다.
+
+[분석 완료: 2025-08-09]

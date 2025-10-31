@@ -1075,12 +1075,17 @@ def send_telegram_notification(new_articles: list):
         bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
         chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
 
+        print(f"[DEBUG] 텔레그램 알림 시도 - 기사 수: {len(new_articles) if new_articles else 0}")
+        print(f"[DEBUG] 봇 토큰 존재: {bool(bot_token)}, Chat ID 존재: {bool(chat_id)}")
+
         # 환경변수가 없으면 알림 스킵
         if not bot_token or not chat_id:
-            print("[DEBUG] 텔레그램 설정 없음 - 알림 스킵")
+            print("[DEBUG] ⚠️ 텔레그램 설정 없음 - 알림 스킵")
+            print("[DEBUG] 💡 Streamlit Cloud → Settings → Secrets에서 TELEGRAM_BOT_TOKEN과 TELEGRAM_CHAT_ID 설정 필요")
             return
 
         if not new_articles:
+            print("[DEBUG] 신규 기사 없음 - 알림 스킵")
             return
 
         # 최대 5개까지만 알림 (너무 많으면 스팸)
@@ -1115,15 +1120,22 @@ def send_telegram_notification(new_articles: list):
             "disable_web_page_preview": True
         }
 
+        print(f"[DEBUG] 텔레그램 API 호출 중... URL: {url[:50]}...")
         response = requests.post(url, json=payload, timeout=10)
 
+        print(f"[DEBUG] 응답 코드: {response.status_code}")
         if response.status_code == 200:
-            print(f"[DEBUG] 텔레그램 알림 전송 성공: {len(articles_to_notify)}건")
+            result = response.json()
+            print(f"[DEBUG] ✅ 텔레그램 알림 전송 성공: {len(articles_to_notify)}건")
+            print(f"[DEBUG] 응답 내용: {result}")
         else:
-            print(f"[DEBUG] 텔레그램 알림 전송 실패: {response.status_code} - {response.text}")
+            print(f"[DEBUG] ❌ 텔레그램 알림 전송 실패: {response.status_code}")
+            print(f"[DEBUG] 오류 내용: {response.text}")
 
     except Exception as e:
-        print(f"[DEBUG] 텔레그램 알림 오류: {str(e)}")
+        print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")
+        import traceback
+        print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
 
 def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
     """
@@ -1907,6 +1919,62 @@ def page_news_monitor():
     # 카운트다운 프래그먼트 (1초 단위 업데이트)
     with c_count:
         countdown_fragment(refresh_interval)
+
+    # ===== 텔레그램 알림 설정 확인 및 테스트 =====
+    st.markdown("---")
+    with st.expander("📱 텔레그램 알림 설정 확인"):
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+        chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            if bot_token:
+                st.success("✅ 봇 토큰: 설정됨")
+                st.code(f"{bot_token[:20]}...", language=None)
+            else:
+                st.error("❌ 봇 토큰: 설정 안 됨")
+                st.info("💡 Streamlit Cloud → Settings → Secrets에 TELEGRAM_BOT_TOKEN 추가")
+
+        with col2:
+            if chat_id:
+                st.success("✅ Chat ID: 설정됨")
+                st.code(chat_id, language=None)
+            else:
+                st.error("❌ Chat ID: 설정 안 됨")
+                st.info("💡 Streamlit Cloud → Settings → Secrets에 TELEGRAM_CHAT_ID 추가")
+
+        # 테스트 메시지 전송 버튼
+        if st.button("🧪 테스트 알림 보내기"):
+            if not bot_token or not chat_id:
+                st.error("❌ 텔레그램 설정이 완료되지 않았습니다. 위의 환경변수를 먼저 설정해주세요.")
+            else:
+                test_articles = [{
+                    "title": "테스트 알림 - 포스코인터내셔널 뉴스 모니터링 시스템",
+                    "link": "https://www.posco-inc.com",
+                    "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                    "press": "시스템 테스트"
+                }]
+
+                st.info("🔄 테스트 알림을 전송하는 중...")
+                send_telegram_notification(test_articles)
+
+                # 결과 확인을 위한 API 테스트
+                try:
+                    test_url = f"https://api.telegram.org/bot{bot_token}/getMe"
+                    response = requests.get(test_url, timeout=10)
+                    if response.status_code == 200:
+                        bot_info = response.json()
+                        if bot_info.get("ok"):
+                            st.success(f"✅ 봇 연결 성공! 봇 이름: @{bot_info['result'].get('username', 'unknown')}")
+                            st.success("📱 텔레그램 앱을 확인해보세요!")
+                        else:
+                            st.error(f"❌ 봇 토큰 오류: {bot_info}")
+                    else:
+                        st.error(f"❌ API 오류: {response.status_code} - {response.text}")
+                except Exception as e:
+                    st.error(f"❌ 연결 오류: {str(e)}")
+
+    st.markdown("---")
 
     # ===== 수집 조건: 트리거 플래그 or 수동 새로고침 =====
     should_fetch = manual_refresh or st.session_state.trigger_news_update or (not st.session_state.initial_loaded)

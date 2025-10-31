@@ -1770,9 +1770,10 @@ def page_news_monitor():
         "POSCO INTERNATIONAL",
         "포스코인터",
         "삼척블루파워",
+        "구동모터코아",
+        "구동모터코어",
+        "미얀마 LNG"
         "포스코모빌리티솔루션",
-        "속보+포스코",  # [속보]와 포스코가 함께 언급된 기사
-        "단독+포스코",  # 단독과 포스코가 함께 언급된 기사
         "포스코"  # 일반 포스코 기사 (기존 키워드 제외 필터링 적용)
     ]
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
@@ -1838,6 +1839,9 @@ def page_news_monitor():
                     if not df_kw.empty:
                         # "포스코" 키워드의 경우 제목 기반 필터링
                         if kw == "포스코":
+                            # 부동산 관련 제외 키워드
+                            real_estate_keywords = ["분양", "청약", "입주"]
+
                             def should_include(row):
                                 title = str(row.get("기사제목", ""))
                                 title_lower = title.lower()
@@ -1849,6 +1853,11 @@ def page_news_monitor():
                                 # 2단계: 제목에 제외 키워드가 없는가?
                                 for exclude_kw in exclude_keywords:
                                     if exclude_kw.lower() in title_lower:
+                                        return False
+
+                                # 3단계: 제목에 부동산 관련 키워드가 없는가?
+                                for real_estate_kw in real_estate_keywords:
+                                    if real_estate_kw in title:
                                         return False
 
                                 return True

@@ -1772,8 +1772,13 @@ def page_news_monitor():
         "삼척블루파워",
         "포스코모빌리티솔루션",
         "속보+포스코",  # [속보]와 포스코가 함께 언급된 기사
-        "단독+포스코"   # 단독과 포스코가 함께 언급된 기사
+        "단독+포스코",  # 단독과 포스코가 함께 언급된 기사
+        "포스코"  # 일반 포스코 기사 (기존 키워드 제외 필터링 적용)
     ]
+    # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
+    exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
+                       "삼척블루파워", "포스코모빌리티솔루션"]
+
     refresh_interval = 180  # 180초 카운트다운
     max_items = 100
 
@@ -1831,7 +1836,23 @@ def page_news_monitor():
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
                     if not df_kw.empty:
-                        all_news.append(df_kw)
+                        # "포스코" 키워드의 경우 기존 키워드 제외 필터링
+                        if kw == "포스코":
+                            def should_exclude(row):
+                                title = str(row.get("기사제목", "")).lower()
+                                summary = str(row.get("주요기사 요약", "")).lower()
+                                content = title + " " + summary
+                                # 제외 키워드가 하나라도 포함되면 제외
+                                return any(exclude_kw.lower() in content for exclude_kw in exclude_keywords)
+
+                            # 제외 키워드가 없는 기사만 포함
+                            mask = ~df_kw.apply(should_exclude, axis=1)
+                            df_kw = df_kw[mask].reset_index(drop=True)
+                            if not df_kw.empty:
+                                print(f"[DEBUG] '포스코' 검색 후 필터링: {len(df_kw)}건 추가")
+
+                        if not df_kw.empty:
+                            all_news.append(df_kw)
 
                 # 통합 정리 & 저장
                 df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()

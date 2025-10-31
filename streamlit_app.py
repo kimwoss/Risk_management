@@ -1154,6 +1154,8 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
     """
     기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
 
+    URL을 우선 식별자로 사용하고, URL이 없으면 제목으로 비교
+
     Args:
         old_df: 기존 뉴스 데이터
         new_df: 새로 수집한 뉴스 데이터
@@ -1162,33 +1164,74 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
         신규 기사 정보 리스트
     """
     try:
-        if old_df.empty or new_df.empty:
-            return []
+        # 기존 DB가 비어있으면 모든 새 기사를 신규로 간주
+        if old_df.empty:
+            if new_df.empty:
+                return []
 
-        # URL 또는 제목으로 중복 체크
-        old_urls = set(old_df["URL"].dropna().tolist())
-        old_titles = set(old_df["기사제목"].dropna().tolist())
-
-        new_articles = []
-        for _, row in new_df.iterrows():
-            url = row.get("URL", "")
-            title = row.get("기사제목", "")
-
-            # 기존에 없는 기사인 경우
-            is_new = (url and url not in old_urls) or (title and title not in old_titles)
-
-            if is_new:
+            new_articles = []
+            for _, row in new_df.iterrows():
                 new_articles.append({
-                    "title": title,
-                    "link": url,
+                    "title": row.get("기사제목", "제목 없음"),
+                    "link": row.get("URL", ""),
                     "date": row.get("날짜", ""),
                     "press": row.get("언론사", "")
                 })
+            print(f"[DEBUG] 기존 DB 비어있음 - 모든 {len(new_articles)}건을 신규로 처리")
+            return new_articles
 
+        if new_df.empty:
+            return []
+
+        # URL과 제목으로 기존 기사 세트 생성
+        # URL이 있는 경우 URL로, 없으면 제목으로 식별
+        old_identifiers = set()
+        for _, row in old_df.iterrows():
+            url = str(row.get("URL", "")).strip()
+            title = str(row.get("기사제목", "")).strip()
+
+            if url and url != "nan":
+                old_identifiers.add(("url", url))
+            if title and title != "nan":
+                old_identifiers.add(("title", title))
+
+        print(f"[DEBUG] 기존 DB 식별자 수: {len(old_identifiers)}")
+
+        # 신규 기사 감지
+        new_articles = []
+        for _, row in new_df.iterrows():
+            url = str(row.get("URL", "")).strip()
+            title = str(row.get("기사제목", "")).strip()
+
+            # URL 또는 제목이 비어있는 경우 스킵
+            if (not url or url == "nan") and (not title or title == "nan"):
+                continue
+
+            # URL이 있으면 URL로 비교, 없으면 제목으로 비교
+            is_new = False
+            if url and url != "nan":
+                # URL이 있는 경우: URL이 기존에 없으면 신규
+                is_new = ("url", url) not in old_identifiers
+            elif title and title != "nan":
+                # URL이 없는 경우: 제목이 기존에 없으면 신규
+                is_new = ("title", title) not in old_identifiers
+
+            if is_new:
+                new_articles.append({
+                    "title": title if title != "nan" else "제목 없음",
+                    "link": url if url != "nan" else "",
+                    "date": row.get("날짜", ""),
+                    "press": row.get("언론사", "")
+                })
+                print(f"[DEBUG] 신규 기사 감지: {title[:50]}...")
+
+        print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지")
         return new_articles
 
     except Exception as e:
         print(f"[DEBUG] 신규 기사 감지 오류: {str(e)}")
+        import traceback
+        print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
         return []
 
 # ----------------------------- 스타일 -----------------------------
@@ -2153,10 +2196,30 @@ def page_news_monitor():
                         merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
 
                     # 신규 기사 감지 및 알림
+                    # 주의: 초기 실행 시에는 알림을 보내지 않음 (과거 뉴스 스팸 방지)
                     new_articles = detect_new_articles(existing_db, df_new)
+
+                    # 알림 전송 조건:
+                    # 1. 신규 기사가 있어야 함
+                    # 2. 초기 로드가 아니어야 함 (initial_loaded = True)
+                    # 3. 기존 DB가 비어있지 않아야 함 (처음 실행이 아님)
+                    should_notify = (
+                        new_articles and
+                        st.session_state.initial_loaded and
+                        not existing_db.empty
+                    )
+
                     if new_articles:
                         print(f"[DEBUG] 신규 기사 {len(new_articles)}건 감지")
-                        send_telegram_notification(new_articles)
+
+                        if should_notify:
+                            print(f"[DEBUG] ✅ 알림 전송 조건 충족 - 텔레그램 알림 전송")
+                            send_telegram_notification(new_articles)
+                        else:
+                            if not st.session_state.initial_loaded:
+                                print(f"[DEBUG] ⏭️ 초기 실행 - 알림 스킵 (다음 업데이트부터 알림)")
+                            elif existing_db.empty:
+                                print(f"[DEBUG] ⏭️ 첫 데이터 수집 - 알림 스킵 (다음 업데이트부터 알림)")
 
                     save_news_db(merged)
                     st.session_state.last_news_fetch = now

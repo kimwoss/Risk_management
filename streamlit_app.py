@@ -1105,6 +1105,11 @@ def load_base_css():
         padding: 6px !important;
         height: 90px !important;
         min-height: 90px !important;
+        cursor: pointer !important;
+      }
+      div[data-testid="column"]:first-child .stButton>button:hover {
+        background: rgba(212,175,55,.05) !important;
+        transform: scale(1.02) !important;
       }
       .stButton>button:hover{
         border-color: rgba(212,175,55,.5);
@@ -1325,14 +1330,16 @@ def render_top_nav(active_label: str):
                 
                 # 로고 이미지를 버튼 위에 겹쳐서 표시
                 st.markdown(f'''
-                <div style="position: relative; margin-top: -90px; width: 100%; height: 90px; 
+                <div style="position: relative; margin-top: -90px; width: 100%; height: 90px;
                             display: flex; align-items: center; justify-content: center; pointer-events: none;">
-                    <img src="{logo_uri}" alt="POSCO" style="height:54px; max-width: 100%;">
+                    <img src="{logo_uri}" alt="POSCO 메인으로" title="메인 페이지로 이동"
+                         style="height:54px; max-width: 100%; cursor: pointer; transition: opacity 0.2s ease;">
                 </div>
                 ''', unsafe_allow_html=True)
                 
                 if logo_clicked:
-                    # 메인 화면으로 이동 (query_params 초기화)
+                    # 메인 화면으로 이동 (로그인 없이 자동 접근)
+                    st.session_state.authenticated = True
                     st.query_params.clear()
                     st.rerun()
         with c2:

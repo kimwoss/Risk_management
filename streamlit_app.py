@@ -991,10 +991,10 @@ def save_news_db(df: pd.DataFrame):
         for idx, row in df.iterrows():
             if pd.notna(row["URL"]):
                 df.at[idx, "매체명"] = _publisher_from_link(row["URL"])
-    
+
     # 날짜 컬럼이 이미 정렬되어 있으므로 추가 정렬 생략
-    # 상위 50개만 저장
-    out = df.head(50)
+    # 상위 200개 저장 (50개에서 증가 - 중복 알림 방지)
+    out = df.head(200)
     out.to_csv(NEWS_DB_FILE, index=False, encoding="utf-8")
     safe_print("[DEBUG] news saved:", len(out), "rows ->", NEWS_DB_FILE)
 
@@ -1154,7 +1154,9 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
     """
     기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
 
-    URL을 우선 식별자로 사용하고, URL이 없으면 제목으로 비교
+    - URL을 우선 식별자로 사용
+    - 최근 6시간 이내 기사만 알림 대상
+    - 정확한 중복 체크
 
     Args:
         old_df: 기존 뉴스 데이터
@@ -1164,38 +1166,26 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
         신규 기사 정보 리스트
     """
     try:
-        # 기존 DB가 비어있으면 모든 새 기사를 신규로 간주
+        # 기존 DB가 비어있으면 신규 기사 없음으로 처리 (첫 실행 스팸 방지)
         if old_df.empty:
-            if new_df.empty:
-                return []
-
-            new_articles = []
-            for _, row in new_df.iterrows():
-                new_articles.append({
-                    "title": row.get("기사제목", "제목 없음"),
-                    "link": row.get("URL", ""),
-                    "date": row.get("날짜", ""),
-                    "press": row.get("언론사", "")
-                })
-            print(f"[DEBUG] 기존 DB 비어있음 - 모든 {len(new_articles)}건을 신규로 처리")
-            return new_articles
+            print(f"[DEBUG] 기존 DB 비어있음 - 첫 실행이므로 알림 스킵")
+            return []
 
         if new_df.empty:
             return []
 
-        # URL과 제목으로 기존 기사 세트 생성
-        # URL이 있는 경우 URL로, 없으면 제목으로 식별
-        old_identifiers = set()
+        # 현재 시간 기준
+        now = datetime.now()
+
+        # 기존 DB의 URL 세트 생성 (가장 정확한 식별자)
+        old_urls = set()
         for _, row in old_df.iterrows():
             url = str(row.get("URL", "")).strip()
-            title = str(row.get("기사제목", "")).strip()
+            if url and url != "nan" and url != "":
+                old_urls.add(url)
 
-            if url and url != "nan":
-                old_identifiers.add(("url", url))
-            if title and title != "nan":
-                old_identifiers.add(("title", title))
-
-        print(f"[DEBUG] 기존 DB 식별자 수: {len(old_identifiers)}")
+        print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)}")
+        print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
 
         # 신규 기사 감지
         new_articles = []
@@ -1203,29 +1193,44 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
             url = str(row.get("URL", "")).strip()
             title = str(row.get("기사제목", "")).strip()
 
-            # URL 또는 제목이 비어있는 경우 스킵
-            if (not url or url == "nan") and (not title or title == "nan"):
+            # URL이 없거나 비어있으면 스킵
+            if not url or url == "nan" or url == "":
                 continue
 
-            # URL이 있으면 URL로 비교, 없으면 제목으로 비교
-            is_new = False
-            if url and url != "nan":
-                # URL이 있는 경우: URL이 기존에 없으면 신규
-                is_new = ("url", url) not in old_identifiers
-            elif title and title != "nan":
-                # URL이 없는 경우: 제목이 기존에 없으면 신규
-                is_new = ("title", title) not in old_identifiers
+            # URL이 기존 DB에 없으면 신규
+            if url not in old_urls:
+                # 날짜 파싱 시도
+                article_date_str = row.get("날짜", "")
+                try:
+                    # 날짜 형식: "YYYY-MM-DD HH:MM"
+                    article_date = pd.to_datetime(article_date_str, errors="coerce")
 
-            if is_new:
+                    # 날짜가 유효하면 최근 6시간 이내인지 확인
+                    if pd.notna(article_date):
+                        time_diff = now - article_date
+                        hours_diff = time_diff.total_seconds() / 3600
+
+                        # 6시간 이내의 기사만 알림
+                        if hours_diff > 6:
+                            print(f"[DEBUG] 오래된 기사 스킵: {title[:30]}... ({hours_diff:.1f}시간 전)")
+                            continue
+                        else:
+                            print(f"[DEBUG] 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                    else:
+                        # 날짜 파싱 실패 시에도 포함 (안전장치)
+                        print(f"[DEBUG] 날짜 파싱 실패 (알림 포함): {title[:50]}...")
+
+                except Exception as e:
+                    print(f"[DEBUG] 날짜 처리 오류: {str(e)}")
+
                 new_articles.append({
-                    "title": title if title != "nan" else "제목 없음",
-                    "link": url if url != "nan" else "",
-                    "date": row.get("날짜", ""),
+                    "title": title if title and title != "nan" else "제목 없음",
+                    "link": url,
+                    "date": article_date_str,
                     "press": row.get("언론사", "")
                 })
-                print(f"[DEBUG] 신규 기사 감지: {title[:50]}...")
 
-        print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지")
+        print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (최근 6시간 이내)")
         return new_articles
 
     except Exception as e:

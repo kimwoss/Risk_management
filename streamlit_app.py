@@ -193,6 +193,39 @@ def show_login_page():
         border-radius: 8px !important;
         color: #fca5a5 !important;
       }
+
+      /* 모바일 최적화 (로그인 페이지) */
+      @media (max-width: 768px) {
+        .login-box {
+          padding: 32px 24px !important;
+          max-width: 90% !important;
+        }
+        .login-logo {
+          font-size: 48px !important;
+        }
+        .login-title {
+          font-size: 24px !important;
+        }
+        .login-subtitle {
+          font-size: 14px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .login-box {
+          padding: 24px 20px !important;
+        }
+        .login-logo {
+          font-size: 40px !important;
+        }
+        .login-title {
+          font-size: 20px !important;
+        }
+        .login-subtitle {
+          font-size: 13px !important;
+          margin-bottom: 24px !important;
+        }
+      }
     </style>
     """, unsafe_allow_html=True)
 
@@ -1117,11 +1150,47 @@ def load_base_css():
         transition: all 0.2s ease;
         will-change: auto;
       }
-      
+
       /* 메뉴 전환 시 부드러운 효과 */
       .card {
         animation: stFadeIn 0.3s ease-out;
         will-change: opacity;
+      }
+
+      /* 모바일 최적화 (전역) */
+      @media (max-width: 768px) {
+        .card {
+          padding: 16px !important;
+          border-radius: 10px !important;
+          margin-bottom: 16px !important;
+        }
+        .main-copy {
+          left: 24px !important;
+          padding-right: 24px !important;
+        }
+        .stButton>button {
+          font-size: 0.9rem !important;
+          padding: 10px 14px !important;
+        }
+        .stDownloadButton>button {
+          font-size: 0.9rem !important;
+          padding: 10px 14px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 12px !important;
+          border-radius: 8px !important;
+        }
+        .main-copy {
+          left: 16px !important;
+          padding-right: 16px !important;
+        }
+        [data-testid="stAppViewContainer"] .block-container {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+        }
       }
     </style>
     """, unsafe_allow_html=True)
@@ -1202,6 +1271,42 @@ def render_top_nav(active_label: str):
         margin: 8px 0 20px 0;
         box-shadow: 0 8px 32px rgba(0,0,0,.2);
         backdrop-filter: blur(12px);
+      }
+
+      /* 모바일 최적화 (768px 이하) */
+      @media (max-width: 768px) {
+        .stButton>button {
+          font-size: 0.75rem !important;
+          padding: 8px 6px !important;
+          height: auto !important;
+          min-height: 42px !important;
+          line-height: 1.3 !important;
+          white-space: normal !important;
+          word-break: keep-all !important;
+        }
+        .nav-container {
+          padding: 12px 10px !important;
+          margin: 6px 0 16px 0 !important;
+        }
+        .nav-container img {
+          height: 40px !important;
+        }
+      }
+
+      /* 더 작은 화면 (480px 이하) */
+      @media (max-width: 480px) {
+        .stButton>button {
+          font-size: 0.7rem !important;
+          padding: 6px 4px !important;
+          min-height: 38px !important;
+        }
+        .nav-container {
+          padding: 10px 8px !important;
+          border-radius: 12px !important;
+        }
+        .nav-container img {
+          height: 36px !important;
+        }
       }
     </style>
     """, unsafe_allow_html=True)

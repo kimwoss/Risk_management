@@ -46,7 +46,13 @@ git push -u origin main
    OPEN_API_KEY = "your_openai_api_key"
    NAVER_CLIENT_ID = "your_naver_client_id"
    NAVER_CLIENT_SECRET = "your_naver_client_secret"
+
+   # 텔레그램 알림 (선택사항)
+   TELEGRAM_BOT_TOKEN = "your_telegram_bot_token"
+   TELEGRAM_CHAT_ID = "your_telegram_chat_id"
    ```
+
+   📱 **텔레그램 알림 설정 방법**은 `KAKAO_WEBHOOK_SETUP.md` 파일을 참조하세요!
 
 4. **배포 완료**
    - "Deploy!" 클릭

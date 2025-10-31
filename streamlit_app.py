@@ -1063,6 +1063,109 @@ def _to_people_df(lines, tag: str) -> pd.DataFrame:
     df.insert(0, "구분", tag)
     return df
 
+# ----------------------------- 텔레그램 알림 -----------------------------
+def send_telegram_notification(new_articles: list):
+    """
+    새로운 기사가 발견되면 텔레그램으로 알림 전송
+
+    Args:
+        new_articles: 새로운 기사 정보 리스트 [{"title": ..., "link": ..., "date": ...}, ...]
+    """
+    try:
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+        chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
+
+        # 환경변수가 없으면 알림 스킵
+        if not bot_token or not chat_id:
+            print("[DEBUG] 텔레그램 설정 없음 - 알림 스킵")
+            return
+
+        if not new_articles:
+            return
+
+        # 최대 5개까지만 알림 (너무 많으면 스팸)
+        articles_to_notify = new_articles[:5]
+
+        # 메시지 구성
+        message = "🚨 *새로운 뉴스 알림*\n\n"
+        for idx, article in enumerate(articles_to_notify, 1):
+            title = article.get("title", "제목 없음")
+            link = article.get("link", "")
+            date = article.get("date", "")
+            press = article.get("press", "")
+
+            message += f"{idx}. *{title}*\n"
+            if press:
+                message += f"   📰 {press}"
+            if date:
+                message += f" | 🕐 {date}\n"
+            if link:
+                message += f"   🔗 {link}\n"
+            message += "\n"
+
+        if len(new_articles) > 5:
+            message += f"\n_외 {len(new_articles) - 5}건 추가..._"
+
+        # 텔레그램 API 호출
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "Markdown",
+            "disable_web_page_preview": True
+        }
+
+        response = requests.post(url, json=payload, timeout=10)
+
+        if response.status_code == 200:
+            print(f"[DEBUG] 텔레그램 알림 전송 성공: {len(articles_to_notify)}건")
+        else:
+            print(f"[DEBUG] 텔레그램 알림 전송 실패: {response.status_code} - {response.text}")
+
+    except Exception as e:
+        print(f"[DEBUG] 텔레그램 알림 오류: {str(e)}")
+
+def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
+    """
+    기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
+
+    Args:
+        old_df: 기존 뉴스 데이터
+        new_df: 새로 수집한 뉴스 데이터
+
+    Returns:
+        신규 기사 정보 리스트
+    """
+    try:
+        if old_df.empty or new_df.empty:
+            return []
+
+        # URL 또는 제목으로 중복 체크
+        old_urls = set(old_df["URL"].dropna().tolist())
+        old_titles = set(old_df["기사제목"].dropna().tolist())
+
+        new_articles = []
+        for _, row in new_df.iterrows():
+            url = row.get("URL", "")
+            title = row.get("기사제목", "")
+
+            # 기존에 없는 기사인 경우
+            is_new = (url and url not in old_urls) or (title and title not in old_titles)
+
+            if is_new:
+                new_articles.append({
+                    "title": title,
+                    "link": url,
+                    "date": row.get("날짜", ""),
+                    "press": row.get("언론사", "")
+                })
+
+        return new_articles
+
+    except Exception as e:
+        print(f"[DEBUG] 신규 기사 감지 오류: {str(e)}")
+        return []
+
 # ----------------------------- 스타일 -----------------------------
 @st.cache_data(ttl=3600)  # CSS는 1시간 캐시
 def load_base_css():
@@ -1903,9 +2006,20 @@ def page_news_monitor():
                         merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
                         merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
 
+                    # 신규 기사 감지 및 알림
+                    new_articles = detect_new_articles(existing_db, df_new)
+                    if new_articles:
+                        print(f"[DEBUG] 신규 기사 {len(new_articles)}건 감지")
+                        send_telegram_notification(new_articles)
+
                     save_news_db(merged)
                     st.session_state.last_news_fetch = now
-                    status.success(f"✅ 기사 업데이트 완료! 현재 저장된 건수: {len(merged)}")
+
+                    # 상태 메시지에 신규 기사 수 표시
+                    if new_articles:
+                        status.success(f"✅ 기사 업데이트 완료! 신규 {len(new_articles)}건 (총 {len(merged)}건 저장)")
+                    else:
+                        status.success(f"✅ 기사 업데이트 완료! 현재 저장된 건수: {len(merged)}")
                 else:
                     # 결과 없음이어도 조용히 다음 라운드(180초 뒤)로 넘어감
                     status.info("ℹ️ 새로 수집된 기사가 없어요. 다음 라운드에서 다시 시도할게.")

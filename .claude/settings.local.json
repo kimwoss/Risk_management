@@ -5,7 +5,17 @@
       "Bash(python:*)",
       "Bash(git add:*)",
       "Bash(git push:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git commit:*)",
+      "Bash(dir)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(where magick)",
+      "Bash(dir /A:H .env)",
+      "Bash(del test_media_mapping.py update_media_names.py)",
+      "Bash(pip install:*)",
+      "Bash(uv add:*)",
+      "Bash(del test_search_accuracy.py)"
     ],
     "deny": []
   }

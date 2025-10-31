@@ -1,0 +1,90 @@
+[19560:1] 2025-08-09 01:26:42.016 [0x8D60(0) CxCommonApi::LogModuleInfo] [MODULE LOADING] ModuleName amon64.dll, Version [2.0.0.1], ModulePath C:\Program Files\Geni\Insights\temp\amon64.dll ModifiedTime 2024-12-05 11:20:16
+[19560:1] 2025-08-09 01:26:42.019 [0x8D60(0) CxSensorPipeClient::Initialize] [Initialize]
+[19560:1] 2025-08-09 01:26:42.021 [0x8D60(0) CxThreadPool::Initialize] Queue init : OutputQue 0, nThreadPoolSize : 1
+[19560:1] 2025-08-09 01:26:42.022 [0x8D60(183) CxThreadPool::CreateThreadPool] Create 1 WorkerThread
+[19560:1] 2025-08-09 01:26:42.026 [0x8D60(0) CAttachMonitor::_InstallHook] [INSTALL_HOOK] GetOpenFileNameW : git.exe:19560
+[19560:1] 2025-08-09 01:26:42.032 [0x8D60(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] CoCreateInstance : git.exe:19560
+[19560:1] 2025-08-09 01:26:42.034 [0x8D60(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] DoDragDrop : git.exe:19560
+[19560:1] 2025-08-09 01:26:42.041 [0x8D60(536871044) CxDllNotifier::Initialize] [Initialize]
+[19560:1] 2025-08-09 01:26:42.043 [0x8D60(183) CxDllNotifier::Initialize] [RegisterDllNotification] 0000024734AB7D00
+[19560:1] 2025-08-09 01:26:42.045 [0x8D60(183) CxDllNotifier::RegisterCallback] [RegisterCallback] Callback 00007FFC659FA250 Context 0000024734AD1570
+[19560:1] 2025-08-09 01:26:42.047 [0x8D60(536871254) CAttachMonitor::Initialize] [CREATEEVENT][ProfileUpdateEvent] Global\X_EVENT_AMON_PROFILE_UPDATED
+[19560:1] 2025-08-09 01:26:42.108 [0x792C(87) CxThreadPool::ThreadEntry] Worker Thread begins
+[19560:1] 2025-08-09 01:26:42.115 [0x792C(1) CxSensorPipeClient::SendJson] [SEND][ReqType:10] {
+   "PID" : 19560,
+   "ProcPath" : "C:\\Program Files\\Git\\cmd\\git.exe",
+   "ReqType" : "xSensorRequestType_GetAmonProfile"
+}
+
+[19560:1] 2025-08-09 01:26:42.117 [0x792C(183) CxSensorPipeClient::SendJson] [RECV] {
+   "DetectionProcessList" : "msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe"
+}
+
+[19560:1] 2025-08-09 01:26:42.118 [0x40F0(87) CAttachMonitor::ProfileUpdateThreadFunc] [ProfileUpdateThreadFunc] begins
+[19560:1] 2025-08-09 01:26:42.119 [0x792C(183) CAttachMonitor::SetDetectionProcessList] DefaultList[|chrome.exe|msedge.exe|whale.exe|iexplore.exe|safari.exe|firefox.exe||kakaotalk.exe|teams.exe|slack.exe|line.exe|whatsapp.exe|wechat.exe|qq.exe|telegram.exe|ms-teams.exe|lync.exe|skype.exe|msteams.exe||explorer.exe||fsquirt.exe||msedgewebview2.exe|] AdditionalList[msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe]
+[29412:1] 2025-08-09 01:26:42.578 [0x6C8C(0) CxCommonApi::LogModuleInfo] [MODULE LOADING] ModuleName amon64.dll, Version [2.0.0.1], ModulePath C:\Program Files\Geni\Insights\temp\amon64.dll ModifiedTime 2024-12-05 11:20:16
+[29412:1] 2025-08-09 01:26:42.580 [0x6C8C(183) CxSensorPipeClient::Initialize] [Initialize]
+[29412:1] 2025-08-09 01:26:42.582 [0x6C8C(0) CxThreadPool::Initialize] Queue init : OutputQue 0, nThreadPoolSize : 1
+[29412:1] 2025-08-09 01:26:42.584 [0x6C8C(183) CxThreadPool::CreateThreadPool] Create 1 WorkerThread
+[29412:1] 2025-08-09 01:26:42.587 [0x6C8C(0) CAttachMonitor::_InstallHook] [INSTALL_HOOK] GetOpenFileNameW : git.exe:29412
+[29412:1] 2025-08-09 01:26:42.589 [0x6C8C(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] CoCreateInstance : git.exe:29412
+[29412:1] 2025-08-09 01:26:42.590 [0x6C8C(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] DoDragDrop : git.exe:29412
+[29412:1] 2025-08-09 01:26:42.602 [0x6C8C(536871044) CxDllNotifier::Initialize] [Initialize]
+[29412:1] 2025-08-09 01:26:42.604 [0x6C8C(183) CxDllNotifier::Initialize] [RegisterDllNotification] 000001519D30E420
+[29412:1] 2025-08-09 01:26:42.607 [0x6C8C(183) CxDllNotifier::RegisterCallback] [RegisterCallback] Callback 00007FFC659FA250 Context 000001519D334F90
+[29412:1] 2025-08-09 01:26:42.609 [0x6C8C(536871254) CAttachMonitor::Initialize] [CREATEEVENT][ProfileUpdateEvent] Global\X_EVENT_AMON_PROFILE_UPDATED
+[29412:1] 2025-08-09 01:26:42.637 [0x4844(87) CxThreadPool::ThreadEntry] Worker Thread begins
+UpdateThreadFunc] begins
+[29412:1] 2025-08-09 01:26:42.643 [0x4844(1) CxSensorPipeClient::SendJson] [SEND][ReqType:10] {
+   "PID" : 29412,
+   "ProcPath" : "C:\\Program Files\\Git\\mingw64\\bin\\git.exe",
+   "ReqType" : "xSensorRequestType_GetAmonProfile"
+}
+
+[29412:1] 2025-08-09 01:26:42.645 [0x4844(183) CxSensorPipeClient::SendJson] [RECV] {
+   "DetectionProcessList" : "msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe"
+}
+
+[29412:1] 2025-08-09 01:26:42.648 [0x4844(183) CAttachMonitor::SetDetectionProcessList] DefaultList[|chrome.exe|msedge.exe|whale.exe|iexplore.exe|safari.exe|firefox.exe||kakaotalk.exe|teams.exe|slack.exe|line.exe|whatsapp.exe|wechat.exe|qq.exe|telegram.exe|ms-teams.exe|lync.exe|skype.exe|msteams.exe||explorer.exe||fsquirt.exe||msedgewebview2.exe|] AdditionalList[msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe]
+[25968:1] 2025-08-09 01:26:43.309 [0x51E8(0) CxCommonApi::LogModuleInfo] [MODULE LOADING] ModuleName amon64.dll, Version [2.0.0.1], ModulePath C:\Program Files\Geni\Insights\temp\amon64.dll ModifiedTime 2024-12-05 11:20:16
+[25968:1] 2025-08-09 01:26:43.311 [0x51E8(183) CxSensorPipeClient::Initialize] [Initialize]
+[25968:1] 2025-08-09 01:26:43.313 [0x51E8(0) CxThreadPool::Initialize] Queue init : OutputQue 0, nThreadPoolSize : 1
+[25968:1] 2025-08-09 01:26:43.315 [0x51E8(183) CxThreadPool::CreateThreadPool] Create 1 WorkerThread
+[25968:1] 2025-08-09 01:26:43.319 [0x51E8(0) CAttachMonitor::_InstallHook] [INSTALL_HOOK] GetOpenFileNameW : git.exe:25968
+[25968:1] 2025-08-09 01:26:43.321 [0x51E8(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] CoCreateInstance : git.exe:25968
+[25968:1] 2025-08-09 01:26:43.323 [0x51E8(183) CAttachMonitor::_InstallHook] [INSTALL_HOOK] DoDragDrop : git.exe:25968
+[25968:1] 2025-08-09 01:26:43.329 [0x51E8(536871044) CxDllNotifier::Initialize] [Initialize]
+[25968:1] 2025-08-09 01:26:43.330 [0x51E8(183) CxDllNotifier::Initialize] [RegisterDllNotification] 0000012E4E9CEE10
+[25968:1] 2025-08-09 01:26:43.333 [0x51E8(183) CxDllNotifier::RegisterCallback] [RegisterCallback] Callback 00007FFC659FA250 Context 0000012E4E9F4DE0
+[25968:1] 2025-08-09 01:26:43.335 [0x51E8(536871254) CAttachMonitor::Initialize] [CREATEEVENT][ProfileUpdateEvent] Global\X_EVENT_AMON_PROFILE_UPDATED
+[25968:1] 2025-08-09 01:26:43.355 [0x58A8(87) CxThreadPool::ThreadEntry] Worker Thread begins
+[25968:1] 2025-08-09 01:26:43.360 [0x58A8(1) CxSensorPipeClient::SendJson] [SEND][ReqType:10] {
+   "PID" : 25968,
+   "ProcPath" : "C:\\Program Files\\Git\\mingw64\\libexec\\git-core\\git.exe",
+   "ReqType" : "xSensorRequestType_GetAmonProfile"
+}
+
+[25968:1] 2025-08-09 01:26:43.362 [0x58A8(183) CxSensorPipeClient::SendJson] [RECV] {
+   "DetectionProcessList" : "msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe"
+}
+
+[25968:1] 2025-08-09 01:26:43.364 [0x58A8(183) CAttachMonitor::SetDetectionProcessList] DefaultList[|chrome.exe|msedge.exe|whale.exe|iexplore.exe|safari.exe|firefox.exe||kakaotalk.exe|teams.exe|slack.exe|line.exe|whatsapp.exe|wechat.exe|qq.exe|telegram.exe|ms-teams.exe|lync.exe|skype.exe|msteams.exe||explorer.exe||fsquirt.exe||msedgewebview2.exe|] AdditionalList[msteams.exe|ms-teams.exe|olk.exe|msedgewebview2.exe|git.exe|sh.exe]
+[25968:1] 2025-08-09 01:26:43.367 [0x7318(87) CAttachMonitor::ProfileUpdateThreadFunc] [ProfileUpdateThreadFunc] begins
+[25968:1] 2025-08-09 01:26:44.070 [0x51E8(0) CAttachMonitor::Uninitialize] Thread Finished : WindowMonitorThread
+[25968:1] 2025-08-09 01:26:44.091 [0x51E8(183) CxDllNotifier::DeregisterCallback] [DeregisterCallback] Callback 00007FFC659FA250 Context 0000012E4E9F4DE0
+[25968:1] 2025-08-09 01:26:44.094 [0x51E8(183) CxDllNotifier::Uninitialize] [Uninitialize]
+[25968:1] 2025-08-09 01:26:44.097 [0x51E8(183) CxDllNotifier::Uninitialize] [Unregister] 0000012E4E9CEE10
+[25968:1] 2025-08-09 01:26:44.106 [0x51E8(183) CxSensorPipeClient::Uninitialize] [Uninitialize]
+[25968:1] 2025-08-09 01:26:44.109 [0x51E8(183) CxSensorPipeClient::Uninitialize] [/Uninitialize]
+[29412:1] 2025-08-09 01:26:44.562 [0x6C8C(0) CAttachMonitor::Uninitialize] Thread Finished : WindowMonitorThread
+[29412:1] 2025-08-09 01:26:44.621 [0x6C8C(183) CxDllNotifier::DeregisterCallback] [DeregisterCallback] Callback 00007FFC659FA250 Context 000001519D334F90
+[29412:1] 2025-08-09 01:26:44.624 [0x6C8C(183) CxDllNotifier::Uninitialize] [Uninitialize]
+[29412:1] 2025-08-09 01:26:44.641 [0x6C8C(183) CxDllNotifier::Uninitialize] [Unregister] 000001519D30E420
+[29412:1] 2025-08-09 01:26:44.647 [0x6C8C(183) CxSensorPipeClient::Uninitialize] [Uninitialize]
+[29412:1] 2025-08-09 01:26:44.651 [0x6C8C(183) CxSensorPipeClient::Uninitialize] [/Uninitialize]
+[19560:1] 2025-08-09 01:26:44.946 [0x8D60(0) CAttachMonitor::Uninitialize] Thread Finished : WindowMonitorThread
+[19560:1] 2025-08-09 01:26:44.992 [0x8D60(183) CxDllNotifier::DeregisterCallback] [DeregisterCallback] Callback 00007FFC659FA250 Context 0000024734AD1570
+[19560:1] 2025-08-09 01:26:44.995 [0x8D60(183) CxDllNotifier::Uninitialize] [Uninitialize]
+[19560:1] 2025-08-09 01:26:44.997 [0x8D60(183) CxDllNotifier::Uninitialize] [Unregister] 0000024734AB7D00
+[19560:1] 2025-08-09 01:26:45.007 [0x8D60(183) CxSensorPipeClient::Uninitialize] [Uninitialize]
+[19560:1] 2025-08-09 01:26:45.012 [0x8D60(183) CxSensorPipeClient::Uninitialize] [/Uninitialize]

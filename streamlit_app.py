@@ -110,6 +110,26 @@ def show_login_page():
         margin-bottom: 16px;
         filter: drop-shadow(0 4px 12px rgba(212,175,55,.2));
       }
+      /* 로그인 페이지 로고 버튼 스타일 (첫 번째 버튼만) */
+      .login-box > div:first-of-type .stButton>button {
+        background: transparent !important;
+        border: 2px solid rgba(212,175,55,.3) !important;
+        border-radius: 50% !important;
+        width: 80px !important;
+        height: 80px !important;
+        font-size: 48px !important;
+        padding: 0 !important;
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
+        filter: drop-shadow(0 4px 12px rgba(212,175,55,.2)) !important;
+        margin: 0 auto 20px !important;
+      }
+      .login-box > div:first-of-type .stButton>button:hover {
+        background: rgba(212,175,55,.1) !important;
+        border-color: rgba(212,175,55,.6) !important;
+        transform: scale(1.05) !important;
+        box-shadow: 0 8px 24px rgba(212,175,55,.3) !important;
+      }
       .login-title {
         font-size: 28px;
         font-weight: 700;
@@ -234,7 +254,15 @@ def show_login_page():
 
     # 컬럼 없이 바로 박스 렌더링
     st.markdown('<div class="login-box">', unsafe_allow_html=True)
-    st.markdown('<div class="login-logo">🛡️</div>', unsafe_allow_html=True)
+
+    # 로고를 클릭 가능하게 만들기
+    logo_col1, logo_col2, logo_col3 = st.columns([1, 1, 1])
+    with logo_col2:
+        if st.button("🛡️", key="login_logo_btn", help="메인 페이지로 이동"):
+            st.session_state.authenticated = True
+            st.query_params.clear()
+            st.rerun()
+
     st.markdown('<div class="login-title">위기관리커뮤니케이션 AI</div>', unsafe_allow_html=True)
     st.markdown('<div class="login-subtitle">포스코인터내셔널 언론대응 시스템</div>', unsafe_allow_html=True)
 
@@ -1097,19 +1125,9 @@ def load_base_css():
         background: linear-gradient(180deg, #2a2b2f, #1a1b1f); color:#fff;
         padding:10px 16px; letter-spacing:.01em;
       }
-      /* 로고 버튼 스타일 (투명하게) */
-      div[data-testid="column"]:first-child .stButton>button {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 6px !important;
-        height: 90px !important;
-        min-height: 90px !important;
-        cursor: pointer !important;
-      }
-      div[data-testid="column"]:first-child .stButton>button:hover {
-        background: rgba(212,175,55,.05) !important;
-        transform: scale(1.02) !important;
+      /* 로고 영역 스타일 */
+      .nav-container a:hover {
+        opacity: 0.9;
       }
       .stButton>button:hover{
         border-color: rgba(212,175,55,.5);
@@ -1321,24 +1339,20 @@ def render_top_nav(active_label: str):
         c1, c2 = st.columns([1.2, 4.0], gap="medium")
         with c1:
             if logo_uri:
-                # 로고 전체 영역을 클릭 가능한 버튼으로 만들기
-                logo_clicked = st.button(
-                    label="",
-                    key="logo_home_btn",
-                    use_container_width=True
-                )
-                
-                # 로고 이미지를 버튼 위에 겹쳐서 표시
+                # 로고를 클릭 가능한 HTML로 직접 구현
                 st.markdown(f'''
-                <div style="position: relative; margin-top: -90px; width: 100%; height: 90px;
-                            display: flex; align-items: center; justify-content: center; pointer-events: none;">
-                    <img src="{logo_uri}" alt="POSCO 메인으로" title="메인 페이지로 이동"
-                         style="height:54px; max-width: 100%; cursor: pointer; transition: opacity 0.2s ease;">
+                <div style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+                    <a href="?home=1" style="display: block; cursor: pointer; transition: all 0.2s ease;">
+                        <img src="{logo_uri}" alt="POSCO 메인으로" title="메인 페이지로 이동"
+                             style="height:54px; max-width: 100%; transition: transform 0.2s ease;"
+                             onmouseover="this.style.transform='scale(1.05)'"
+                             onmouseout="this.style.transform='scale(1)'">
+                    </a>
                 </div>
                 ''', unsafe_allow_html=True)
-                
-                if logo_clicked:
-                    # 메인 화면으로 이동 (로그인 없이 자동 접근)
+
+                # URL 파라미터로 클릭 감지
+                if st.query_params.get("home") == "1":
                     st.session_state.authenticated = True
                     st.query_params.clear()
                     st.rerun()

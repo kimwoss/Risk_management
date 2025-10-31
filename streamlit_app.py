@@ -1772,8 +1772,10 @@ def page_news_monitor():
         "삼척블루파워",
         "구동모터코아",
         "구동모터코어",
-        "미얀마 LNG"
+        "미얀마 LNG",  # 콤마 추가
         "포스코모빌리티솔루션",
+        "속보+포스코",  # [속보]와 포스코가 함께 언급된 기사
+        "단독+포스코",  # 단독과 포스코가 함께 언급된 기사
         "포스코"  # 일반 포스코 기사 (기존 키워드 제외 필터링 적용)
     ]
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
@@ -1834,15 +1836,28 @@ def page_news_monitor():
             all_news = []
             if api_ok:
                 # 키워드별 최신순 수집
+                # 부동산 관련 제외 키워드 (전역)
+                real_estate_keywords = ["분양", "청약", "입주"]
+
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
                     if not df_kw.empty:
-                        # "포스코" 키워드의 경우 제목 기반 필터링
-                        if kw == "포스코":
-                            # 부동산 관련 제외 키워드
-                            real_estate_keywords = ["분양", "청약", "입주"]
+                        # 모든 키워드에 대해 부동산 필터링 적용
+                        def should_include_real_estate(row):
+                            title = str(row.get("기사제목", ""))
+                            # 제목에 부동산 관련 키워드가 있으면 제외
+                            for real_estate_kw in real_estate_keywords:
+                                if real_estate_kw in title:
+                                    return False
+                            return True
 
-                            def should_include(row):
+                        # 부동산 필터링 적용
+                        mask_real_estate = df_kw.apply(should_include_real_estate, axis=1)
+                        df_kw = df_kw[mask_real_estate].reset_index(drop=True)
+
+                        # "포스코" 키워드의 경우 추가 필터링
+                        if kw == "포스코" and not df_kw.empty:
+                            def should_include_posco(row):
                                 title = str(row.get("기사제목", ""))
                                 title_lower = title.lower()
 
@@ -1855,16 +1870,11 @@ def page_news_monitor():
                                     if exclude_kw.lower() in title_lower:
                                         return False
 
-                                # 3단계: 제목에 부동산 관련 키워드가 없는가?
-                                for real_estate_kw in real_estate_keywords:
-                                    if real_estate_kw in title:
-                                        return False
-
                                 return True
 
-                            # 조건을 만족하는 기사만 포함
-                            mask = df_kw.apply(should_include, axis=1)
-                            df_kw = df_kw[mask].reset_index(drop=True)
+                            # 포스코 전용 필터링 적용
+                            mask_posco = df_kw.apply(should_include_posco, axis=1)
+                            df_kw = df_kw[mask_posco].reset_index(drop=True)
                             if not df_kw.empty:
                                 print(f"[DEBUG] '포스코' 제목 필터링: {len(df_kw)}건 추가")
 

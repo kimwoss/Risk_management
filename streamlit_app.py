@@ -1066,7 +1066,7 @@ def _to_people_df(lines, tag: str) -> pd.DataFrame:
 # ----------------------------- 텔레그램 알림 -----------------------------
 def send_telegram_notification(new_articles: list):
     """
-    새로운 기사가 발견되면 텔레그램으로 알림 전송
+    새로운 기사가 발견되면 텔레그램으로 알림 전송 (기사별 개별 메시지)
 
     Args:
         new_articles: 새로운 기사 정보 리스트 [{"title": ..., "link": ..., "date": ...}, ...]
@@ -1088,49 +1088,62 @@ def send_telegram_notification(new_articles: list):
             print("[DEBUG] 신규 기사 없음 - 알림 스킵")
             return
 
-        # 최대 5개까지만 알림 (너무 많으면 스팸)
-        articles_to_notify = new_articles[:5]
+        # 최대 10개까지만 알림 (개별 메시지라서 좀 더 허용)
+        articles_to_notify = new_articles[:10]
 
-        # 메시지 구성
-        message = "🚨 *새로운 뉴스 알림*\n\n"
-        for idx, article in enumerate(articles_to_notify, 1):
+        # 텔레그램 API URL
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+
+        # 각 기사마다 개별 메시지 전송
+        success_count = 0
+        for article in articles_to_notify:
             title = article.get("title", "제목 없음")
             link = article.get("link", "")
             date = article.get("date", "")
             press = article.get("press", "")
 
-            message += f"{idx}. *{title}*\n"
+            # 단문 메시지 구성
+            message = f"🚨 *새 뉴스*\n\n*{title}*\n\n"
             if press:
-                message += f"   📰 {press}"
+                message += f"📰 {press}\n"
             if date:
-                message += f" | 🕐 {date}\n"
+                message += f"🕐 {date}\n"
             if link:
-                message += f"   🔗 {link}\n"
-            message += "\n"
+                message += f"\n🔗 {link}"
 
-        if len(new_articles) > 5:
-            message += f"\n_외 {len(new_articles) - 5}건 추가..._"
+            payload = {
+                "chat_id": chat_id,
+                "text": message,
+                "parse_mode": "Markdown",
+                "disable_web_page_preview": True
+            }
 
-        # 텔레그램 API 호출
-        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-        payload = {
-            "chat_id": chat_id,
-            "text": message,
-            "parse_mode": "Markdown",
-            "disable_web_page_preview": True
-        }
+            try:
+                response = requests.post(url, json=payload, timeout=10)
+                if response.status_code == 200:
+                    success_count += 1
+                    print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+                else:
+                    print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code} - {title[:30]}...")
 
-        print(f"[DEBUG] 텔레그램 API 호출 중... URL: {url[:50]}...")
-        response = requests.post(url, json=payload, timeout=10)
+                # 텔레그램 Rate Limit 방지 (초당 30개 메시지 제한)
+                import time
+                time.sleep(0.05)  # 50ms 대기
 
-        print(f"[DEBUG] 응답 코드: {response.status_code}")
-        if response.status_code == 200:
-            result = response.json()
-            print(f"[DEBUG] ✅ 텔레그램 알림 전송 성공: {len(articles_to_notify)}건")
-            print(f"[DEBUG] 응답 내용: {result}")
-        else:
-            print(f"[DEBUG] ❌ 텔레그램 알림 전송 실패: {response.status_code}")
-            print(f"[DEBUG] 오류 내용: {response.text}")
+            except Exception as e:
+                print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
+
+        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
+
+        # 5개 이상 남은 기사가 있으면 요약 메시지
+        if len(new_articles) > 10:
+            summary_message = f"📢 _외 {len(new_articles) - 10}건의 뉴스가 더 있습니다._"
+            payload = {
+                "chat_id": chat_id,
+                "text": summary_message,
+                "parse_mode": "Markdown"
+            }
+            requests.post(url, json=payload, timeout=10)
 
     except Exception as e:
         print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")

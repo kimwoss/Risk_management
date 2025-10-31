@@ -1765,7 +1765,15 @@ def page_history_search():
 def page_news_monitor():
     # ===== 기본 파라미터 =====
     st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">뉴스 모니터링</div>', unsafe_allow_html=True)
-    keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터", "삼척블루파워", "포스코모빌리티솔루션"]
+    keywords = [
+        "포스코인터내셔널",
+        "POSCO INTERNATIONAL",
+        "포스코인터",
+        "삼척블루파워",
+        "포스코모빌리티솔루션",
+        "속보+포스코",  # [속보]와 포스코가 함께 언급된 기사
+        "단독+포스코"   # 단독과 포스코가 함께 언급된 기사
+    ]
     refresh_interval = 180  # 180초 카운트다운
     max_items = 100
 

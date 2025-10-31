@@ -110,26 +110,6 @@ def show_login_page():
         margin-bottom: 16px;
         filter: drop-shadow(0 4px 12px rgba(212,175,55,.2));
       }
-      /* 로그인 페이지 로고 버튼 스타일 (첫 번째 버튼만) */
-      .login-box > div:first-of-type .stButton>button {
-        background: transparent !important;
-        border: 2px solid rgba(212,175,55,.3) !important;
-        border-radius: 50% !important;
-        width: 80px !important;
-        height: 80px !important;
-        font-size: 48px !important;
-        padding: 0 !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer !important;
-        filter: drop-shadow(0 4px 12px rgba(212,175,55,.2)) !important;
-        margin: 0 auto 20px !important;
-      }
-      .login-box > div:first-of-type .stButton>button:hover {
-        background: rgba(212,175,55,.1) !important;
-        border-color: rgba(212,175,55,.6) !important;
-        transform: scale(1.05) !important;
-        box-shadow: 0 8px 24px rgba(212,175,55,.3) !important;
-      }
       .login-title {
         font-size: 28px;
         font-weight: 700;
@@ -254,15 +234,7 @@ def show_login_page():
 
     # 컬럼 없이 바로 박스 렌더링
     st.markdown('<div class="login-box">', unsafe_allow_html=True)
-
-    # 로고를 클릭 가능하게 만들기
-    logo_col1, logo_col2, logo_col3 = st.columns([1, 1, 1])
-    with logo_col2:
-        if st.button("🛡️", key="login_logo_btn", help="메인 페이지로 이동"):
-            st.session_state.authenticated = True
-            st.query_params.clear()
-            st.rerun()
-
+    st.markdown('<div class="login-logo">🛡️</div>', unsafe_allow_html=True)
     st.markdown('<div class="login-title">위기관리커뮤니케이션 AI</div>', unsafe_allow_html=True)
     st.markdown('<div class="login-subtitle">포스코인터내셔널 언론대응 시스템</div>', unsafe_allow_html=True)
 

@@ -8,7 +8,7 @@ from typing import Dict, List, Any, Optional
 from llm_manager import LLMManager
 from naver_search import IssueResearchService
 try:
-    from enhanced_web_research import EnhancedWebResearchService
+    from enhanced_research_service import EnhancedResearchService
     ENHANCED_RESEARCH_AVAILABLE = True
 except ImportError:
     ENHANCED_RESEARCH_AVAILABLE = False
@@ -53,7 +53,7 @@ class DataBasedLLM:
         self.enhanced_research = None
         if ENHANCED_RESEARCH_AVAILABLE:
             try:
-                self.enhanced_research = EnhancedWebResearchService()
+                self.enhanced_research = EnhancedResearchService()
                 print("INIT: 강화된 웹 검색 서비스 초기화 완료")
             except Exception as e:
                 print(f"WARNING: 강화된 웹 검색 서비스 초기화 실패: {str(e)}")
@@ -884,6 +884,14 @@ class DataBasedLLM:
             pr_strategy=pr_strategy
         )
         
+        # 9. 품질 개선 적용 (모든 모드에서 적용)
+        if self.quality_enhancer:
+            print("STEP 9: 품질 개선 적용...")
+            final_report = self.quality_enhancer.enhance_report_quality(
+                final_report, issue_description, media_name, reporter_name
+            )
+            print("STEP 9 완료")
+        
         print(f"COMPLETE: 완전한 8단계 프로세스 완료 - 위기단계: {crisis_level}, 관련부서: {len(relevant_depts)}개")
         return final_report
     
@@ -1143,8 +1151,52 @@ JSON 형식으로 응답:
         from datetime import datetime
         return datetime.now().strftime("%Y년 %m월 %d일 %H시 %M분")
     
+    def _format_department_opinions_for_report(self, relevant_depts: list, department_opinions: dict) -> str:
+        """보고서용 유관부서 의견 포맷팅"""
+        if not relevant_depts:
+            return "- 유관부서: 홍보그룹 (기본 대응)\n"
+        
+        formatted_opinions = []
+        
+        for i, dept in enumerate(relevant_depts[:3]):  # 상위 3개 부서만
+            dept_name = dept.get('부서명', '')
+            dept_contact = dept.get('담당자', '')
+            dept_phone = dept.get('연락처', '')
+            matching_score = dept.get('매칭점수', 0)
+            matched_keywords = dept.get('매칭키워드', [])
+            
+            # 부서 정보 기본 포맷
+            dept_info = f"- {dept_name}"
+            if dept_contact:
+                dept_info += f" ({dept_contact})"
+            if dept_phone:
+                dept_info += f" [{dept_phone}]"
+            
+            # 매칭 정보 추가
+            if matching_score > 0:
+                dept_info += f" - 관련도: {matching_score}점"
+            
+            if matched_keywords:
+                keywords_str = ', '.join(matched_keywords[:3])  # 상위 3개 키워드만
+                dept_info += f" (매칭: {keywords_str})"
+            
+            # 부서별 의견이 있으면 추가
+            if dept_name in department_opinions:
+                opinion = department_opinions[dept_name]
+                if isinstance(opinion, dict):
+                    opinion_text = opinion.get('summary', opinion.get('opinion', '의견 수렴 중'))
+                else:
+                    opinion_text = str(opinion)[:100] + "..." if len(str(opinion)) > 100 else str(opinion)
+                dept_info += f"\\n  └ 부서 의견: {opinion_text}"
+            else:
+                dept_info += "\\n  └ 부서 의견: 검토 중"
+            
+            formatted_opinions.append(dept_info)
+        
+        return "\\n".join(formatted_opinions) + "\\n"
+    
     def get_relevant_departments_from_master_data(self, issue_description: str) -> list:
-        """master_data.json에서 이슈 키워드 기반 부서 매핑"""
+        """master_data.json에서 이슈 키워드 기반 부서 매핑 (개선된 버전)"""
         if not self.master_data:
             return []
         
@@ -1153,7 +1205,24 @@ JSON 형식으로 응답:
         
         issue_lower = issue_description.lower()
         
-        # 각 부서별 키워드 매칭
+        # 동의어 매핑 테이블
+        synonym_map = {
+            "실적": ["수익", "매출", "영업이익", "순이익", "분기실적", "연간실적", "재무성과"],
+            "공시": ["발표", "보고", "공개", "발표자료", "ir자료"],
+            "배당": ["배당금", "주주배당", "배당정책", "배당수익률"],
+            "주가": ["주식", "증권", "시가총액", "주식가격"],
+            "에너지": ["전력", "발전", "전기", "신재생", "재생에너지", "친환경"],
+            "lng": ["천연가스", "액화천연가스", "가스"],
+            "철강": ["steel", "철", "강철", "제철", "원료", "코크스", "철광석"],
+            "석탄": ["coal", "유연탄", "무연탄", "원료탄"],
+            "자원": ["광물", "원자재", "commodity", "원료"],
+            "무역": ["trading", "트레이딩", "수출", "수입", "해외사업"],
+            "투자": ["investment", "인수", "합병", "ma", "투자계획"],
+            "건설": ["construction", "플랜트", "인프라", "토목"],
+            "홍보": ["pr", "언론", "미디어", "보도", "기자", "홍보팀"]
+        }
+        
+        # 각 부서별 키워드 매칭 (개선된 알고리즘)
         for dept_name, dept_info in departments.items():
             if not dept_info.get("활성상태", True):
                 continue
@@ -1161,17 +1230,50 @@ JSON 형식으로 응답:
             keywords = dept_info.get("담당이슈", [])
             keyword_str = dept_info.get("키워드", "")
             
-            # 키워드 매칭 체크
-            match_score = 0
-            for keyword in keywords:
-                if keyword.lower() in issue_lower:
-                    match_score += 1
+            # 모든 키워드를 하나의 리스트로 통합
+            all_keywords = keywords + [k.strip() for k in keyword_str.split(",") if k.strip()]
             
-            # 키워드 문자열에서도 매칭
-            if keyword_str:
-                for keyword in keyword_str.split(", "):
-                    if keyword.strip().lower() in issue_lower:
-                        match_score += 1
+            # 키워드 매칭 체크 (개선된 로직)
+            match_score = 0
+            matched_keywords = []
+            
+            for keyword in all_keywords:
+                keyword_lower = keyword.lower()
+                
+                # 1. 직접 매칭
+                if keyword_lower in issue_lower:
+                    match_score += 2  # 직접 매칭은 높은 점수
+                    matched_keywords.append(keyword)
+                    continue
+                
+                # 2. 부분 매칭 (키워드가 이슈 설명에 포함)
+                if len(keyword_lower) > 2:  # 2글자 이하는 부분매칭 제외
+                    for word in issue_lower.split():
+                        if keyword_lower in word or word in keyword_lower:
+                            match_score += 1
+                            matched_keywords.append(f"{keyword}(부분)")
+                            break
+                
+                # 3. 동의어 매칭
+                if keyword_lower in synonym_map:
+                    for synonym in synonym_map[keyword_lower]:
+                        if synonym.lower() in issue_lower:
+                            match_score += 1.5  # 동의어 매칭은 중간 점수
+                            matched_keywords.append(f"{keyword}→{synonym}")
+                            break
+                
+                # 4. 역방향 동의어 매칭
+                for base_word, synonyms in synonym_map.items():
+                    if keyword_lower in [s.lower() for s in synonyms]:
+                        if base_word in issue_lower:
+                            match_score += 1.5
+                            matched_keywords.append(f"{keyword}←{base_word}")
+                            break
+            
+            # 특별 가중치: 홍보그룹은 모든 이슈에 기본 점수 부여
+            if dept_name == "홍보그룹" and match_score == 0:
+                match_score = 0.5
+                matched_keywords.append("기본대응부서")
             
             if match_score > 0:
                 dept_data = {
@@ -1181,42 +1283,96 @@ JSON 형식으로 응답:
                     "이메일": dept_info.get("이메일", ""),
                     "담당이슈": dept_info.get("담당이슈", []),
                     "우선순위": dept_info.get("우선순위", 999),
-                    "매칭점수": match_score
+                    "매칭점수": round(match_score, 1),
+                    "매칭키워드": matched_keywords
                 }
                 relevant_depts.append(dept_data)
         
-        # 우선순위와 매칭점수로 정렬
+        # 매칭점수 우선, 우선순위 차순으로 정렬
         relevant_depts.sort(key=lambda x: (-x["매칭점수"], x["우선순위"]))
+        
+        # 최소 1개 부서는 반환 (홍보그룹)
+        if not relevant_depts:
+            # 홍보그룹을 기본 부서로 추가
+            hongbo_info = departments.get("홍보그룹", {})
+            if hongbo_info:
+                default_dept = {
+                    "부서명": "홍보그룹",
+                    "담당자": hongbo_info.get("담당자", ""),
+                    "연락처": hongbo_info.get("연락처", ""),
+                    "이메일": hongbo_info.get("이메일", ""),
+                    "담당이슈": hongbo_info.get("담당이슈", []),
+                    "우선순위": hongbo_info.get("우선순위", 2),
+                    "매칭점수": 0.1,
+                    "매칭키워드": ["기본대응부서"]
+                }
+                relevant_depts.append(default_dept)
         
         return relevant_depts[:5]  # 상위 5개 부서만 반환
     
     def _assess_crisis_level_from_master_data(self, issue_description: str) -> str:
-        """master_data.json의 crisis_levels 기준으로 위기단계 판정"""
+        """master_data.json의 crisis_levels 기준으로 위기단계 판정 (개선된 버전)"""
         if not self.master_data:
             return "2단계 (주의)"
         
         crisis_levels = self.master_data.get("crisis_levels", {})
+        if not crisis_levels:
+            return "2단계 (주의)"
+            
         issue_lower = issue_description.lower()
         
-        # 4단계부터 역순으로 체크 (높은 단계부터)
-        for level_name, level_info in sorted(crisis_levels.items(), reverse=True):
-            examples = level_info.get("예시", [])
-            
-            # 키워드 기반 매칭
-            high_risk_keywords = ["유출", "사고", "폐수", "해킹", "검찰", "수사", "위약금", "손실"]
-            medium_risk_keywords = ["결함", "리콜", "리베이트", "차질", "항의", "문제"]
-            
-            if level_name == "4단계 (비상)":
-                if any(keyword in issue_lower for keyword in ["폐수", "유출", "해킹", "검찰"]):
-                    return level_name
-            elif level_name == "3단계 (위기)":
-                if any(keyword in issue_lower for keyword in high_risk_keywords):
-                    return level_name
-            elif level_name == "2단계 (주의)":
-                if any(keyword in issue_lower for keyword in medium_risk_keywords):
-                    return level_name
+        # 단계별 매칭 점수 계산
+        level_scores = {}
         
-        return "2단계 (주의)"  # 기본값
+        for level_name, level_info in crisis_levels.items():
+            score = 0
+            examples = level_info.get("예시", [])
+            definition = level_info.get("정의", "").lower()
+            
+            # 1. 예시 키워드 직접 매칭 (높은 점수)
+            for example in examples:
+                example_lower = example.lower()
+                if example_lower in issue_lower:
+                    score += 3  # 직접 매칭은 3점
+                elif any(word in issue_lower for word in example_lower.split()):
+                    score += 1  # 부분 매칭은 1점
+            
+            # 2. 정의 키워드 매칭
+            definition_keywords = definition.split()
+            for keyword in definition_keywords:
+                if len(keyword) > 2 and keyword in issue_lower:
+                    score += 0.5
+            
+            # 3. 맥락 기반 매칭 (추가 키워드)
+            context_keywords = {
+                "1단계 (관심)": ["출시", "발표", "수상", "긍정", "성과", "성장", "개선", "기여", "협약", "파트너십"],
+                "2단계 (주의)": ["문의", "검토", "확인", "관련", "관심", "우려", "검증", "점검"],
+                "3단계 (위기)": ["논란", "비판", "항의", "문제", "의혹", "조사", "검찰", "수사", "리콜", "결함"],
+                "4단계 (비상)": ["사고", "유출", "폭발", "화재", "인명피해", "환경오염", "대규모", "심각", "비상사태"]
+            }
+            
+            if level_name in context_keywords:
+                for keyword in context_keywords[level_name]:
+                    if keyword in issue_lower:
+                        score += 2  # 맥락 키워드는 2점
+            
+            level_scores[level_name] = score
+        
+        # 점수가 가장 높은 단계 선택
+        if level_scores:
+            best_level = max(level_scores, key=level_scores.get)
+            if level_scores[best_level] > 0:
+                return best_level
+        
+        # 점수가 모두 0이면 내용 분석으로 기본 판정
+        if any(word in issue_lower for word in ["실적", "발표", "출시", "수상", "성과"]):
+            return "1단계 (관심)"
+        elif any(word in issue_lower for word in ["사고", "유출", "피해", "비상"]):
+            return "4단계 (비상)"
+        elif any(word in issue_lower for word in ["논란", "의혹", "조사", "문제"]):
+            return "3단계 (위기)"
+        else:
+            return "2단계 (주의)"  # 기본값
     
     def _get_media_info_from_master_data(self, media_name: str) -> dict:
         """master_data.json에서 언론사 정보 추출"""
@@ -1329,48 +1485,46 @@ JSON 형식으로 응답:
         web_results = {"sources": {}, "search_summary": "웹 검색 결과 없음"}
         
         try:
-            # 강화된 연구 서비스 임포트 및 초기화
-            from enhanced_research_service import EnhancedResearchService
-            enhanced_research = EnhancedResearchService()
-            
-            print("  PROCESSING: 다중 소스 병렬 검색 시작...")
-            
-            # 종합적인 다중 소스 검색 수행
-            comprehensive_results = enhanced_research.research_issue_comprehensive(issue_description)
-            
-            web_results = {
-                "sources": comprehensive_results["sources"],
-                "search_query": comprehensive_results["search_query"],
-                "analysis_summary": comprehensive_results["analysis_summary"],
-                "search_summary": f"총 {comprehensive_results['analysis_summary']['total_sources']}건 수집 (신뢰도: {comprehensive_results['analysis_summary']['credibility_level']})"
-            }
-            
-            print(f"  SUCCESS: 다중 소스 검색 완료 - {comprehensive_results['analysis_summary']['total_sources']}건")
-            print(f"  SOURCES: 네이버뉴스 {comprehensive_results['analysis_summary']['source_breakdown']['naver_news']}건, 공식소스 {comprehensive_results['analysis_summary']['source_breakdown']['posco_official']}건")
-            
-        except ImportError:
-            print("  WARNING: 강화된 연구 서비스 모듈 없음, 기본 검색으로 전환")
-            # 기본 네이버 검색으로 폴백
-            if self.research_service:
+            # Enhanced Research Service를 우선 사용
+            if self.enhanced_research:
+                print("  PROCESSING: 강화된 다중 소스 검색 시작...")
                 try:
-                    search_query = f"포스코인터내셔널 {issue_description[:50]}"
-                    news_results = self.research_service.search_news(search_query, display=15)
-                    
-                    web_results = {
-                        "sources": {"naver_news": news_results.get("items", [])[:10] if news_results else []},
-                        "search_query": search_query,
-                        "search_summary": f"{len(news_results.get('items', []))}건의 관련 뉴스 발견" if news_results else "관련 뉴스 없음"
-                    }
-                    
+                    enhanced_results = self.enhanced_research.research_issue_comprehensive(issue_description)
+                    if enhanced_results and enhanced_results.get('sources'):
+                        # 웹 검색 결과 형식에 맞게 변환
+                        total_sources = sum(len(sources) for sources in enhanced_results['sources'].values())
+                        web_results = {
+                            "sources": enhanced_results['sources'],
+                            "search_summary": f"다중 소스 검색 완료 - 총 {total_sources}건 (신뢰도: {enhanced_results.get('analysis_summary', {}).get('credibility_level', 'N/A')})"
+                        }
+                        print(f"  RESULT: 강화된 다중 소스 검색 완료 - {web_results.get('search_summary')}")
+                        return web_results
                 except Exception as e:
-                    print(f"  WARNING: 기본 웹 검색도 실패: {str(e)}")
-            else:
-                print("  WARNING: 웹 검색 서비스 비활성화")
-                
-        except Exception as e:
-            print(f"  ERROR: 강화된 웹 검색 실패: {str(e)}")
+                    print(f"  WARNING: 강화된 검색 실패, 기본 검색으로 전환: {str(e)}")
             
-        return web_results
+            # 기본 검색 서비스 사용 (폴백)
+            if not self.research_service:
+                print("  WARNING: 검색 서비스가 초기화되지 않았습니다.")
+                return web_results
+            
+            print("  PROCESSING: 기본 네이버 API 검색 시작...")
+            
+            # 기존 IssueResearchService 사용
+            search_results = self.research_service.comprehensive_search(issue_description)
+            
+            if search_results and len(search_results) > 0:
+                web_results = {
+                    "sources": {"naver_news": search_results},
+                    "search_query": issue_description,
+                    "search_summary": f"네이버 뉴스 {len(search_results)}건 수집"
+                }
+            
+            print(f"  RESULT: {web_results['search_summary']}")
+            return web_results
+            
+        except Exception as e:
+            print(f"  ERROR: 웹 검색 중 오류 발생: {str(e)}")
+            return web_results
     
     def _verify_facts_and_background(self, issue_description: str, web_results: dict, initial_analysis: dict) -> dict:
         """강화된 다중 소스 기반 사실 확인"""
@@ -1655,8 +1809,8 @@ JSON 형식으로 상세하게 응답해주세요.
 {issue_description}
 
 4. 유관 의견:
+{self._format_department_opinions_for_report(relevant_depts, department_opinions)}
 - 사실 확인: {fact_verification.get('fact_status', 'N/A')} (신뢰도: {fact_verification.get('credibility', 'N/A')})
-- 설명 논리: {', '.join([f"{dept['부서명']}" for dept in relevant_depts[:2]])} 등 관련 부서 의견 수렴 중
 - 메시지 방향성: {pr_strategy.get('communication_tone', '신중한 접근')}
 
 5. 대응 방안:

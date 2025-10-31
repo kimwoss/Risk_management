@@ -1,0 +1,12 @@
+2025-08-10 09:40:07,965 - src.services.embedding_service - INFO - _load_model:21 - 임베딩 모델 로드 완료: jhgan/ko-sroberta-multitask
+2025-08-10 10:26:44,531 - src.services.embedding_service - INFO - _load_model:21 - 임베딩 모델 로드 완료: jhgan/ko-sroberta-multitask
+2025-08-10 10:26:44,531 - src.services.embedding_service - INFO - create_embeddings:33 - 임베딩 생성 시작: 220개 텍스트
+2025-08-10 10:27:34,175 - src.services.embedding_service - INFO - create_embeddings:35 - 임베딩 생성 완료
+2025-08-10 10:27:34,183 - src.services.embedding_service - INFO - build_faiss_index:47 - FAISS 인덱스 생성 완료: 220개 벡터, 768차원
+2025-08-10 10:27:34,201 - src.services.embedding_service - INFO - save_index:60 - 인덱스 저장 완료: C:\Users\kimwoss\Desktop\NEW_RISK_MANAGEMENT\data\index\faiss_index.bin
+2025-08-10 10:27:38,183 - src.services.embedding_service - INFO - _load_model:21 - 임베딩 모델 로드 완료: jhgan/ko-sroberta-multitask
+2025-08-10 10:27:38,183 - src.services.embedding_service - INFO - load_index:75 - 인덱스 로드 완료
+2025-08-10 10:28:29,273 - src.services.embedding_service - INFO - _load_model:21 - 임베딩 모델 로드 완료: jhgan/ko-sroberta-multitask
+2025-08-10 10:28:29,277 - src.services.embedding_service - INFO - load_index:75 - 인덱스 로드 완료
+2025-08-10 10:31:06,007 - src.services.embedding_service - INFO - _load_model:21 - 임베딩 모델 로드 완료: jhgan/ko-sroberta-multitask
+2025-08-10 10:31:06,008 - src.services.embedding_service - INFO - load_index:75 - 인덱스 로드 완료

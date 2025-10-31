@@ -130,15 +130,29 @@ class IssueResearchService:
         """검색 쿼리 최적화"""
         # 기본적인 키워드 추출 및 정제
         query = issue_description.strip()
-        
+
         # 불필요한 문구 제거
         remove_phrases = ["발생한", "이슈", "문제", "상황", "관련", "대해서", "에 대한"]
         for phrase in remove_phrases:
             query = query.replace(phrase, "")
-        
+
         # 공백 정리
         query = " ".join(query.split())
-        
+
+        # 정확한 검색이 필요한 복합어 처리
+        # "포스코인터내셔널"과 같이 띄어쓰기 없는 고유명사는 큰따옴표로 감싸서 정확한 매칭
+        exact_match_keywords = [
+            "포스코인터내셔널",
+            "POSCO인터내셔널",
+            "POSCO INTERNATIONAL"
+        ]
+
+        for keyword in exact_match_keywords:
+            if keyword in query:
+                # 이미 큰따옴표로 감싸져 있지 않은 경우에만 추가
+                if f'"{keyword}"' not in query:
+                    query = query.replace(keyword, f'"{keyword}"')
+
         return query
     
     def _process_news_results(self, news_items: List[Dict]) -> List[Dict]:

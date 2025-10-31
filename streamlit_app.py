@@ -1772,10 +1772,8 @@ def page_news_monitor():
         "삼척블루파워",
         "구동모터코아",
         "구동모터코어",
-        "미얀마 LNG",  # 콤마 추가
+        "미얀마 LNG",
         "포스코모빌리티솔루션",
-        "속보+포스코",  # [속보]와 포스코가 함께 언급된 기사
-        "단독+포스코",  # 단독과 포스코가 함께 언급된 기사
         "포스코"  # 일반 포스코 기사 (기존 키워드 제외 필터링 적용)
     ]
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
@@ -1836,38 +1834,30 @@ def page_news_monitor():
             all_news = []
             if api_ok:
                 # 키워드별 최신순 수집
-                # 모든 키워드에서 제외할 단어: 분양, 청약, 입주
-                exclude_words = ["분양", "청약", "입주"]
-
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
                     if not df_kw.empty:
-                        # 모든 키워드에 대해 "분양", "청약", "입주" 필터링 적용
-                        def should_include_filter(row):
-                            title = str(row.get("기사제목", ""))
-                            # 제목에 "분양", "청약", "입주"가 있으면 제외
-                            for exclude_word in exclude_words:
-                                if exclude_word in title:
-                                    return False
-                            return True
-
-                        # 필터링 적용
-                        mask_filter = df_kw.apply(should_include_filter, axis=1)
-                        df_kw = df_kw[mask_filter].reset_index(drop=True)
-
-                        # "포스코" 키워드의 경우 추가 필터링
-                        if kw == "포스코" and not df_kw.empty:
+                        # "포스코" 키워드의 경우 특별 처리
+                        if kw == "포스코":
                             def should_include_posco(row):
                                 title = str(row.get("기사제목", ""))
                                 title_lower = title.lower()
+                                description = str(row.get("주요기사 요약", ""))  # 내용 필드
+                                content_lower = description.lower()
 
                                 # 1단계: 제목에 "포스코"가 있는가?
                                 if "포스코" not in title and "posco" not in title_lower:
                                     return False
 
-                                # 2단계: 제목에 제외 키워드가 없는가?
+                                # 2단계: 제목에 제외 키워드(포스코인터내셔널 등)가 없는가?
                                 for exclude_kw in exclude_keywords:
                                     if exclude_kw.lower() in title_lower:
+                                        return False
+
+                                # 3단계: 제목 또는 내용에 "청약", "분양", "입주"가 없는가?
+                                exclude_words = ["청약", "분양", "입주"]
+                                for exclude_word in exclude_words:
+                                    if exclude_word in title or exclude_word in description:
                                         return False
 
                                 return True
@@ -1876,7 +1866,20 @@ def page_news_monitor():
                             mask_posco = df_kw.apply(should_include_posco, axis=1)
                             df_kw = df_kw[mask_posco].reset_index(drop=True)
                             if not df_kw.empty:
-                                print(f"[DEBUG] '포스코' 제목 필터링: {len(df_kw)}건 추가")
+                                print(f"[DEBUG] '포스코' 필터링 완료: {len(df_kw)}건 추가")
+
+                        else:
+                            # 다른 키워드는 기존처럼 제목에서만 "분양", "청약", "입주" 제거
+                            exclude_words = ["분양", "청약", "입주"]
+                            def should_include_general(row):
+                                title = str(row.get("기사제목", ""))
+                                for exclude_word in exclude_words:
+                                    if exclude_word in title:
+                                        return False
+                                return True
+
+                            mask_general = df_kw.apply(should_include_general, axis=1)
+                            df_kw = df_kw[mask_general].reset_index(drop=True)
 
                         if not df_kw.empty:
                             all_news.append(df_kw)

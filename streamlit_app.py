@@ -1836,24 +1836,24 @@ def page_news_monitor():
             all_news = []
             if api_ok:
                 # 키워드별 최신순 수집
-                # 부동산 관련 제외 키워드 (전역)
-                real_estate_keywords = ["분양", "청약", "입주"]
+                # 모든 키워드에서 제외할 단어: 분양, 청약, 입주
+                exclude_words = ["분양", "청약", "입주"]
 
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
                     if not df_kw.empty:
-                        # 모든 키워드에 대해 부동산 필터링 적용
-                        def should_include_real_estate(row):
+                        # 모든 키워드에 대해 "분양", "청약", "입주" 필터링 적용
+                        def should_include_filter(row):
                             title = str(row.get("기사제목", ""))
-                            # 제목에 부동산 관련 키워드가 있으면 제외
-                            for real_estate_kw in real_estate_keywords:
-                                if real_estate_kw in title:
+                            # 제목에 "분양", "청약", "입주"가 있으면 제외
+                            for exclude_word in exclude_words:
+                                if exclude_word in title:
                                     return False
                             return True
 
-                        # 부동산 필터링 적용
-                        mask_real_estate = df_kw.apply(should_include_real_estate, axis=1)
-                        df_kw = df_kw[mask_real_estate].reset_index(drop=True)
+                        # 필터링 적용
+                        mask_filter = df_kw.apply(should_include_filter, axis=1)
+                        df_kw = df_kw[mask_filter].reset_index(drop=True)
 
                         # "포스코" 키워드의 경우 추가 필터링
                         if kw == "포스코" and not df_kw.empty:

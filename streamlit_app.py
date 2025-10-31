@@ -1836,20 +1836,28 @@ def page_news_monitor():
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
                     if not df_kw.empty:
-                        # "포스코" 키워드의 경우 기존 키워드 제외 필터링
+                        # "포스코" 키워드의 경우 제목 기반 필터링
                         if kw == "포스코":
-                            def should_exclude(row):
-                                title = str(row.get("기사제목", "")).lower()
-                                summary = str(row.get("주요기사 요약", "")).lower()
-                                content = title + " " + summary
-                                # 제외 키워드가 하나라도 포함되면 제외
-                                return any(exclude_kw.lower() in content for exclude_kw in exclude_keywords)
+                            def should_include(row):
+                                title = str(row.get("기사제목", ""))
+                                title_lower = title.lower()
 
-                            # 제외 키워드가 없는 기사만 포함
-                            mask = ~df_kw.apply(should_exclude, axis=1)
+                                # 1단계: 제목에 "포스코"가 있는가?
+                                if "포스코" not in title and "posco" not in title_lower:
+                                    return False
+
+                                # 2단계: 제목에 제외 키워드가 없는가?
+                                for exclude_kw in exclude_keywords:
+                                    if exclude_kw.lower() in title_lower:
+                                        return False
+
+                                return True
+
+                            # 조건을 만족하는 기사만 포함
+                            mask = df_kw.apply(should_include, axis=1)
                             df_kw = df_kw[mask].reset_index(drop=True)
                             if not df_kw.empty:
-                                print(f"[DEBUG] '포스코' 검색 후 필터링: {len(df_kw)}건 추가")
+                                print(f"[DEBUG] '포스코' 제목 필터링: {len(df_kw)}건 추가")
 
                         if not df_kw.empty:
                             all_news.append(df_kw)

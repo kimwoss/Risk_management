@@ -1943,36 +1943,101 @@ def page_news_monitor():
                 st.error("❌ Chat ID: 설정 안 됨")
                 st.info("💡 Streamlit Cloud → Settings → Secrets에 TELEGRAM_CHAT_ID 추가")
 
+        # Chat ID 자동 확인 버튼
+        st.markdown("---")
+        st.markdown("### 🔍 Chat ID 자동 확인")
+        st.info("💡 텔레그램 앱에서 봇에게 먼저 메시지를 보낸 후 아래 버튼을 클릭하세요!")
+
+        if st.button("🔎 내 Chat ID 확인하기"):
+            if not bot_token:
+                st.error("❌ 봇 토큰이 설정되지 않았습니다.")
+            else:
+                try:
+                    updates_url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
+                    response = requests.get(updates_url, timeout=10)
+
+                    if response.status_code == 200:
+                        data = response.json()
+                        if data.get("ok") and data.get("result"):
+                            results = data["result"]
+                            if results:
+                                # 가장 최근 메시지에서 chat_id 추출
+                                latest_message = results[-1]
+                                detected_chat_id = latest_message.get("message", {}).get("chat", {}).get("id")
+
+                                if detected_chat_id:
+                                    st.success(f"✅ Chat ID 발견: `{detected_chat_id}`")
+                                    st.code(f'TELEGRAM_CHAT_ID = "{detected_chat_id}"', language="toml")
+
+                                    # 현재 설정된 Chat ID와 비교
+                                    if chat_id and str(chat_id) != str(detected_chat_id):
+                                        st.warning(f"⚠️ 주의: 현재 설정된 Chat ID ({chat_id})와 다릅니다!")
+                                        st.info("👆 위의 Chat ID를 Streamlit Cloud Secrets에 복사하세요!")
+                                    elif str(chat_id) == str(detected_chat_id):
+                                        st.success("✅ 현재 설정된 Chat ID가 정확합니다!")
+                                else:
+                                    st.error("❌ Chat ID를 찾을 수 없습니다.")
+                            else:
+                                st.warning("⚠️ 메시지가 없습니다. 텔레그램 앱에서 봇에게 먼저 메시지를 보내주세요!")
+                        else:
+                            st.error(f"❌ API 오류: {data}")
+                    else:
+                        st.error(f"❌ API 호출 실패: {response.status_code}")
+                except Exception as e:
+                    st.error(f"❌ 오류 발생: {str(e)}")
+
         # 테스트 메시지 전송 버튼
-        if st.button("🧪 테스트 알림 보내기"):
+        st.markdown("---")
+        st.markdown("### 🧪 알림 테스트")
+        if st.button("📤 테스트 알림 보내기"):
             if not bot_token or not chat_id:
                 st.error("❌ 텔레그램 설정이 완료되지 않았습니다. 위의 환경변수를 먼저 설정해주세요.")
             else:
-                test_articles = [{
-                    "title": "테스트 알림 - 포스코인터내셔널 뉴스 모니터링 시스템",
-                    "link": "https://www.posco-inc.com",
-                    "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
-                    "press": "시스템 테스트"
-                }]
-
                 st.info("🔄 테스트 알림을 전송하는 중...")
-                send_telegram_notification(test_articles)
 
-                # 결과 확인을 위한 API 테스트
+                # 직접 메시지 전송 (상세 결과 확인)
                 try:
-                    test_url = f"https://api.telegram.org/bot{bot_token}/getMe"
-                    response = requests.get(test_url, timeout=10)
+                    message = "🧪 *테스트 알림*\n\n포스코인터내셔널 뉴스 모니터링 시스템이 정상 작동 중입니다!"
+                    send_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+                    payload = {
+                        "chat_id": chat_id,
+                        "text": message,
+                        "parse_mode": "Markdown"
+                    }
+
+                    response = requests.post(send_url, json=payload, timeout=10)
+
                     if response.status_code == 200:
-                        bot_info = response.json()
-                        if bot_info.get("ok"):
-                            st.success(f"✅ 봇 연결 성공! 봇 이름: @{bot_info['result'].get('username', 'unknown')}")
+                        result = response.json()
+                        if result.get("ok"):
+                            st.success("✅ 메시지 전송 성공!")
                             st.success("📱 텔레그램 앱을 확인해보세요!")
+                            st.json({"status": "success", "message_id": result.get("result", {}).get("message_id")})
                         else:
-                            st.error(f"❌ 봇 토큰 오류: {bot_info}")
+                            st.error(f"❌ 전송 실패: {result}")
+                    elif response.status_code == 400:
+                        error_data = response.json()
+                        st.error("❌ Chat ID 오류!")
+                        st.error(f"오류 내용: {error_data.get('description', '알 수 없는 오류')}")
+
+                        if "chat not found" in str(error_data).lower():
+                            st.warning("⚠️ Chat ID를 찾을 수 없습니다.")
+                            st.info("💡 해결 방법:")
+                            st.markdown("1. 텔레그램 앱에서 봇과 대화를 시작하세요 (아무 메시지나 전송)")
+                            st.markdown("2. 위의 '🔎 내 Chat ID 확인하기' 버튼을 클릭하세요")
+                            st.markdown("3. 올바른 Chat ID를 Streamlit Cloud Secrets에 설정하세요")
+                    elif response.status_code == 401:
+                        st.error("❌ 봇 토큰 오류!")
+                        st.error("봇 토큰이 잘못되었거나 만료되었습니다.")
+                        st.info("💡 텔레그램에서 @BotFather → /mybots → API Token을 확인하세요")
                     else:
-                        st.error(f"❌ API 오류: {response.status_code} - {response.text}")
+                        st.error(f"❌ API 오류: {response.status_code}")
+                        st.error(f"응답 내용: {response.text}")
+
                 except Exception as e:
                     st.error(f"❌ 연결 오류: {str(e)}")
+                    import traceback
+                    st.code(traceback.format_exc())
 
     st.markdown("---")
 

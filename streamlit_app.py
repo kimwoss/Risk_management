@@ -2007,9 +2007,9 @@ def page_news_monitor():
         # Chat ID 자동 확인 버튼
         st.markdown("---")
         st.markdown("### 🔍 Chat ID 자동 확인")
-        st.info("💡 텔레그램 앱에서 봇에게 먼저 메시지를 보낸 후 아래 버튼을 클릭하세요!")
+        st.info("💡 **개인 메시지**: 봇에게 직접 메시지 전송 | **그룹**: 그룹에 봇 추가 후 메시지 전송")
 
-        if st.button("🔎 내 Chat ID 확인하기"):
+        if st.button("🔎 Chat ID 확인하기"):
             if not bot_token:
                 st.error("❌ 봇 토큰이 설정되지 않았습니다.")
             else:
@@ -2022,12 +2022,25 @@ def page_news_monitor():
                         if data.get("ok") and data.get("result"):
                             results = data["result"]
                             if results:
-                                # 가장 최근 메시지에서 chat_id 추출
+                                # 가장 최근 메시지에서 chat 정보 추출
                                 latest_message = results[-1]
-                                detected_chat_id = latest_message.get("message", {}).get("chat", {}).get("id")
+                                chat_info = latest_message.get("message", {}).get("chat", {})
+                                detected_chat_id = chat_info.get("id")
+                                chat_type = chat_info.get("type", "unknown")
+                                chat_title = chat_info.get("title", chat_info.get("first_name", ""))
 
                                 if detected_chat_id:
-                                    st.success(f"✅ Chat ID 발견: `{detected_chat_id}`")
+                                    # Chat 타입 표시
+                                    if chat_type == "private":
+                                        st.success(f"✅ **개인 메시지** Chat ID 발견: `{detected_chat_id}`")
+                                        st.info(f"👤 사용자: {chat_title}")
+                                    elif chat_type in ["group", "supergroup"]:
+                                        st.success(f"✅ **그룹 채팅방** Chat ID 발견: `{detected_chat_id}`")
+                                        st.info(f"👥 그룹명: {chat_title}")
+                                        st.warning("⚠️ 그룹 Chat ID는 마이너스(-)로 시작합니다!")
+                                    else:
+                                        st.success(f"✅ Chat ID 발견: `{detected_chat_id}`")
+
                                     st.code(f'TELEGRAM_CHAT_ID = "{detected_chat_id}"', language="toml")
 
                                     # 현재 설정된 Chat ID와 비교
@@ -2039,7 +2052,8 @@ def page_news_monitor():
                                 else:
                                     st.error("❌ Chat ID를 찾을 수 없습니다.")
                             else:
-                                st.warning("⚠️ 메시지가 없습니다. 텔레그램 앱에서 봇에게 먼저 메시지를 보내주세요!")
+                                st.warning("⚠️ 메시지가 없습니다.")
+                                st.info("**개인**: 봇에게 직접 메시지 전송\n\n**그룹**: 그룹에 봇 추가 후 메시지 전송")
                         else:
                             st.error(f"❌ API 오류: {data}")
                     else:

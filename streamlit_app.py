@@ -7,8 +7,15 @@
 import os, json, re, time, base64, mimetypes, urllib.parse, requests
 from datetime import datetime, timezone, timedelta
 import threading
-from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
+
+# APScheduler import with error handling
+try:
+    from apscheduler.schedulers.background import BackgroundScheduler
+    SCHEDULER_AVAILABLE = True
+except ImportError:
+    SCHEDULER_AVAILABLE = False
+    print("[WARNING] APScheduler not available. Background monitoring disabled.")
 
 import pandas as pd
 import streamlit as st
@@ -1400,6 +1407,12 @@ def start_background_scheduler():
     앱 시작 시 한 번만 실행됨
     """
     global _scheduler
+
+    # APScheduler가 없으면 스킵
+    if not SCHEDULER_AVAILABLE:
+        print("[BACKGROUND] ⚠️ APScheduler가 설치되지 않아 백그라운드 모니터링이 비활성화되었습니다.")
+        print("[BACKGROUND] 브라우저에서 '뉴스 모니터링' 메뉴를 열어두면 수동 새로고침이 작동합니다.")
+        return
 
     with _scheduler_lock:
         # 이미 스케줄러가 실행 중이면 스킵

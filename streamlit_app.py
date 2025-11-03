@@ -1229,11 +1229,14 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 except Exception as e:
                     print(f"[DEBUG] 날짜 처리 오류: {str(e)}")
 
+                # URL에서 매체명 추출 (Streamlit과 동일한 방식)
+                press = _publisher_from_link(url)
+
                 new_articles.append({
                     "title": title if title and title != "nan" else "제목 없음",
                     "link": url,
                     "date": article_date_str,
-                    "press": row.get("언론사", "")
+                    "press": press
                 })
 
         print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (최근 6시간 이내)")

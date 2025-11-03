@@ -616,6 +616,21 @@ def _publisher_from_link(u: str) -> str:
             "bloter.net": "블로터",
             "amenews.kr": "신소재경제신문",
 
+            # 추가 매체명 변경 (2025-11-03)
+            "yonhapnewstv.co.kr": "연합뉴스TV",
+            "xportsnews.com": "엑스포츠뉴스",
+            "topstarnews.net": "탑스타뉴스",
+            "spotvnews.co.kr": "스포TV",
+            "sportsseoul.com": "스포츠서울",
+            "sisajournal-e.com": "시사저널e",
+            "newsfarm.co.kr": "뉴스팜",
+            "news2day.co.kr": "뉴스2데이",
+            "insightkorea.co.kr": "인사이트코리아",
+            "goodkyung.com": "굿모닝경제",
+            "consumernews.co.kr": "소비자가만드는신문",
+            "bigtanews.co.kr": "빅터뉴스",
+            "banronbodo.com": "반론보도닷컴",
+
             # 기타 대형/보편
             "chosun.com": "조선일보",
             "joongang.co.kr": "중앙일보",

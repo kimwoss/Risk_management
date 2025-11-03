@@ -1103,13 +1103,19 @@ def send_telegram_notification(new_articles: list):
             press = article.get("press", "")
 
             # 단문 메시지 구성
-            message = f"🚨 *새 뉴스*\n\n*{title}*\n\n"
+            message = f"🚨 *새 뉴스*\n\n"
+
+            # 제목 앞에 [언론사] 추가
             if press:
-                message += f"📰 {press}\n"
+                message += f"*[{press}]* {title}\n"
+            else:
+                message += f"*{title}*\n"
+
+            # 날짜와 링크
             if date:
                 message += f"🕐 {date}\n"
             if link:
-                message += f"\n🔗 {link}"
+                message += f"🔗 {link}"
 
             payload = {
                 "chat_id": chat_id,

@@ -6,6 +6,9 @@
 """
 import os, json, re, time, base64, mimetypes, urllib.parse, requests
 from datetime import datetime, timezone, timedelta
+import threading
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 import pandas as pd
 import streamlit as st
@@ -1263,6 +1266,176 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
         print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
         return []
 
+# ----------------------------- 백그라운드 뉴스 모니터링 -----------------------------
+def background_news_monitor():
+    """
+    백그라운드에서 자동으로 뉴스를 수집하고 텔레그램 알림을 보내는 함수
+    브라우저 연결 여부와 관계없이 3분마다 자동 실행됨
+    """
+    try:
+        print(f"[BACKGROUND] 뉴스 수집 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+        # 키워드 설정
+        keywords = [
+            "포스코인터내셔널",
+            "POSCO INTERNATIONAL",
+            "포스코인터",
+            "삼척블루파워",
+            "구동모터코아",
+            "구동모터코어",
+            "미얀마 LNG",
+            "포스코모빌리티솔루션",
+            "포스코"
+        ]
+        exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
+                           "삼척블루파워", "포스코모빌리티솔루션"]
+        max_items = 100
+
+        # API 키 체크
+        headers = _naver_headers()
+        api_ok = bool(headers.get("X-Naver-Client-Id") and headers.get("X-Naver-Client-Secret"))
+
+        if not api_ok:
+            print("[BACKGROUND] API 키가 없어 수집을 건너뜁니다.")
+            return
+
+        # 기존 DB 로드
+        existing_db = load_news_db()
+
+        # 뉴스 수집
+        all_news = []
+        for kw in keywords:
+            df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
+            if not df_kw.empty:
+                # "포스코" 키워드의 경우 특별 처리
+                if kw == "포스코":
+                    def should_include_posco(row):
+                        title = str(row.get("기사제목", ""))
+                        title_lower = title.lower()
+                        description = str(row.get("주요기사 요약", ""))
+                        content_lower = description.lower()
+
+                        if "포스코" not in title and "posco" not in title_lower:
+                            return False
+
+                        for exclude_kw in exclude_keywords:
+                            if exclude_kw.lower() in title_lower:
+                                return False
+
+                        exclude_words = ["청약", "분양", "입주"]
+                        for exclude_word in exclude_words:
+                            if exclude_word in title or exclude_word in description:
+                                return False
+
+                        return True
+
+                    mask_posco = df_kw.apply(should_include_posco, axis=1)
+                    df_kw = df_kw[mask_posco].reset_index(drop=True)
+                    if not df_kw.empty:
+                        print(f"[BACKGROUND] '포스코' 필터링 완료: {len(df_kw)}건 추가")
+
+                else:
+                    # 다른 키워드는 기존처럼 제목에서만 "분양", "청약", "입주" 제거
+                    exclude_words = ["분양", "청약", "입주"]
+                    def should_include_general(row):
+                        title = str(row.get("기사제목", ""))
+                        for exclude_word in exclude_words:
+                            if exclude_word in title:
+                                return False
+                        return True
+
+                    mask_general = df_kw.apply(should_include_general, axis=1)
+                    df_kw = df_kw[mask_general].reset_index(drop=True)
+
+                if not df_kw.empty:
+                    all_news.append(df_kw)
+
+        # 통합 정리 & 저장
+        df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
+        if not df_new.empty:
+            df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
+            df_new = df_new.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
+            df_new = df_new.drop("날짜_datetime", axis=1)
+
+            # 중복 제거
+            key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
+            df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
+
+            # 기존 DB와 병합
+            merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
+            merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
+            if not merged.empty:
+                merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
+                merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
+                merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
+
+            # 신규 기사 감지 및 알림
+            new_articles = detect_new_articles(existing_db, df_new)
+
+            # 기존 DB가 비어있지 않을 때만 알림 전송 (첫 실행 스팸 방지)
+            if new_articles and not existing_db.empty:
+                print(f"[BACKGROUND] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
+                send_telegram_notification(new_articles)
+            elif new_articles:
+                print(f"[BACKGROUND] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
+
+            # DB 저장
+            save_news_db(merged)
+            print(f"[BACKGROUND] ✅ 뉴스 수집 완료: 총 {len(merged)}건 저장")
+        else:
+            print(f"[BACKGROUND] ℹ️ 새로 수집된 기사가 없습니다.")
+
+    except Exception as e:
+        print(f"[BACKGROUND] ❌ 뉴스 수집 오류: {str(e)}")
+        import traceback
+        print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
+
+# 백그라운드 스케줄러 전역 변수
+_scheduler = None
+_scheduler_lock = threading.Lock()
+
+def start_background_scheduler():
+    """
+    백그라운드 스케줄러를 시작하는 함수
+    앱 시작 시 한 번만 실행됨
+    """
+    global _scheduler
+
+    with _scheduler_lock:
+        # 이미 스케줄러가 실행 중이면 스킵
+        if _scheduler is not None and _scheduler.running:
+            print("[BACKGROUND] 스케줄러가 이미 실행 중입니다.")
+            return
+
+        try:
+            # BackgroundScheduler 생성
+            _scheduler = BackgroundScheduler(timezone="Asia/Seoul")
+
+            # 3분(180초)마다 background_news_monitor 실행
+            _scheduler.add_job(
+                background_news_monitor,
+                'interval',
+                seconds=180,
+                id='news_monitor',
+                replace_existing=True,
+                max_instances=1  # 동시 실행 방지
+            )
+
+            # 스케줄러 시작
+            _scheduler.start()
+            print(f"[BACKGROUND] ✅ 백그라운드 스케줄러 시작 완료 (3분마다 자동 실행)")
+
+            # 앱 종료 시 스케줄러도 종료
+            atexit.register(lambda: _scheduler.shutdown() if _scheduler else None)
+
+            # 즉시 첫 수집 실행 (별도 스레드로)
+            threading.Thread(target=background_news_monitor, daemon=True).start()
+
+        except Exception as e:
+            print(f"[BACKGROUND] ❌ 스케줄러 시작 오류: {str(e)}")
+            import traceback
+            print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
+
 # ----------------------------- 스타일 -----------------------------
 @st.cache_data(ttl=3600)  # CSS는 1시간 캐시
 def load_base_css():
@@ -2347,6 +2520,11 @@ def page_news_monitor():
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
+    # 백그라운드 스케줄러 시작 (앱 시작 시 한 번만 실행)
+    if "background_scheduler_started" not in st.session_state:
+        start_background_scheduler()
+        st.session_state["background_scheduler_started"] = True
+
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():
         show_login_page()

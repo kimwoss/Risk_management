@@ -64,12 +64,61 @@ st.set_page_config(
 
 # ----------------------------- 인증 설정 -----------------------------
 ACCESS_CODE = "pointl"  # 비밀코드
+import hashlib
+
+def get_auth_token():
+    """인증 토큰 생성 (보안을 위해 해시 사용)"""
+    return hashlib.sha256(f"{ACCESS_CODE}_secret_salt".encode()).hexdigest()
+
+def check_cookie_auth():
+    """쿠키에서 인증 정보 확인"""
+    auth_token = get_auth_token()
+
+    # JavaScript로 쿠키 확인
+    cookie_script = f"""
+    <script>
+        function getCookie(name) {{
+            const value = `; ${{document.cookie}}`;
+            const parts = value.split(`; ${{name}}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }}
+
+        const authToken = getCookie('posco_auth_token');
+        const authTokenValue = '{auth_token}';
+
+        if (authToken === authTokenValue) {{
+            // 인증 성공 - URL 파라미터로 전달
+            if (!window.location.search.includes('auto_login=1')) {{
+                const url = new URL(window.location);
+                url.searchParams.set('auto_login', '1');
+                window.location.href = url.toString();
+            }}
+        }}
+    </script>
+    """
+    st.components.v1.html(cookie_script, height=0)
+
+    # URL 파라미터 확인
+    if st.query_params.get("auto_login") == "1":
+        st.session_state.authenticated = True
+        # 파라미터 제거 (깔끔한 URL 유지)
+        st.query_params.clear()
+        return True
+
+    return False
 
 def check_authentication():
-    """인증 확인 함수"""
-    if "authenticated" not in st.session_state:
-        st.session_state.authenticated = False
-    return st.session_state.authenticated
+    """인증 확인 함수 (쿠키 + 세션)"""
+    # 이미 세션에서 인증됨
+    if st.session_state.get("authenticated", False):
+        return True
+
+    # 쿠키에서 인증 확인
+    if check_cookie_auth():
+        return True
+
+    return False
 
 def show_login_page():
     """로그인 페이지 표시 - Genesis 스타일"""
@@ -263,8 +312,27 @@ def show_login_page():
     st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
     if st.button("로그인", use_container_width=True, key="login_button"):
         if code_input == ACCESS_CODE:
+            # 쿠키 설정 (30일 유지)
+            auth_token = get_auth_token()
+            set_cookie_script = f"""
+            <script>
+                // 30일 동안 유효한 쿠키 설정
+                const days = 30;
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                const expires = "expires=" + date.toUTCString();
+                document.cookie = "posco_auth_token={auth_token}; " + expires + "; path=/; SameSite=Lax";
+
+                // 쿠키 설정 후 페이지 리로드
+                setTimeout(function() {{
+                    window.location.href = window.location.pathname;
+                }}, 100);
+            </script>
+            """
+            st.components.v1.html(set_cookie_script, height=0)
+
             st.session_state.authenticated = True
-            st.rerun()
+            st.success("✅ 로그인 성공! 자동으로 리다이렉트됩니다...")
         else:
             st.error("잘못된 비밀코드입니다. 다시 시도해주세요.")
 

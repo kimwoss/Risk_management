@@ -21,9 +21,10 @@ except ImportError:
 # 상수
 DATA_FOLDER = os.path.abspath("data")
 NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
-_MAX_SENT_CACHE = 1000
+SENT_CACHE_FILE = os.path.join(DATA_FOLDER, "sent_articles_cache.json")
+_MAX_SENT_CACHE = 500  # 캐시 크기 제한 (500개)
 
-# 전송된 기사 URL 추적 (메모리 기반, 최근 1000개)
+# 전송된 기사 URL 추적 (파일 기반 영구 저장)
 _sent_articles_cache = set()
 
 
@@ -47,6 +48,32 @@ def _clean_text(s: str) -> str:
     s = re.sub(r"</?b>", "", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
+
+
+def _normalize_url(url: str) -> str:
+    """
+    URL 정규화 - 중복 체크를 위해 URL을 표준 형식으로 변환
+    - 쿼리 파라미터 제거
+    - 프로토콜 통일 (http → https)
+    - 끝 슬래시 제거
+    """
+    try:
+        if not url:
+            return ""
+
+        # 쿼리 파라미터와 프래그먼트 제거
+        parsed = urllib.parse.urlparse(url)
+        # 프로토콜을 https로 통일
+        scheme = "https" if parsed.scheme in ["http", "https"] else parsed.scheme
+        # 재조립
+        normalized = f"{scheme}://{parsed.netloc}{parsed.path}"
+        # 끝 슬래시 제거
+        normalized = normalized.rstrip("/")
+
+        return normalized
+    except Exception as e:
+        print(f"[WARNING] URL 정규화 실패: {url} - {e}")
+        return url
 
 
 def _publisher_from_link(u: str) -> str:
@@ -262,6 +289,56 @@ def save_news_db(df: pd.DataFrame):
     print(f"[DEBUG] news saved: {len(out)} rows -> {NEWS_DB_FILE}")
 
 
+def load_sent_cache() -> set:
+    """
+    전송된 기사 캐시를 파일에서 로드
+    Returns:
+        전송된 기사 URL 세트
+    """
+    if os.path.exists(SENT_CACHE_FILE):
+        try:
+            import json
+            with open(SENT_CACHE_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                cache = set(data.get("urls", []))
+                print(f"[DEBUG] 전송 캐시 로드 완료: {len(cache)}건")
+                return cache
+        except Exception as e:
+            print(f"[WARNING] 전송 캐시 로드 실패: {e}")
+            return set()
+    else:
+        print(f"[DEBUG] 전송 캐시 파일 없음 - 새로 생성")
+        return set()
+
+
+def save_sent_cache(cache: set):
+    """
+    전송된 기사 캐시를 파일에 저장
+    Args:
+        cache: 전송된 기사 URL 세트
+    """
+    try:
+        import json
+        # data 폴더 생성
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+
+        # 최근 _MAX_SENT_CACHE개만 유지
+        cache_list = list(cache)[-_MAX_SENT_CACHE:]
+
+        data = {
+            "urls": cache_list,
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "count": len(cache_list)
+        }
+
+        with open(SENT_CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        print(f"[DEBUG] 전송 캐시 저장 완료: {len(cache_list)}건 -> {SENT_CACHE_FILE}")
+    except Exception as e:
+        print(f"[WARNING] 전송 캐시 저장 실패: {e}")
+
+
 def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
     """
     기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
@@ -280,14 +357,16 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
         # 현재 시간 기준
         now = datetime.now()
 
-        # 기존 DB의 URL 세트 생성
+        # 기존 DB의 URL 세트 생성 (정규화된 URL 사용)
         old_urls = set()
+        old_urls_normalized = set()
         for _, row in old_df.iterrows():
             url = str(row.get("URL", "")).strip()
             if url and url != "nan" and url != "":
                 old_urls.add(url)
+                old_urls_normalized.add(_normalize_url(url))
 
-        print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)}")
+        print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)} (정규화: {len(old_urls_normalized)})")
         print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
 
         # 신규 기사 감지
@@ -300,8 +379,11 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
             if not url or url == "nan" or url == "":
                 continue
 
-            # URL이 기존 DB에 없으면 신규
-            if url not in old_urls:
+            # URL 정규화
+            url_normalized = _normalize_url(url)
+
+            # URL이 기존 DB에 없으면 신규 (원본과 정규화 버전 모두 체크)
+            if url not in old_urls and url_normalized not in old_urls_normalized:
                 # 날짜 파싱 시도
                 article_date_str = row.get("날짜", "")
                 try:
@@ -358,6 +440,7 @@ def send_telegram_notification(new_articles: list):
 
         print(f"[DEBUG] 텔레그램 알림 시도 - 기사 수: {len(new_articles) if new_articles else 0}")
         print(f"[DEBUG] 봇 토큰 존재: {bool(bot_token)}, Chat ID 존재: {bool(chat_id)}")
+        print(f"[DEBUG] 현재 캐시 크기: {len(_sent_articles_cache)}건")
 
         # 환경변수가 없으면 알림 스킵
         if not bot_token or not chat_id:
@@ -369,18 +452,23 @@ def send_telegram_notification(new_articles: list):
             print("[DEBUG] 신규 기사 없음 - 알림 스킵")
             return
 
-        # 이미 전송된 기사 필터링
+        # 이미 전송된 기사 필터링 (캐시 기반, URL 정규화)
         articles_to_send = []
         for article in new_articles:
             url_key = article.get("link", "")
-            if url_key and url_key not in _sent_articles_cache:
+            url_normalized = _normalize_url(url_key)
+
+            # 원본 URL과 정규화 URL 모두 체크
+            if url_key and url_key not in _sent_articles_cache and url_normalized not in _sent_articles_cache:
                 articles_to_send.append(article)
+            else:
+                print(f"[DEBUG] 캐시에 이미 존재하여 스킵: {article.get('title', '')[:30]}...")
 
         if not articles_to_send:
             print("[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵")
             return
 
-        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (중복 제외: {len(new_articles) - len(articles_to_send)}건)")
+        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (캐시 중복 제외: {len(new_articles) - len(articles_to_send)}건)")
 
         # 최대 10개까지만 알림
         articles_to_notify = articles_to_send[:10]
@@ -424,12 +512,9 @@ def send_telegram_notification(new_articles: list):
                     success_count += 1
                     print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
 
-                    # 전송 성공한 기사는 캐시에 추가
+                    # 전송 성공한 기사는 캐시에 추가 (원본 + 정규화 URL 모두)
                     _sent_articles_cache.add(link)
-                    # 캐시 크기 제한
-                    if len(_sent_articles_cache) > _MAX_SENT_CACHE:
-                        # 오래된 항목 제거
-                        _sent_articles_cache.pop()
+                    _sent_articles_cache.add(_normalize_url(link))
                 else:
                     print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code} - {title[:30]}...")
 
@@ -441,7 +526,10 @@ def send_telegram_notification(new_articles: list):
                 print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
 
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
-        print(f"[DEBUG] 전송 캐시 크기: {len(_sent_articles_cache)}건")
+        print(f"[DEBUG] 전송 후 캐시 크기: {len(_sent_articles_cache)}건")
+
+        # 캐시를 파일에 저장 (영구 보관)
+        save_sent_cache(_sent_articles_cache)
 
         # 5개 이상 남은 기사가 있으면 요약 메시지
         if len(new_articles) > 10:
@@ -473,10 +561,15 @@ def main():
     """
     백그라운드 뉴스 모니터링 메인 함수
     """
+    global _sent_articles_cache
+
     try:
         safe_print("=" * 80)
         safe_print(f"[MONITOR] 뉴스 수집 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         safe_print("=" * 80)
+
+        # 전송 캐시 로드 (이전 실행에서 전송한 기사 정보)
+        _sent_articles_cache = load_sent_cache()
 
         # 키워드 설정
         keywords = [
@@ -606,6 +699,14 @@ def main():
                 send_telegram_notification(new_articles)
             elif new_articles:
                 safe_print(f"[MONITOR] [SKIP] 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
+                # 첫 실행에서도 캐시에 추가하여 다음 실행 시 중복 방지
+                for article in new_articles:
+                    url = article.get("link", "")
+                    if url:
+                        _sent_articles_cache.add(url)
+                        _sent_articles_cache.add(_normalize_url(url))
+                print(f"[DEBUG] 신규 기사 {len(new_articles)}건을 캐시에 추가 (알림 미전송)")
+                save_sent_cache(_sent_articles_cache)
 
             safe_print(f"[MONITOR] [SUCCESS] 뉴스 수집 완료")
         else:

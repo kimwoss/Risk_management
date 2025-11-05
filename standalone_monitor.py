@@ -343,8 +343,11 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
     """
     기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
     - URL을 우선 식별자로 사용
-    - 최근 6시간 이내 기사만 알림 대상
+    - 최근 1시간 이내 기사만 알림 대상 (중복 방지 강화)
+    - 캐시도 함께 체크
     """
+    global _sent_articles_cache
+
     try:
         # 기존 DB가 비어있으면 신규 기사 없음으로 처리 (첫 실행 스팸 방지)
         if old_df.empty:
@@ -367,6 +370,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 old_urls_normalized.add(_normalize_url(url))
 
         print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)} (정규화: {len(old_urls_normalized)})")
+        print(f"[DEBUG] 캐시 크기: {len(_sent_articles_cache)}건")
         print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
 
         # 신규 기사 감지
@@ -382,43 +386,50 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
             # URL 정규화
             url_normalized = _normalize_url(url)
 
-            # URL이 기존 DB에 없으면 신규 (원본과 정규화 버전 모두 체크)
-            if url not in old_urls and url_normalized not in old_urls_normalized:
-                # 날짜 파싱 시도
-                article_date_str = row.get("날짜", "")
-                try:
-                    # 날짜 형식: "YYYY-MM-DD HH:MM"
-                    article_date = pd.to_datetime(article_date_str, errors="coerce")
+            # 3단계 중복 체크: DB + 캐시 + 정규화
+            is_in_db = url in old_urls or url_normalized in old_urls_normalized
+            is_in_cache = url in _sent_articles_cache or url_normalized in _sent_articles_cache
 
-                    # 날짜가 유효하면 최근 6시간 이내인지 확인
-                    if pd.notna(article_date):
-                        time_diff = now - article_date
-                        hours_diff = time_diff.total_seconds() / 3600
+            if is_in_db or is_in_cache:
+                # 이미 DB에 있거나 캐시에 있으면 스킵
+                continue
 
-                        # 6시간 이내의 기사만 알림
-                        if hours_diff > 6:
-                            print(f"[DEBUG] 오래된 기사 스킵: {title[:30]}... ({hours_diff:.1f}시간 전)")
-                            continue
-                        else:
-                            print(f"[DEBUG] 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+            # 여기까지 왔으면 진짜 신규 기사
+            # 날짜 파싱 시도
+            article_date_str = row.get("날짜", "")
+            try:
+                # 날짜 형식: "YYYY-MM-DD HH:MM"
+                article_date = pd.to_datetime(article_date_str, errors="coerce")
+
+                # 날짜가 유효하면 최근 1시간 이내인지 확인 (중복 방지 강화)
+                if pd.notna(article_date):
+                    time_diff = now - article_date
+                    hours_diff = time_diff.total_seconds() / 3600
+
+                    # 1시간 이내의 기사만 알림 (기존 6시간에서 축소)
+                    if hours_diff > 1:
+                        print(f"[DEBUG] 오래된 기사 스킵: {title[:30]}... ({hours_diff:.1f}시간 전)")
+                        continue
                     else:
-                        # 날짜 파싱 실패 시에도 포함 (안전장치)
-                        print(f"[DEBUG] 날짜 파싱 실패 (알림 포함): {title[:50]}...")
+                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                else:
+                    # 날짜 파싱 실패 시에도 포함 (안전장치)
+                    print(f"[DEBUG] 날짜 파싱 실패 (알림 포함): {title[:50]}...")
 
-                except Exception as e:
-                    print(f"[DEBUG] 날짜 처리 오류: {str(e)}")
+            except Exception as e:
+                print(f"[DEBUG] 날짜 처리 오류: {str(e)}")
 
-                # URL에서 매체명 추출
-                press = _publisher_from_link(url)
+            # URL에서 매체명 추출
+            press = _publisher_from_link(url)
 
-                new_articles.append({
-                    "title": title if title and title != "nan" else "제목 없음",
-                    "link": url,
-                    "date": article_date_str,
-                    "press": press
-                })
+            new_articles.append({
+                "title": title if title and title != "nan" else "제목 없음",
+                "link": url,
+                "date": article_date_str,
+                "press": press
+            })
 
-        print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (최근 6시간 이내)")
+        print(f"[DEBUG] 총 {len(new_articles)}건의 진짜 신규 기사 감지 (최근 1시간 이내, DB+캐시 중복 제거)")
         return new_articles
 
     except Exception as e:

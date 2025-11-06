@@ -723,6 +723,10 @@ def main():
         else:
             safe_print(f"[MONITOR] [INFO] 새로 수집된 기사가 없습니다.")
 
+        # 🔧 항상 캐시 저장 (신규 기사 없어도)
+        safe_print(f"[MONITOR] 캐시 저장 중... (현재 {len(_sent_articles_cache)}건)")
+        save_sent_cache(_sent_articles_cache)
+
         safe_print("=" * 80)
         safe_print(f"[MONITOR] 작업 종료: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         safe_print("=" * 80)

@@ -10,12 +10,9 @@ import threading
 import atexit
 
 # APScheduler import with error handling
-try:
-    from apscheduler.schedulers.background import BackgroundScheduler
-    SCHEDULER_AVAILABLE = True
-except ImportError:
-    SCHEDULER_AVAILABLE = False
-    print("[WARNING] APScheduler not available. Background monitoring disabled.")
+# 🚨 DISABLED: GitHub Actions로 대체 - 중복 알림 방지
+SCHEDULER_AVAILABLE = False
+print("[INFO] 백그라운드 스케줄러 비활성화 (GitHub Actions 사용)")
 
 import pandas as pd
 import streamlit as st
@@ -980,34 +977,44 @@ def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = 
         url = "https://openapi.naver.com/v1/search/news.json"
         params = {"query": query, "start": start, "display": display, "sort": sort}
         headers = _naver_headers()
-        
+
         print(f"[DEBUG] API Request - Query: {query}, Params: {params}")
         print(f"[DEBUG] Headers present: ID={bool(headers.get('X-Naver-Client-Id'))}, Secret={bool(headers.get('X-Naver-Client-Secret'))}")
-        
+
         if not headers.get("X-Naver-Client-Id") or not headers.get("X-Naver-Client-Secret"):
             print("[DEBUG] Missing API keys, returning empty result")
-            return {"items": []}
-            
+            return {"items": [], "error": "missing_keys"}
+
         print(f"[DEBUG] Starting API request...")
         r = requests.get(url, headers=headers, params=params, timeout=5)  # 타임아웃을 5초로 단축
         print(f"[DEBUG] API Response status: {r.status_code}")
-        
+
+        # 429 에러 (할당량 초과) 명시적 처리
+        if r.status_code == 429:
+            error_data = r.json() if r.text else {}
+            error_msg = error_data.get("errorMessage", "API quota exceeded")
+            print(f"[ERROR] API 할당량 초과 (429): {error_msg}")
+            return {"items": [], "error": "quota_exceeded", "error_message": error_msg}
+
         r.raise_for_status()
         result = r.json()
         print(f"[DEBUG] API Response items count: {len(result.get('items', []))}")
         return result
-        
+
     except requests.exceptions.Timeout:
         print(f"[WARNING] Naver API timeout for query: {query}")
-        return {"items": []}
+        return {"items": [], "error": "timeout"}
     except requests.exceptions.RequestException as e:
         print(f"[WARNING] Naver API request failed for query: {query}, error: {e}")
         if hasattr(e, 'response') and e.response is not None:
-            print(f"[WARNING] Response status: {e.response.status_code}, body: {e.response.text[:200]}")
-        return {"items": []}
+            status_code = e.response.status_code
+            print(f"[WARNING] Response status: {status_code}, body: {e.response.text[:200]}")
+            if status_code == 429:
+                return {"items": [], "error": "quota_exceeded"}
+        return {"items": [], "error": "request_failed"}
     except Exception as e:
         print(f"[WARNING] Unexpected error in fetch_naver_news: {e}")
-        return {"items": []}
+        return {"items": [], "error": "unexpected"}
 
 def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
     print(f"[DEBUG] Starting crawl_naver_news for query: {query}, max_items: {max_items}")
@@ -1015,15 +1022,23 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
     display = min(50, max_items)  # 한 번에 최대 50개로 제한
     max_attempts = 2  # 최대 2번 시도로 제한하여 빠른 실패
     attempt_count = 0
-    
+    quota_exceeded = False
+
     while total < max_items and start <= 100 and attempt_count < max_attempts:  # 시작 위치도 100으로 제한
         attempt_count += 1
         print(f"[DEBUG] Attempt {attempt_count} for query: {query}")
-        
+
         try:
             data = fetch_naver_news(query, start=start, display=min(display, max_items - total), sort=sort)
+
+            # API 할당량 초과 에러 체크
+            if data.get("error") == "quota_exceeded":
+                print(f"[ERROR] API 할당량 초과 감지 - 뉴스 수집 중단")
+                quota_exceeded = True
+                break
+
             arr = data.get("items", [])
-            
+
             if not arr:
                 print(f"[DEBUG] No items returned for query: {query}, attempt: {attempt_count}")
                 break
@@ -1056,12 +1071,18 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
     
     print(f"[DEBUG] crawl_naver_news completed for {query}: {len(items)} items")
     df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL"])
+
+    # API 할당량 초과 정보를 DataFrame 속성으로 저장
+    if quota_exceeded:
+        df.attrs['quota_exceeded'] = True
+        print(f"[ERROR] API 할당량 초과로 뉴스 수집 실패")
+
     if not df.empty:
         # 최신순 정렬 먼저 수행
         df["날짜_datetime"] = pd.to_datetime(df["날짜"], errors="coerce")
         df = df.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
         df = df.drop("날짜_datetime", axis=1)
-        
+
         # 중복 제거 (URL 우선, 없으면 제목+날짜)
         key = df["URL"].where(df["URL"].astype(bool), df["기사제목"] + "|" + df["날짜"])
         df = df.loc[~key.duplicated()].reset_index(drop=True)
@@ -1164,6 +1185,8 @@ def send_telegram_notification(new_articles: list):
     Args:
         new_articles: 새로운 기사 정보 리스트 [{"title": ..., "link": ..., "date": ...}, ...]
     """
+    global _sent_articles_cache
+
     try:
         bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
         chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
@@ -1181,8 +1204,22 @@ def send_telegram_notification(new_articles: list):
             print("[DEBUG] 신규 기사 없음 - 알림 스킵")
             return
 
+        # 이미 전송된 기사 필터링
+        with _sent_articles_lock:
+            articles_to_send = []
+            for article in new_articles:
+                url_key = article.get("link", "")
+                if url_key and url_key not in _sent_articles_cache:
+                    articles_to_send.append(article)
+
+            if not articles_to_send:
+                print("[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵")
+                return
+
+            print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (중복 제외: {len(new_articles) - len(articles_to_send)}건)")
+
         # 최대 10개까지만 알림 (개별 메시지라서 좀 더 허용)
-        articles_to_notify = new_articles[:10]
+        articles_to_notify = articles_to_send[:10]
 
         # 텔레그램 API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -1222,6 +1259,14 @@ def send_telegram_notification(new_articles: list):
                 if response.status_code == 200:
                     success_count += 1
                     print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+
+                    # 전송 성공한 기사는 캐시에 추가
+                    with _sent_articles_lock:
+                        _sent_articles_cache.add(link)
+                        # 캐시 크기 제한
+                        if len(_sent_articles_cache) > _MAX_SENT_CACHE:
+                            # 오래된 항목 제거 (set이므로 임의 제거)
+                            _sent_articles_cache.pop()
                 else:
                     print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code} - {title[:30]}...")
 
@@ -1233,6 +1278,7 @@ def send_telegram_notification(new_articles: list):
                 print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
 
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
+        print(f"[DEBUG] 전송 캐시 크기: {len(_sent_articles_cache)}건")
 
         # 5개 이상 남은 기사가 있으면 요약 메시지
         if len(new_articles) > 10:
@@ -1364,7 +1410,7 @@ def background_news_monitor():
         ]
         exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
                            "삼척블루파워", "포스코모빌리티솔루션"]
-        max_items = 100
+        max_items = 30  # API 사용량 최적화
 
         # API 키 체크
         headers = _naver_headers()
@@ -1379,8 +1425,17 @@ def background_news_monitor():
 
         # 뉴스 수집
         all_news = []
+        quota_exceeded = False
+
         for kw in keywords:
             df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
+
+            # API 할당량 초과 체크
+            if df_kw.attrs.get('quota_exceeded', False):
+                print(f"[BACKGROUND] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
+                quota_exceeded = True
+                break
+
             if not df_kw.empty:
                 # "포스코" 키워드의 경우 특별 처리
                 if kw == "포스코":
@@ -1425,6 +1480,15 @@ def background_news_monitor():
                 if not df_kw.empty:
                     all_news.append(df_kw)
 
+        # API 할당량 초과 시 처리
+        if quota_exceeded:
+            print(f"[BACKGROUND] ❌ API 할당량 초과로 뉴스 수집 실패")
+            print(f"[BACKGROUND] 💡 해결 방법:")
+            print(f"[BACKGROUND]    1. 새로운 네이버 개발자 계정으로 API 키 재발급")
+            print(f"[BACKGROUND]    2. 매일 자정(KST) 이후 할당량 재설정")
+            print(f"[BACKGROUND]    3. 기존 저장된 뉴스 데이터는 유지됩니다")
+            return
+
         # 통합 정리 & 저장
         df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
         if not df_new.empty:
@@ -1444,8 +1508,12 @@ def background_news_monitor():
                 merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
                 merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
 
-            # 신규 기사 감지 및 알림
+            # 신규 기사 감지
             new_articles = detect_new_articles(existing_db, df_new)
+
+            # DB 먼저 저장 (race condition 방지)
+            save_news_db(merged)
+            print(f"[BACKGROUND] ✅ DB 저장 완료: 총 {len(merged)}건")
 
             # 기존 DB가 비어있지 않을 때만 알림 전송 (첫 실행 스팸 방지)
             if new_articles and not existing_db.empty:
@@ -1454,9 +1522,7 @@ def background_news_monitor():
             elif new_articles:
                 print(f"[BACKGROUND] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
 
-            # DB 저장
-            save_news_db(merged)
-            print(f"[BACKGROUND] ✅ 뉴스 수집 완료: 총 {len(merged)}건 저장")
+            print(f"[BACKGROUND] ✅ 뉴스 수집 완료")
         else:
             print(f"[BACKGROUND] ℹ️ 새로 수집된 기사가 없습니다.")
 
@@ -1468,6 +1534,11 @@ def background_news_monitor():
 # 백그라운드 스케줄러 전역 변수
 _scheduler = None
 _scheduler_lock = threading.Lock()
+
+# 전송된 기사 URL 추적 (메모리 기반, 최근 1000개)
+_sent_articles_cache = set()
+_sent_articles_lock = threading.Lock()
+_MAX_SENT_CACHE = 1000
 
 def start_background_scheduler():
     """
@@ -1508,9 +1579,6 @@ def start_background_scheduler():
 
             # 앱 종료 시 스케줄러도 종료
             atexit.register(lambda: _scheduler.shutdown() if _scheduler else None)
-
-            # 즉시 첫 수집 실행 (별도 스레드로)
-            threading.Thread(target=background_news_monitor, daemon=True).start()
 
         except Exception as e:
             print(f"[BACKGROUND] ❌ 스케줄러 시작 오류: {str(e)}")
@@ -2234,8 +2302,8 @@ def page_news_monitor():
     exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
                        "삼척블루파워", "포스코모빌리티솔루션"]
 
-    refresh_interval = 180  # 180초 카운트다운
-    max_items = 100
+    refresh_interval = 180  # 180초 카운트다운 (3분)
+    max_items = 30  # API 사용량 최적화 (일일 25,000건 제한)
 
     # ===== 세션 상태 기본값 =====
     now = time.time()
@@ -2288,10 +2356,19 @@ def page_news_monitor():
 
         try:
             all_news = []
+            quota_exceeded = False
+
             if api_ok:
                 # 키워드별 최신순 수집
                 for kw in keywords:
                     df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
+
+                    # API 할당량 초과 체크
+                    if df_kw.attrs.get('quota_exceeded', False):
+                        print(f"[DEBUG] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
+                        quota_exceeded = True
+                        break
+
                     if not df_kw.empty:
                         # "포스코" 키워드의 경우 특별 처리
                         if kw == "포스코":
@@ -2340,62 +2417,75 @@ def page_news_monitor():
                         if not df_kw.empty:
                             all_news.append(df_kw)
 
-                # 통합 정리 & 저장
-                df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
-                if not df_new.empty:
-                    df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
-                    df_new = df_new.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
-                    df_new = df_new.drop("날짜_datetime", axis=1)
-
-                    # 중복 제거 (URL 우선, 없으면 제목+날짜)
-                    key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
-                    df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
-
-                    # 기존 DB와 병합해 최신순 정렬
-                    merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
-                    merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
-                    if not merged.empty:
-                        merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
-                        merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
-                        merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
-
-                    # 신규 기사 감지 및 알림
-                    # 주의: 초기 실행 시에는 알림을 보내지 않음 (과거 뉴스 스팸 방지)
-                    new_articles = detect_new_articles(existing_db, df_new)
-
-                    # 알림 전송 조건:
-                    # 1. 신규 기사가 있어야 함
-                    # 2. 초기 로드가 아니어야 함 (initial_loaded = True)
-                    # 3. 기존 DB가 비어있지 않아야 함 (처음 실행이 아님)
-                    should_notify = (
-                        new_articles and
-                        st.session_state.initial_loaded and
-                        not existing_db.empty
-                    )
-
-                    if new_articles:
-                        print(f"[DEBUG] 신규 기사 {len(new_articles)}건 감지")
-
-                        if should_notify:
-                            print(f"[DEBUG] ✅ 알림 전송 조건 충족 - 텔레그램 알림 전송")
-                            send_telegram_notification(new_articles)
-                        else:
-                            if not st.session_state.initial_loaded:
-                                print(f"[DEBUG] ⏭️ 초기 실행 - 알림 스킵 (다음 업데이트부터 알림)")
-                            elif existing_db.empty:
-                                print(f"[DEBUG] ⏭️ 첫 데이터 수집 - 알림 스킵 (다음 업데이트부터 알림)")
-
-                    save_news_db(merged)
-                    st.session_state.last_news_fetch = now
-
-                    # 상태 메시지에 신규 기사 수 표시
-                    if new_articles:
-                        status.success(f"✅ 기사 업데이트 완료! 신규 {len(new_articles)}건 (총 {len(merged)}건 저장)")
-                    else:
-                        status.success(f"✅ 기사 업데이트 완료! 현재 저장된 건수: {len(merged)}")
+                # API 할당량 초과 시 처리
+                if quota_exceeded:
+                    status.error("❌ API 할당량 초과 (일일 25,000회 제한)\n\n"
+                                "💡 해결 방법:\n"
+                                "1. 새로운 네이버 개발자 계정으로 API 키 재발급\n"
+                                "2. 매일 자정(KST) 이후 할당량 재설정\n"
+                                "3. 기존 저장된 뉴스 데이터는 유지됩니다")
+                    # 플래그 리셋
+                    st.session_state.trigger_news_update = False
+                    st.session_state.next_refresh_at = time.time() + refresh_interval
+                    st.session_state.initial_loaded = True
                 else:
-                    # 결과 없음이어도 조용히 다음 라운드(180초 뒤)로 넘어감
-                    status.info("ℹ️ 새로 수집된 기사가 없어요. 다음 라운드에서 다시 시도할게.")
+                    # 통합 정리 & 저장
+                    df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
+                    if not df_new.empty:
+                        df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
+                        df_new = df_new.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
+                        df_new = df_new.drop("날짜_datetime", axis=1)
+
+                        # 중복 제거 (URL 우선, 없으면 제목+날짜)
+                        key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
+                        df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
+
+                        # 기존 DB와 병합해 최신순 정렬
+                        merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
+                        merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
+                        if not merged.empty:
+                            merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
+                            merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
+                            merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
+
+                        # 신규 기사 감지
+                        # 주의: 초기 실행 시에는 알림을 보내지 않음 (과거 뉴스 스팸 방지)
+                        new_articles = detect_new_articles(existing_db, df_new)
+
+                        # DB 먼저 저장 (race condition 방지)
+                        save_news_db(merged)
+
+                        # 알림 전송 조건:
+                        # 1. 신규 기사가 있어야 함
+                        # 2. 초기 로드가 아니어야 함 (initial_loaded = True)
+                        # 3. 기존 DB가 비어있지 않아야 함 (처음 실행이 아님)
+                        should_notify = (
+                            new_articles and
+                            st.session_state.initial_loaded and
+                            not existing_db.empty
+                        )
+
+                        if new_articles:
+                            print(f"[DEBUG] 신규 기사 {len(new_articles)}건 감지")
+
+                            if should_notify:
+                                print(f"[DEBUG] ✅ 알림 전송 조건 충족 - 텔레그램 알림 전송")
+                                send_telegram_notification(new_articles)
+                            else:
+                                if not st.session_state.initial_loaded:
+                                    print(f"[DEBUG] ⏭️ 초기 실행 - 알림 스킵 (다음 업데이트부터 알림)")
+                                elif existing_db.empty:
+                                    print(f"[DEBUG] ⏭️ 첫 데이터 수집 - 알림 스킵 (다음 업데이트부터 알림)")
+                        st.session_state.last_news_fetch = now
+
+                        # 상태 메시지에 신규 기사 수 표시
+                        if new_articles:
+                            status.success(f"✅ 기사 업데이트 완료! 신규 {len(new_articles)}건 (총 {len(merged)}건 저장)")
+                        else:
+                            status.success(f"✅ 기사 업데이트 완료! 현재 저장된 건수: {len(merged)}")
+                    else:
+                        # 결과 없음이어도 조용히 다음 라운드(180초 뒤)로 넘어감
+                        status.info("ℹ️ 새로 수집된 기사가 없어요. 다음 라운드에서 다시 시도할게.")
             else:
                 # API 키 없으면 그냥 DB만 유지 표시
                 if existing_db.empty:

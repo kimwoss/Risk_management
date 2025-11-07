@@ -130,7 +130,29 @@ def _publisher_from_link(u: str) -> str:
             "ekn.kr": "에너지경제",
             "businesskorea.co.kr": "비즈니스코리아",
             "ferrotimes.com": "철강금속신문",
-            # 필요시 추가
+            # 추가 매체명 매핑
+            "thepublic.kr": "더퍼블릭",
+            "tf.co.kr": "더팩트",
+            "straightnews.co.kr": "스트레이트뉴스",
+            "smartfn.co.kr": "스마트경제",
+            "sisacast.kr": "시사캐스트",
+            "sateconomy.co.kr": "시사경제",
+            "safetynews.co.kr": "안전신문",
+            "rpm9.com": "RPM9",
+            "pointdaily.co.kr": "포인트데일리",
+            "newsworker.co.kr": "뉴스워커",
+            "newsdream.kr": "뉴스드림",
+            "nbntv.co.kr": "NBN뉴스",
+            "megaeconomy.co.kr": "메가경제",
+            "mediapen.com": "미디어펜",
+            "job-post.co.kr": "잡포스트",
+            "irobotnews.com": "로봇신문사",
+            "ifm.kr": "경인방송",
+            "gpkorea.com": "글로벌오토뉴스",
+            "energydaily.co.kr": "에너지데일리",
+            "cstimes.com": "컨슈머타임스",
+            "bizwatch.co.kr": "비즈워치",
+            "autodaily.co.kr": "오토데일리",
         }
         if base in base_map:
             return base_map[base]
@@ -625,8 +647,54 @@ def main():
                 break
 
             if not df_kw.empty:
+                # "포스코인터내셔널" 정확한 매칭 강화
+                if kw == "포스코인터내셔널":
+                    def should_include_posco_intl(row):
+                        title = str(row.get("기사제목", ""))
+                        description = str(row.get("주요기사 요약", ""))
+
+                        # 정확히 "포스코인터내셔널"이 포함되어야 함
+                        if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
+                            return False
+
+                        # 제외 키워드 체크
+                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                        for exclude_word in exclude_words:
+                            if exclude_word in title or exclude_word in description:
+                                return False
+
+                        return True
+
+                    mask = df_kw.apply(should_include_posco_intl, axis=1)
+                    df_kw = df_kw[mask].reset_index(drop=True)
+                    if not df_kw.empty:
+                        safe_print(f"[MONITOR] '포스코인터내셔널' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
+
+                # "포스코모빌리티솔루션" 정확한 매칭 강화
+                elif kw == "포스코모빌리티솔루션":
+                    def should_include_posco_mobility(row):
+                        title = str(row.get("기사제목", ""))
+                        description = str(row.get("주요기사 요약", ""))
+
+                        # 정확히 "포스코모빌리티솔루션"이 포함되어야 함
+                        if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
+                            return False
+
+                        # 제외 키워드 체크
+                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                        for exclude_word in exclude_words:
+                            if exclude_word in title or exclude_word in description:
+                                return False
+
+                        return True
+
+                    mask = df_kw.apply(should_include_posco_mobility, axis=1)
+                    df_kw = df_kw[mask].reset_index(drop=True)
+                    if not df_kw.empty:
+                        safe_print(f"[MONITOR] '포스코모빌리티솔루션' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
+
                 # "포스코" 키워드의 경우 특별 처리
-                if kw == "포스코":
+                elif kw == "포스코":
                     def should_include_posco(row):
                         title = str(row.get("기사제목", ""))
                         title_lower = title.lower()
@@ -639,7 +707,7 @@ def main():
                             if exclude_kw.lower() in title_lower:
                                 return False
 
-                        exclude_words = ["청약", "분양", "입주"]
+                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
                         for exclude_word in exclude_words:
                             if exclude_word in title or exclude_word in description:
                                 return False
@@ -652,8 +720,8 @@ def main():
                         safe_print(f"[MONITOR] '포스코' 필터링 완료: {len(df_kw)}건 추가")
 
                 else:
-                    # 다른 키워드는 기존처럼 제목에서만 "분양", "청약", "입주" 제거
-                    exclude_words = ["분양", "청약", "입주"]
+                    # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
+                    exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
                     def should_include_general(row):
                         title = str(row.get("기사제목", ""))
                         for exclude_word in exclude_words:

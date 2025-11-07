@@ -1255,9 +1255,16 @@ def send_telegram_notification(new_articles: list):
             link = article.get("link", "")
             date = article.get("date", "")
             press = article.get("press", "")
+            keyword = article.get("keyword", "")
 
             # 단문 메시지 구성
             message = f"🚨 *새 뉴스*\n\n"
+
+            # 검색 키워드 해시태그 추가
+            if keyword:
+                # 공백을 제거하여 해시태그로 변환
+                hashtag = keyword.replace(" ", "")
+                message += f"#{hashtag}\n"
 
             # 제목 앞에 [언론사] 추가
             if press:
@@ -1395,11 +1402,15 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 # URL에서 매체명 추출 (Streamlit과 동일한 방식)
                 press = _publisher_from_link(url)
 
+                # 검색 키워드 추출
+                keyword = str(row.get("검색키워드", "")).strip()
+
                 new_articles.append({
                     "title": title if title and title != "nan" else "제목 없음",
                     "link": url,
                     "date": article_date_str,
-                    "press": press
+                    "press": press,
+                    "keyword": keyword
                 })
 
         print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (최근 6시간 이내)")

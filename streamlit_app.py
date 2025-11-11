@@ -9,6 +9,18 @@ from datetime import datetime, timezone, timedelta
 import threading
 import atexit
 
+# 공통 뉴스 수집 모듈 import
+from news_collector import (
+    KEYWORDS,
+    EXCLUDE_KEYWORDS,
+    MAX_ITEMS_PER_RUN,
+    crawl_naver_news,
+    load_news_db,
+    _publisher_from_link,
+    _clean_text,
+    _naver_headers,
+)
+
 # APScheduler import with error handling
 # 🚨 DISABLED: GitHub Actions로 대체 - 중복 알림 방지
 SCHEDULER_AVAILABLE = False

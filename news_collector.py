@@ -1,0 +1,540 @@
+"""
+뉴스 수집 공통 모듈
+Streamlit App과 Standalone Monitor가 공유하는 뉴스 수집 로직
+"""
+import os
+import re
+import urllib.parse
+import json
+from datetime import datetime
+from html import unescape
+import pandas as pd
+import requests
+
+# 환경변수 로드
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+# ======================== 상수 설정 ========================
+
+DATA_FOLDER = os.path.abspath("data")
+NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
+SENT_CACHE_FILE = os.path.join(DATA_FOLDER, "sent_articles_cache.json")
+MAX_SENT_CACHE = 500  # 캐시 크기 제한
+
+# 모니터링 키워드 설정 (단일 진실 공급원)
+KEYWORDS = [
+    "포스코인터내셔널",
+    "POSCO INTERNATIONAL",
+    "포스코인터",
+    "삼척블루파워",
+    "구동모터코아",
+    "구동모터코어",
+    "미얀마 LNG",
+    "포스코모빌리티솔루션",
+    "포스코플로우",  # 추가
+    "포스코"
+]
+
+# "포스코" 키워드 제외 필터
+EXCLUDE_KEYWORDS = [
+    "포스코인터내셔널",
+    "POSCO INTERNATIONAL",
+    "포스코인터",
+    "삼척블루파워",
+    "포스코모빌리티솔루션"
+]
+
+# 수집 설정
+MAX_ITEMS_PER_RUN = 60  # API 사용량 최적화 (30→60으로 증가)
+
+# 전송된 기사 URL 추적 (메모리 캐시)
+_sent_articles_cache = set()
+
+
+# ======================== 헬퍼 함수 ========================
+
+def _naver_headers():
+    """Naver API 인증 헤더"""
+    cid = os.getenv("NAVER_CLIENT_ID", "")
+    csec = os.getenv("NAVER_CLIENT_SECRET", "")
+    if not cid or not csec:
+        print(f"[WARNING] 네이버 API 키가 없습니다. 환경변수를 확인해주세요.")
+    return {"X-Naver-Client-Id": cid, "X-Naver-Client-Secret": csec}
+
+
+def _clean_text(s: str) -> str:
+    """HTML 태그 및 공백 정리"""
+    if not s:
+        return ""
+    s = unescape(s)
+    s = re.sub(r"</?b>", "", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def _normalize_url(url: str) -> str:
+    """
+    URL 정규화 - 중복 체크를 위해 URL을 표준 형식으로 변환
+    - 쿼리 파라미터 제거
+    - 프로토콜 통일 (http → https)
+    - 끝 슬래시 제거
+    """
+    try:
+        if not url:
+            return ""
+        parsed = urllib.parse.urlparse(url)
+        scheme = "https" if parsed.scheme in ["http", "https"] else parsed.scheme
+        normalized = f"{scheme}://{parsed.netloc}{parsed.path}"
+        normalized = normalized.rstrip("/")
+        return normalized
+    except Exception as e:
+        print(f"[WARNING] URL 정규화 실패: {url} - {e}")
+        return url
+
+
+def _publisher_from_link(u: str) -> str:
+    """뉴스 원문 URL에서 매체명을 통일해서 반환"""
+    try:
+        host = urllib.parse.urlparse(u).netloc.lower().replace("www.", "")
+        if not host:
+            return ""
+
+        # 서브도메인 정확 매핑
+        host_map = {
+            "en.yna.co.kr": "연합뉴스",
+            "news.kbs.co.kr": "KBS",
+            "news.mtn.co.kr": "MTN",
+            "starin.edaily.co.kr": "이데일리",
+            "sports.donga.com": "동아일보",
+            "biz.heraldcorp.com": "헤럴드경제",
+            "daily.hankooki.com": "데일리한국",
+            "news.dealsitetv.com": "딜사이트TV",
+        }
+        if host in host_map:
+            return host_map[host]
+
+        # 기본 도메인(eTLD+1) 추출
+        parts = host.split(".")
+        if len(parts) >= 3 and parts[-1] == "kr" and parts[-2] in {
+            "co","or","go","ne","re","pe","ac","hs","kg","sc",
+            "seoul","busan","incheon","daegu","daejeon","gwangju","ulsan",
+            "gyeonggi","gangwon","chungbuk","chungnam","jeonbuk","jeonnam",
+            "gyeongbuk","gyeongnam","jeju"
+        }:
+            base = ".".join(parts[-3:])
+        else:
+            base = ".".join(parts[-2:])
+
+        # 기본 도메인 → 매체명 매핑
+        base_map = {
+            "yna.co.kr": "연합뉴스", "kbs.co.kr": "KBS", "joins.com": "중앙일보",
+            "donga.com": "동아일보", "heraldcorp.com": "헤럴드경제", "edaily.co.kr": "이데일리",
+            "ajunews.com": "아주경제", "newspim.com": "뉴스핌", "news1.kr": "뉴스1",
+            "etoday.co.kr": "이투데이", "asiae.co.kr": "아시아경제", "nocutnews.co.kr": "노컷뉴스",
+            "munhwa.com": "문화일보", "segye.com": "세계일보", "hankooki.com": "한국일보",
+            "dt.co.kr": "디지털타임스", "ekn.kr": "에너지경제", "businesskorea.co.kr": "비즈니스코리아",
+            "ferrotimes.com": "철강금속신문", "thepublic.kr": "더퍼블릭", "tf.co.kr": "더팩트",
+            "straightnews.co.kr": "스트레이트뉴스", "smartfn.co.kr": "스마트경제", "sisacast.kr": "시사캐스트",
+            "sateconomy.co.kr": "시사경제", "safetynews.co.kr": "안전신문", "rpm9.com": "RPM9",
+            "pointdaily.co.kr": "포인트데일리", "newsworker.co.kr": "뉴스워커", "newsdream.kr": "뉴스드림",
+            "nbntv.co.kr": "NBN뉴스", "megaeconomy.co.kr": "메가경제", "mediapen.com": "미디어펜",
+            "job-post.co.kr": "잡포스트", "irobotnews.com": "로봇신문사", "ifm.kr": "경인방송",
+            "gpkorea.com": "글로벌오토뉴스", "energydaily.co.kr": "에너지데일리",
+            "cstimes.com": "컨슈머타임스", "bizwatch.co.kr": "비즈워치", "autodaily.co.kr": "오토데일리",
+        }
+        if base in base_map:
+            return base_map[base]
+
+        return ""
+    except Exception:
+        return ""
+
+
+# ======================== 네이버 API 함수 ========================
+
+def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = "date"):
+    """Naver 뉴스 API 호출"""
+    try:
+        url = "https://openapi.naver.com/v1/search/news.json"
+        params = {"query": query, "start": start, "display": display, "sort": sort}
+        headers = _naver_headers()
+
+        if not headers.get("X-Naver-Client-Id") or not headers.get("X-Naver-Client-Secret"):
+            return {"items": [], "error": "missing_keys"}
+
+        r = requests.get(url, headers=headers, params=params, timeout=10)
+
+        # API 할당량 초과 처리
+        if r.status_code == 429:
+            error_data = r.json() if r.text else {}
+            error_msg = error_data.get("errorMessage", "API quota exceeded")
+            print(f"[ERROR] API 할당량 초과 (429): {error_msg}")
+            return {"items": [], "error": "quota_exceeded", "error_message": error_msg}
+
+        r.raise_for_status()
+        return r.json()
+
+    except requests.exceptions.Timeout:
+        print(f"[WARNING] Naver API timeout for query: {query}")
+        return {"items": [], "error": "timeout"}
+    except requests.exceptions.RequestException as e:
+        print(f"[WARNING] Naver API request failed for query: {query}, error: {e}")
+        if hasattr(e, 'response') and e.response is not None and e.response.status_code == 429:
+            return {"items": [], "error": "quota_exceeded"}
+        return {"items": [], "error": "request_failed"}
+    except Exception as e:
+        print(f"[WARNING] Unexpected error in fetch_naver_news: {e}")
+        return {"items": [], "error": "unexpected"}
+
+
+def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
+    """Naver 뉴스 수집"""
+    items, start, total = [], 1, 0
+    display = min(50, max_items)
+    max_attempts = 2
+    attempt_count = 0
+    quota_exceeded = False
+
+    while total < max_items and start <= 100 and attempt_count < max_attempts:
+        attempt_count += 1
+
+        try:
+            data = fetch_naver_news(query, start=start, display=min(display, max_items - total), sort=sort)
+
+            # API 할당량 초과 체크
+            if data.get("error") == "quota_exceeded":
+                print(f"[ERROR] API 할당량 초과 감지 - 뉴스 수집 중단")
+                quota_exceeded = True
+                break
+
+            arr = data.get("items", [])
+            if not arr:
+                break
+
+            for it in arr:
+                title = _clean_text(it.get("title"))
+                desc = _clean_text(it.get("description"))
+                link = it.get("originallink") or it.get("link") or ""
+                pub = it.get("pubDate", "")
+                try:
+                    # GMT → KST 변환 후 tz 제거
+                    dt = pd.to_datetime(pub, utc=True).tz_convert("Asia/Seoul").tz_localize(None)
+                    date_str = dt.strftime("%Y-%m-%d %H:%M")
+                except Exception:
+                    date_str = ""
+                items.append({
+                    "날짜": date_str,
+                    "매체명": _publisher_from_link(link),
+                    "검색키워드": query,
+                    "기사제목": title,
+                    "주요기사 요약": desc,
+                    "URL": link
+                })
+
+            got = len(arr)
+            total += got
+            if got == 0:
+                break
+            start += got
+
+        except Exception as e:
+            print(f"[WARNING] Error in crawl_naver_news attempt {attempt_count}: {e}")
+            break
+
+    df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL"])
+
+    # API 할당량 초과 정보 저장
+    if quota_exceeded:
+        df.attrs['quota_exceeded'] = True
+
+    if not df.empty:
+        # 최신순 정렬
+        df["날짜_datetime"] = pd.to_datetime(df["날짜"], errors="coerce")
+        df = df.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
+        df = df.drop("날짜_datetime", axis=1)
+
+        # 중복 제거
+        key = df["URL"].where(df["URL"].astype(bool), df["기사제목"] + "|" + df["날짜"])
+        df = df.loc[~key.duplicated()].reset_index(drop=True)
+    return df
+
+
+# ======================== DB 함수 ========================
+
+def load_news_db() -> pd.DataFrame:
+    """뉴스 DB 로드"""
+    if os.path.exists(NEWS_DB_FILE):
+        try:
+            return pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+        except Exception as e:
+            print(f"[WARNING] DB 로드 실패: {e}")
+    return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+
+
+def save_news_db(df: pd.DataFrame):
+    """뉴스 DB 저장"""
+    if df.empty:
+        print("[DEBUG] save_news_db skipped: empty dataframe")
+        return
+
+    # 매체명 정리 (URL 기반)
+    if "매체명" in df.columns and "URL" in df.columns:
+        for idx, row in df.iterrows():
+            if pd.notna(row["URL"]):
+                df.at[idx, "매체명"] = _publisher_from_link(row["URL"])
+
+    # 상위 200개만 저장
+    out = df.head(200).copy()
+
+    # data 폴더 생성
+    os.makedirs(DATA_FOLDER, exist_ok=True)
+
+    out.to_csv(NEWS_DB_FILE, index=False, encoding="utf-8")
+    print(f"[DEBUG] news saved: {len(out)} rows -> {NEWS_DB_FILE}")
+
+
+# ======================== 캐시 함수 ========================
+
+def load_sent_cache() -> set:
+    """전송된 기사 캐시를 파일에서 로드"""
+    if os.path.exists(SENT_CACHE_FILE):
+        try:
+            with open(SENT_CACHE_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                cache = set(data.get("urls", []))
+                print(f"[DEBUG] 전송 캐시 로드 완료: {len(cache)}건")
+                return cache
+        except Exception as e:
+            print(f"[WARNING] 전송 캐시 로드 실패: {e}")
+            return set()
+    else:
+        print(f"[DEBUG] 전송 캐시 파일 없음 - 새로 생성")
+        return set()
+
+
+def save_sent_cache(cache: set):
+    """전송된 기사 캐시를 파일에 저장"""
+    try:
+        # data 폴더 생성
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+
+        # 최근 MAX_SENT_CACHE개만 유지
+        cache_list = list(cache)[-MAX_SENT_CACHE:]
+
+        data = {
+            "urls": cache_list,
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "count": len(cache_list)
+        }
+
+        with open(SENT_CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        print(f"[DEBUG] 전송 캐시 저장 완료: {len(cache_list)}건 -> {SENT_CACHE_FILE}")
+    except Exception as e:
+        print(f"[WARNING] 전송 캐시 저장 실패: {e}")
+
+
+# ======================== 신규 기사 감지 ========================
+
+def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: set) -> list:
+    """
+    기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
+    - URL을 우선 식별자로 사용
+    - 캐시와 DB 중복 체크
+    """
+    try:
+        # 기존 DB가 비어있으면 신규 기사 없음으로 처리 (첫 실행 스팸 방지)
+        if old_df.empty:
+            print(f"[DEBUG] 기존 DB 비어있음 - 첫 실행이므로 알림 스킵")
+            return []
+
+        if new_df.empty:
+            return []
+
+        # 현재 시간 기준
+        now = datetime.now()
+
+        # 기존 DB의 URL 세트 생성 (정규화된 URL 사용)
+        old_urls = set()
+        old_urls_normalized = set()
+        for _, row in old_df.iterrows():
+            url = str(row.get("URL", "")).strip()
+            if url and url != "nan" and url != "":
+                old_urls.add(url)
+                old_urls_normalized.add(_normalize_url(url))
+
+        print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)} (정규화: {len(old_urls_normalized)})")
+        print(f"[DEBUG] 캐시 크기: {len(sent_cache)}건")
+        print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
+
+        # 신규 기사 감지
+        new_articles = []
+        for _, row in new_df.iterrows():
+            url = str(row.get("URL", "")).strip()
+            title = str(row.get("기사제목", "")).strip()
+
+            # URL이 없거나 비어있으면 스킵
+            if not url or url == "nan" or url == "":
+                continue
+
+            # URL 정규화
+            url_normalized = _normalize_url(url)
+
+            # 3단계 중복 체크: DB + 캐시 + 정규화
+            is_in_db = url in old_urls or url_normalized in old_urls_normalized
+            is_in_cache = url in sent_cache or url_normalized in sent_cache
+
+            if is_in_db or is_in_cache:
+                continue
+
+            # 신규 기사 - 날짜 정보 로깅
+            article_date_str = row.get("날짜", "")
+            try:
+                article_date = pd.to_datetime(article_date_str, errors="coerce")
+                if pd.notna(article_date):
+                    time_diff = now - article_date
+                    hours_diff = time_diff.total_seconds() / 3600
+                    print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                else:
+                    print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 파싱 실패): {title[:50]}...")
+            except Exception as e:
+                print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 처리 오류): {title[:50]}... - {str(e)}")
+
+            # 매체명과 키워드 추출
+            press = _publisher_from_link(url)
+            keyword = str(row.get("검색키워드", "")).strip()
+
+            new_articles.append({
+                "title": title if title and title != "nan" else "제목 없음",
+                "link": url,
+                "date": article_date_str,
+                "press": press,
+                "keyword": keyword
+            })
+
+        print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (DB+캐시 중복 제거)")
+        return new_articles
+
+    except Exception as e:
+        print(f"[DEBUG] 신규 기사 감지 오류: {str(e)}")
+        import traceback
+        print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
+        return []
+
+
+# ======================== 텔레그램 알림 ========================
+
+def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
+    """
+    새로운 기사를 텔레그램으로 알림 전송 (기사별 개별 메시지)
+    Returns: 업데이트된 캐시
+    """
+    try:
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+        chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
+
+        print(f"[DEBUG] 텔레그램 알림 시도 - 기사 수: {len(new_articles) if new_articles else 0}")
+
+        # 환경변수가 없으면 알림 스킵
+        if not bot_token or not chat_id:
+            print("[DEBUG] ⚠️ 텔레그램 설정 없음 - 알림 스킵")
+            return sent_cache
+
+        if not new_articles:
+            print("[DEBUG] 신규 기사 없음 - 알림 스킵")
+            return sent_cache
+
+        # 이미 전송된 기사 필터링
+        articles_to_send = []
+        for article in new_articles:
+            url_key = article.get("link", "")
+            url_normalized = _normalize_url(url_key)
+
+            if url_key and url_key not in sent_cache and url_normalized not in sent_cache:
+                articles_to_send.append(article)
+
+        if not articles_to_send:
+            print("[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵")
+            return sent_cache
+
+        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건")
+
+        # 최대 10개까지만 알림
+        articles_to_notify = articles_to_send[:10]
+
+        # 텔레그램 API URL
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+
+        # 각 기사마다 개별 메시지 전송
+        success_count = 0
+        for article in articles_to_notify:
+            title = article.get("title", "제목 없음")
+            link = article.get("link", "")
+            date = article.get("date", "")
+            press = article.get("press", "")
+            keyword = article.get("keyword", "")
+
+            # 메시지 구성
+            message = f"🚨 *새 뉴스*\n\n"
+            if keyword:
+                hashtag = keyword.replace(" ", "")
+                message += f"#{hashtag}\n"
+            if press:
+                message += f"*[{press}]* {title}\n"
+            else:
+                message += f"*{title}*\n"
+            if date:
+                message += f"🕐 {date}\n"
+            if link:
+                message += f"🔗 {link}"
+
+            payload = {
+                "chat_id": chat_id,
+                "text": message,
+                "parse_mode": "Markdown",
+                "disable_web_page_preview": True
+            }
+
+            try:
+                response = requests.post(url, json=payload, timeout=10)
+                if response.status_code == 200:
+                    success_count += 1
+                    print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+
+                    # 전송 성공한 기사는 캐시에 추가
+                    sent_cache.add(link)
+                    sent_cache.add(_normalize_url(link))
+                else:
+                    print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code}")
+
+                # Rate Limit 방지
+                import time
+                time.sleep(0.05)
+
+            except Exception as e:
+                print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
+
+        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
+
+        # 5개 이상 남은 기사가 있으면 요약 메시지
+        if len(new_articles) > 10:
+            summary_message = f"📢 _외 {len(new_articles) - 10}건의 뉴스가 더 있습니다._"
+            payload = {
+                "chat_id": chat_id,
+                "text": summary_message,
+                "parse_mode": "Markdown"
+            }
+            requests.post(url, json=payload, timeout=10)
+
+        return sent_cache
+
+    except Exception as e:
+        print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")
+        import traceback
+        print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
+        return sent_cache

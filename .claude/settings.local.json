@@ -15,7 +15,10 @@
       "Bash(del test_media_mapping.py update_media_names.py)",
       "Bash(pip install:*)",
       "Bash(uv add:*)",
-      "Bash(del test_search_accuracy.py)"
+      "Bash(del test_search_accuracy.py)",
+      "Bash(gh run list:*)",
+      "Bash(done)",
+      "Bash(cat:*)"
     ],
     "deny": []
   }

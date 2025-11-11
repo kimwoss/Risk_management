@@ -2575,34 +2575,21 @@ def page_news_monitor():
                             merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
                             merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
 
-                        # 신규 기사 감지
-                        # 주의: 초기 실행 시에는 알림을 보내지 않음 (과거 뉴스 스팸 방지)
+                        # 신규 기사 감지 (참고용)
                         new_articles = detect_new_articles(existing_db, df_new)
 
-                        # DB 먼저 저장 (race condition 방지)
-                        save_news_db(merged)
+                        # 🔒 Streamlit은 읽기 전용 모드 - DB 저장 비활성화
+                        # DB 저장과 텔레그램 알림은 GitHub Actions에서만 담당
+                        # save_news_db(merged)  # 비활성화
 
-                        # 알림 전송 조건:
-                        # 1. 신규 기사가 있어야 함
-                        # 2. 초기 로드가 아니어야 함 (initial_loaded = True)
-                        # 3. 기존 DB가 비어있지 않아야 함 (처음 실행이 아님)
-                        should_notify = (
-                            new_articles and
-                            st.session_state.initial_loaded and
-                            not existing_db.empty
-                        )
+                        # 세션 상태에만 저장 (UI 표시용)
+                        st.session_state.news_display_data = merged
+
+                        # 🔒 텔레그램 알림 비활성화 - GitHub Actions 전용
+                        # send_telegram_notification(new_articles)  # 비활성화
 
                         if new_articles:
-                            print(f"[DEBUG] 신규 기사 {len(new_articles)}건 감지")
-
-                            if should_notify:
-                                print(f"[DEBUG] ✅ 알림 전송 조건 충족 - 텔레그램 알림 전송")
-                                send_telegram_notification(new_articles)
-                            else:
-                                if not st.session_state.initial_loaded:
-                                    print(f"[DEBUG] ⏭️ 초기 실행 - 알림 스킵 (다음 업데이트부터 알림)")
-                                elif existing_db.empty:
-                                    print(f"[DEBUG] ⏭️ 첫 데이터 수집 - 알림 스킵 (다음 업데이트부터 알림)")
+                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
                         st.session_state.last_news_fetch = now
 
                         # 상태 메시지에 신규 기사 수 표시

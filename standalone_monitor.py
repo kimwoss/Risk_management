@@ -417,29 +417,18 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 continue
 
             # 여기까지 왔으면 진짜 신규 기사
-            # 날짜 파싱 시도
+            # 날짜 정보 로깅 (시간 필터링 제거 - GitHub Actions 실행이 불규칙하므로)
             article_date_str = row.get("날짜", "")
             try:
-                # 날짜 형식: "YYYY-MM-DD HH:MM"
                 article_date = pd.to_datetime(article_date_str, errors="coerce")
-
-                # 날짜가 유효하면 최근 1시간 이내인지 확인 (중복 방지 강화)
                 if pd.notna(article_date):
                     time_diff = now - article_date
                     hours_diff = time_diff.total_seconds() / 3600
-
-                    # 1시간 이내의 기사만 알림 (기존 6시간에서 축소)
-                    if hours_diff > 1:
-                        print(f"[DEBUG] 오래된 기사 스킵: {title[:30]}... ({hours_diff:.1f}시간 전)")
-                        continue
-                    else:
-                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                    print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
                 else:
-                    # 날짜 파싱 실패 시에도 포함 (안전장치)
-                    print(f"[DEBUG] 날짜 파싱 실패 (알림 포함): {title[:50]}...")
-
+                    print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 파싱 실패): {title[:50]}...")
             except Exception as e:
-                print(f"[DEBUG] 날짜 처리 오류: {str(e)}")
+                print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 처리 오류): {title[:50]}... - {str(e)}")
 
             # URL에서 매체명 추출
             press = _publisher_from_link(url)
@@ -455,7 +444,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 "keyword": keyword
             })
 
-        print(f"[DEBUG] 총 {len(new_articles)}건의 진짜 신규 기사 감지 (최근 1시간 이내, DB+캐시 중복 제거)")
+        print(f"[DEBUG] 총 {len(new_articles)}건의 진짜 신규 기사 감지 (DB+캐시 중복 제거, 시간 제한 없음)")
         return new_articles
 
     except Exception as e:
@@ -668,12 +657,7 @@ def main():
                         if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
                             return False
 
-                        # 제외 키워드 체크
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                        for exclude_word in exclude_words:
-                            if exclude_word in title or exclude_word in description:
-                                return False
-
+                        # 제외 키워드 체크 제거 - 정확한 회사명이므로 모든 기사 수집
                         return True
 
                     mask = df_kw.apply(should_include_posco_intl, axis=1)
@@ -691,12 +675,7 @@ def main():
                         if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
                             return False
 
-                        # 제외 키워드 체크
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                        for exclude_word in exclude_words:
-                            if exclude_word in title or exclude_word in description:
-                                return False
-
+                        # 제외 키워드 체크 제거 - 정확한 회사명이므로 모든 기사 수집
                         return True
 
                     mask = df_kw.apply(should_include_posco_mobility, axis=1)
@@ -718,7 +697,7 @@ def main():
                             if exclude_kw.lower() in title_lower:
                                 return False
 
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역", "인테리어"]
                         for exclude_word in exclude_words:
                             if exclude_word in title or exclude_word in description:
                                 return False
@@ -731,12 +710,15 @@ def main():
                         safe_print(f"[MONITOR] '포스코' 필터링 완료: {len(df_kw)}건 추가")
 
                 else:
-                    # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
+                    # 다른 키워드는 제목과 요약 모두에서 부동산 관련 키워드 제거
                     exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
                     def should_include_general(row):
                         title = str(row.get("기사제목", ""))
+                        description = str(row.get("주요기사 요약", ""))
+
+                        # 제목과 요약 모두 체크
                         for exclude_word in exclude_words:
-                            if exclude_word in title:
+                            if exclude_word in title or exclude_word in description:
                                 return False
                         return True
 

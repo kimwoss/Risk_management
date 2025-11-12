@@ -2139,10 +2139,10 @@ def page_media_search():
 
 def page_contact_search():
     st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">담당자 정보 검색</div>', unsafe_allow_html=True)
-    
+
     departments = load_master_data_fresh().get("departments", {})
-    
-    name = st.text_input("담당자 성명으로 검색:", placeholder="예) 김우현", key="contact_search_name")
+
+    search_query = st.text_input("검색어 입력 (부서명, 담당자명, 연락처, 이메일, 담당이슈):", placeholder="예) 김우현, 식량, 홍보그룹", key="contact_search_name")
     if st.button("🔍 담당자 검색", use_container_width=True):
         rows = []
         # 홍보그룹을 먼저 처리
@@ -2150,20 +2150,36 @@ def page_contact_search():
             dept = departments["홍보그룹"]
             if "담당자들" in dept:
                 for p in dept["담당자들"]:
+                    담당이슈_str = ", ".join(dept.get("담당이슈", []))
                     rows.append({"부서명": "홍보그룹", "성명": p.get("담당자",""), "직급": p.get("직급",""),
-                                 "연락처": p.get("연락처",""), "이메일": p.get("이메일","")})
+                                 "연락처": p.get("연락처",""), "이메일": p.get("이메일",""), "담당이슈": 담당이슈_str})
         # 나머지 부서들 처리
         for dept_name, dept in departments.items():
             if dept_name == "홍보그룹":  # 이미 처리했으므로 스킵
                 continue
             if "담당자들" in dept:
                 for p in dept["담당자들"]:
+                    담당이슈_str = ", ".join(dept.get("담당이슈", []))
                     rows.append({"부서명": dept_name, "성명": p.get("담당자",""), "직급": p.get("직급",""),
-                                 "연락처": p.get("연락처",""), "이메일": p.get("이메일","")})
+                                 "연락처": p.get("연락처",""), "이메일": p.get("이메일",""), "담당이슈": 담당이슈_str})
             else:
+                담당이슈_str = ", ".join(dept.get("담당이슈", []))
                 rows.append({"부서명": dept_name, "성명": dept.get("담당자",""), "직급": dept.get("직급",""),
-                             "연락처": dept.get("연락처",""), "이메일": dept.get("이메일","")})
-        filtered = [r for r in rows if (name.strip() in r["성명"])] if name.strip() else rows
+                             "연락처": dept.get("연락처",""), "이메일": dept.get("이메일",""), "담당이슈": 담당이슈_str})
+
+        # 확장된 검색 로직: 부서명, 성명, 연락처, 이메일, 담당이슈에서 검색
+        if search_query.strip():
+            filtered = []
+            for r in rows:
+                if (search_query.strip() in r["부서명"] or
+                    search_query.strip() in r["성명"] or
+                    search_query.strip() in r["연락처"] or
+                    search_query.strip() in r["이메일"] or
+                    search_query.strip() in r["담당이슈"]):
+                    filtered.append(r)
+        else:
+            filtered = rows
+
         if filtered:
             show_table(pd.DataFrame(filtered), "👥 담당자 검색 결과")
         else:

@@ -2,8 +2,8 @@ name: News Monitor
 
 on:
   schedule:
-    # 3분마다 실행 (cron: 분 시 일 월 요일)
-    - cron: '*/3 * * * *'
+    # 5분마다 실행 (cron: 분 시 일 월 요일)
+    - cron: '*/5 * * * *'
 
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:

@@ -2413,7 +2413,7 @@ def page_news_monitor():
                        "삼척블루파워", "포스코모빌리티솔루션"]
 
     refresh_interval = 180  # 180초 카운트다운 (3분)
-    max_items = 30  # API 사용량 최적화 (일일 25,000건 제한)
+    max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)
 
     # ===== 세션 상태 기본값 =====
     now = time.time()

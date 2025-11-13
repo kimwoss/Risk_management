@@ -6,7 +6,7 @@ import os
 import re
 import urllib.parse
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from html import unescape
 import pandas as pd
 import requests
@@ -356,8 +356,9 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
         if new_df.empty:
             return []
 
-        # 현재 시간 기준
-        now = datetime.now()
+        # 현재 시간 기준 (KST)
+        KST = timezone(timedelta(hours=9))
+        now = datetime.now(KST).replace(tzinfo=None)  # KST 시간을 naive datetime으로
 
         # 기존 DB의 URL 세트 생성 (정규화된 URL 사용)
         old_urls = set()

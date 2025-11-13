@@ -80,12 +80,29 @@ cp .env.example .env
 # OpenAI API 설정
 OPEN_API_KEY=your_openai_api_key_here
 
+# GPT 모델 설정 (선택사항, 기본값: gpt-4o-mini)
+OPENAI_GPT_MODEL=gpt-4o  # 최신 고성능 모델로 업그레이드
+
 # 기본 환경 설정
 ENVIRONMENT=development
 DEBUG=True
 DB_HOST=localhost
 DB_PORT=5432
 ```
+
+**GPT 모델 옵션:**
+- `gpt-4o`: 최신 고성능 모델 (추천)
+- `gpt-4o-mini`: 경량 모델 (기본값)
+- `gpt-4-turbo`: 긴 컨텍스트용
+- `o1-preview`: 복잡한 추론용
+
+### 4. Streamlit Cloud 배포 설정
+
+웹 앱(https://poscointlwh.streamlit.app/)에 배포 시:
+
+1. Streamlit Cloud Secrets에 동일한 환경 변수 설정
+2. **상세 가이드**: [STREAMLIT_CLOUD_SETUP.md](./STREAMLIT_CLOUD_SETUP.md) 참조
+3. GPT-4o 적용 시 더 정확한 분석과 보고서 생성
 
 ## 🎯 사용법
 

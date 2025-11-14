@@ -8,6 +8,11 @@ on:
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:
 
+  # 워크플로우 재활성화 트리거 (임시)
+  push:
+    branches:
+      - main
+
 permissions:
   contents: write  # 리포지토리에 쓰기 권한 부여 (DB 업데이트 커밋용)
 

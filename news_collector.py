@@ -23,7 +23,11 @@ except ImportError:
 DATA_FOLDER = os.path.abspath("data")
 NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
 SENT_CACHE_FILE = os.path.join(DATA_FOLDER, "sent_articles_cache.json")
-MAX_SENT_CACHE = 500  # 캐시 크기 제한
+API_USAGE_FILE = os.path.join(DATA_FOLDER, "api_usage.json")
+STATE_FILE = os.path.join(DATA_FOLDER, "monitor_state.json")
+MAX_SENT_CACHE = 10000  # 캐시 크기 제한 (약 4-5일분 커버, 기존 500개에서 확대)
+MAX_API_CALLS_PER_DAY = 25000  # 네이버 API 일일 할당량
+API_QUOTA_WARNING_THRESHOLD = 20000  # 80% 도달 시 경고 (25000의 80%)
 
 # 모니터링 키워드 설정 (단일 진실 공급원)
 KEYWORDS = [
@@ -79,7 +83,7 @@ def _clean_text(s: str) -> str:
 def _normalize_url(url: str) -> str:
     """
     URL 정규화 - 중복 체크를 위해 URL을 표준 형식으로 변환
-    - 쿼리 파라미터 제거
+    - 쿼리 파라미터 보존 (중요! 많은 뉴스 사이트가 쿼리로 기사 구분)
     - 프로토콜 통일 (http → https)
     - 끝 슬래시 제거
     """
@@ -87,9 +91,18 @@ def _normalize_url(url: str) -> str:
         if not url:
             return ""
         parsed = urllib.parse.urlparse(url)
+
+        # 1. 프로토콜 통일 (http → https)
         scheme = "https" if parsed.scheme in ["http", "https"] else parsed.scheme
-        normalized = f"{scheme}://{parsed.netloc}{parsed.path}"
-        normalized = normalized.rstrip("/")
+
+        # 2. 쿼리 파라미터 보존 (기사 ID 구분을 위해 필수)
+        query = f"?{parsed.query}" if parsed.query else ""
+
+        # 3. 끝 슬래시 제거
+        path = parsed.path.rstrip("/")
+
+        # 4. 정규화된 URL 생성
+        normalized = f"{scheme}://{parsed.netloc}{path}{query}"
         return normalized
     except Exception as e:
         print(f"[WARNING] URL 정규화 실패: {url} - {e}")
@@ -300,14 +313,46 @@ def save_news_db(df: pd.DataFrame):
 # ======================== 캐시 함수 ========================
 
 def load_sent_cache() -> set:
-    """전송된 기사 캐시를 파일에서 로드"""
+    """전송된 기사 캐시를 파일에서 로드 (TTL 적용)"""
     if os.path.exists(SENT_CACHE_FILE):
         try:
             with open(SENT_CACHE_FILE, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                cache = set(data.get("urls", []))
-                print(f"[DEBUG] 전송 캐시 로드 완료: {len(cache)}건")
-                return cache
+
+                # TTL 지원 여부 확인
+                if "url_timestamps" in data:
+                    # TTL 기반 캐시 (타임스탬프 포함)
+                    from datetime import timedelta
+                    url_timestamps = data.get("url_timestamps", {})
+                    ttl_days = data.get("ttl_days", 7)
+                    now = datetime.now()
+                    cutoff_time = now - timedelta(days=ttl_days)
+
+                    # 유효한 URL만 로드
+                    valid_urls = set()
+                    expired_count = 0
+                    for url, timestamp_str in url_timestamps.items():
+                        try:
+                            timestamp = datetime.fromisoformat(timestamp_str)
+                            if timestamp > cutoff_time:
+                                valid_urls.add(url)
+                            else:
+                                expired_count += 1
+                        except Exception:
+                            # 타임스탬프 파싱 실패 시 포함 (안전 장치)
+                            valid_urls.add(url)
+
+                    if expired_count > 0:
+                        print(f"[DEBUG] TTL 만료 URL 제거: {expired_count}건")
+
+                    print(f"[DEBUG] 전송 캐시 로드 완료: {len(valid_urls)}건 (TTL: {ttl_days}일)")
+                    return valid_urls
+                else:
+                    # 레거시 캐시 (타임스탬프 없음)
+                    cache = set(data.get("urls", []))
+                    print(f"[DEBUG] 전송 캐시 로드 완료 (레거시): {len(cache)}건")
+                    return cache
+
         except Exception as e:
             print(f"[WARNING] 전송 캐시 로드 실패: {e}")
             return set()
@@ -316,27 +361,167 @@ def load_sent_cache() -> set:
         return set()
 
 
-def save_sent_cache(cache: set):
-    """전송된 기사 캐시를 파일에 저장"""
+def save_sent_cache(cache: set, ttl_days: int = 7):
+    """
+    전송된 기사 캐시를 파일에 저장 (TTL 기반)
+
+    Args:
+        cache: 저장할 URL 캐시
+        ttl_days: TTL (Time To Live) 일수 (기본: 7일)
+    """
     try:
-        # data 폴더 생성
+        from datetime import timedelta
         os.makedirs(DATA_FOLDER, exist_ok=True)
 
-        # 최근 MAX_SENT_CACHE개만 유지
-        cache_list = list(cache)[-MAX_SENT_CACHE:]
+        # 기존 캐시 로드 (타임스탬프 유지)
+        existing_timestamps = {}
+        if os.path.exists(SENT_CACHE_FILE):
+            try:
+                with open(SENT_CACHE_FILE, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+                    existing_timestamps = existing_data.get("url_timestamps", {})
+            except Exception:
+                pass
+
+        # 현재 시간
+        now = datetime.now()
+        cutoff_time = now - timedelta(days=ttl_days)
+
+        # URL 타임스탬프 업데이트
+        url_timestamps = {}
+        for url in cache:
+            if url in existing_timestamps:
+                # 기존 타임스탬프 유지
+                try:
+                    timestamp = datetime.fromisoformat(existing_timestamps[url])
+                    if timestamp > cutoff_time:
+                        url_timestamps[url] = existing_timestamps[url]
+                    else:
+                        # 만료된 경우 현재 시간으로 갱신
+                        url_timestamps[url] = now.isoformat()
+                except Exception:
+                    url_timestamps[url] = now.isoformat()
+            else:
+                # 신규 URL은 현재 시간
+                url_timestamps[url] = now.isoformat()
+
+        # 최신 MAX_SENT_CACHE개만 유지 (타임스탬프 기준)
+        if len(url_timestamps) > MAX_SENT_CACHE:
+            sorted_urls = sorted(url_timestamps.items(), key=lambda x: x[1], reverse=True)
+            url_timestamps = dict(sorted_urls[:MAX_SENT_CACHE])
 
         data = {
-            "urls": cache_list,
-            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "count": len(cache_list)
+            "url_timestamps": url_timestamps,
+            "urls": list(url_timestamps.keys()),  # 하위 호환성
+            "last_updated": now.strftime("%Y-%m-%d %H:%M:%S"),
+            "count": len(url_timestamps),
+            "ttl_days": ttl_days
         }
 
         with open(SENT_CACHE_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"[DEBUG] 전송 캐시 저장 완료: {len(cache_list)}건 -> {SENT_CACHE_FILE}")
+        print(f"[DEBUG] 전송 캐시 저장 완료: {len(url_timestamps)}건 (TTL: {ttl_days}일) -> {SENT_CACHE_FILE}")
     except Exception as e:
         print(f"[WARNING] 전송 캐시 저장 실패: {e}")
+
+
+# ======================== API 할당량 관리 ========================
+
+def load_api_usage() -> int:
+    """오늘 API 사용량 로드"""
+    if os.path.exists(API_USAGE_FILE):
+        try:
+            with open(API_USAGE_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                today = datetime.now().strftime("%Y-%m-%d")
+                if data.get("date") == today:
+                    return data.get("count", 0)
+        except Exception as e:
+            print(f"[WARNING] API 사용량 로드 실패: {e}")
+    return 0
+
+
+def save_api_usage(count: int):
+    """오늘 API 사용량 저장"""
+    try:
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+        today = datetime.now().strftime("%Y-%m-%d")
+        data = {
+            "date": today,
+            "count": count,
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "quota_remaining": MAX_API_CALLS_PER_DAY - count,
+            "quota_percentage": (count / MAX_API_CALLS_PER_DAY) * 100
+        }
+        with open(API_USAGE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"[DEBUG] API 사용량 저장: {count}/{MAX_API_CALLS_PER_DAY} ({data['quota_percentage']:.1f}%)")
+    except Exception as e:
+        print(f"[WARNING] API 사용량 저장 실패: {e}")
+
+
+def increment_api_usage(calls: int = 1) -> int:
+    """API 사용량 증가 및 현재 사용량 반환"""
+    current = load_api_usage()
+    new_count = current + calls
+    save_api_usage(new_count)
+    return new_count
+
+
+def check_api_quota(required_calls: int = 1) -> bool:
+    """
+    API 할당량 확인
+
+    Args:
+        required_calls: 필요한 API 호출 횟수
+
+    Returns:
+        True: 할당량 여유 있음, False: 할당량 부족
+    """
+    current = load_api_usage()
+    remaining = MAX_API_CALLS_PER_DAY - current
+
+    if remaining < required_calls:
+        print(f"[WARNING] ⚠️ API 할당량 부족: 남은 호출 {remaining}회, 필요 {required_calls}회")
+        return False
+
+    if current >= API_QUOTA_WARNING_THRESHOLD:
+        print(f"[WARNING] ⚠️ API 할당량 80% 도달: {current}/{MAX_API_CALLS_PER_DAY} ({(current/MAX_API_CALLS_PER_DAY)*100:.1f}%)")
+
+    return True
+
+
+# ======================== 초기화 상태 관리 ========================
+
+def is_first_run() -> bool:
+    """첫 실행 여부 확인 (상태 파일 기준)"""
+    if not os.path.exists(STATE_FILE):
+        return True
+
+    try:
+        with open(STATE_FILE, 'r', encoding='utf-8') as f:
+            state = json.load(f)
+            return not state.get("initialized", False)
+    except Exception as e:
+        print(f"[WARNING] 상태 파일 로드 실패: {e}")
+        return True
+
+
+def mark_initialized():
+    """초기화 완료 표시"""
+    try:
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+        state = {
+            "initialized": True,
+            "first_run_date": datetime.now().isoformat(),
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        with open(STATE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
+        print(f"[DEBUG] 시스템 초기화 완료 표시")
+    except Exception as e:
+        print(f"[WARNING] 상태 파일 저장 실패: {e}")
 
 
 # ======================== 신규 기사 감지 ========================
@@ -348,10 +533,16 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
     - 캐시와 DB 중복 체크
     """
     try:
-        # 기존 DB가 비어있으면 신규 기사 없음으로 처리 (첫 실행 스팸 방지)
-        if old_df.empty:
-            print(f"[DEBUG] 기존 DB 비어있음 - 첫 실행이므로 알림 스킵")
+        # 첫 실행 체크 (상태 파일 기준)
+        if is_first_run():
+            print(f"[DEBUG] 첫 실행 감지 - 알림 스킵하고 초기화")
+            mark_initialized()
             return []
+
+        # DB가 비어있지만 첫 실행이 아니면 경고 (데이터 손실 가능성)
+        if old_df.empty and not is_first_run():
+            print(f"[WARNING] ⚠️ DB가 비어있지만 첫 실행이 아님 - 데이터 손실 가능성")
+            # 이 경우에도 신규 기사로 처리 (복구 목적)
 
         if new_df.empty:
             return []

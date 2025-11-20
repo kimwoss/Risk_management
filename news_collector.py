@@ -158,6 +158,10 @@ def _publisher_from_link(u: str) -> str:
             "job-post.co.kr": "잡포스트", "irobotnews.com": "로봇신문사", "ifm.kr": "경인방송",
             "gpkorea.com": "글로벌오토뉴스", "energydaily.co.kr": "에너지데일리",
             "cstimes.com": "컨슈머타임스", "bizwatch.co.kr": "비즈워치", "autodaily.co.kr": "오토데일리",
+            # 추가 언론사 (2025-11-20)
+            "newslock.co.kr": "뉴스락", "mbn.co.kr": "MBN", "kpenews.com": "KPE",
+            "koreatimes.co.kr": "코리아타임스", "korea.kr": "대한민국 정책브리핑",
+            "investchosun.com": "인베스트조선", "goodnews1.com": "GOODTV", "aitimes.kr": "AI타임스",
         }
         if base in base_map:
             return base_map[base]

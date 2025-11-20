@@ -564,8 +564,10 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
         print(f"[DEBUG] 캐시 크기: {len(sent_cache)}건")
         print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
 
-        # 신규 기사 감지
+        # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
+        MAX_ARTICLE_AGE_HOURS = 48  # 최근 48시간 이내 기사만 알림
+
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
             title = str(row.get("기사제목", "")).strip()
@@ -584,18 +586,31 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
             if is_in_db or is_in_cache:
                 continue
 
-            # 신규 기사 - 날짜 정보 로깅
+            # 신규 기사 - 날짜 필터링 추가
             article_date_str = row.get("날짜", "")
+            should_notify = False
+            hours_diff = None
+
             try:
                 article_date = pd.to_datetime(article_date_str, errors="coerce")
                 if pd.notna(article_date):
                     time_diff = now - article_date
                     hours_diff = time_diff.total_seconds() / 3600
-                    print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+
+                    # 시간 기반 필터링: 최근 48시간 이내만 알림
+                    if hours_diff <= MAX_ARTICLE_AGE_HOURS:
+                        should_notify = True
+                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                    else:
+                        print(f"[DEBUG] ⏭️ 오래된 기사 스킵: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
+                        continue  # 너무 오래된 기사는 알림 스킵
                 else:
-                    print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 파싱 실패): {title[:50]}...")
+                    # 날짜 파싱 실패 시에도 스킵 (안전장치)
+                    print(f"[DEBUG] ⏭️ 날짜 파싱 실패로 스킵: {title[:50]}...")
+                    continue
             except Exception as e:
-                print(f"[DEBUG] ✅ 신규 기사 감지 (날짜 처리 오류): {title[:50]}... - {str(e)}")
+                print(f"[DEBUG] ⏭️ 날짜 처리 오류로 스킵: {title[:50]}... - {str(e)}")
+                continue
 
             # 매체명과 키워드 추출
             press = _publisher_from_link(url)

@@ -1142,19 +1142,18 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
         df = df.loc[~key.duplicated()].reset_index(drop=True)
     return df
 
-@st.cache_data(ttl=30)  # 30초 캐시 (뉴스 데이터는 자주 업데이트되므로 짧은 TTL)
-def _load_news_db_cached(path: str, _cache_key: int) -> pd.DataFrame:
-    """캐시된 뉴스 DB 로더"""
-    try:
-        return pd.read_csv(path, encoding="utf-8")
-    except Exception:
-        return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
-
 def load_news_db() -> pd.DataFrame:
-    """뉴스 DB 로드 (시간 기반 캐시 무효화 - Streamlit Cloud 호환)"""
-    # 30초마다 캐시 갱신 (Streamlit Cloud에서 mtime이 제대로 업데이트되지 않는 문제 해결)
-    cache_key = int(time.time() // 30)  # 30초 단위로 캐시 키 변경
-    return _load_news_db_cached(NEWS_DB_FILE, cache_key)
+    """뉴스 DB 로드 (캐시 완전 제거 - Streamlit Cloud 실시간 업데이트)"""
+    try:
+        df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+        # 디버그: 최신 기사 시간 출력
+        if not df.empty and "날짜" in df.columns:
+            latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
+            print(f"[DEBUG] 뉴스 DB 로드: {len(df)}건, 최신 기사: {latest_date}")
+        return df
+    except Exception as e:
+        print(f"[ERROR] 뉴스 DB 로드 실패: {e}")
+        return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:
@@ -2687,6 +2686,15 @@ def page_news_monitor():
     # ===== 화면 표시 (저장된 최신 데이터 기준) =====
     st.markdown("---")
     db = load_news_db()
+
+    # 🔍 디버그 정보 표시
+    if not db.empty and "날짜" in db.columns:
+        latest_article = db["날짜"].iloc[0] if len(db) > 0 else "N/A"
+        load_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        st.markdown(f'<div style="background: #1e1e1e; padding: 8px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; color: #888;">'
+                   f'📊 DB 로드: {load_time} | 총 {len(db)}건 | 최신 기사: {latest_article}</div>',
+                   unsafe_allow_html=True)
+
     if db.empty:
         st.markdown('<p style="color: white;">📰 저장된 뉴스 데이터가 없습니다.</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)

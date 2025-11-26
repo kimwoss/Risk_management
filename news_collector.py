@@ -174,7 +174,8 @@ def _publisher_from_link(u: str) -> str:
 # ======================== 네이버 API 함수 ========================
 
 def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = "date"):
-    """Naver 뉴스 API 호출"""
+    """Naver 뉴스 API 호출 (연결 누수 방지)"""
+    r = None
     try:
         url = "https://openapi.naver.com/v1/search/news.json"
         params = {"query": query, "start": start, "display": display, "sort": sort}
@@ -206,6 +207,10 @@ def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = 
     except Exception as e:
         print(f"[WARNING] Unexpected error in fetch_naver_news: {e}")
         return {"items": [], "error": "unexpected"}
+    finally:
+        # 연결 누수 방지: 응답 객체 명시적으로 닫기
+        if r is not None:
+            r.close()
 
 
 def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
@@ -711,6 +716,7 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
                 "disable_web_page_preview": True
             }
 
+            response = None
             try:
                 response = requests.post(url, json=payload, timeout=10)
                 if response.status_code == 200:
@@ -729,6 +735,10 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
 
             except Exception as e:
                 print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
+            finally:
+                # 연결 누수 방지
+                if response is not None:
+                    response.close()
 
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
 
@@ -740,7 +750,13 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
                 "text": summary_message,
                 "parse_mode": "Markdown"
             }
-            requests.post(url, json=payload, timeout=10)
+            summary_resp = None
+            try:
+                summary_resp = requests.post(url, json=payload, timeout=10)
+            finally:
+                # 연결 누수 방지
+                if summary_resp is not None:
+                    summary_resp.close()
 
         return sent_cache
 

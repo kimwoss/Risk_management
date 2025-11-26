@@ -1142,8 +1142,8 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
         df = df.loc[~key.duplicated()].reset_index(drop=True)
     return df
 
-@st.cache_data(ttl=60)  # 60초 캐시 (뉴스 데이터는 자주 업데이트되므로 짧은 TTL)
-def _load_news_db_cached(path: str, _cache_key: float) -> pd.DataFrame:
+@st.cache_data(ttl=30)  # 30초 캐시 (뉴스 데이터는 자주 업데이트되므로 짧은 TTL)
+def _load_news_db_cached(path: str, _cache_key: int) -> pd.DataFrame:
     """캐시된 뉴스 DB 로더"""
     try:
         return pd.read_csv(path, encoding="utf-8")
@@ -1151,12 +1151,10 @@ def _load_news_db_cached(path: str, _cache_key: float) -> pd.DataFrame:
         return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
 
 def load_news_db() -> pd.DataFrame:
-    """뉴스 DB 로드 (파일 수정시간 기반 캐싱)"""
-    try:
-        mtime = os.path.getmtime(NEWS_DB_FILE) if os.path.exists(NEWS_DB_FILE) else 0.0
-    except OSError:
-        mtime = 0.0
-    return _load_news_db_cached(NEWS_DB_FILE, mtime)
+    """뉴스 DB 로드 (시간 기반 캐시 무효화 - Streamlit Cloud 호환)"""
+    # 30초마다 캐시 갱신 (Streamlit Cloud에서 mtime이 제대로 업데이트되지 않는 문제 해결)
+    cache_key = int(time.time() // 30)  # 30초 단위로 캐시 키 변경
+    return _load_news_db_cached(NEWS_DB_FILE, cache_key)
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:

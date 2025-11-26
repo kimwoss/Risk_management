@@ -1143,17 +1143,39 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
     return df
 
 def load_news_db() -> pd.DataFrame:
-    """뉴스 DB 로드 (캐시 완전 제거 - Streamlit Cloud 실시간 업데이트)"""
+    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)"""
+    # GitHub raw URL에서 직접 로드 (Streamlit Cloud 캐시 문제 해결)
+    GITHUB_RAW_URL = "https://raw.githubusercontent.com/kimwoss/Risk_management/main/data/news_monitor.csv"
+
     try:
-        df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+        # 1차 시도: GitHub에서 직접 로드 (캐시 우회)
+        print(f"[DEBUG] GitHub에서 직접 로드 시도: {GITHUB_RAW_URL}")
+        response = requests.get(GITHUB_RAW_URL, timeout=10)
+        response.raise_for_status()
+
+        from io import StringIO
+        df = pd.read_csv(StringIO(response.text), encoding="utf-8")
+        response.close()
+
         # 디버그: 최신 기사 시간 출력
         if not df.empty and "날짜" in df.columns:
             latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
-            print(f"[DEBUG] 뉴스 DB 로드: {len(df)}건, 최신 기사: {latest_date}")
+            print(f"[DEBUG] ✅ GitHub에서 로드 완료: {len(df)}건, 최신 기사: {latest_date}")
         return df
+
     except Exception as e:
-        print(f"[ERROR] 뉴스 DB 로드 실패: {e}")
-        return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+        print(f"[WARNING] GitHub 로드 실패, 로컬 파일 시도: {e}")
+
+        # 2차 시도: 로컬 파일에서 로드
+        try:
+            df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+            if not df.empty and "날짜" in df.columns:
+                latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
+                print(f"[DEBUG] ⚠️ 로컬 파일에서 로드: {len(df)}건, 최신 기사: {latest_date}")
+            return df
+        except Exception as e2:
+            print(f"[ERROR] 모든 로드 시도 실패: {e2}")
+            return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:

@@ -595,9 +595,9 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
             if is_in_db or is_in_cache:
                 continue
 
-            # 신규 기사 - 날짜 필터링 추가
+            # 신규 기사 - 날짜 필터링 (개선됨)
             article_date_str = row.get("날짜", "")
-            should_notify = False
+            should_notify = True  # 기본값: 신규 기사면 알림
             hours_diff = None
 
             try:
@@ -608,18 +608,16 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
                     # 시간 기반 필터링: 최근 48시간 이내만 알림
                     if hours_diff <= MAX_ARTICLE_AGE_HOURS:
-                        should_notify = True
                         print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
                     else:
                         print(f"[DEBUG] ⏭️ 오래된 기사 스킵: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
                         continue  # 너무 오래된 기사는 알림 스킵
                 else:
-                    # 날짜 파싱 실패 시에도 스킵 (안전장치)
-                    print(f"[DEBUG] ⏭️ 날짜 파싱 실패로 스킵: {title[:50]}...")
-                    continue
+                    # 날짜 파싱 실패 시에도 신규 기사로 처리 (개선!)
+                    print(f"[DEBUG] ⚠️ 날짜 파싱 실패, 하지만 신규 기사로 알림: {title[:50]}... (날짜: {article_date_str})")
             except Exception as e:
-                print(f"[DEBUG] ⏭️ 날짜 처리 오류로 스킵: {title[:50]}... - {str(e)}")
-                continue
+                # 예외 발생 시에도 신규 기사로 처리 (개선!)
+                print(f"[DEBUG] ⚠️ 날짜 처리 오류, 하지만 신규 기사로 알림: {title[:50]}... - {str(e)}")
 
             # 매체명과 키워드 추출
             press = _publisher_from_link(url)
@@ -667,21 +665,28 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
 
         # 이미 전송된 기사 필터링
         articles_to_send = []
+        skipped_already_sent = 0
         for article in new_articles:
             url_key = article.get("link", "")
             url_normalized = _normalize_url(url_key)
 
             if url_key and url_key not in sent_cache and url_normalized not in sent_cache:
                 articles_to_send.append(article)
+            else:
+                skipped_already_sent += 1
+                print(f"[DEBUG] 📤 이미 전송된 기사 스킵: {article.get('title', '')[:50]}...")
 
         if not articles_to_send:
-            print("[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵")
+            print(f"[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵 (스킵된 기사: {skipped_already_sent}건)")
             return sent_cache
 
-        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건")
+        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (이미 전송: {skipped_already_sent}건)")
 
         # 최대 10개까지만 알림
         articles_to_notify = articles_to_send[:10]
+
+        if len(articles_to_send) > 10:
+            print(f"[DEBUG] ⚠️ 10개 초과로 {len(articles_to_send) - 10}건 대기열에 남음")
 
         # 텔레그램 API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"

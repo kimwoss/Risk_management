@@ -767,11 +767,12 @@ def _get_openai_key():
     return os.getenv("OPENAI_API_KEY") or os.getenv("OPEN_API_KEY") or ""
 
 def _openai_chat(messages, model=None, temperature=0.2, max_tokens=400):
-    """경량 OpenAI Chat 호출 (requests 사용)"""
+    """경량 OpenAI Chat 호출 (연결 누수 방지)"""
     api_key = _get_openai_key()
     if not api_key:
         return None, "OPENAI_API_KEY not set"
     model = model or os.getenv("OPENAI_GPT_MODEL", "gpt-4o-mini")
+    r = None
     try:
         r = requests.post(
             "https://api.openai.com/v1/chat/completions",
@@ -783,16 +784,26 @@ def _openai_chat(messages, model=None, temperature=0.2, max_tokens=400):
         return r.json()["choices"][0]["message"]["content"].strip(), None
     except Exception as e:
         return None, str(e)
+    finally:
+        # 연결 누수 방지
+        if r is not None:
+            r.close()
 
-# --- 기사 본문/제목 추출 (가벼운 크롤러) ---
+# --- 기사 본문/제목 추출 (가벼운 크롤러, 연결 누수 방지) ---
 def _extract_article_text_and_title(url: str):
+    """기사 크롤링 (연결 누수 방지)"""
     html = ""
+    resp = None
     try:
         resp = requests.get(url, timeout=12, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         html = resp.text
     except Exception:
         pass
+    finally:
+        # 연결 누수 방지: 응답 객체 명시적으로 닫기
+        if resp is not None:
+            resp.close()
 
     title = ""
     text = ""
@@ -1009,6 +1020,8 @@ else:
             st.rerun()
 
 def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = "date"):
+    """뉴스 API 호출 (연결 누수 방지)"""
+    r = None
     try:
         url = "https://openapi.naver.com/v1/search/news.json"
         params = {"query": query, "start": start, "display": display, "sort": sort}
@@ -1022,7 +1035,7 @@ def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = 
             return {"items": [], "error": "missing_keys"}
 
         print(f"[DEBUG] Starting API request...")
-        r = requests.get(url, headers=headers, params=params, timeout=5)  # 타임아웃을 5초로 단축
+        r = requests.get(url, headers=headers, params=params, timeout=5)
         print(f"[DEBUG] API Response status: {r.status_code}")
 
         # 429 에러 (할당량 초과) 명시적 처리
@@ -1051,6 +1064,10 @@ def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = 
     except Exception as e:
         print(f"[WARNING] Unexpected error in fetch_naver_news: {e}")
         return {"items": [], "error": "unexpected"}
+    finally:
+        # 연결 누수 방지: 응답 객체 명시적으로 닫기
+        if r is not None:
+            r.close()
 
 def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
     print(f"[DEBUG] Starting crawl_naver_news for query: {query}, max_items: {max_items}")
@@ -1305,6 +1322,7 @@ def send_telegram_notification(new_articles: list):
                 "disable_web_page_preview": True
             }
 
+            response = None
             try:
                 response = requests.post(url, json=payload, timeout=10)
                 if response.status_code == 200:
@@ -1327,6 +1345,10 @@ def send_telegram_notification(new_articles: list):
 
             except Exception as e:
                 print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
+            finally:
+                # 연결 누수 방지
+                if response is not None:
+                    response.close()
 
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
         print(f"[DEBUG] 전송 캐시 크기: {len(_sent_articles_cache)}건")
@@ -1339,7 +1361,13 @@ def send_telegram_notification(new_articles: list):
                 "text": summary_message,
                 "parse_mode": "Markdown"
             }
-            requests.post(url, json=payload, timeout=10)
+            summary_resp = None
+            try:
+                summary_resp = requests.post(url, json=payload, timeout=10)
+            finally:
+                # 연결 누수 방지
+                if summary_resp is not None:
+                    summary_resp.close()
 
     except Exception as e:
         print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")
@@ -1814,8 +1842,10 @@ def load_base_css():
     </style>
     """, unsafe_allow_html=True)
 
-# ----------------------------- 자원 로드 -----------------------------
+# ----------------------------- 자원 로드 (캐싱으로 파일 읽기 최소화) -----------------------------
+@st.cache_data
 def load_logo_data_uri():
+    """로고 이미지 로드 (캐시됨)"""
     candidates = [
         os.path.join(DATA_FOLDER, "POSCO_INTERNATIONAL_Korean_Signature.svg"),
         os.path.join(DATA_FOLDER, "POSCO_INTERNATIONAL_Korean_Signature.png"),
@@ -1829,7 +1859,9 @@ def load_logo_data_uri():
             return f"data:{mt};base64,{b64}"
     return ""
 
+@st.cache_data
 def load_main_background_uri():
+    """메인 배경 이미지 로드 (캐시됨)"""
     p = os.path.join(DATA_FOLDER, "Image_main.jpg")
     if os.path.exists(p):
         with open(p, "rb") as f:

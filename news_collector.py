@@ -18,6 +18,34 @@ try:
 except ImportError:
     pass
 
+# ======================== 유틸리티 함수 ========================
+
+# 원본 print 저장
+_original_print = print
+
+def safe_print(*args, **kwargs):
+    """Windows cp949 인코딩 에러 방지용 안전한 print"""
+    try:
+        _original_print(*args, **kwargs)
+    except (UnicodeEncodeError, OSError):
+        # 이모지 제거 후 재시도
+        try:
+            safe_args = []
+            for arg in args:
+                if isinstance(arg, str):
+                    # 이모지 및 특수문자 제거
+                    safe_arg = arg.encode('ascii', 'ignore').decode('ascii')
+                    safe_args.append(safe_arg)
+                else:
+                    safe_args.append(arg)
+            _original_print(*safe_args, **kwargs)
+        except:
+            # 그래도 실패하면 무시
+            pass
+
+# 전역 print를 safe_print로 오버라이드
+print = safe_print
+
 # ======================== 상수 설정 ========================
 
 DATA_FOLDER = os.path.abspath("data")

@@ -46,6 +46,7 @@ class NaverSearchAPI:
             'sort': sort
         }
         
+        response = None
         try:
             response = requests.get(url, headers=self.headers, params=params)
             response.raise_for_status()
@@ -53,6 +54,9 @@ class NaverSearchAPI:
         except requests.exceptions.RequestException as e:
             print(f"뉴스 검색 API 호출 오류: {str(e)}")
             return {"items": []}
+        finally:
+            if response is not None:
+                response.close()
     
     def search_blog(self, query: str, display: int = 10, sort: str = "date") -> Dict[str, Any]:
         """
@@ -73,6 +77,7 @@ class NaverSearchAPI:
             'sort': sort
         }
         
+        response = None
         try:
             response = requests.get(url, headers=self.headers, params=params)
             response.raise_for_status()
@@ -80,6 +85,9 @@ class NaverSearchAPI:
         except requests.exceptions.RequestException as e:
             print(f"블로그 검색 API 호출 오류: {str(e)}")
             return {"items": []}
+        finally:
+            if response is not None:
+                response.close()
 
 class IssueResearchService:
     """발생 이슈 연구 서비스"""

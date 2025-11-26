@@ -111,11 +111,16 @@ class EnhancedResearchService:
                 'sort': 'sim'   # 관련성순으로 변경
             }
             
-            response = requests.get(url, headers=self.naver_headers, params=params, timeout=15)
-            response.raise_for_status()
-            
-            results = []
-            items = response.json().get("items", [])
+            response = None
+            try:
+                response = requests.get(url, headers=self.naver_headers, params=params, timeout=15)
+                response.raise_for_status()
+
+                results = []
+                items = response.json().get("items", [])
+            finally:
+                if response is not None:
+                    response.close()
             
             for item in items:
                 processed_item = {
@@ -148,6 +153,7 @@ class EnhancedResearchService:
             ]
             
             for search_url in search_urls:
+                response = None
                 try:
                     response = requests.get(search_url, timeout=10, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'})
                     if response.status_code == 200:
@@ -177,6 +183,9 @@ class EnhancedResearchService:
                 except Exception as e:
                     print(f"WARNING: 포스코 공식 사이트 접근 실패 ({search_url}) - {str(e)}")
                     continue
+                finally:
+                    if response is not None:
+                        response.close()
             
             return results
             
@@ -198,6 +207,7 @@ class EnhancedResearchService:
                     # DART 전자공시시스템에서 해당 기업 공시 정보 수집
                     dart_url = "https://dart.fss.or.kr/dsaf001/main.do"
                     
+                    response = None
                     try:
                         response = requests.get(dart_url, timeout=10, headers={'User-Agent': 'Mozilla/5.0'})
                         if response.status_code == 200:
@@ -210,6 +220,9 @@ class EnhancedResearchService:
                             })
                     except Exception as e:
                         print(f"WARNING: DART 접근 실패 - {str(e)}")
+                    finally:
+                        if response is not None:
+                            response.close()
             
             return results
             
@@ -225,6 +238,7 @@ class EnhancedResearchService:
             # 한국거래소 공시 사이트
             krx_url = "https://kind.krx.co.kr"
             
+            response = None
             try:
                 response = requests.get(krx_url, timeout=10, headers={'User-Agent': 'Mozilla/5.0'})
                 if response.status_code == 200:
@@ -237,6 +251,9 @@ class EnhancedResearchService:
                     })
             except Exception as e:
                 print(f"WARNING: 한국거래소 접근 실패 - {str(e)}")
+            finally:
+                if response is not None:
+                    response.close()
             
             return results
             

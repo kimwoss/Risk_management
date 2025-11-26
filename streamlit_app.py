@@ -986,8 +986,8 @@ if SUPPORTS_FRAGMENT:
         now = time.time()
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
         st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
-        # 오직 이 조각만 1초 리프레시
-        st_autorefresh(interval=1000, key="countdown_tick")
+        # 5초 간격으로 리프레시 (성능 최적화)
+        st_autorefresh(interval=5000, key="countdown_tick")
         # 0초 되면 트리거 플래그 설정하고 즉시 페이지 리런
         if secs_left == 0 and not st.session_state.get("trigger_news_update", False):
             st.session_state.trigger_news_update = True
@@ -998,11 +998,11 @@ else:
         now = time.time()
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
         st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
-        
-        # 보고서 생성 중이 아닐 때만 자동 리프레시
+
+        # 보고서 생성 중이 아닐 때만 자동 리프레시 (5초 간격으로 성능 최적화)
         if not any(key.startswith("report_generating_") and st.session_state.get(key, False) for key in st.session_state.keys()):
-            st_autorefresh(interval=1000, key="countdown_fallback")
-        
+            st_autorefresh(interval=5000, key="countdown_fallback")
+
         # 0초 되면 트리거 플래그 설정하고 즉시 페이지 리런
         if secs_left == 0 and not st.session_state.get("trigger_news_update", False):
             st.session_state.trigger_news_update = True
@@ -1124,13 +1124,21 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
         df = df.loc[~key.duplicated()].reset_index(drop=True)
     return df
 
+@st.cache_data(ttl=60)  # 60초 캐시 (뉴스 데이터는 자주 업데이트되므로 짧은 TTL)
+def _load_news_db_cached(path: str, _cache_key: float) -> pd.DataFrame:
+    """캐시된 뉴스 DB 로더"""
+    try:
+        return pd.read_csv(path, encoding="utf-8")
+    except Exception:
+        return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+
 def load_news_db() -> pd.DataFrame:
-    if os.path.exists(NEWS_DB_FILE):
-        try:
-            return pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
-        except Exception:
-            pass
-    return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+    """뉴스 DB 로드 (파일 수정시간 기반 캐싱)"""
+    try:
+        mtime = os.path.getmtime(NEWS_DB_FILE) if os.path.exists(NEWS_DB_FILE) else 0.0
+    except OSError:
+        mtime = 0.0
+    return _load_news_db_cached(NEWS_DB_FILE, mtime)
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:
@@ -2211,8 +2219,8 @@ def page_contact_search():
 def page_history_search():
     st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">기존 대응 이력 검색</div>', unsafe_allow_html=True)
 
-    # 30초마다 자동으로 파일 변경 체크 (백그라운드)
-    st_autorefresh(interval=30000, key="history_autorefresh")
+    # 60초마다 자동으로 파일 변경 체크 (백그라운드) - 성능 최적화
+    st_autorefresh(interval=60000, key="history_autorefresh")
 
     # 파일 변경 감지 및 자동 새로고침
     try:
@@ -2412,7 +2420,7 @@ def page_news_monitor():
     exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
                        "삼척블루파워", "포스코모빌리티솔루션"]
 
-    refresh_interval = 180  # 180초 카운트다운 (3분)
+    refresh_interval = 300  # 300초 카운트다운 (5분) - 성능 최적화
     max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)
 
     # ===== 세션 상태 기본값 =====
@@ -2853,21 +2861,22 @@ def main():
     if "current_menu" not in st.session_state:
         st.session_state.current_menu = active
     elif st.session_state.current_menu != active:
-        # 메뉴가 변경되었을 때 모든 입력 관련 세션 상태 정리 (확장)
-        keys_to_clear = [k for k in st.session_state.keys() 
-                        if k.startswith(('issue_', 'media_search_', 'contact_search_', 'history_search_', 
-                                       'news_view', 'widget_', 'text_input_', 'text_area_', 'selectbox_'))]
-        for key in keys_to_clear:
-            try:
-                del st.session_state[key]
-            except KeyError:
-                pass  # 키가 없어도 무시
-        
-        # 메뉴 상태 즉시 업데이트
-        st.session_state.current_menu = active
-        
-        # 입력창 완전 초기화를 위한 단일 리런 (조건부에서 무조건으로 변경)
-        st.rerun()
+        # 메뉴가 변경되었을 때 모든 입력 관련 세션 상태 정리 (최적화됨)
+        prefixes = ('issue_', 'media_search_', 'contact_search_', 'history_search_',
+                   'news_view', 'widget_', 'text_input_', 'text_area_', 'selectbox_')
+        keys_to_clear = [k for k in st.session_state.keys() if k.startswith(prefixes)]
+
+        # 삭제할 키가 있을 때만 삭제 및 rerun (성능 최적화)
+        if keys_to_clear:
+            for key in keys_to_clear:
+                st.session_state.pop(key, None)  # KeyError 방지
+
+            # 메뉴 상태 즉시 업데이트
+            st.session_state.current_menu = active
+            st.rerun()
+        else:
+            # 삭제할 키가 없으면 메뉴 상태만 업데이트 (rerun 생략)
+            st.session_state.current_menu = active
     
     render_top_nav(active)
 

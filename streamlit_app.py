@@ -1149,8 +1149,13 @@ def load_news_db() -> pd.DataFrame:
 
     try:
         # 1차 시도: GitHub에서 직접 로드 (캐시 우회)
-        print(f"[DEBUG] GitHub에서 직접 로드 시도: {GITHUB_RAW_URL}")
-        response = requests.get(GITHUB_RAW_URL, timeout=10)
+        # 캐시 버스팅을 위해 타임스탬프 추가 (5분 단위로 갱신)
+        import time
+        cache_buster = int(time.time() // 300)  # 5분(300초) 단위로 변경
+        url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_buster}"
+
+        print(f"[DEBUG] GitHub에서 직접 로드 시도: {url_with_cache_buster}")
+        response = requests.get(url_with_cache_buster, timeout=10)
         response.raise_for_status()
 
         from io import StringIO

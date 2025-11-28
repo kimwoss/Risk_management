@@ -2477,7 +2477,7 @@ def page_news_monitor():
     exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
                        "삼척블루파워", "포스코모빌리티솔루션"]
 
-    refresh_interval = 300  # 300초 카운트다운 (5분) - 성능 최적화
+    refresh_interval = 180  # 180초 카운트다운 (3분) - 빠른 업데이트
     max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)
 
     # ===== 세션 상태 기본값 =====

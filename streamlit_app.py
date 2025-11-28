@@ -2498,9 +2498,7 @@ def page_news_monitor():
         st.session_state.trigger_news_update = False
 
     # ===== 상단 UI (카운트다운/상태/수동 새로고침) =====
-    c_count, c_status, c_check, c_btn = st.columns([1, 2, 0.8, 1])
-    with c_check:
-        emergency_mode = st.checkbox("긴급수집", help="GitHub Actions 중단 시 사용 (DB 저장 활성화)")
+    c_count, c_status, c_btn = st.columns([1, 2.5, 1])
     with c_btn:
         manual_refresh = st.button("🔄 지금 새로고침", use_container_width=True)
     with c_status:
@@ -2680,14 +2678,12 @@ def page_news_monitor():
                         # 신규 기사 감지 (참고용)
                         new_articles = detect_new_articles(existing_db, df_new)
 
-                        # 🔒 조건부 DB 저장: 긴급수집 모드 시에만 활성화
-                        if emergency_mode:
-                            save_news_db(merged)
-                            status.success(f"✅ 긴급수집 완료! DB 저장됨 (총 {len(merged)}건)")
-                        else:
-                            # 기본 모드: GitHub Actions에서만 DB 저장
-                            # 세션 상태에만 저장 (UI 표시용)
-                            st.session_state.news_display_data = merged
+                        # 🔒 Streamlit은 읽기 전용 모드 - DB 저장 비활성화
+                        # DB 저장과 텔레그램 알림은 GitHub Actions에서만 담당
+                        # save_news_db(merged)  # 비활성화
+
+                        # 세션 상태에만 저장 (UI 표시용)
+                        st.session_state.news_display_data = merged
 
                         # 🔒 텔레그램 알림 비활성화 - GitHub Actions 전용
                         # send_telegram_notification(new_articles)  # 비활성화

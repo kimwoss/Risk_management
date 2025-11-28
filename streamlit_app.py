@@ -310,17 +310,22 @@ def show_login_page():
     # 폼 래퍼로 입력/버튼 폭 제한
     st.markdown('<div class="login-form-wrapper">', unsafe_allow_html=True)
 
-    st.markdown('<div style="margin-bottom: 12px; text-align: left; color: rgba(255,255,255,.7); font-size: 13px; font-weight: 600;">비밀코드</div>', unsafe_allow_html=True)
-    code_input = st.text_input(
-        "비밀코드",
-        type="password",
-        placeholder="비밀코드를 입력하세요",
-        label_visibility="collapsed",
-        key="login_code_input"
-    )
+    # st.form을 사용하여 엔터 키로 제출 가능하도록 개선
+    with st.form(key="login_form", clear_on_submit=False):
+        st.markdown('<div style="margin-bottom: 12px; text-align: left; color: rgba(255,255,255,.7); font-size: 13px; font-weight: 600;">비밀코드</div>', unsafe_allow_html=True)
+        code_input = st.text_input(
+            "비밀코드",
+            type="password",
+            placeholder="비밀코드를 입력하세요",
+            label_visibility="collapsed",
+            key="login_code_input"
+        )
 
-    st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
-    if st.button("로그인", use_container_width=True, key="login_button"):
+        st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
+        submit_button = st.form_submit_button("로그인", use_container_width=True)
+
+    # 폼 제출 처리 (엔터 키 또는 버튼 클릭)
+    if submit_button:
         if code_input == ACCESS_CODE:
             # 쿠키 설정 (30일 유지)
             auth_token = get_auth_token()
@@ -332,17 +337,13 @@ def show_login_page():
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 const expires = "expires=" + date.toUTCString();
                 document.cookie = "posco_auth_token={auth_token}; " + expires + "; path=/; SameSite=Lax";
-
-                // 쿠키 설정 후 페이지 리로드
-                setTimeout(function() {{
-                    window.location.href = window.location.pathname;
-                }}, 100);
             </script>
             """
             st.components.v1.html(set_cookie_script, height=0)
 
             st.session_state.authenticated = True
-            st.success("✅ 로그인 성공! 자동으로 리다이렉트됩니다...")
+            # 즉시 페이지 리런하여 메인 화면으로 이동
+            st.rerun()
         else:
             st.error("잘못된 비밀코드입니다. 다시 시도해주세요.")
 

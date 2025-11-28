@@ -1,5 +1,5 @@
 # streamlit_app.py
-# Version: 2025-11-26-14:00 (Cache refresh)
+# Version: 2025-11-28-11:00 (Login & Timer Fix)
 """
 포스코인터내셔널 언론대응 보고서 생성 시스템
 - 상단 네비: 순수 Streamlit 버튼 기반 (iFrame/JS 제거, 확실한 리런)
@@ -327,22 +327,26 @@ def show_login_page():
     # 폼 제출 처리 (엔터 키 또는 버튼 클릭)
     if submit_button:
         if code_input == ACCESS_CODE:
-            # 쿠키 설정 (30일 유지)
+            # 1단계: 세션 상태 즉시 설정 (우선순위 최상위)
+            st.session_state.authenticated = True
+            st.session_state.login_pending_cookie = True
+
+            # 2단계: 쿠키 설정 (백그라운드, 비동기)
             auth_token = get_auth_token()
             set_cookie_script = f"""
             <script>
-                // 30일 동안 유효한 쿠키 설정
-                const days = 30;
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                const expires = "expires=" + date.toUTCString();
-                document.cookie = "posco_auth_token={auth_token}; " + expires + "; path=/; SameSite=Lax";
+                (function() {{
+                    const days = 30;
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    const expires = "expires=" + date.toUTCString();
+                    document.cookie = "posco_auth_token={auth_token}; " + expires + "; path=/; SameSite=Lax";
+                }})();
             </script>
             """
             st.components.v1.html(set_cookie_script, height=0)
 
-            st.session_state.authenticated = True
-            # 즉시 페이지 리런하여 메인 화면으로 이동
+            # 3단계: 즉시 리런 (세션 상태 기반으로 메인 화면 표시)
             st.rerun()
         else:
             st.error("잘못된 비밀코드입니다. 다시 시도해주세요.")
@@ -1742,9 +1746,13 @@ def start_background_scheduler():
             print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
 
 # ----------------------------- 스타일 -----------------------------
-@st.cache_data(ttl=3600)  # CSS는 1시간 캐시
+# CSS 캐시 TTL을 짧게 설정하여 빠른 업데이트 반영
+@st.cache_data(ttl=60)  # 1분으로 단축 (빠른 배포 확인)
 def load_base_css():
     st.markdown("""
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <style>
       /* 컨테이너 폭 + 상단 여백 (Streamlit 정책 준수) */
       .block-container {max-width:1360px !important; padding: 24px 20px 0 !important; margin-top: 16px !important;}
@@ -2963,6 +2971,14 @@ def main():
         # 잘못된 파라미터면 메인으로 보냄
         st.query_params["menu"] = "메인"
         st.rerun()
+
+    # 버전 정보 표시 (하단, 작게)
+    st.markdown(
+        f'<div style="text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; margin-top: 40px; padding-bottom: 20px;">'
+        f'v2.0.1 | 2025-11-28 | 로그인/타이머 수정'
+        f'</div>',
+        unsafe_allow_html=True
+    )
 
 if __name__ == "__main__":
     main()

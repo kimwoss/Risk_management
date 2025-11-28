@@ -1750,9 +1750,6 @@ def start_background_scheduler():
 @st.cache_data(ttl=60)  # 1분으로 단축 (빠른 배포 확인)
 def load_base_css():
     st.markdown("""
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <style>
       /* 컨테이너 폭 + 상단 여백 (Streamlit 정책 준수) */
       .block-container {max-width:1360px !important; padding: 24px 20px 0 !important; margin-top: 16px !important;}

@@ -112,11 +112,6 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
             if "포스코" not in title and "posco" not in title_lower:
                 return False
 
-            # 제외 키워드 체크
-            for exclude_kw in EXCLUDE_KEYWORDS:
-                if exclude_kw.lower() in title_lower:
-                    return False
-
             # 부동산 키워드 제외
             exclude_words = ["청약", "분양", "입주", "재건축", "정비구역", "인테리어"]
             for exclude_word in exclude_words:

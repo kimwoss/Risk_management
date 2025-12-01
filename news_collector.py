@@ -81,7 +81,7 @@ EXCLUDE_KEYWORDS = [
 ]
 
 # 수집 설정
-MAX_ITEMS_PER_RUN = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)
+MAX_ITEMS_PER_RUN = 300  # 키워드당 약 30개 수집 (필터링 후 충분한 기사 확보)
 
 # 전송된 기사 URL 추적 (메모리 캐시)
 _sent_articles_cache = set()

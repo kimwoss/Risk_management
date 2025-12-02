@@ -1,5 +1,5 @@
 # streamlit_app.py
-# Version: 2025-11-28-11:00 (Login & Timer Fix)
+# Version: 2025-12-02-10:45 (Publisher mapping update trigger)
 """
 포스코인터내셔널 언론대응 보고서 생성 시스템
 - 상단 네비: 순수 Streamlit 버튼 기반 (iFrame/JS 제거, 확실한 리런)

@@ -60,11 +60,17 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/news_monitor.csv data/sent_articles_cache.json data/monitor_state.json data/api_usage.json
+
+          # data 폴더의 모든 변경사항 추가
+          git add data/
 
           # 변경사항이 있을 때만 커밋 및 푸시
-          if ! git diff --quiet || ! git diff --staged --quiet; then
+          if ! git diff --staged --quiet; then
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
+
+            # 커밋 후 남은 변경사항 다시 추가 (monitor_state.json 등)
+            git add data/ 2>/dev/null || true
+            git commit --amend --no-edit --allow-empty 2>/dev/null || true
 
             # 최대 3회 재시도 (충돌 방지)
             for i in 1 2 3; do

@@ -19,8 +19,9 @@ permissions:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    # github-actions 봇의 커밋에서는 실행하지 않음 (무한 루프 방지)
-    if: github.actor != 'github-actions[bot]'
+    # push 이벤트에서만 github-actions 봇 제외 (무한 루프 방지)
+    # schedule과 workflow_dispatch는 항상 실행
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout repository

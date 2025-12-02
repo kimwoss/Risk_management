@@ -1147,16 +1147,25 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
         df = df.loc[~key.duplicated()].reset_index(drop=True)
     return df
 
-def load_news_db() -> pd.DataFrame:
-    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)"""
+def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
+    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)
+
+    Args:
+        force_refresh: True면 즉시 최신 데이터 로드 (캐시 무시)
+    """
     # GitHub raw URL에서 직접 로드 (Streamlit Cloud 캐시 문제 해결)
     GITHUB_RAW_URL = "https://raw.githubusercontent.com/kimwoss/Risk_management/main/data/news_monitor.csv"
 
     try:
         # 1차 시도: GitHub에서 직접 로드 (캐시 우회)
-        # 캐시 버스팅을 위해 타임스탬프 추가 (3분 단위로 갱신)
+        # 캐시 버스팅을 위해 타임스탬프 추가
         import time
-        cache_buster = int(time.time() // 180)  # 3분(180초) 단위로 변경
+        if force_refresh:
+            # 강제 새로고침: 초 단위 타임스탬프 (즉시 최신 데이터)
+            cache_buster = int(time.time())
+        else:
+            # 일반 로드: 3분 단위로 갱신
+            cache_buster = int(time.time() // 180)
         url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_buster}"
 
         print(f"[DEBUG] GitHub에서 직접 로드 시도: {url_with_cache_buster}")
@@ -2510,18 +2519,38 @@ def page_news_monitor():
 
     st.markdown("---")
 
-    # ===== 수집 조건: 트리거 플래그 or 수동 새로고침 =====
-    should_fetch = manual_refresh or st.session_state.trigger_news_update or (not st.session_state.initial_loaded)
+    # ===== 새로고침 방식 결정 =====
+    # 수동 새로고침: GitHub 데이터 강제 로드 (API 절약)
+    # 자동 새로고침/초기 로드: Naver API 호출 (최신 데이터)
+    if manual_refresh:
+        # 수동 새로고침: GitHub에서 최신 데이터 즉시 로드
+        should_fetch = False
+        status.info("🔄 GitHub에서 최신 데이터를 가져오는 중…")
+        db = load_news_db(force_refresh=True)
 
-    # ===== 새로고침 시 기존 보고서 초기화 =====
-    if manual_refresh or st.session_state.trigger_news_update:
-        # 보고서 관련 세션 상태 키들을 모두 삭제
+        # 보고서 초기화
         report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
         for key in report_keys:
             del st.session_state[key]
         if report_keys:
-            refresh_type = "수동" if manual_refresh else "자동"
-            print(f"[DEBUG] {refresh_type} 새로고침: {len(report_keys)}개 보고서 초기화")
+            print(f"[DEBUG] 수동 새로고침: {len(report_keys)}개 보고서 초기화")
+
+        # 타이머 리셋
+        st.session_state.next_refresh_at = time.time() + refresh_interval
+        status.success(f"✅ 최신 데이터 로드 완료 ({len(db)}건)")
+        time.sleep(0.5)  # 메시지 표시 시간
+        st.rerun()
+    else:
+        # 자동 새로고침 또는 초기 로드: Naver API 호출
+        should_fetch = st.session_state.trigger_news_update or (not st.session_state.initial_loaded)
+
+        # 자동 새로고침 시 보고서 초기화
+        if st.session_state.trigger_news_update:
+            report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
+            for key in report_keys:
+                del st.session_state[key]
+            if report_keys:
+                print(f"[DEBUG] 자동 새로고침: {len(report_keys)}개 보고서 초기화")
 
     # ===== 뉴스 수집 로직 =====
     if should_fetch:

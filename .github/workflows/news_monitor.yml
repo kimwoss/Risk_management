@@ -2,10 +2,7 @@ name: News Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 5분마다 실행
-
-  push:
-    branches: [ main ]  # main 브랜치 push 시에도 실행
+    - cron: '*/3 * * * *'  # 3분마다 실행 (실시간 모니터링)
 
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:
@@ -62,7 +59,7 @@ jobs:
 
           # 변경사항이 있을 때만 커밋 및 푸시
           if ! git diff --quiet || ! git diff --staged --quiet; then
-            git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
             # 최대 3회 재시도 (충돌 방지)
             for i in 1 2 3; do
@@ -75,4 +72,6 @@ jobs:
                 sleep 5
               fi
             done
+          else
+            echo "No changes to commit - skipping push"
           fi

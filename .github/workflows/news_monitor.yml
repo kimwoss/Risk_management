@@ -2,7 +2,10 @@ name: News Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 5분마다 (안정성 우선)
+    - cron: '*/5 * * * *'  # 5분마다 실행
+
+  push:
+    branches: [ main ]  # main 브랜치 push 시에도 실행
 
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:

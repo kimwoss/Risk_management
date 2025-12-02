@@ -80,3 +80,15 @@
 {"timestamp": "2025-12-02T10:30:54.210252", "event_type": "telegram", "data": {"success": 0, "failed": 28, "total": 28, "success_rate": 0.0}}
 {"timestamp": "2025-12-02T10:30:54.222877", "event_type": "run_summary", "data": {"total_articles": 246, "new_articles": 28, "telegram_sent": 0, "errors": 0}}
 {"timestamp": "2025-12-02T10:30:54.231293", "event_type": "error", "data": {"error_type": "unexpected_error", "message": "'cp949' codec can't encode character '\\U0001f4ca' in position 0: illegal multibyte sequence", "details": "Traceback (most recent call last):\n  File \"C:\\Users\\kimwoss\\Desktop\\NEW_RISK_MANAGEMENT\\standalone_monitor.py\", line 301, in main\n    logger.print_daily_summary()\n  File \"C:\\Users\\kimwoss\\Desktop\\NEW_RISK_MANAGEMENT\\logger.py\", line 190, in print_daily_summary\n    print(f\"📊 일일 통계 ({stats['date']})\")\nUnicodeEncodeError: 'cp949' codec can't encode character '\\U0001f4ca' in position 0: illegal multibyte sequence\n"}}
+{"timestamp": "2025-12-02T06:57:55.608763", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 29, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:56.209847", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:56.978745", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:57.750177", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:58.500001", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:59.259753", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 28, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:57:59.854111", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:58:00.620795", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:58:01.377768", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:58:02.133582", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 7, "api_calls": 2}}
+{"timestamp": "2025-12-02T06:58:09.612731", "event_type": "telegram", "data": {"success": 8, "failed": -1, "total": 7, "success_rate": 1.1428571428571428}}
+{"timestamp": "2025-12-02T06:58:09.614435", "event_type": "run_summary", "data": {"total_articles": 245, "new_articles": 7, "telegram_sent": 8, "errors": 0}}

@@ -7,9 +7,15 @@ on:
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:
 
-  # 매일 06:00 UTC (15:00 KST)에도 강제 실행 (scheduled workflow 비활성화 방지)
-  # GitHub는 저장소 활동이 없으면 60일 후 scheduled workflows를 비활성화함
-  # 이 추가 트리거로 정기적인 활동을 보장
+  # push 이벤트에도 실행 (scheduled workflow 백업)
+  # github-actions 봇의 커밋은 제외하여 무한 루프 방지
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/news_monitor.csv'
+      - 'news_collector.py'
+      - 'standalone_monitor.py'
 
 permissions:
   contents: write  # 리포지토리에 쓰기 권한 부여 (DB 업데이트 커밋용)
@@ -17,6 +23,8 @@ permissions:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    # github-actions 봇의 커밋에서는 실행하지 않음 (무한 루프 방지)
+    if: github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout repository

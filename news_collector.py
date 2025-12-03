@@ -756,28 +756,44 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
             }
 
             response = None
-            try:
-                response = requests.post(url, json=payload, timeout=10)
-                if response.status_code == 200:
-                    success_count += 1
-                    print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+            # 재시도 로직 (최대 3회)
+            max_retries = 3
+            retry_delay = 1  # 초
 
-                    # 전송 성공한 기사는 캐시에 추가
-                    sent_cache.add(link)
-                    sent_cache.add(_normalize_url(link))
-                else:
-                    print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code}")
+            for attempt in range(max_retries):
+                try:
+                    response = requests.post(url, json=payload, timeout=10)
+                    if response.status_code == 200:
+                        success_count += 1
+                        print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
 
-                # Rate Limit 방지
-                import time
-                time.sleep(0.05)
+                        # 전송 성공한 기사는 캐시에 추가
+                        sent_cache.add(link)
+                        sent_cache.add(_normalize_url(link))
+                        break  # 성공하면 재시도 루프 탈출
+                    else:
+                        print(f"[DEBUG] ❌ 메시지 전송 실패 (시도 {attempt + 1}/{max_retries}): {response.status_code}")
+                        if attempt < max_retries - 1:
+                            import time
+                            time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
 
-            except Exception as e:
-                print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
+                except Exception as e:
+                    print(f"[DEBUG] ❌ 개별 메시지 전송 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
+                    if attempt < max_retries - 1:
+                        import time
+                        time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
+                    else:
+                        # 마지막 시도에서도 실패하면 상세 오류 출력
+                        import traceback
+                        print(f"[DEBUG] 최종 실패 - 상세 오류:\n{traceback.format_exc()}")
             finally:
                 # 연결 누수 방지
                 if response is not None:
                     response.close()
+
+            # Rate Limit 방지
+            import time
+            time.sleep(0.05)
 
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
 

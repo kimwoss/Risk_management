@@ -2,7 +2,9 @@ name: News Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 5분마다 실행 (GitHub Actions 권장 최소 간격)
+    # 복수의 cron 스케줄로 안정성 강화 (하나가 실패해도 다른 것이 작동)
+    - cron: '*/5 * * * *'   # 5분마다 (메인)
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'  # 5분마다 (오프셋 백업)
 
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:

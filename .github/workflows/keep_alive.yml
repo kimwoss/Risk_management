@@ -5,8 +5,10 @@ name: Keep Workflows Alive
 
 on:
   schedule:
-    # 매주 월요일 00:00 UTC (09:00 KST)에 실행
-    - cron: '0 0 * * 1'
+    # 매일 00:00 UTC (09:00 KST)에 실행 - 더 자주 실행하여 비활성화 방지
+    - cron: '0 0 * * *'
+    # 백업 스케줄: 매일 12:00 UTC (21:00 KST)
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 permissions:

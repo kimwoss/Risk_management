@@ -1,14 +1,12 @@
 {
-  "date": "2025-12-02",
-  "runs": 54,
-  "total_collections": 540,
-  "total_api_calls": 1080,
-  "total_articles": 13072,
-  "new_articles": 72,
-  "telegram_sent": 47,
-  "telegram_failed": 25,
-  "errors": 1,
-  "error_types": {
-    "unexpected_error": 1
-  }
+  "date": "2025-12-03",
+  "runs": 1,
+  "total_collections": 10,
+  "total_api_calls": 20,
+  "total_articles": 243,
+  "new_articles": 2,
+  "telegram_sent": 1,
+  "telegram_failed": 1,
+  "errors": 0,
+  "error_types": {}
 }

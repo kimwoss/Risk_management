@@ -187,7 +187,7 @@ class MonitoringLogger:
         stats = self.get_daily_stats()
 
         print("\n" + "=" * 80)
-        print(f"📊 일일 통계 ({stats['date']})")
+        print(f"[DAILY STATS] 일일 통계 ({stats['date']})")
         print("=" * 80)
         print(f"실행 횟수: {stats['runs']}")
         print(f"수집 작업: {stats['total_collections']}회")

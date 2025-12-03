@@ -786,10 +786,10 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
                         # 마지막 시도에서도 실패하면 상세 오류 출력
                         import traceback
                         print(f"[DEBUG] 최종 실패 - 상세 오류:\n{traceback.format_exc()}")
-            finally:
-                # 연결 누수 방지
-                if response is not None:
-                    response.close()
+                finally:
+                    # 연결 누수 방지
+                    if response is not None:
+                        response.close()
 
             # Rate Limit 방지
             import time

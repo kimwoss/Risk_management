@@ -2747,7 +2747,8 @@ def page_news_monitor():
 
     # ===== 화면 표시 (저장된 최신 데이터 기준) =====
     st.markdown("---")
-    db = load_news_db()
+    # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
+    db = st.session_state.get('news_display_data', load_news_db())
 
     # 🔍 디버그 정보 표시
     if not db.empty and "날짜" in db.columns:

@@ -3784,3 +3784,15 @@
 {"timestamp": "2025-12-05T11:13:18.718472", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 26, "api_calls": 2}}
 {"timestamp": "2025-12-05T11:13:27.699161", "event_type": "telegram", "data": {"success": 3, "failed": 1, "total": 4, "success_rate": 0.75}}
 {"timestamp": "2025-12-05T11:13:27.701633", "event_type": "run_summary", "data": {"total_articles": 266, "new_articles": 4, "telegram_sent": 3, "errors": 0}}
+{"timestamp": "2025-12-05T11:14:02.516082", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:03.062043", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:03.757263", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:04.487997", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:05.207860", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:05.923614", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 29, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:06.641075", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:07.374669", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:07.939629", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:08.501749", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 26, "api_calls": 2}}
+{"timestamp": "2025-12-05T11:14:16.824503", "event_type": "telegram", "data": {"success": 0, "failed": 2, "total": 2, "success_rate": 0.0}}
+{"timestamp": "2025-12-05T11:14:16.827026", "event_type": "run_summary", "data": {"total_articles": 266, "new_articles": 2, "telegram_sent": 0, "errors": 0}}

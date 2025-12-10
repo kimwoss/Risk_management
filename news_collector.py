@@ -406,7 +406,7 @@ def load_sent_cache() -> set:
 
 def save_sent_cache(cache: set, ttl_days: int = 7):
     """
-    전송된 기사 캐시를 파일에 저장 (TTL 기반)
+    전송된 기사 캐시를 파일에 저장 (TTL 기반, 원자적 쓰기)
 
     Args:
         cache: 저장할 URL 캐시
@@ -414,6 +414,7 @@ def save_sent_cache(cache: set, ttl_days: int = 7):
     """
     try:
         from datetime import timedelta
+        import tempfile
         os.makedirs(DATA_FOLDER, exist_ok=True)
 
         # 기존 캐시 로드 (타임스탬프 유지)
@@ -461,10 +462,31 @@ def save_sent_cache(cache: set, ttl_days: int = 7):
             "ttl_days": ttl_days
         }
 
-        with open(SENT_CACHE_FILE, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        # 원자적 쓰기 (임시 파일 + rename)
+        # 동시 쓰기 시에도 파일 손상 방지
+        temp_fd, temp_path = tempfile.mkstemp(dir=DATA_FOLDER, suffix='.tmp')
+        try:
+            with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"[DEBUG] 전송 캐시 저장 완료: {len(url_timestamps)}건 (TTL: {ttl_days}일) -> {SENT_CACHE_FILE}")
+            # Windows에서는 기존 파일 삭제 필요
+            if os.path.exists(SENT_CACHE_FILE):
+                try:
+                    os.remove(SENT_CACHE_FILE)
+                except Exception:
+                    pass
+
+            # 임시 파일을 최종 파일로 이동 (원자적 연산)
+            os.replace(temp_path, SENT_CACHE_FILE)
+
+            print(f"[DEBUG] 전송 캐시 저장 완료: {len(url_timestamps)}건 (TTL: {ttl_days}일) -> {SENT_CACHE_FILE}")
+        except Exception as e:
+            # 임시 파일 정리
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+            raise e
     except Exception as e:
         print(f"[WARNING] 전송 캐시 저장 실패: {e}")
 

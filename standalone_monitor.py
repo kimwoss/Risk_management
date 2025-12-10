@@ -1,7 +1,7 @@
 """
 Standalone News Monitor - GitHub Actions용
 Streamlit 없이 독립적으로 뉴스를 수집하고 텔레그램 알림을 전송합니다.
-3분마다 GitHub Actions에서 자동 실행됩니다.
+3분마다 GitHub Actions에서 자동 실행됩니다 (*/3 * * * *).
 """
 import pandas as pd
 from datetime import datetime
@@ -255,16 +255,16 @@ def main():
             # 신규 기사 감지
             new_articles = detect_new_articles(existing_db, df_new, sent_cache)
 
-            # DB 먼저 저장
-            save_news_db(merged)
-            safe_print(f"[MONITOR] ✅ DB 저장 완료: 총 {len(merged)}건")
-
-            # 텔레그램 알림 (기존 DB가 비어있지 않을 때만)
+            # 텔레그램 알림 먼저 전송 (중복 방지를 위해 DB 저장 전 처리)
             if new_articles and not existing_db.empty:
                 safe_print(f"[MONITOR] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
                 sent_cache_before = len(sent_cache)
                 sent_cache = send_telegram_notification(new_articles, sent_cache)
                 telegram_success = len(sent_cache) - sent_cache_before
+
+                # 텔레그램 발송 직후 캐시 즉시 저장 (중복 방지)
+                safe_print(f"[MONITOR] 캐시 즉시 저장 중... (현재 {len(sent_cache)}건)")
+                save_sent_cache(sent_cache)
 
                 # 텔레그램 로깅
                 if LOGGER_AVAILABLE:
@@ -280,13 +280,19 @@ def main():
                         sent_cache.add(url)
                         sent_cache.add(_normalize_url(url))
                 safe_print(f"[MONITOR] 신규 기사 {len(new_articles)}건을 캐시에 추가")
+                # 즉시 캐시 저장
+                save_sent_cache(sent_cache)
+
+            # DB 저장 (텔레그램 발송 후)
+            save_news_db(merged)
+            safe_print(f"[MONITOR] ✅ DB 저장 완료: 총 {len(merged)}건")
 
             safe_print(f"[MONITOR] ✅ 뉴스 수집 완료")
         else:
             safe_print(f"[MONITOR] ℹ️ 새로 수집된 기사가 없습니다.")
 
-        # 항상 캐시 저장
-        safe_print(f"[MONITOR] 캐시 저장 중... (현재 {len(sent_cache)}건)")
+        # 마지막 캐시 저장 (안전성 확보)
+        safe_print(f"[MONITOR] 최종 캐시 저장 중... (현재 {len(sent_cache)}건)")
         save_sent_cache(sent_cache)
 
         # 실행 요약 로깅

@@ -25,6 +25,9 @@ from news_collector import (
     check_api_quota,
     is_first_run,
     mark_initialized,
+    update_run_status,
+    check_api_quota_and_alert,
+    send_system_alert,
 )
 
 # 키워드 우선순위 정의 (1=최우선, 숫자가 낮을수록 우선순위 높음)
@@ -147,11 +150,15 @@ def main():
     error_count = 0
     total_collected = 0
     telegram_success = 0
+    run_success = False
 
     try:
         safe_print("=" * 80)
         safe_print(f"[MONITOR] 뉴스 수집 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         safe_print("=" * 80)
+
+        # API 할당량 확인 및 경고
+        check_api_quota_and_alert()
 
         # 전송 캐시 로드
         sent_cache = load_sent_cache()
@@ -164,6 +171,7 @@ def main():
             safe_print("[MONITOR] ❌ API 키가 없어 수집을 건너뜁니다.")
             if LOGGER_AVAILABLE:
                 logger.log_error("missing_api_key", "Naver API 키가 설정되지 않았습니다")
+            update_run_status(False, 0, 0, 0, "API 키 없음")
             return
 
         # 기존 DB 로드
@@ -307,8 +315,17 @@ def main():
             logger.print_daily_summary()
             logger.save_daily_stats()
 
+        # 실행 성공 상태 업데이트
+        run_success = True
+        update_run_status(
+            success=True,
+            articles_collected=total_collected,
+            new_articles=len(new_articles) if 'new_articles' in locals() else 0,
+            telegram_sent=telegram_success
+        )
+
         safe_print("=" * 80)
-        safe_print(f"[MONITOR] 작업 종료: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        safe_print(f"[MONITOR] ✅ 작업 성공 종료: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         safe_print("=" * 80)
 
     except Exception as e:
@@ -320,6 +337,15 @@ def main():
         # 에러 로깅
         if LOGGER_AVAILABLE:
             logger.log_error("unexpected_error", str(e), error_details)
+
+        # 실행 실패 상태 업데이트
+        update_run_status(
+            success=False,
+            articles_collected=total_collected,
+            new_articles=0,
+            telegram_sent=telegram_success,
+            error_message=str(e)
+        )
 
 
 if __name__ == "__main__":

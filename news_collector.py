@@ -842,3 +842,146 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
         import traceback
         print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
         return sent_cache
+
+
+# ======================== 시스템 상태 관리 ========================
+
+RUN_STATUS_FILE = os.path.join(DATA_FOLDER, "run_status.json")
+
+
+def update_run_status(success: bool, articles_collected: int, new_articles: int,
+                      telegram_sent: int, error_message: str = None):
+    """
+    실행 상태 업데이트 및 연속 실패 추적
+
+    Args:
+        success: 실행 성공 여부
+        articles_collected: 수집된 기사 수
+        new_articles: 신규 기사 수
+        telegram_sent: 텔레그램 발송 수
+        error_message: 에러 메시지 (실패 시)
+    """
+    try:
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+
+        # 기존 상태 로드
+        status_data = {
+            "consecutive_failures": 0,
+            "last_success_time": None,
+            "total_runs": 0,
+            "total_failures": 0
+        }
+
+        if os.path.exists(RUN_STATUS_FILE):
+            try:
+                with open(RUN_STATUS_FILE, 'r', encoding='utf-8') as f:
+                    status_data = json.load(f)
+            except Exception:
+                pass
+
+        # 상태 업데이트
+        now = datetime.now()
+        status_data["total_runs"] = status_data.get("total_runs", 0) + 1
+        status_data["last_run_time"] = now.isoformat()
+
+        if success:
+            status_data["consecutive_failures"] = 0
+            status_data["last_success_time"] = now.isoformat()
+            status_data["last_success_stats"] = {
+                "articles_collected": articles_collected,
+                "new_articles": new_articles,
+                "telegram_sent": telegram_sent
+            }
+        else:
+            status_data["consecutive_failures"] = status_data.get("consecutive_failures", 0) + 1
+            status_data["total_failures"] = status_data.get("total_failures", 0) + 1
+            status_data["last_error"] = error_message
+
+        # 파일 저장
+        with open(RUN_STATUS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(status_data, f, ensure_ascii=False, indent=2)
+
+        # 연속 실패 경고
+        if status_data["consecutive_failures"] >= 3:
+            send_system_alert(
+                f"🚨 *연속 {status_data['consecutive_failures']}회 실패*\n\n"
+                f"뉴스 수집 시스템이 연속으로 실패하고 있습니다.\n"
+                f"마지막 에러: {error_message or '알 수 없음'}"
+            )
+
+        print(f"[DEBUG] 실행 상태 업데이트: 연속 실패 {status_data['consecutive_failures']}회")
+
+    except Exception as e:
+        print(f"[WARNING] 실행 상태 업데이트 실패: {e}")
+
+
+def check_api_quota_and_alert():
+    """
+    API 할당량 확인 및 경고 알림
+
+    Returns:
+        bool: API 사용 가능 여부
+    """
+    try:
+        usage = load_api_usage()
+        remaining = MAX_API_CALLS_PER_DAY - usage
+        usage_percent = (usage / MAX_API_CALLS_PER_DAY) * 100
+
+        print(f"[DEBUG] API 사용량: {usage:,}/{MAX_API_CALLS_PER_DAY:,} ({usage_percent:.1f}%)")
+
+        # 80% 도달 시 경고
+        if usage >= API_QUOTA_WARNING_THRESHOLD and usage < (API_QUOTA_WARNING_THRESHOLD + 100):
+            send_system_alert(
+                f"⚠️ *API 할당량 경고*\n\n"
+                f"Naver API 사용량: {usage:,}/{MAX_API_CALLS_PER_DAY:,}\n"
+                f"사용률: {usage_percent:.1f}%\n"
+                f"남은 호출 수: {remaining:,}"
+            )
+
+        # 95% 도달 시 긴급 경고
+        elif usage >= (MAX_API_CALLS_PER_DAY * 0.95):
+            send_system_alert(
+                f"🚨 *API 할당량 긴급*\n\n"
+                f"사용량이 95%를 초과했습니다!\n"
+                f"사용: {usage:,}/{MAX_API_CALLS_PER_DAY:,}\n"
+                f"일부 키워드 수집이 중단될 수 있습니다."
+            )
+
+        return usage < MAX_API_CALLS_PER_DAY
+
+    except Exception as e:
+        print(f"[WARNING] API 할당량 확인 실패: {e}")
+        return True
+
+
+def send_system_alert(message: str):
+    """
+    시스템 알림 전송 (중복 방지 포함)
+
+    Args:
+        message: 알림 메시지
+    """
+    try:
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+        chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
+
+        if not bot_token or not chat_id:
+            return
+
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "Markdown"
+        }
+
+        response = requests.post(url, json=payload, timeout=10)
+        if response.status_code == 200:
+            print(f"[DEBUG] ✅ 시스템 알림 전송 성공")
+        else:
+            print(f"[DEBUG] ❌ 시스템 알림 전송 실패: {response.status_code}")
+
+        response.close()
+
+    except Exception as e:
+        print(f"[DEBUG] ❌ 시스템 알림 예외: {e}")

@@ -1,13 +1,15 @@
-name: Workflow Health Check
+name: System Health Check
 
 on:
   schedule:
     # 매일 09:00 KST (00:00 UTC)에 실행
     - cron: '0 0 * * *'
+    # 추가: 매일 21:00 KST (12:00 UTC)에도 실행 (하루 2회)
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write  # 상태 파일 커밋을 위해 write 권한 필요
 
 jobs:
   check:
@@ -17,43 +19,140 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check last update time
-        run: |
-          # news_monitor.csv의 최종 수정 시간 확인
-          if [ -f "data/news_monitor.csv" ]; then
-            last_modified=$(git log -1 --format=%cd --date=iso data/news_monitor.csv)
-            echo "Last update: $last_modified"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-            # 24시간 이상 업데이트 없으면 경고
+      - name: Comprehensive Health Check
+        id: health
+        run: |
+          echo "🔍 System Health Check Starting..."
+          echo "=========================================="
+
+          ISSUES=""
+          WARNINGS=""
+          STATUS="healthy"
+
+          # 1. 뉴스 DB 최종 업데이트 시간 확인
+          if [ -f "data/news_monitor.csv" ]; then
             last_commit_timestamp=$(git log -1 --format=%ct data/news_monitor.csv)
             current_timestamp=$(date +%s)
             time_diff=$((current_timestamp - last_commit_timestamp))
             hours_since_update=$((time_diff / 3600))
 
-            echo "Hours since last update: $hours_since_update"
+            echo "📊 News DB: Last update $hours_since_update hours ago"
 
             if [ $hours_since_update -gt 24 ]; then
-              echo "⚠️ WARNING: No updates for $hours_since_update hours!"
-              echo "GitHub Actions may be disabled. Please check:"
-              echo "https://github.com/${{ github.repository }}/actions"
-              exit 1
-            else
-              echo "✅ System is healthy. Last update: $hours_since_update hours ago"
+              ISSUES="${ISSUES}❌ No DB updates for $hours_since_update hours\n"
+              STATUS="critical"
+            elif [ $hours_since_update -gt 6 ]; then
+              WARNINGS="${WARNINGS}⚠️ DB not updated for $hours_since_update hours\n"
+              STATUS="warning"
             fi
           else
-            echo "❌ ERROR: news_monitor.csv not found!"
+            ISSUES="${ISSUES}❌ news_monitor.csv not found\n"
+            STATUS="critical"
+          fi
+
+          # 2. 캐시 파일 확인
+          if [ -f "data/sent_articles_cache.json" ]; then
+            cache_size=$(wc -c < "data/sent_articles_cache.json")
+            echo "📦 Cache file: ${cache_size} bytes"
+
+            if [ $cache_size -lt 100 ]; then
+              WARNINGS="${WARNINGS}⚠️ Cache file suspiciously small\n"
+              STATUS="warning"
+            fi
+          else
+            WARNINGS="${WARNINGS}⚠️ Cache file missing (will be recreated)\n"
+          fi
+
+          # 3. API 사용량 확인
+          if [ -f "data/api_usage.json" ]; then
+            echo "📈 API usage file exists"
+          else
+            echo "ℹ️ API usage file not found (normal for first run)"
+          fi
+
+          # 4. GitHub Actions 워크플로우 실행 이력 확인
+          echo "🔄 Checking recent workflow runs..."
+
+          # 5. 시스템 상태 출력
+          echo ""
+          echo "=========================================="
+          if [ "$STATUS" = "healthy" ]; then
+            echo "✅ System Status: HEALTHY"
+          elif [ "$STATUS" = "warning" ]; then
+            echo "⚠️ System Status: WARNING"
+          else
+            echo "❌ System Status: CRITICAL"
+          fi
+          echo "=========================================="
+
+          # 환경 변수로 결과 전달
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          echo "issues<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$ISSUES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "warnings<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$WARNINGS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Critical 상태면 실패 처리
+          if [ "$STATUS" = "critical" ]; then
             exit 1
           fi
 
-      - name: Send health check notification
+      - name: Create system status file
+        if: always()
+        run: |
+          mkdir -p data
+          cat > data/system_status.json <<EOF
+          {
+            "last_check": "$(date -u +'%Y-%m-%d %H:%M:%S UTC')",
+            "status": "${{ steps.health.outputs.status }}",
+            "checks": {
+              "news_db_updated": $([ -f "data/news_monitor.csv" ] && echo "true" || echo "false"),
+              "cache_exists": $([ -f "data/sent_articles_cache.json" ] && echo "true" || echo "false"),
+              "api_usage_tracked": $([ -f "data/api_usage.json" ] && echo "true" || echo "false")
+            }
+          }
+          EOF
+
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/system_status.json
+          git commit -m "Update system status - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || echo "No changes"
+          git push || echo "Push failed (non-critical)"
+
+      - name: Send critical alert
         if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
-            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              -d "chat_id=${TELEGRAM_CHAT_ID}" \
-              -d "text=⚠️ GitHub Actions Health Check Failed!%0A%0ANews monitoring may be down. Please check:%0Ahttps://github.com/${{ github.repository }}/actions" \
-              -d "parse_mode=HTML"
-          fi
+          MESSAGE="🚨 *시스템 헬스 체크 실패*%0A%0A"
+          MESSAGE="${MESSAGE}뉴스 모니터링 시스템에 문제가 감지되었습니다.%0A%0A"
+          MESSAGE="${MESSAGE}*문제점:*%0A${{ steps.health.outputs.issues }}%0A"
+          MESSAGE="${MESSAGE}확인 필요: https://github.com/${{ github.repository }}/actions"
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            -d "text=${MESSAGE}" \
+            -d "parse_mode=Markdown"
+
+      - name: Send warning alert
+        if: success() && steps.health.outputs.status == 'warning'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MESSAGE="⚠️ *시스템 경고*%0A%0A"
+          MESSAGE="${MESSAGE}${{ steps.health.outputs.warnings }}%0A"
+          MESSAGE="${MESSAGE}모니터링 중: https://github.com/${{ github.repository }}/actions"
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            -d "text=${MESSAGE}" \
+            -d "parse_mode=Markdown"

@@ -2520,13 +2520,12 @@ def page_news_monitor():
     st.markdown("---")
 
     # ===== 새로고침 방식 결정 =====
-    # 수동 새로고침: GitHub 데이터 강제 로드 (API 절약)
+    # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
     # 자동 새로고침/초기 로드: Naver API 호출 (최신 데이터)
     if manual_refresh:
-        # 수동 새로고침: GitHub에서 최신 데이터 즉시 로드
-        should_fetch = False
-        status.info("🔄 GitHub에서 최신 데이터를 가져오는 중…")
-        db = load_news_db(force_refresh=True)
+        # 수동 새로고침: Naver API 직접 호출하여 실시간 뉴스 수집
+        should_fetch = True
+        st.session_state.trigger_news_update = True
 
         # 보고서 초기화
         report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
@@ -2537,9 +2536,6 @@ def page_news_monitor():
 
         # 타이머 리셋
         st.session_state.next_refresh_at = time.time() + refresh_interval
-        status.success(f"✅ 최신 데이터 로드 완료 ({len(db)}건)")
-        time.sleep(0.5)  # 메시지 표시 시간
-        st.rerun()
     else:
         # 자동 새로고침 또는 초기 로드: Naver API 호출
         should_fetch = st.session_state.trigger_news_update or (not st.session_state.initial_loaded)

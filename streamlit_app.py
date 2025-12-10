@@ -1164,8 +1164,8 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
             # 강제 새로고침: 초 단위 타임스탬프 (즉시 최신 데이터)
             cache_buster = int(time.time())
         else:
-            # 일반 로드: 1분 단위로 갱신 (3분에서 1분으로 단축)
-            cache_buster = int(time.time() // 60)
+            # 일반 로드: 30초 단위로 갱신 (빠른 업데이트)
+            cache_buster = int(time.time() // 30)
         url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_buster}"
 
         print(f"[DEBUG] GitHub에서 직접 로드 시도: {url_with_cache_buster}")

@@ -702,7 +702,13 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
     """
     새로운 기사를 텔레그램으로 알림 전송 (기사별 개별 메시지)
-    Returns: 업데이트된 캐시
+
+    - 모든 신규 기사를 텔레그램으로 전송 (개수 제한 없음)
+    - 각 기사마다 3회까지 재시도
+    - 텔레그램 API Rate Limit 준수 (초당 약 28개)
+    - 전송 성공한 기사만 캐시에 추가하여 재전송 방지
+
+    Returns: 업데이트된 sent_cache (전송 성공한 기사 URL 포함)
     """
     try:
         bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
@@ -738,11 +744,9 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
 
         print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (이미 전송: {skipped_already_sent}건)")
 
-        # 최대 10개까지만 알림
-        articles_to_notify = articles_to_send[:10]
-
-        if len(articles_to_send) > 10:
-            print(f"[DEBUG] ⚠️ 10개 초과로 {len(articles_to_send) - 10}건 대기열에 남음")
+        # 모든 신규 기사를 텔레그램으로 전송 (제한 없음)
+        articles_to_notify = articles_to_send
+        print(f"[DEBUG] 📤 총 {len(articles_to_notify)}건의 기사를 텔레그램으로 전송합니다.")
 
         # 텔레그램 API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -813,27 +817,18 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
                     if response is not None:
                         response.close()
 
-            # Rate Limit 방지
+            # Rate Limit 방지 (텔레그램 API: 초당 30개 제한)
+            # 35ms 대기 = 초당 약 28개로 안전한 속도 유지
             import time
-            time.sleep(0.05)
+            time.sleep(0.035)
 
-        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
+        # 전송 결과 통계
+        failed_count = len(articles_to_notify) - success_count
+        if failed_count > 0:
+            print(f"[DEBUG] ⚠️ 전송 실패: {failed_count}건")
+            print(f"[DEBUG] 실패한 기사는 다음 수집 사이클에 재시도됩니다.")
 
-        # 5개 이상 남은 기사가 있으면 요약 메시지
-        if len(new_articles) > 10:
-            summary_message = f"📢 _외 {len(new_articles) - 10}건의 뉴스가 더 있습니다._"
-            payload = {
-                "chat_id": chat_id,
-                "text": summary_message,
-                "parse_mode": "Markdown"
-            }
-            summary_resp = None
-            try:
-                summary_resp = requests.post(url, json=payload, timeout=10)
-            finally:
-                # 연결 누수 방지
-                if summary_resp is not None:
-                    summary_resp.close()
+        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료 (성공률: {success_count/len(articles_to_notify)*100:.1f}%)")
 
         return sent_cache
 

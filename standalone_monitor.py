@@ -295,6 +295,14 @@ def main():
             save_news_db(merged)
             safe_print(f"[MONITOR] ✅ DB 저장 완료: 총 {len(merged)}건")
 
+            # DB에 저장된 모든 기사를 캐시에 추가 (동기화 보장)
+            for _, row in merged.iterrows():
+                url = str(row.get("URL", "")).strip()
+                if url and url != "nan" and url != "":
+                    sent_cache.add(url)
+                    sent_cache.add(_normalize_url(url))
+            safe_print(f"[MONITOR] ✅ 캐시 동기화 완료: DB의 모든 기사 URL을 캐시에 추가 ({len(sent_cache)}건)")
+
             safe_print(f"[MONITOR] ✅ 뉴스 수집 완료")
         else:
             safe_print(f"[MONITOR] ℹ️ 새로 수집된 기사가 없습니다.")

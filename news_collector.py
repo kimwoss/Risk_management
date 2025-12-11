@@ -631,7 +631,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 48  # 최근 48시간 이내 기사만 알림
+        MAX_ARTICLE_AGE_HOURS = 168  # 최근 7일(168시간) 이내 기사만 알림 (이전: 48시간)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -662,12 +662,12 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
                     time_diff = now - article_date
                     hours_diff = time_diff.total_seconds() / 3600
 
-                    # 시간 기반 필터링: 최근 48시간 이내만 알림
+                    # 시간 기반 필터링: 최근 7일 이내만 알림
                     if hours_diff <= MAX_ARTICLE_AGE_HOURS:
-                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
+                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
                     else:
                         print(f"[DEBUG] ⏭️ 오래된 기사 스킵: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
-                        continue  # 너무 오래된 기사는 알림 스킵
+                        continue  # 7일 이상 오래된 기사는 알림 스킵
                 else:
                     # 날짜 파싱 실패 시에도 신규 기사로 처리 (개선!)
                     print(f"[DEBUG] ⚠️ 날짜 파싱 실패, 하지만 신규 기사로 알림: {title[:50]}... (날짜: {article_date_str})")

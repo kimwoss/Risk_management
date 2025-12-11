@@ -1282,6 +1282,11 @@ def send_telegram_notification(new_articles: list):
     """
     새로운 기사가 발견되면 텔레그램으로 알림 전송 (기사별 개별 메시지)
 
+    - 모든 신규 기사를 텔레그램으로 전송 (개수 제한 없음)
+    - 각 기사마다 재시도 로직 포함
+    - 텔레그램 API Rate Limit 준수 (초당 약 28개)
+    - 전송 성공한 기사만 캐시에 추가하여 재전송 방지
+
     Args:
         new_articles: 새로운 기사 정보 리스트 [{"title": ..., "link": ..., "date": ...}, ...]
     """
@@ -1318,8 +1323,9 @@ def send_telegram_notification(new_articles: list):
 
             print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (중복 제외: {len(new_articles) - len(articles_to_send)}건)")
 
-        # 최대 10개까지만 알림 (개별 메시지라서 좀 더 허용)
-        articles_to_notify = articles_to_send[:10]
+        # 모든 신규 기사를 텔레그램으로 전송 (제한 없음)
+        articles_to_notify = articles_to_send
+        print(f"[DEBUG] 📤 총 {len(articles_to_notify)}건의 기사를 텔레그램으로 전송합니다.")
 
         # 텔레그램 API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -1362,51 +1368,58 @@ def send_telegram_notification(new_articles: list):
             }
 
             response = None
-            try:
-                response = requests.post(url, json=payload, timeout=10)
-                if response.status_code == 200:
-                    success_count += 1
-                    print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+            # 재시도 로직 (최대 3회)
+            max_retries = 3
+            retry_delay = 1  # 초
 
-                    # 전송 성공한 기사는 캐시에 추가
-                    with _sent_articles_lock:
-                        _sent_articles_cache.add(link)
-                        # 캐시 크기 제한
-                        if len(_sent_articles_cache) > _MAX_SENT_CACHE:
-                            # 오래된 항목 제거 (set이므로 임의 제거)
-                            _sent_articles_cache.pop()
-                else:
-                    print(f"[DEBUG] ❌ 메시지 전송 실패: {response.status_code} - {title[:30]}...")
+            for attempt in range(max_retries):
+                try:
+                    response = requests.post(url, json=payload, timeout=10)
+                    if response.status_code == 200:
+                        success_count += 1
+                        print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
 
-                # 텔레그램 Rate Limit 방지 (초당 30개 메시지 제한)
-                import time
-                time.sleep(0.05)  # 50ms 대기
+                        # 전송 성공한 기사는 캐시에 추가
+                        with _sent_articles_lock:
+                            _sent_articles_cache.add(link)
+                            # 캐시 크기 제한
+                            if len(_sent_articles_cache) > _MAX_SENT_CACHE:
+                                # 오래된 항목 제거 (set이므로 임의 제거)
+                                _sent_articles_cache.pop()
+                        break  # 성공하면 재시도 루프 탈출
+                    else:
+                        print(f"[DEBUG] ❌ 메시지 전송 실패 (시도 {attempt + 1}/{max_retries}): {response.status_code}")
+                        if attempt < max_retries - 1:
+                            import time
+                            time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
 
-            except Exception as e:
-                print(f"[DEBUG] ❌ 개별 메시지 전송 오류: {str(e)}")
-            finally:
-                # 연결 누수 방지
-                if response is not None:
-                    response.close()
+                except Exception as e:
+                    print(f"[DEBUG] ❌ 개별 메시지 전송 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
+                    if attempt < max_retries - 1:
+                        import time
+                        time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
+                    else:
+                        # 마지막 시도에서도 실패하면 상세 오류 출력
+                        import traceback
+                        print(f"[DEBUG] 최종 실패 - 상세 오류:\n{traceback.format_exc()}")
+                finally:
+                    # 연결 누수 방지
+                    if response is not None:
+                        response.close()
 
-        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료")
+            # Rate Limit 방지 (텔레그램 API: 초당 30개 제한)
+            # 35ms 대기 = 초당 약 28개로 안전한 속도 유지
+            import time
+            time.sleep(0.035)
+
+        # 전송 결과 통계
+        failed_count = len(articles_to_notify) - success_count
+        if failed_count > 0:
+            print(f"[DEBUG] ⚠️ 전송 실패: {failed_count}건")
+            print(f"[DEBUG] 실패한 기사는 다음 수집 사이클에 재시도됩니다.")
+
+        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료 (성공률: {success_count/len(articles_to_notify)*100:.1f}%)")
         print(f"[DEBUG] 전송 캐시 크기: {len(_sent_articles_cache)}건")
-
-        # 5개 이상 남은 기사가 있으면 요약 메시지
-        if len(new_articles) > 10:
-            summary_message = f"📢 _외 {len(new_articles) - 10}건의 뉴스가 더 있습니다._"
-            payload = {
-                "chat_id": chat_id,
-                "text": summary_message,
-                "parse_mode": "Markdown"
-            }
-            summary_resp = None
-            try:
-                summary_resp = requests.post(url, json=payload, timeout=10)
-            finally:
-                # 연결 누수 방지
-                if summary_resp is not None:
-                    summary_resp.close()
 
     except Exception as e:
         print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")

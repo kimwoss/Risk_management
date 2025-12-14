@@ -1,12 +1,12 @@
 {
   "consecutive_failures": 0,
-  "last_success_time": "2025-12-13T23:49:24.933493",
-  "total_runs": 203,
+  "last_success_time": "2025-12-14T01:01:43.440060",
+  "total_runs": 204,
   "total_failures": 0,
-  "last_run_time": "2025-12-13T23:49:24.933493",
+  "last_run_time": "2025-12-14T01:01:43.440060",
   "last_success_stats": {
-    "articles_collected": 244,
-    "new_articles": 0,
-    "telegram_sent": 0
+    "articles_collected": 245,
+    "new_articles": 5,
+    "telegram_sent": 4
   }
 }

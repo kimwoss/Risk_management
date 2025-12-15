@@ -13326,3 +13326,14 @@
 {"timestamp": "2025-12-14T23:55:53.109588", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
 {"timestamp": "2025-12-14T23:55:53.647553", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 7, "api_calls": 2}}
 {"timestamp": "2025-12-14T23:55:53.710127", "event_type": "run_summary", "data": {"total_articles": 245, "new_articles": 0, "telegram_sent": 0, "errors": 0}}
+{"timestamp": "2025-12-15T02:21:41.938388", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:42.733476", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:43.515874", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:44.287992", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:45.504032", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 28, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:46.275151", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:46.892123", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:47.668163", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:21:48.293997", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 9, "api_calls": 2}}
+{"timestamp": "2025-12-15T02:22:02.220964", "event_type": "telegram", "data": {"success": 14, "failed": -1, "total": 13, "success_rate": 1.0769230769230769}}
+{"timestamp": "2025-12-15T02:22:02.269844", "event_type": "run_summary", "data": {"total_articles": 247, "new_articles": 13, "telegram_sent": 14, "errors": 0}}

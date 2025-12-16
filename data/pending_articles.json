@@ -1,33 +1,13 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=202512160934291801112616b072_1": {
-      "title": "포스코퓨처엠, ESS 겨냥 LFP 양극재 공장 건설",
-      "link": "https://www.g-enews.com/view.php?ud=202512160934291801112616b072_1",
-      "date": "2025-12-16 18:14",
-      "press": "",
-      "keyword": "포스코",
-      "retry_count": 5,
-      "last_attempt": "2025-12-16T10:00:10.638251",
-      "hash_id": "bdd6eee139e75740"
-    },
-    "https://www.seoul.co.kr/news/economy/industry/2025/12/16/20251216500233?wlog_tag3=naver": {
-      "title": "포스코퓨처엠, LFP 양극재 공장 신설… “전량 ESS용”",
-      "link": "https://www.seoul.co.kr/news/economy/industry/2025/12/16/20251216500233?wlog_tag3=naver",
-      "date": "2025-12-16 17:52",
-      "press": "",
-      "keyword": "포스코",
-      "retry_count": 5,
-      "last_attempt": "2025-12-16T10:00:10.085585",
-      "hash_id": "365a46e15faad914"
-    },
     "https://www.investchosun.com/site/data/html_dir/2025/12/16/2025121680258.html": {
       "title": "[Invest]포스코·현대제철, 美 전기로 JV 투자 윤곽…58억달러 공동 투자",
       "link": "https://www.investchosun.com/site/data/html_dir/2025/12/16/2025121680258.html",
       "date": "2025-12-16 18:54",
       "press": "인베스트조선",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2025-12-16T10:00:15.303483",
+      "retry_count": 3,
+      "last_attempt": "2025-12-16T10:38:11.309902",
       "hash_id": "4e8fbcf8567cfe7d"
     },
     "https://www.newsis.com/view/NISX20251216_0003443653": {
@@ -36,11 +16,21 @@
       "date": "2025-12-16 18:52",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2025-12-16T10:00:14.042436",
+      "retry_count": 3,
+      "last_attempt": "2025-12-16T10:38:10.894111",
       "hash_id": "8a6a0c2abd9bff6d"
+    },
+    "https://biz.chosun.com/industry/company/2025/12/16/EALOQEOIMFDT7EH53HIZGIWXGM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "58억불 美 루이지애나 제철소, 현대차-포스코 8대2 투자 확정",
+      "link": "https://biz.chosun.com/industry/company/2025/12/16/EALOQEOIMFDT7EH53HIZGIWXGM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2025-12-16 19:06",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-16T10:38:14.597774",
+      "hash_id": "3499035d12073629"
     }
   },
-  "last_updated": "2025-12-16 10:00:15",
-  "count": 4
+  "last_updated": "2025-12-16 10:38:31",
+  "count": 3
 }

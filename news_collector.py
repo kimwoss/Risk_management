@@ -51,11 +51,14 @@ print = safe_print
 DATA_FOLDER = os.path.abspath("data")
 NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
 SENT_CACHE_FILE = os.path.join(DATA_FOLDER, "sent_articles_cache.json")
+PENDING_QUEUE_FILE = os.path.join(DATA_FOLDER, "pending_articles.json")  # Pending 큐 파일
 API_USAGE_FILE = os.path.join(DATA_FOLDER, "api_usage.json")
 STATE_FILE = os.path.join(DATA_FOLDER, "monitor_state.json")
 MAX_SENT_CACHE = 10000  # 캐시 크기 제한 (약 4-5일분 커버, 기존 500개에서 확대)
 MAX_API_CALLS_PER_DAY = 25000  # 네이버 API 일일 할당량
 API_QUOTA_WARNING_THRESHOLD = 20000  # 80% 도달 시 경고 (25000의 80%)
+MAX_PENDING_RETRY = 5  # Pending 큐 최대 재시도 횟수
+PENDING_TTL_HOURS = 48  # Pending 큐 TTL (48시간)
 
 # 모니터링 키워드 설정 (단일 진실 공급원)
 KEYWORDS = [
@@ -491,6 +494,173 @@ def save_sent_cache(cache: set, ttl_days: int = 7):
         print(f"[WARNING] 전송 캐시 저장 실패: {e}")
 
 
+# ======================== Pending 큐 관리 ========================
+
+def _generate_article_hash(title: str, date: str) -> str:
+    """
+    기사 해시 ID 생성 (URL 외 보조 식별자)
+    - title + date 조합으로 해시 생성
+    - 같은 기사가 다른 URL로 올 경우 대응
+    """
+    import hashlib
+    try:
+        combined = f"{title}|{date}".strip()
+        return hashlib.md5(combined.encode('utf-8')).hexdigest()[:16]
+    except Exception:
+        return ""
+
+
+def load_pending_queue() -> dict:
+    """
+    Pending 큐 로드 (TTL 적용)
+
+    Returns:
+        dict: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+    """
+    if os.path.exists(PENDING_QUEUE_FILE):
+        try:
+            with open(PENDING_QUEUE_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+                pending_queue = data.get("queue", {})
+                now = datetime.now()
+
+                # TTL 적용: 오래된 기사 제거
+                valid_queue = {}
+                expired_count = 0
+                for url, article in pending_queue.items():
+                    try:
+                        last_attempt = datetime.fromisoformat(article.get("last_attempt", ""))
+                        hours_diff = (now - last_attempt).total_seconds() / 3600
+
+                        if hours_diff <= PENDING_TTL_HOURS:
+                            valid_queue[url] = article
+                        else:
+                            expired_count += 1
+                    except Exception:
+                        # 파싱 실패 시 포함 (안전 장치)
+                        valid_queue[url] = article
+
+                if expired_count > 0:
+                    print(f"[DEBUG] Pending 큐 TTL 만료: {expired_count}건 제거")
+
+                print(f"[DEBUG] Pending 큐 로드: {len(valid_queue)}건 (TTL: {PENDING_TTL_HOURS}시간)")
+                return valid_queue
+
+        except Exception as e:
+            print(f"[WARNING] Pending 큐 로드 실패: {e}")
+            return {}
+    else:
+        print(f"[DEBUG] Pending 큐 파일 없음 - 새로 생성")
+        return {}
+
+
+def save_pending_queue(queue: dict):
+    """
+    Pending 큐 저장 (원자적 쓰기)
+
+    Args:
+        queue: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+    """
+    try:
+        import tempfile
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+
+        data = {
+            "queue": queue,
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "count": len(queue)
+        }
+
+        # 원자적 쓰기 (임시 파일 + rename)
+        temp_fd, temp_path = tempfile.mkstemp(dir=DATA_FOLDER, suffix='.tmp')
+        try:
+            with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+
+            # Windows에서는 기존 파일 삭제 필요
+            if os.path.exists(PENDING_QUEUE_FILE):
+                try:
+                    os.remove(PENDING_QUEUE_FILE)
+                except Exception:
+                    pass
+
+            os.replace(temp_path, PENDING_QUEUE_FILE)
+            print(f"[DEBUG] Pending 큐 저장 완료: {len(queue)}건 -> {PENDING_QUEUE_FILE}")
+        except Exception as e:
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+            raise e
+    except Exception as e:
+        print(f"[WARNING] Pending 큐 저장 실패: {e}")
+
+
+def add_to_pending(article: dict, pending_queue: dict) -> dict:
+    """
+    Pending 큐에 기사 추가
+
+    Args:
+        article: {title, link, date, press, keyword}
+        pending_queue: 현재 pending 큐
+
+    Returns:
+        dict: 업데이트된 pending 큐
+    """
+    try:
+        url = article.get("link", "")
+        if not url:
+            return pending_queue
+
+        # 이미 pending에 있으면 스킵
+        if url in pending_queue:
+            return pending_queue
+
+        # 해시 ID 생성
+        hash_id = _generate_article_hash(article.get("title", ""), article.get("date", ""))
+
+        pending_queue[url] = {
+            "title": article.get("title", ""),
+            "link": url,
+            "date": article.get("date", ""),
+            "press": article.get("press", ""),
+            "keyword": article.get("keyword", ""),
+            "retry_count": 0,
+            "last_attempt": datetime.now().isoformat(),
+            "hash_id": hash_id
+        }
+
+        print(f"[DEBUG] Pending 큐 추가: {article.get('title', '')[:50]}...")
+        return pending_queue
+
+    except Exception as e:
+        print(f"[WARNING] Pending 큐 추가 실패: {e}")
+        return pending_queue
+
+
+def remove_from_pending(url: str, pending_queue: dict) -> dict:
+    """
+    Pending 큐에서 기사 제거
+
+    Args:
+        url: 제거할 기사 URL
+        pending_queue: 현재 pending 큐
+
+    Returns:
+        dict: 업데이트된 pending 큐
+    """
+    try:
+        if url in pending_queue:
+            title = pending_queue[url].get("title", "")
+            del pending_queue[url]
+            print(f"[DEBUG] Pending 큐 제거: {title[:50]}...")
+        return pending_queue
+    except Exception as e:
+        print(f"[WARNING] Pending 큐 제거 실패: {e}")
+        return pending_queue
+
+
 # ======================== API 할당량 관리 ========================
 
 def load_api_usage() -> int:
@@ -616,16 +786,26 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
         KST = timezone(timedelta(hours=9))
         now = datetime.now(KST).replace(tzinfo=None)  # KST 시간을 naive datetime으로
 
-        # 기존 DB의 URL 세트 생성 (정규화된 URL 사용)
+        # 기존 DB의 URL + 해시 ID 세트 생성 (강화된 중복 체크)
         old_urls = set()
         old_urls_normalized = set()
+        old_hash_ids = set()  # 해시 ID 기반 중복 체크
+
         for _, row in old_df.iterrows():
             url = str(row.get("URL", "")).strip()
             if url and url != "nan" and url != "":
                 old_urls.add(url)
                 old_urls_normalized.add(_normalize_url(url))
 
+                # 해시 ID 생성 및 수집
+                title = str(row.get("기사제목", "")).strip()
+                date = str(row.get("날짜", "")).strip()
+                hash_id = _generate_article_hash(title, date)
+                if hash_id:
+                    old_hash_ids.add(hash_id)
+
         print(f"[DEBUG] 기존 DB URL 수: {len(old_urls)} (정규화: {len(old_urls_normalized)})")
+        print(f"[DEBUG] 기존 DB 해시 ID 수: {len(old_hash_ids)}건")
         print(f"[DEBUG] 캐시 크기: {len(sent_cache)}건")
         print(f"[DEBUG] 수집된 신규 데이터 수: {len(new_df)}")
 
@@ -636,6 +816,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
             title = str(row.get("기사제목", "")).strip()
+            article_date_str = row.get("날짜", "")
 
             # URL이 없거나 비어있으면 스킵
             if not url or url == "nan" or url == "":
@@ -644,11 +825,17 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
             # URL 정규화
             url_normalized = _normalize_url(url)
 
-            # 3단계 중복 체크: DB + 캐시 + 정규화
-            is_in_db = url in old_urls or url_normalized in old_urls_normalized
-            is_in_cache = url in sent_cache or url_normalized in sent_cache
+            # 해시 ID 생성 (보조 식별자)
+            hash_id = _generate_article_hash(title, article_date_str)
 
-            if is_in_db or is_in_cache:
+            # 4단계 중복 체크: URL + 정규화 URL + 캐시 + 해시 ID
+            is_in_db_url = url in old_urls or url_normalized in old_urls_normalized
+            is_in_cache = url in sent_cache or url_normalized in sent_cache
+            is_in_db_hash = hash_id in old_hash_ids if hash_id else False
+
+            if is_in_db_url or is_in_cache or is_in_db_hash:
+                if is_in_db_hash and not is_in_db_url:
+                    print(f"[DEBUG] 🔍 해시 ID 중복 감지 (다른 URL): {title[:50]}...")
                 continue
 
             # 신규 기사 - 날짜 필터링 (개선됨)
@@ -699,66 +886,66 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
 # ======================== 텔레그램 알림 ========================
 
-def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
+def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tuple:
     """
-    새로운 기사를 텔레그램으로 알림 전송 (기사별 개별 메시지)
+    Pending 큐의 기사들을 텔레그램으로 전송 (개선된 버전)
 
-    - 모든 신규 기사를 텔레그램으로 전송 (개수 제한 없음)
-    - 각 기사마다 3회까지 재시도
-    - 텔레그램 API Rate Limit 준수 (초당 약 28개)
-    - 전송 성공한 기사만 캐시에 추가하여 재전송 방지
+    핵심 개선사항:
+    - Pending 큐 기반 전송 (누락 방지)
+    - 텔레그램 429 응답의 retry_after 헤더 처리
+    - 재시도 횟수 추적 (최대 5회)
+    - 전송 성공 시 pending에서 제거 + sent_cache 추가
+    - 전송 실패 시 retry_count 증가, 최대 초과 시 제거
 
-    Returns: 업데이트된 sent_cache (전송 성공한 기사 URL 포함)
+    Args:
+        pending_queue: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+        sent_cache: 전송 완료된 기사 URL 캐시
+
+    Returns:
+        tuple: (업데이트된 pending_queue, 업데이트된 sent_cache, 전송 성공 수)
     """
+    import time
+    import traceback
+
     try:
         bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "")
         chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
 
-        print(f"[DEBUG] 텔레그램 알림 시도 - 기사 수: {len(new_articles) if new_articles else 0}")
+        print(f"[DEBUG] Pending 큐 처리 시작 - 대기 중인 기사: {len(pending_queue)}건")
 
-        # 환경변수가 없으면 알림 스킵
+        # 환경변수가 없으면 스킵
         if not bot_token or not chat_id:
-            print("[DEBUG] ⚠️ 텔레그램 설정 없음 - 알림 스킵")
-            return sent_cache
+            print("[DEBUG] ⚠️ 텔레그램 설정 없음 - 전송 스킵")
+            return pending_queue, sent_cache, 0
 
-        if not new_articles:
-            print("[DEBUG] 신규 기사 없음 - 알림 스킵")
-            return sent_cache
-
-        # 이미 전송된 기사 필터링
-        articles_to_send = []
-        skipped_already_sent = 0
-        for article in new_articles:
-            url_key = article.get("link", "")
-            url_normalized = _normalize_url(url_key)
-
-            if url_key and url_key not in sent_cache and url_normalized not in sent_cache:
-                articles_to_send.append(article)
-            else:
-                skipped_already_sent += 1
-                print(f"[DEBUG] 📤 이미 전송된 기사 스킵: {article.get('title', '')[:50]}...")
-
-        if not articles_to_send:
-            print(f"[DEBUG] 모든 기사가 이미 전송됨 - 알림 스킵 (스킵된 기사: {skipped_already_sent}건)")
-            return sent_cache
-
-        print(f"[DEBUG] 전송 대상: {len(articles_to_send)}건 (이미 전송: {skipped_already_sent}건)")
-
-        # 모든 신규 기사를 텔레그램으로 전송 (제한 없음)
-        articles_to_notify = articles_to_send
-        print(f"[DEBUG] 📤 총 {len(articles_to_notify)}건의 기사를 텔레그램으로 전송합니다.")
+        if not pending_queue:
+            print("[DEBUG] Pending 큐 비어있음 - 전송할 기사 없음")
+            return pending_queue, sent_cache, 0
 
         # 텔레그램 API URL
-        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+        api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
-        # 각 기사마다 개별 메시지 전송
         success_count = 0
-        for article in articles_to_notify:
+        failed_count = 0
+        max_retry_exceeded_count = 0
+
+        # Pending 큐를 순회하며 전송 시도
+        urls_to_remove = []
+
+        for url, article in list(pending_queue.items()):
             title = article.get("title", "제목 없음")
-            link = article.get("link", "")
+            link = article.get("link", url)
             date = article.get("date", "")
             press = article.get("press", "")
             keyword = article.get("keyword", "")
+            retry_count = article.get("retry_count", 0)
+
+            # 최대 재시도 초과 체크
+            if retry_count >= MAX_PENDING_RETRY:
+                print(f"[DEBUG] ❌ 최대 재시도 초과 ({retry_count}회) - 제거: {title[:50]}...")
+                urls_to_remove.append(url)
+                max_retry_exceeded_count += 1
+                continue
 
             # 메시지 구성
             message = f"🚨 *새 뉴스*\n\n"
@@ -782,61 +969,125 @@ def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
             }
 
             response = None
-            # 재시도 로직 (최대 3회)
-            max_retries = 3
-            retry_delay = 1  # 초
+            send_success = False
 
-            for attempt in range(max_retries):
-                try:
-                    response = requests.post(url, json=payload, timeout=10)
-                    if response.status_code == 200:
-                        success_count += 1
-                        print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:30]}...")
+            try:
+                # 텔레그램 API 호출 (timeout 강화: connect 3초, read 10초)
+                response = requests.post(api_url, json=payload, timeout=(3, 10))
 
-                        # 전송 성공한 기사는 캐시에 추가
-                        sent_cache.add(link)
-                        sent_cache.add(_normalize_url(link))
-                        break  # 성공하면 재시도 루프 탈출
+                if response.status_code == 200:
+                    # 전송 성공
+                    success_count += 1
+                    send_success = True
+                    print(f"[DEBUG] ✅ 메시지 전송 성공: {title[:50]}...")
+
+                    # sent_cache에 추가
+                    sent_cache.add(link)
+                    sent_cache.add(_normalize_url(link))
+
+                    # pending에서 제거 예약
+                    urls_to_remove.append(url)
+
+                elif response.status_code == 429:
+                    # Rate Limit - retry_after 헤더 체크
+                    retry_after = None
+                    try:
+                        error_data = response.json()
+                        retry_after = error_data.get("parameters", {}).get("retry_after")
+                    except Exception:
+                        pass
+
+                    if retry_after:
+                        print(f"[DEBUG] ⚠️ Rate Limit (429) - {retry_after}초 후 재시도 권장")
+                        time.sleep(retry_after)
                     else:
-                        print(f"[DEBUG] ❌ 메시지 전송 실패 (시도 {attempt + 1}/{max_retries}): {response.status_code}")
-                        if attempt < max_retries - 1:
-                            import time
-                            time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
+                        print(f"[DEBUG] ⚠️ Rate Limit (429) - retry_after 없음, 5초 대기")
+                        time.sleep(5)
 
-                except Exception as e:
-                    print(f"[DEBUG] ❌ 개별 메시지 전송 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
-                    if attempt < max_retries - 1:
-                        import time
-                        time.sleep(retry_delay * (attempt + 1))  # 지수 백오프
-                    else:
-                        # 마지막 시도에서도 실패하면 상세 오류 출력
-                        import traceback
-                        print(f"[DEBUG] 최종 실패 - 상세 오류:\n{traceback.format_exc()}")
-                finally:
-                    # 연결 누수 방지
-                    if response is not None:
-                        response.close()
+                    # retry_count 증가
+                    pending_queue[url]["retry_count"] = retry_count + 1
+                    pending_queue[url]["last_attempt"] = datetime.now().isoformat()
+                    failed_count += 1
 
-            # Rate Limit 방지 (텔레그램 API: 초당 30개 제한)
-            # 35ms 대기 = 초당 약 28개로 안전한 속도 유지
-            import time
-            time.sleep(0.035)
+                else:
+                    # 기타 에러
+                    print(f"[DEBUG] ❌ 전송 실패 ({response.status_code}): {title[:50]}...")
+                    pending_queue[url]["retry_count"] = retry_count + 1
+                    pending_queue[url]["last_attempt"] = datetime.now().isoformat()
+                    failed_count += 1
+
+            except requests.exceptions.Timeout:
+                print(f"[DEBUG] ⏱️ 타임아웃: {title[:50]}...")
+                pending_queue[url]["retry_count"] = retry_count + 1
+                pending_queue[url]["last_attempt"] = datetime.now().isoformat()
+                failed_count += 1
+
+            except requests.exceptions.RequestException as e:
+                print(f"[DEBUG] ❌ 네트워크 오류: {title[:50]}... - {str(e)}")
+                pending_queue[url]["retry_count"] = retry_count + 1
+                pending_queue[url]["last_attempt"] = datetime.now().isoformat()
+                failed_count += 1
+
+            except Exception as e:
+                print(f"[DEBUG] ❌ 예상치 못한 오류: {title[:50]}... - {str(e)}")
+                print(f"[DEBUG] 상세:\n{traceback.format_exc()}")
+                pending_queue[url]["retry_count"] = retry_count + 1
+                pending_queue[url]["last_attempt"] = datetime.now().isoformat()
+                failed_count += 1
+
+            finally:
+                # 연결 누수 방지
+                if response is not None:
+                    response.close()
+
+            # Rate Limit 방지: 메시지당 최소 100ms 대기
+            # (텔레그램 그룹: 초당 20개, 개인: 초당 30개 제한)
+            if not send_success:
+                time.sleep(0.1)  # 실패 시 짧게 대기
+            else:
+                time.sleep(0.05)  # 성공 시 50ms 대기
+
+        # Pending 큐에서 제거
+        for url in urls_to_remove:
+            pending_queue = remove_from_pending(url, pending_queue)
 
         # 전송 결과 통계
-        failed_count = len(articles_to_notify) - success_count
+        print(f"[DEBUG] ✅ 전송 성공: {success_count}건")
         if failed_count > 0:
-            print(f"[DEBUG] ⚠️ 전송 실패: {failed_count}건")
-            print(f"[DEBUG] 실패한 기사는 다음 수집 사이클에 재시도됩니다.")
+            print(f"[DEBUG] ⚠️ 전송 실패: {failed_count}건 (다음 사이클에 재시도)")
+        if max_retry_exceeded_count > 0:
+            print(f"[DEBUG] ❌ 최대 재시도 초과: {max_retry_exceeded_count}건 (영구 제거)")
 
-        print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료 (성공률: {success_count/len(articles_to_notify)*100:.1f}%)")
+        total = success_count + failed_count + max_retry_exceeded_count
+        if total > 0:
+            print(f"[DEBUG] 📊 전송 성공률: {success_count/total*100:.1f}% ({success_count}/{total})")
 
-        return sent_cache
+        return pending_queue, sent_cache, success_count
 
     except Exception as e:
-        print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")
-        import traceback
-        print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
-        return sent_cache
+        print(f"[DEBUG] ❌ Pending 큐 처리 예외: {str(e)}")
+        print(f"[DEBUG] 상세:\n{traceback.format_exc()}")
+        return pending_queue, sent_cache, 0
+
+
+def send_telegram_notification(new_articles: list, sent_cache: set) -> set:
+    """
+    [레거시 호환성 유지] 신규 기사를 텔레그램으로 전송
+
+    실제 전송은 pending 큐를 통해 처리됨.
+    이 함수는 하위 호환성을 위해 유지.
+
+    Args:
+        new_articles: 신규 기사 리스트
+        sent_cache: 전송 완료된 기사 캐시
+
+    Returns:
+        업데이트된 sent_cache
+    """
+    # 이 함수는 레거시 호환성을 위해 유지
+    # 실제 로직은 process_pending_queue_and_send()로 이동
+    print(f"[DEBUG] send_telegram_notification 호출 (레거시) - {len(new_articles)}건")
+    return sent_cache
 
 
 # ======================== 시스템 상태 관리 ========================

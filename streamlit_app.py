@@ -2306,8 +2306,6 @@ def page_contact_search():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def page_history_search():
-    st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">기존 대응 이력 검색</div>', unsafe_allow_html=True)
-
     # 60초마다 자동으로 파일 변경 체크 (백그라운드) - 성능 최적화
     st_autorefresh(interval=60000, key="history_autorefresh")
 
@@ -2472,8 +2470,6 @@ def page_history_search():
             show_table(display_df, "")
         else:
             st.warning("❌ 검색 조건에 맞는 내역이 없습니다.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
 def page_news_monitor():
     # ===== 기본 파라미터 =====

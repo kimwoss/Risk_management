@@ -422,9 +422,12 @@ def _load_csv_with_key(path: str, _cache_key: float) -> pd.DataFrame:
 def load_media_response_data():
     try:
         mtime = os.path.getmtime(MEDIA_RESPONSE_FILE)
+        fsize = os.path.getsize(MEDIA_RESPONSE_FILE)
+        # 파일 크기와 수정 시간을 조합하여 캐시 키 생성 (더 강력한 캐시 무효화)
+        cache_key = mtime + (fsize / 1000000.0)  # 크기를 MB 단위로 변환하여 추가
     except OSError:
-        mtime = 0.0
-    return _load_csv_with_key(MEDIA_RESPONSE_FILE, mtime)
+        cache_key = 0.0
+    return _load_csv_with_key(MEDIA_RESPONSE_FILE, cache_key)
 
 # ----------------------------- 데이터 API -----------------------------
 def get_media_contacts():

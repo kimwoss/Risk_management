@@ -929,10 +929,17 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         failed_count = 0
         max_retry_exceeded_count = 0
 
-        # Pending 큐를 순회하며 전송 시도
+        # Pending 큐를 날짜 순으로 정렬 (과거 → 최신 순서로 전송)
         urls_to_remove = []
 
-        for url, article in list(pending_queue.items()):
+        # 날짜 기준으로 정렬 (오래된 기사부터 전송)
+        sorted_items = sorted(
+            pending_queue.items(),
+            key=lambda x: x[1].get("date", ""),  # 날짜 문자열로 정렬 (YYYY-MM-DD HH:MM 형식)
+            reverse=False  # False = 오름차순 (과거 → 최신)
+        )
+
+        for url, article in sorted_items:
             title = article.get("title", "제목 없음")
             link = article.get("link", url)
             date = article.get("date", "")

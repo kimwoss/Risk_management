@@ -16,6 +16,10 @@ from news_collector import (
     save_news_db,
     load_sent_cache,
     save_sent_cache,
+    load_pending_queue,  # Pending 큐 로드
+    save_pending_queue,  # Pending 큐 저장
+    add_to_pending,  # Pending 큐에 기사 추가
+    process_pending_queue_and_send,  # Pending 큐 처리 및 텔레그램 전송
     detect_new_articles,
     send_telegram_notification,
     _naver_headers,
@@ -163,6 +167,21 @@ def main():
         # 전송 캐시 로드
         sent_cache = load_sent_cache()
 
+        # Pending 큐 로드 (재시도 대기 중인 기사)
+        pending_queue = load_pending_queue()
+        safe_print(f"[MONITOR] Pending 큐 로드 완료: {len(pending_queue)}건")
+
+        # 기존 Pending 큐 먼저 처리 (재시도)
+        if pending_queue:
+            safe_print(f"[MONITOR] 📤 기존 Pending 큐 처리 시작...")
+            pending_queue, sent_cache, retry_success = process_pending_queue_and_send(pending_queue, sent_cache)
+            telegram_success += retry_success
+            safe_print(f"[MONITOR] 📤 Pending 큐 재시도 완료: {retry_success}건 전송")
+
+            # Pending 큐 즉시 저장 (재시도 결과 반영)
+            save_pending_queue(pending_queue)
+            save_sent_cache(sent_cache)
+
         # API 키 체크
         headers = _naver_headers()
         api_ok = bool(headers.get("X-Naver-Client-Id") and headers.get("X-Naver-Client-Secret"))
@@ -263,33 +282,34 @@ def main():
             # 신규 기사 감지
             new_articles = detect_new_articles(existing_db, df_new, sent_cache)
 
-            # 텔레그램 알림 먼저 전송 (중복 방지를 위해 DB 저장 전 처리)
-            if new_articles and not existing_db.empty:
-                safe_print(f"[MONITOR] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
-                sent_cache_before = len(sent_cache)
-                sent_cache = send_telegram_notification(new_articles, sent_cache)
-                telegram_success = len(sent_cache) - sent_cache_before
-
-                # 텔레그램 발송 직후 캐시 즉시 저장 (중복 방지)
-                safe_print(f"[MONITOR] 캐시 즉시 저장 중... (현재 {len(sent_cache)}건)")
-                save_sent_cache(sent_cache)
-
-                # 텔레그램 로깅
-                if LOGGER_AVAILABLE:
-                    failed = len(new_articles) - telegram_success
-                    logger.log_telegram(telegram_success, failed, len(new_articles))
-
-            elif new_articles:
-                safe_print(f"[MONITOR] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
-                # 첫 실행에서도 캐시에 추가
+            # 신규 기사를 Pending 큐에 추가 (누락 방지)
+            if new_articles:
+                safe_print(f"[MONITOR] ✅ 신규 기사 {len(new_articles)}건 감지 - Pending 큐에 추가")
                 for article in new_articles:
-                    url = article.get("link", "")
-                    if url:
-                        sent_cache.add(url)
-                        sent_cache.add(_normalize_url(url))
-                safe_print(f"[MONITOR] 신규 기사 {len(new_articles)}건을 캐시에 추가")
-                # 즉시 캐시 저장
-                save_sent_cache(sent_cache)
+                    pending_queue = add_to_pending(article, pending_queue)
+
+                # Pending 큐 즉시 저장 (데이터 손실 방지)
+                save_pending_queue(pending_queue)
+                safe_print(f"[MONITOR] 💾 Pending 큐 저장 완료: {len(pending_queue)}건")
+
+                # Pending 큐 처리 (텔레그램 전송)
+                if not is_first_run():
+                    safe_print(f"[MONITOR] 📤 Pending 큐 처리 시작 (신규 기사 전송)...")
+                    pending_queue, sent_cache, new_success = process_pending_queue_and_send(pending_queue, sent_cache)
+                    telegram_success += new_success
+                    safe_print(f"[MONITOR] 📤 신규 기사 전송 완료: {new_success}건")
+
+                    # Pending 큐 및 캐시 즉시 저장
+                    save_pending_queue(pending_queue)
+                    save_sent_cache(sent_cache)
+
+                    # 텔레그램 로깅
+                    if LOGGER_AVAILABLE:
+                        failed = len(new_articles) - new_success
+                        logger.log_telegram(new_success, failed, len(new_articles))
+                else:
+                    safe_print(f"[MONITOR] ⏭️ 첫 실행 감지 - 텔레그램 전송 스킵")
+                    # 첫 실행에서도 Pending 큐는 유지 (다음 런에서 전송)
 
             # DB 저장 (텔레그램 발송 후)
             save_news_db(merged)
@@ -307,9 +327,12 @@ def main():
         else:
             safe_print(f"[MONITOR] ℹ️ 새로 수집된 기사가 없습니다.")
 
-        # 마지막 캐시 저장 (안전성 확보)
+        # 마지막 캐시 및 Pending 큐 저장 (안전성 확보)
         safe_print(f"[MONITOR] 최종 캐시 저장 중... (현재 {len(sent_cache)}건)")
         save_sent_cache(sent_cache)
+
+        safe_print(f"[MONITOR] 최종 Pending 큐 저장 중... (현재 {len(pending_queue)}건)")
+        save_pending_queue(pending_queue)
 
         # 실행 요약 로깅
         if LOGGER_AVAILABLE:

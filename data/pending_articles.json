@@ -1,26 +1,36 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=423805": {
-      "title": "포스코퓨처엠 LFP양극재와 음극재 설비투자 동시 확대, 엄기천 탈중국 ...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=423805",
-      "date": "2025-12-16 16:56",
-      "press": "",
-      "keyword": "포스코",
-      "retry_count": 5,
-      "last_attempt": "2025-12-16T08:50:27.412138",
-      "hash_id": "edca8015283c1e14"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=423823": {
       "title": "'포스코인터 참여' 알라스카 LNG 사업에 세제 혜택 예정, 주지사 \"재산세...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=423823",
       "date": "2025-12-16 17:44",
       "press": "",
       "keyword": "포스코인터내셔널",
-      "retry_count": 1,
-      "last_attempt": "2025-12-16T08:50:37.524983",
+      "retry_count": 3,
+      "last_attempt": "2025-12-16T09:20:24.408980",
       "hash_id": "d2991e10b74f9c12"
+    },
+    "https://www.g-enews.com/view.php?ud=202512160934291801112616b072_1": {
+      "title": "포스코퓨처엠, ESS 겨냥 LFP 양극재 공장 건설",
+      "link": "https://www.g-enews.com/view.php?ud=202512160934291801112616b072_1",
+      "date": "2025-12-16 18:14",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-16T09:20:28.357800",
+      "hash_id": "bdd6eee139e75740"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2025/12/16/20251216500233?wlog_tag3=naver": {
+      "title": "포스코퓨처엠, LFP 양극재 공장 신설… “전량 ESS용”",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2025/12/16/20251216500233?wlog_tag3=naver",
+      "date": "2025-12-16 17:52",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-16T09:20:24.961941",
+      "hash_id": "365a46e15faad914"
     }
   },
-  "last_updated": "2025-12-16 08:50:37",
-  "count": 2
+  "last_updated": "2025-12-16 09:20:28",
+  "count": 3
 }

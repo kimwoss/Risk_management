@@ -36,6 +36,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup  # NEW
 
 from data_based_llm import DataBasedLLM
+from components.status_dashboard import render_status_dashboard
 
 # 지원 여부 플래그
 SUPPORTS_FRAGMENT = hasattr(st, "fragment")
@@ -2367,18 +2368,18 @@ def page_history_search():
     위기_pct = (위기_count / total * 100) if total > 0 else 0
     비상_pct = (비상_count / total * 100) if total > 0 else 0
 
-    st.markdown(f"""
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
-        <div style="color: white; font-size: 1.3em; font-weight: bold; margin-bottom: 15px;">📊 2025 누적 이슈 현황</div>
-        <div style="color: white; font-size: 1.8em; font-weight: bold; margin-bottom: 20px;">총 {total:,}건</div>
-        <div style="color: white; font-size: 1.1em; line-height: 1.8;">
-            <div>관심 &nbsp;{관심_count:3d} ({관심_pct:5.1f}%)</div>
-            <div>주의 &nbsp;{주의_count:3d} ({주의_pct:5.1f}%)</div>
-            <div>위기 &nbsp;{위기_count:3d} ({위기_pct:5.1f}%)</div>
-            <div>비상 &nbsp;{비상_count:3d} ({비상_pct:5.1f}%)</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # 전문적인 대시보드 카드 렌더링
+    render_status_dashboard(
+        total=total,
+        status_counts={
+            '관심': 관심_count,
+            '주의': 주의_count,
+            '위기': 위기_count,
+            '비상': 비상_count
+        },
+        year=2025,
+        show_live=True
+    )
 
     st.markdown("---")
 

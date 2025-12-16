@@ -2352,46 +2352,30 @@ def page_history_search():
     df_2025 = df_all[df_all["발생 일시"].dt.year == 2025].copy()
 
     # 2025년 통계 정보 표시 (상단에 바로 표시)
-    st.markdown("### 📊 2025년 데이터 통계")
-    stat_col1, stat_col2, stat_col3, stat_col4 = st.columns(4)
-
     stage_counts = df_2025["단계"].value_counts().to_dict()
     관심_count = stage_counts.get('관심', 0)
     주의_count = stage_counts.get('주의', 0)
     위기_count = stage_counts.get('위기', 0)
     비상_count = stage_counts.get('비상', 0)
 
-    with stat_col1:
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; text-align: center;">
-            <div style="color: rgba(255,255,255,0.8); font-size: 0.9em; margin-bottom: 5px;">총 건수</div>
-            <div style="color: white; font-size: 2em; font-weight: bold;">{len(df_2025):,}건</div>
-        </div>
-        """, unsafe_allow_html=True)
+    total = len(df_2025)
+    관심_pct = (관심_count / total * 100) if total > 0 else 0
+    주의_pct = (주의_count / total * 100) if total > 0 else 0
+    위기_pct = (위기_count / total * 100) if total > 0 else 0
+    비상_pct = (비상_count / total * 100) if total > 0 else 0
 
-    with stat_col2:
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 20px; border-radius: 10px; text-align: center;">
-            <div style="color: rgba(255,255,255,0.9); font-size: 0.9em; margin-bottom: 5px;">관심</div>
-            <div style="color: white; font-size: 2em; font-weight: bold;">{관심_count}건</div>
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+        <div style="color: white; font-size: 1.3em; font-weight: bold; margin-bottom: 15px;">📊 2025 누적 이슈 현황</div>
+        <div style="color: white; font-size: 1.8em; font-weight: bold; margin-bottom: 20px;">총 {total:,}건</div>
+        <div style="color: white; font-size: 1.1em; line-height: 1.8;">
+            <div>관심 &nbsp;{관심_count:3d} ({관심_pct:5.1f}%)</div>
+            <div>주의 &nbsp;{주의_count:3d} ({주의_pct:5.1f}%)</div>
+            <div>위기 &nbsp;{위기_count:3d} ({위기_pct:5.1f}%)</div>
+            <div>비상 &nbsp;{비상_count:3d} ({비상_pct:5.1f}%)</div>
         </div>
-        """, unsafe_allow_html=True)
-
-    with stat_col3:
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%); padding: 20px; border-radius: 10px; text-align: center;">
-            <div style="color: rgba(255,255,255,0.9); font-size: 0.9em; margin-bottom: 5px;">주의</div>
-            <div style="color: white; font-size: 2em; font-weight: bold;">{주의_count}건</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with stat_col4:
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 20px; border-radius: 10px; text-align: center;">
-            <div style="color: rgba(255,255,255,0.9); font-size: 0.9em; margin-bottom: 5px;">위기/비상</div>
-            <div style="color: white; font-size: 2em; font-weight: bold;">{위기_count + 비상_count}건</div>
-        </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
 

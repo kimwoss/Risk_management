@@ -2087,17 +2087,15 @@ def render_main_page():
 
 # ----------------------------- 페이지들 -----------------------------
 def page_issue_report():
+    # GPT봇 버튼만 표시
     st.markdown("""
-<div class="card" style="margin-top:8px">
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-    <div style="font-weight:600;">이슈발생보고 생성</div>
+<div style="display:flex; justify-content:flex-end; margin-bottom:16px;">
     <a href="https://chatgpt.com/g/g-WMuN0viKE-pointeo-wigigwanrikeom-cinjeolhan-gaideu"
        target="_blank" rel="noopener noreferrer"
        style="display:inline-block; padding:10px 16px; border-radius:8px; font-weight:700; text-decoration:none;
               background:linear-gradient(135deg, #D4AF37, #B8941F); border:1px solid rgba(212,175,55,.4); color:#000;">
       GPT봇 사용하기
     </a>
-  </div>
 </div>
 """, unsafe_allow_html=True)
     col1, col2 = st.columns([1, 1])
@@ -2143,8 +2141,6 @@ def page_issue_report():
             st.markdown('<p style="color: white;">좌측에서 정보를 입력하고 버튼을 눌러주세요.</p>', unsafe_allow_html=True)
 
 def page_media_search():
-    st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">언론사 정보 조회</div>', unsafe_allow_html=True)
-    
     q = st.text_input("언론사명을 입력하세요:", placeholder="예: 조선일보, 중앙일보, 한국경제 등", key="media_search_query")
     
     if st.button("🔍 언론사 정보 조회", use_container_width=True):
@@ -2233,11 +2229,8 @@ def page_media_search():
                             st.error(f"언론사 목록 로드 실패: {e}")
         else:
             st.error("언론사명을 입력해주세요.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
 def page_contact_search():
-    st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">담당자 정보 검색</div>', unsafe_allow_html=True)
-
     departments = load_master_data_fresh().get("departments", {})
 
     search_query = st.text_input("검색어 입력 (부서명, 담당자명, 연락처, 이메일, 담당이슈):", placeholder="예) 김우현, 식량, 홍보그룹", key="contact_search_name")
@@ -2512,7 +2505,6 @@ def page_history_search():
 
 def page_news_monitor():
     # ===== 기본 파라미터 =====
-    st.markdown('<div class="card" style="margin-top:8px"><div style="font-weight:600; margin-bottom:8px;">뉴스 모니터링</div>', unsafe_allow_html=True)
     keywords = [
         "포스코인터내셔널",
         "POSCO INTERNATIONAL",
@@ -2971,8 +2963,6 @@ def page_news_monitor():
                 "📝 요약": st.column_config.TextColumn("📝 요약", help="기사 요약", max_chars=100)
             }
         )
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():

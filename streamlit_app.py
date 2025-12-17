@@ -2371,11 +2371,18 @@ def page_history_search():
         # 잠재이슈 통합
         '잠재이슈': '잠재이슈',
         '잠재 이슈': '잠재이슈',
+
+        # 보도자료 통합
+        '보도자료': '보도자료',
+        '보도자료 게재': '보도자료',
+        '보도자료게재': '보도자료',
     }
 
     # 발생 유형 컬럼 표준화 적용
     if "발생 유형" in df_all.columns:
         df_all["발생 유형"] = df_all["발생 유형"].astype(str).str.strip()
+        # nan, None, 빈 문자열 제거
+        df_all["발생 유형"] = df_all["발생 유형"].replace(['nan', 'None', '', 'NaN', 'NAN'], pd.NA)
         df_all["발생 유형"] = df_all["발생 유형"].replace(type_mapping)
 
     # 2025년 데이터 필터링
@@ -2411,7 +2418,11 @@ def page_history_search():
 
     # 검색 필터
     years = sorted(valid_dates.dt.year.unique().tolist()) if not valid_dates.empty else []
-    type_options = ["전체"] + sorted([t for t in df_all["발생 유형"].dropna().unique().tolist() if t])
+    # 발생 유형 옵션 생성 (nan, None, 빈 문자열 제외)
+    type_options = ["전체"] + sorted([
+        t for t in df_all["발생 유형"].dropna().unique().tolist()
+        if t and str(t).lower() not in ['nan', 'none', '']
+    ])
 
     st.markdown("### 🔍 검색 조건")
     with st.container():

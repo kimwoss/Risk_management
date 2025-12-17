@@ -6,8 +6,8 @@
       "date": "2025-12-17 15:48",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2025-12-17T07:31:59.199114",
+      "retry_count": 5,
+      "last_attempt": "2025-12-17T07:48:33.762258",
       "hash_id": "727eeaf3dffd4f3b"
     },
     "https://www.g-enews.com/view.php?ud=202512171540312892ac06cade6e_1": {
@@ -16,8 +16,8 @@
       "date": "2025-12-17 15:42",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2025-12-17T07:31:58.756151",
+      "retry_count": 5,
+      "last_attempt": "2025-12-17T07:48:33.189947",
       "hash_id": "7cda9870330e0461"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=423964": {
@@ -26,8 +26,8 @@
       "date": "2025-12-17 16:14",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2025-12-17T07:32:14.328382",
+      "retry_count": 3,
+      "last_attempt": "2025-12-17T07:48:34.895786",
       "hash_id": "f42b9287ff1ae5d6"
     },
     "http://www.lawissue.co.kr/view.php?ud=20251217160809405267191f6c6e_12": {
@@ -36,11 +36,21 @@
       "date": "2025-12-17 16:10",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2025-12-17T07:32:02.071534",
+      "retry_count": 3,
+      "last_attempt": "2025-12-17T07:48:34.321643",
       "hash_id": "a102a301a3fe2d35"
+    },
+    "http://www.fntimes.com/html/view.php?ud=202512171637568000b372994c95_18": {
+      "title": "포스코이앤씨, ‘ISO 37301’ 획득… 글로벌 수준 컴플라이언스 경영 체...",
+      "link": "http://www.fntimes.com/html/view.php?ud=202512171637568000b372994c95_18",
+      "date": "2025-12-17 16:42",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-17T07:48:44.442295",
+      "hash_id": "a8d25bb9510d75d1"
     }
   },
-  "last_updated": "2025-12-17 07:32:21",
-  "count": 4
+  "last_updated": "2025-12-17 07:48:51",
+  "count": 5
 }

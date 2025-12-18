@@ -5,6 +5,7 @@
 카운트업 애니메이션으로 실시간 집계 느낌을 줍니다.
 """
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import datetime
 import pytz
 
@@ -41,12 +42,8 @@ def render_status_dashboard(
     now_kst = datetime.now(kst)
     last_updated = now_kst.strftime('%Y-%m-%d %H:%M KST')
 
-    # LIVE 배지 HTML (조건부, 한 줄로)
-    live_badge_html = '<div class="live-badge"><div class="live-dot"></div>LIVE</div>' if show_live else ''
-
     # 애니메이션 플래그 체크 (리런 시 재애니메이션 방지)
-    # 고유 키를 사용하여 이 대시보드의 애니메이션 여부를 추적
-    dashboard_key = f"dashboard_animated_{year}"
+    dashboard_key = f"issue_dashboard_animated_{year}"
     if dashboard_key not in st.session_state:
         st.session_state[dashboard_key] = False
         should_animate = True
@@ -57,19 +54,31 @@ def render_status_dashboard(
     if should_animate:
         st.session_state[dashboard_key] = True
 
-    # CSS + HTML을 하나의 블록으로 렌더링
-    st.markdown(f"""
+    # LIVE 배지 HTML
+    live_badge = f'''
+    <div class="issue-dash-live-badge">
+        <div class="issue-dash-live-dot"></div>LIVE
+    </div>
+    ''' if show_live else ''
+
+    # HTML + CSS + JavaScript를 components.html로 렌더링
+    html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
 <style>
-.dashboard-card {{
+.issue-dash-card {{
     background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }}
 
-.dashboard-header {{
+.issue-dash-header {{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,20 +87,20 @@ def render_status_dashboard(
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }}
 
-.dashboard-title {{
+.issue-dash-title {{
     color: #e0e0e0;
     font-size: 0.95em;
     font-weight: 600;
     letter-spacing: 0.3px;
 }}
 
-.dashboard-meta {{
+.issue-dash-meta {{
     display: flex;
     align-items: center;
     gap: 12px;
 }}
 
-.live-badge {{
+.issue-dash-live-badge {{
     display: inline-flex;
     align-items: center;
     background: rgba(239, 68, 68, 0.15);
@@ -103,61 +112,59 @@ def render_status_dashboard(
     letter-spacing: 0.5px;
 }}
 
-.live-dot {{
+.issue-dash-live-dot {{
     width: 6px;
     height: 6px;
     background: #ef4444;
     border-radius: 50%;
     margin-right: 6px;
-    animation: pulse 2s ease-in-out infinite;
+    animation: issue-dash-pulse 2s ease-in-out infinite;
 }}
 
-@keyframes pulse {{
+@keyframes issue-dash-pulse {{
     0%, 100% {{ opacity: 1; }}
     50% {{ opacity: 0.4; }}
 }}
 
-.last-updated {{
+.issue-dash-last-updated {{
     color: #888;
     font-size: 0.75em;
     font-weight: 500;
 }}
 
-/* 한 줄 5개 카드 레이아웃 */
-.status-row {{
+.issue-dash-row {{
     display: flex;
     gap: 16px;
     align-items: stretch;
 }}
 
-.status-card {{
+.issue-dash-status-card {{
     flex: 1;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 20px 16px;
     border-top: 3px solid;
     transition: all 0.2s ease;
-    min-width: 0; /* flex 자식 요소가 넘치지 않도록 */
+    min-width: 0;
 }}
 
-.status-card:hover {{
+.issue-dash-status-card:hover {{
     background: rgba(255, 255, 255, 0.06);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }}
 
-/* 총 건수 카드 - 가장 강조 */
-.status-card.total {{
+.issue-dash-status-card.total {{
     border-top-color: #6366f1;
     background: rgba(99, 102, 241, 0.05);
 }}
 
-.status-card.interest {{ border-top-color: #22c55e; }}
-.status-card.caution {{ border-top-color: #f59e0b; }}
-.status-card.crisis {{ border-top-color: #f97316; }}
-.status-card.emergency {{ border-top-color: #ef4444; }}
+.issue-dash-status-card.interest {{ border-top-color: #22c55e; }}
+.issue-dash-status-card.caution {{ border-top-color: #f59e0b; }}
+.issue-dash-status-card.crisis {{ border-top-color: #f97316; }}
+.issue-dash-status-card.emergency {{ border-top-color: #ef4444; }}
 
-.status-label {{
+.issue-dash-label {{
     font-size: 0.8em;
     font-weight: 600;
     margin-bottom: 12px;
@@ -165,111 +172,99 @@ def render_status_dashboard(
     color: #999;
 }}
 
-.status-card.total .status-label {{ color: #6366f1; }}
-.status-card.interest .status-label {{ color: #22c55e; }}
-.status-card.caution .status-label {{ color: #f59e0b; }}
-.status-card.crisis .status-label {{ color: #f97316; }}
-.status-card.emergency .status-label {{ color: #ef4444; }}
+.issue-dash-status-card.total .issue-dash-label {{ color: #6366f1; }}
+.issue-dash-status-card.interest .issue-dash-label {{ color: #22c55e; }}
+.issue-dash-status-card.caution .issue-dash-label {{ color: #f59e0b; }}
+.issue-dash-status-card.crisis .issue-dash-label {{ color: #f97316; }}
+.issue-dash-status-card.emergency .issue-dash-label {{ color: #ef4444; }}
 
-.status-value {{
+.issue-dash-value {{
     color: #e0e0e0;
     font-size: 2.2em;
     font-weight: 700;
     line-height: 1;
     margin-bottom: 8px;
-    font-variant-numeric: tabular-nums; /* 숫자 정렬 */
+    font-variant-numeric: tabular-nums;
 }}
 
-/* 총 건수는 더 크게 */
-.status-card.total .status-value {{
+.issue-dash-status-card.total .issue-dash-value {{
     font-size: 2.8em;
     color: #ffffff;
 }}
 
-.status-percentage {{
+.issue-dash-percentage {{
     color: #888;
     font-size: 0.75em;
     font-weight: 500;
 }}
 
-/* 반응형: 768px 이하에서 3+2 레이아웃 */
 @media (max-width: 768px) {{
-    .status-row {{
+    .issue-dash-row {{
         flex-wrap: wrap;
     }}
-
-    .status-card {{
-        flex: 1 1 calc(33.333% - 12px); /* 3개씩 */
+    .issue-dash-status-card {{
+        flex: 1 1 calc(33.333% - 12px);
         min-width: 100px;
     }}
-
-    /* 총 건수는 첫 줄에 혼자 */
-    .status-card.total {{
+    .issue-dash-status-card.total {{
         flex: 1 1 100%;
     }}
 }}
 
-/* 더 작은 화면에서는 2열 */
 @media (max-width: 480px) {{
-    .status-card {{
+    .issue-dash-status-card {{
         flex: 1 1 calc(50% - 8px);
     }}
 }}
 </style>
-
-<div class="dashboard-card">
-    <div class="dashboard-header">
-        <div class="dashboard-title">📊 {year} 누적 이슈 현황</div>
-        <div class="dashboard-meta">
-            {live_badge_html}
-            <div class="last-updated">Last updated: {last_updated}</div>
+</head>
+<body>
+<div class="issue-dash-card">
+    <div class="issue-dash-header">
+        <div class="issue-dash-title">📊 {year} 누적 이슈 현황</div>
+        <div class="issue-dash-meta">
+            {live_badge}
+            <div class="issue-dash-last-updated">Last updated: {last_updated}</div>
         </div>
     </div>
 
-    <div class="status-row">
-        <!-- 총 건수 -->
-        <div class="status-card total">
-            <div class="status-label">총 건수</div>
-            <div class="status-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{total if not should_animate else 0:,}</div>
+    <div class="issue-dash-row">
+        <div class="issue-dash-status-card total">
+            <div class="issue-dash-label">총 건수</div>
+            <div class="issue-dash-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{0 if should_animate else total:,}</div>
         </div>
 
-        <!-- 관심 -->
-        <div class="status-card interest">
-            <div class="status-label">관심</div>
-            <div class="status-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{관심_count if not should_animate else 0:,}</div>
-            <div class="status-percentage">{관심_pct:.1f}%</div>
+        <div class="issue-dash-status-card interest">
+            <div class="issue-dash-label">관심</div>
+            <div class="issue-dash-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 관심_count:,}</div>
+            <div class="issue-dash-percentage">{관심_pct:.1f}%</div>
         </div>
 
-        <!-- 주의 -->
-        <div class="status-card caution">
-            <div class="status-label">주의</div>
-            <div class="status-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{주의_count if not should_animate else 0:,}</div>
-            <div class="status-percentage">{주의_pct:.1f}%</div>
+        <div class="issue-dash-status-card caution">
+            <div class="issue-dash-label">주의</div>
+            <div class="issue-dash-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 주의_count:,}</div>
+            <div class="issue-dash-percentage">{주의_pct:.1f}%</div>
         </div>
 
-        <!-- 위기 -->
-        <div class="status-card crisis">
-            <div class="status-label">위기</div>
-            <div class="status-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{위기_count if not should_animate else 0:,}</div>
-            <div class="status-percentage">{위기_pct:.1f}%</div>
+        <div class="issue-dash-status-card crisis">
+            <div class="issue-dash-label">위기</div>
+            <div class="issue-dash-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 위기_count:,}</div>
+            <div class="issue-dash-percentage">{위기_pct:.1f}%</div>
         </div>
 
-        <!-- 비상 -->
-        <div class="status-card emergency">
-            <div class="status-label">비상</div>
-            <div class="status-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{비상_count if not should_animate else 0:,}</div>
-            <div class="status-percentage">{비상_pct:.1f}%</div>
+        <div class="issue-dash-status-card emergency">
+            <div class="issue-dash-label">비상</div>
+            <div class="issue-dash-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 비상_count:,}</div>
+            <div class="issue-dash-percentage">{비상_pct:.1f}%</div>
         </div>
     </div>
 </div>
 
 <script>
 (function() {{
-    // 이미 실행된 경우 스킵
-    const cards = document.querySelectorAll('.status-value[data-animate="true"]');
+    const cards = document.querySelectorAll('.issue-dash-value[data-animate="true"]');
     if (cards.length === 0) return;
 
-    // 카운트업 애니메이션 함수
     function animateCounter(element, target, duration) {{
         const start = 0;
         const range = target - start;
@@ -278,30 +273,31 @@ def render_status_dashboard(
         function update(currentTime) {{
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-
-            // easeOutQuad 이징 함수 (부드러운 감속)
             const easeProgress = progress * (2 - progress);
             const current = Math.floor(start + range * easeProgress);
 
-            // 천단위 콤마 포맷팅
-            element.textContent = current.toLocaleString();
+            element.textContent = current.toLocaleString('en-US');
 
             if (progress < 1) {{
                 requestAnimationFrame(update);
             }} else {{
-                element.textContent = target.toLocaleString();
+                element.textContent = target.toLocaleString('en-US');
             }}
         }}
 
         requestAnimationFrame(update);
     }}
 
-    // 각 카드에 랜덤 duration 적용 (700~1100ms)
     cards.forEach(card => {{
         const target = parseInt(card.getAttribute('data-target'));
-        const duration = 700 + Math.random() * 400; // 700~1100ms
+        const duration = 700 + Math.random() * 400;
         animateCounter(card, target, duration);
     }});
 }})();
 </script>
-""", unsafe_allow_html=True)
+</body>
+</html>
+"""
+
+    # Streamlit components를 사용하여 렌더링
+    components.html(html_content, height=200, scrolling=False)

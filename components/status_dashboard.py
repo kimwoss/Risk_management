@@ -68,12 +68,25 @@ def render_status_dashboard(
 <head>
 <meta charset="utf-8">
 <style>
+* {{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}}
+
+body {{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}}
+
 .issue-dash-card {{
     background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 24px;
+    width: 100%;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }}
@@ -300,4 +313,5 @@ def render_status_dashboard(
 """
 
     # Streamlit components를 사용하여 렌더링
-    components.html(html_content, height=200, scrolling=False)
+    # height를 충분히 크게 설정 (반응형 고려)
+    components.html(html_content, height=250, scrolling=False)

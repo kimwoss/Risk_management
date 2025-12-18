@@ -77,7 +77,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     # CSS 스타일 (대시보드 전용, 간격 축소, 헤더 없음)
     st.markdown("""
     <style>
-    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
     .news-dash-container * { text-align: center; }
 
     .news-dash-container div[data-testid="column"] { padding: 0 4px !important; }

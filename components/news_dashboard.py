@@ -74,15 +74,11 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일 (대시보드 전용, 간격 축소)
+    # CSS 스타일 (대시보드 전용, 간격 축소, 헤더 없음)
     st.markdown("""
     <style>
-    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
     .news-dash-container * { text-align: center; }
-    .news-dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .news-dash-title { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; }
-    .news-live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
-    .news-last-updated { color: #888; font-size: 0.75rem; margin-left: 12px; }
 
     .news-dash-container div[data-testid="column"] { padding: 0 4px !important; }
     .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
@@ -120,9 +116,8 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     </style>
     """, unsafe_allow_html=True)
 
-    live = f'<span class="news-live-badge">LIVE</span>' if show_live else ''
-
-    st.markdown(f'<div class="news-dash-container"><div class="news-dash-header"><span class="news-dash-title">📊 {today_str} 당일 기사 현황</span><span>{live}<span class="news-last-updated">Last updated: {last_updated}</span></span></div>', unsafe_allow_html=True)
+    # 헤더 없이 바로 컨테이너 시작
+    st.markdown('<div class="news-dash-container">', unsafe_allow_html=True)
 
     # 6개 카드를 한 줄에 배치
     col1, col2, col3, col4, col5, col6 = st.columns(6)

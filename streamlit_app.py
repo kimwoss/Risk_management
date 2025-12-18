@@ -2021,7 +2021,7 @@ def render_top_nav(active_label: str):
           margin: 6px 0 16px 0 !important;
         }
         .nav-container img {
-          height: 40px !important;
+          height: 36px !important;
         }
       }
 
@@ -2037,7 +2037,7 @@ def render_top_nav(active_label: str):
           border-radius: 12px !important;
         }
         .nav-container img {
-          height: 36px !important;
+          height: 32px !important;
         }
       }
     </style>
@@ -2048,12 +2048,12 @@ def render_top_nav(active_label: str):
         c1, c2 = st.columns([1.2, 4.0], gap="medium")
         with c1:
             if logo_uri:
-                # 로고를 클릭 가능한 HTML로 직접 구현
+                # 로고를 클릭 가능한 HTML로 직접 구현 (메뉴 버튼과 높이 정렬)
                 st.markdown(f'''
-                <div style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 100%; height: 48px; display: flex; align-items: center; justify-content: center;">
                     <a href="?home=1" style="display: block; cursor: pointer; transition: all 0.2s ease;">
                         <img src="{logo_uri}" alt="POSCO 메인으로" title="메인 페이지로 이동"
-                             style="height:54px; max-width: 100%; transition: transform 0.2s ease;"
+                             style="height: 42px; max-width: 100%; transition: transform 0.2s ease;"
                              onmouseover="this.style.transform='scale(1.05)'"
                              onmouseout="this.style.transform='scale(1)'">
                     </a>

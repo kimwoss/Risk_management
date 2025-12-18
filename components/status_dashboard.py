@@ -5,9 +5,9 @@
 카운트업 애니메이션으로 실시간 집계 느낌을 줍니다.
 """
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import datetime
 import pytz
-import uuid
 
 
 def render_status_dashboard(
@@ -54,249 +54,90 @@ def render_status_dashboard(
     if should_animate:
         st.session_state[dashboard_key] = True
 
-    # 고유 ID 생성 (스크립트 충돌 방지)
-    unique_id = str(uuid.uuid4())[:8]
-
     # LIVE 배지 HTML
-    live_badge = f'<div class="idash-live-badge"><div class="idash-live-dot"></div>LIVE</div>' if show_live else ''
+    live_badge = f'<span class="live-badge"><span class="live-dot"></span>LIVE</span>' if show_live else ''
 
-    # st.markdown으로 렌더링 (unsafe_allow_html=True)
-    st.markdown(f"""
+    # HTML + CSS + JavaScript
+    html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
 <style>
-/* 고유 ID로 스코프 제한 */
-#dashboard-{unique_id} {{
-    width: 100%;
-    margin: 0 0 24px 0;
-    padding: 0;
-}}
-
-#dashboard-{unique_id} .idash-card {{
-    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 24px;
-    width: 100%;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}}
-
-#dashboard-{unique_id} .idash-header {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}}
-
-#dashboard-{unique_id} .idash-title {{
-    color: #e0e0e0;
-    font-size: 0.95em;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}}
-
-#dashboard-{unique_id} .idash-meta {{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}}
-
-#dashboard-{unique_id} .idash-live-badge {{
-    display: inline-flex;
-    align-items: center;
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75em;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}}
-
-#dashboard-{unique_id} .idash-live-dot {{
-    width: 6px;
-    height: 6px;
-    background: #ef4444;
-    border-radius: 50%;
-    margin-right: 6px;
-    animation: idash-pulse-{unique_id} 2s ease-in-out infinite;
-}}
-
-@keyframes idash-pulse-{unique_id} {{
-    0%, 100% {{ opacity: 1; }}
-    50% {{ opacity: 0.4; }}
-}}
-
-#dashboard-{unique_id} .idash-last-updated {{
-    color: #888;
-    font-size: 0.75em;
-    font-weight: 500;
-}}
-
-#dashboard-{unique_id} .idash-row {{
-    display: flex;
-    gap: 16px;
-    align-items: stretch;
-}}
-
-#dashboard-{unique_id} .idash-status-card {{
-    flex: 1;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: 20px 16px;
-    border-top: 3px solid;
-    transition: all 0.2s ease;
-    min-width: 0;
-}}
-
-#dashboard-{unique_id} .idash-status-card:hover {{
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}}
-
-#dashboard-{unique_id} .idash-status-card.total {{
-    border-top-color: #6366f1;
-    background: rgba(99, 102, 241, 0.05);
-}}
-
-#dashboard-{unique_id} .idash-status-card.interest {{ border-top-color: #22c55e; }}
-#dashboard-{unique_id} .idash-status-card.caution {{ border-top-color: #f59e0b; }}
-#dashboard-{unique_id} .idash-status-card.crisis {{ border-top-color: #f97316; }}
-#dashboard-{unique_id} .idash-status-card.emergency {{ border-top-color: #ef4444; }}
-
-#dashboard-{unique_id} .idash-label {{
-    font-size: 0.8em;
-    font-weight: 600;
-    margin-bottom: 12px;
-    letter-spacing: 0.3px;
-    color: #999;
-}}
-
-#dashboard-{unique_id} .idash-status-card.total .idash-label {{ color: #6366f1; }}
-#dashboard-{unique_id} .idash-status-card.interest .idash-label {{ color: #22c55e; }}
-#dashboard-{unique_id} .idash-status-card.caution .idash-label {{ color: #f59e0b; }}
-#dashboard-{unique_id} .idash-status-card.crisis .idash-label {{ color: #f97316; }}
-#dashboard-{unique_id} .idash-status-card.emergency .idash-label {{ color: #ef4444; }}
-
-#dashboard-{unique_id} .idash-value {{
-    color: #e0e0e0;
-    font-size: 2.2em;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 8px;
-    font-variant-numeric: tabular-nums;
-}}
-
-#dashboard-{unique_id} .idash-status-card.total .idash-value {{
-    font-size: 2.8em;
-    color: #ffffff;
-}}
-
-#dashboard-{unique_id} .idash-percentage {{
-    color: #888;
-    font-size: 0.75em;
-    font-weight: 500;
-}}
-
-@media (max-width: 768px) {{
-    #dashboard-{unique_id} .idash-row {{
-        flex-wrap: wrap;
-    }}
-    #dashboard-{unique_id} .idash-status-card {{
-        flex: 1 1 calc(33.333% - 12px);
-        min-width: 100px;
-    }}
-    #dashboard-{unique_id} .idash-status-card.total {{
-        flex: 1 1 100%;
-    }}
-}}
-
-@media (max-width: 480px) {{
-    #dashboard-{unique_id} .idash-status-card {{
-        flex: 1 1 calc(50% - 8px);
-    }}
-}}
+* {{ margin: 0; padding: 0; box-sizing: border-box; }}
+html, body {{ width: 100%; margin: 0; padding: 0; overflow-x: hidden; }}
+.dashboard-card {{ background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; width: 100%; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }}
+.dashboard-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); flex-wrap: wrap; gap: 12px; }}
+.dashboard-title {{ color: #e0e0e0; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.3px; }}
+.dashboard-meta {{ display: flex; align-items: center; gap: 12px; }}
+.live-badge {{ display: inline-flex; align-items: center; background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }}
+.live-dot {{ display: inline-block; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; margin-right: 6px; animation: pulse 2s ease-in-out infinite; }}
+@keyframes pulse {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0.4; }} }}
+.last-updated {{ color: #888; font-size: 0.75rem; font-weight: 500; }}
+.status-row {{ display: flex; gap: 16px; align-items: stretch; width: 100%; }}
+.status-card {{ flex: 1; background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; transition: all 0.2s ease; min-width: 0; }}
+.status-card:hover {{ background: rgba(255, 255, 255, 0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }}
+.status-card.total {{ border-top-color: #6366f1; background: rgba(99, 102, 241, 0.05); }}
+.status-card.interest {{ border-top-color: #22c55e; }}
+.status-card.caution {{ border-top-color: #f59e0b; }}
+.status-card.crisis {{ border-top-color: #f97316; }}
+.status-card.emergency {{ border-top-color: #ef4444; }}
+.status-label {{ font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; letter-spacing: 0.3px; color: #999; }}
+.status-card.total .status-label {{ color: #6366f1; }}
+.status-card.interest .status-label {{ color: #22c55e; }}
+.status-card.caution .status-label {{ color: #f59e0b; }}
+.status-card.crisis .status-label {{ color: #f97316; }}
+.status-card.emergency .status-label {{ color: #ef4444; }}
+.status-value {{ color: #e0e0e0; font-size: 2.2rem; font-weight: 700; line-height: 1; margin-bottom: 8px; font-variant-numeric: tabular-nums; }}
+.status-card.total .status-value {{ font-size: 2.8rem; color: #ffffff; }}
+.status-percentage {{ color: #888; font-size: 0.75rem; font-weight: 500; }}
+@media (max-width: 768px) {{ .status-row {{ flex-wrap: wrap; }} .status-card {{ flex: 1 1 calc(33.333% - 12px); min-width: 100px; }} .status-card.total {{ flex: 1 1 100%; }} }}
+@media (max-width: 480px) {{ .status-card {{ flex: 1 1 calc(50% - 8px); }} }}
 </style>
-
-<div id="dashboard-{unique_id}">
-    <div class="idash-card">
-        <div class="idash-header">
-            <div class="idash-title">📊 {year} 누적 이슈 현황</div>
-            <div class="idash-meta">
-                {live_badge}
-                <div class="idash-last-updated">Last updated: {last_updated}</div>
-            </div>
-        </div>
-
-        <div class="idash-row">
-            <div class="idash-status-card total">
-                <div class="idash-label">총 건수</div>
-                <div class="idash-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{0 if should_animate else total:,}</div>
-            </div>
-
-            <div class="idash-status-card interest">
-                <div class="idash-label">관심</div>
-                <div class="idash-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 관심_count:,}</div>
-                <div class="idash-percentage">{관심_pct:.1f}%</div>
-            </div>
-
-            <div class="idash-status-card caution">
-                <div class="idash-label">주의</div>
-                <div class="idash-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 주의_count:,}</div>
-                <div class="idash-percentage">{주의_pct:.1f}%</div>
-            </div>
-
-            <div class="idash-status-card crisis">
-                <div class="idash-label">위기</div>
-                <div class="idash-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 위기_count:,}</div>
-                <div class="idash-percentage">{위기_pct:.1f}%</div>
-            </div>
-
-            <div class="idash-status-card emergency">
-                <div class="idash-label">비상</div>
-                <div class="idash-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 비상_count:,}</div>
-                <div class="idash-percentage">{비상_pct:.1f}%</div>
-            </div>
-        </div>
-    </div>
+</head>
+<body>
+<div class="dashboard-card">
+<div class="dashboard-header">
+<div class="dashboard-title">📊 {year} 누적 이슈 현황</div>
+<div class="dashboard-meta">{live_badge}<span class="last-updated">Last updated: {last_updated}</span></div>
 </div>
-
+<div class="status-row">
+<div class="status-card total"><div class="status-label">총 건수</div><div class="status-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{0 if should_animate else total:,}</div></div>
+<div class="status-card interest"><div class="status-label">관심</div><div class="status-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 관심_count:,}</div><div class="status-percentage">{관심_pct:.1f}%</div></div>
+<div class="status-card caution"><div class="status-label">주의</div><div class="status-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 주의_count:,}</div><div class="status-percentage">{주의_pct:.1f}%</div></div>
+<div class="status-card crisis"><div class="status-label">위기</div><div class="status-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 위기_count:,}</div><div class="status-percentage">{위기_pct:.1f}%</div></div>
+<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 비상_count:,}</div><div class="status-percentage">{비상_pct:.1f}%</div></div>
+</div>
+</div>
 <script>
 (function() {{
-    const dashboardId = 'dashboard-{unique_id}';
-    const cards = document.querySelectorAll(`#${{dashboardId}} .idash-value[data-animate="true"]`);
-
-    if (cards.length === 0) return;
-
-    function animateCounter(element, target, duration) {{
-        const start = 0;
-        const range = target - start;
-        const startTime = performance.now();
-
-        function update(currentTime) {{
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeProgress = progress * (2 - progress);
-            const current = Math.floor(start + range * easeProgress);
-
-            element.textContent = current.toLocaleString('en-US');
-
-            if (progress < 1) {{
-                requestAnimationFrame(update);
-            }} else {{
-                element.textContent = target.toLocaleString('en-US');
-            }}
-        }}
-
-        requestAnimationFrame(update);
-    }}
-
-    cards.forEach(card => {{
-        const target = parseInt(card.getAttribute('data-target'));
-        const duration = 700 + Math.random() * 400;
-        animateCounter(card, target, duration);
-    }});
+const cards = document.querySelectorAll('.status-value[data-animate="true"]');
+if (cards.length === 0) return;
+function animateCounter(element, target, duration) {{
+const start = 0;
+const range = target - start;
+const startTime = performance.now();
+function update(currentTime) {{
+const elapsed = currentTime - startTime;
+const progress = Math.min(elapsed / duration, 1);
+const easeProgress = progress * (2 - progress);
+const current = Math.floor(start + range * easeProgress);
+element.textContent = current.toLocaleString('en-US');
+if (progress < 1) {{ requestAnimationFrame(update); }}
+else {{ element.textContent = target.toLocaleString('en-US'); }}
+}}
+requestAnimationFrame(update);
+}}
+cards.forEach(card => {{
+const target = parseInt(card.getAttribute('data-target'));
+const duration = 700 + Math.random() * 400;
+setTimeout(() => animateCounter(card, target, duration), 50);
+}});
 }})();
 </script>
-""", unsafe_allow_html=True)
+</body>
+</html>
+"""
+
+    # components.html 사용
+    components.html(html_content, height=250, scrolling=False)

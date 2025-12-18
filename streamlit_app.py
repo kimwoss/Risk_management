@@ -73,6 +73,29 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# ----------------------------- 전역 CSS (iframe 전체 폭 강제) -----------------------------
+st.markdown("""
+<style>
+/* Streamlit components.html iframe을 전체 폭으로 강제 */
+iframe[title] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* 대시보드 iframe을 위한 추가 스타일 */
+.stApp iframe {
+    width: 100% !important;
+}
+
+/* Block 컨테이너 전체 폭 사용 */
+.block-container {
+    max-width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # ----------------------------- 인증 설정 -----------------------------
 ACCESS_CODE = "pointl"  # 비밀코드
 import hashlib

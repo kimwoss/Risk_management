@@ -37,6 +37,7 @@ from bs4 import BeautifulSoup  # NEW
 
 from data_based_llm import DataBasedLLM
 from components.status_dashboard import render_status_dashboard
+from components.publisher_dashboard import render_publisher_dashboard
 
 # 지원 여부 플래그
 SUPPORTS_FRAGMENT = hasattr(st, "fragment")
@@ -2164,6 +2165,10 @@ def page_issue_report():
             st.markdown('<p style="color: white;">좌측에서 정보를 입력하고 버튼을 눌러주세요.</p>', unsafe_allow_html=True)
 
 def page_media_search():
+    # 출입매체 현황 대시보드
+    media_contacts = get_media_contacts()
+    render_publisher_dashboard(media_contacts, show_live=True)
+
     q = st.text_input("언론사명을 입력하세요:", placeholder="예: 조선일보, 중앙일보, 한국경제 등", key="media_search_query")
     
     if st.button("🔍 언론사 정보 조회", use_container_width=True):

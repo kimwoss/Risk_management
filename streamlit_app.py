@@ -38,6 +38,7 @@ from bs4 import BeautifulSoup  # NEW
 from data_based_llm import DataBasedLLM
 from components.status_dashboard import render_status_dashboard
 from components.publisher_dashboard import render_publisher_dashboard
+from components.news_dashboard import render_news_dashboard
 
 # 지원 여부 플래그
 SUPPORTS_FRAGMENT = hasattr(st, "fragment")
@@ -2801,6 +2802,9 @@ def page_news_monitor():
     st.markdown("---")
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
     db = st.session_state.get('news_display_data', load_news_db())
+
+    # 당일 뉴스 현황 대시보드
+    render_news_dashboard(db, show_live=True)
 
     # 🔍 디버그 정보 표시
     if not db.empty and "날짜" in db.columns:

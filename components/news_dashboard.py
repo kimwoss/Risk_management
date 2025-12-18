@@ -38,10 +38,8 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     others_count = 0
 
     if not today_news.empty and "검색키워드" in today_news.columns:
-        # 포스코인터내셔널 관련 키워드
-        posco_intl_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
-                               "삼척블루파워", "구동모터코아", "구동모터코어",
-                               "미얀마 LNG", "포스코모빌리티솔루션"]
+        # 포스코인터내셔널 관련 키워드 (정확히 3개만)
+        posco_intl_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]
 
         for _, row in today_news.iterrows():
             keyword = str(row.get("검색키워드", ""))
@@ -56,10 +54,10 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
             if is_posco_intl:
                 posco_intl_count += 1
-            # 포스코 (포스코인터내셔널 제외)
+            # 포스코 관련 (포스코인터내셔널 제외, 계열사 포함)
             elif "포스코" in keyword or "포스코" in title or "POSCO" in keyword.upper() or "POSCO" in title.upper():
                 posco_count += 1
-            # 기타
+            # 기타 (포스코 미포함 계열사 및 기타 키워드)
             else:
                 others_count += 1
 
@@ -75,17 +73,18 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일
+    # CSS 스타일 (대시보드 전용, 다른 요소에 영향 없도록 스코핑)
     st.markdown("""
     <style>
-    div[data-testid="column"] { padding: 0 6px !important; }
     .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .news-dash-container * { text-align: center; }
     .news-dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .news-dash-title { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; }
     .news-live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
     .news-last-updated { color: #888; font-size: 0.75rem; margin-left: 12px; }
 
-    .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; text-align: center; transition: all 0.2s ease; min-height: 140px; display: flex; flex-direction: column; justify-content: center; }
+    .news-dash-container div[data-testid="column"] { padding: 0 6px !important; }
+    .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; transition: all 0.2s ease; min-height: 140px; display: flex; flex-direction: column; justify-content: center; }
     .news-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
     .news-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
@@ -105,10 +104,10 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     .news-pct { color: #888; font-size: 0.75rem; margin-top: 4px; }
 
     @media (max-width: 768px) {
-        div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; min-width: 120px !important; }
+        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; min-width: 120px !important; }
     }
     @media (max-width: 480px) {
-        div[data-testid="column"] { flex: 1 1 100% !important; }
+        .news-dash-container div[data-testid="column"] { flex: 1 1 100% !important; }
     }
     </style>
     """, unsafe_allow_html=True)

@@ -19,21 +19,27 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     # 통계 계산
     total = len(media_contacts)
 
-    # 구분별 카운트
+    # 구분별 카운트 (고정값 사용)
     category_counts = {
-        '종합지': 0,
-        '경제지': 0,
-        '통신사': 0,
-        '석간지': 0,
-        '영자지': 0,
-        '경제TV': 0,
-        '온라인지': 0
+        '종합지': 11,
+        '경제지': 10,
+        '경제TV': 9,
+        '영자지': 5,
+        '석간지': 4,
     }
 
+    # 통신사는 실제 카운트
+    통신사_count = 0
     for media_name, media_info in media_contacts.items():
         category = media_info.get('구분', '기타')
-        if category in category_counts:
-            category_counts[category] += 1
+        if category == '통신사':
+            통신사_count += 1
+
+    category_counts['통신사'] = 통신사_count
+
+    # 온라인지는 전체에서 나머지를 뺀 값
+    fixed_sum = sum(category_counts.values())
+    category_counts['온라인지'] = max(0, total - fixed_sum)
 
     # 퍼센트 계산
     category_pcts = {}

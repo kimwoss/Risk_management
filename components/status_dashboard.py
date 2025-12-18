@@ -1,5 +1,6 @@
 """
 전문적인 실시간 모니터링 대시보드 카드 컴포넌트
+한 줄 5개 카드 레이아웃 (총건수/관심/주의/위기/비상)
 """
 import streamlit as st
 from datetime import datetime
@@ -23,27 +24,40 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = 2025, s
 
     st.markdown("""
     <style>
-    div[data-testid="column"] { padding: 0 8px !important; }
-    .dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
-    .dash-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    div[data-testid="column"] { padding: 0 6px !important; }
+    .dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .dash-title { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; }
     .live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
     .last-updated { color: #888; font-size: 0.75rem; margin-left: 12px; }
-    .total-card { background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.2); border-radius: 12px; padding: 24px; text-align: center; }
-    .total-label { color: #6366f1; font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; }
-    .total-value { color: #fff; font-size: 3rem; font-weight: 700; margin: 0; }
-    .status-card { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 16px; border-left: 3px solid; margin-bottom: 8px; }
-    .status-card.interest { border-left-color: #22c55e; }
-    .status-card.caution { border-left-color: #f59e0b; }
-    .status-card.crisis { border-left-color: #f97316; }
-    .status-card.emergency { border-left-color: #ef4444; }
-    .status-label { font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+    
+    .status-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; text-align: center; transition: all 0.2s ease; min-height: 140px; display: flex; flex-direction: column; justify-content: center; }
+    .status-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    
+    .status-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
+    .status-card.interest { border-top-color: #22c55e; }
+    .status-card.caution { border-top-color: #f59e0b; }
+    .status-card.crisis { border-top-color: #f97316; }
+    .status-card.emergency { border-top-color: #ef4444; }
+    
+    .status-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
+    .status-card.total .status-label { color: #6366f1; }
     .status-card.interest .status-label { color: #22c55e; }
     .status-card.caution .status-label { color: #f59e0b; }
     .status-card.crisis .status-label { color: #f97316; }
     .status-card.emergency .status-label { color: #ef4444; }
-    .status-value { color: #e0e0e0; font-size: 1.8rem; font-weight: 700; margin: 0 0 4px 0; }
-    .status-pct { color: #888; font-size: 0.8rem; margin: 0; }
+    
+    .status-value { color: #e0e0e0; font-size: 2.2rem; font-weight: 700; margin: 8px 0; }
+    .status-card.total .status-value { font-size: 2.8rem; color: #fff; }
+    
+    .status-pct { color: #888; font-size: 0.75rem; margin-top: 4px; }
+    
+    @media (max-width: 768px) {
+        div[data-testid="column"] { flex: 1 1 calc(33.333% - 12px) !important; min-width: 100px !important; }
+    }
+    @media (max-width: 480px) {
+        div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -51,18 +65,22 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = 2025, s
     
     st.markdown(f'<div class="dash-container"><div class="dash-header"><span class="dash-title">📊 {year} 누적 이슈 현황</span><span>{live}<span class="last-updated">Last updated: {last_updated}</span></span></div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 2])
+    # 한 줄에 5개 카드 배치
+    col1, col2, col3, col4, col5 = st.columns(5)
     
     with col1:
-        st.markdown(f'<div class="total-card"><div class="total-label">총 건수</div><h1 class="total-value">{total:,}</h1></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="status-card total"><div class="status-label">총 건수</div><div class="status-value">{total:,}</div></div>', unsafe_allow_html=True)
     
     with col2:
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown(f'<div class="status-card interest"><div class="status-label">관심</div><h2 class="status-value">{관심_count:,}</h2><p class="status-pct">{관심_pct:.1f}%</p></div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="status-card crisis"><div class="status-label">위기</div><h2 class="status-value">{위기_count:,}</h2><p class="status-pct">{위기_pct:.1f}%</p></div>', unsafe_allow_html=True)
-        with c2:
-            st.markdown(f'<div class="status-card caution"><div class="status-label">주의</div><h2 class="status-value">{주의_count:,}</h2><p class="status-pct">{주의_pct:.1f}%</p></div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><h2 class="status-value">{비상_count:,}</h2><p class="status-pct">{비상_pct:.1f}%</p></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="status-card interest"><div class="status-label">관심</div><div class="status-value">{관심_count:,}</div><div class="status-pct">{관심_pct:.1f}%</div></div>', unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown(f'<div class="status-card caution"><div class="status-label">주의</div><div class="status-value">{주의_count:,}</div><div class="status-pct">{주의_pct:.1f}%</div></div>', unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown(f'<div class="status-card crisis"><div class="status-label">위기</div><div class="status-value">{위기_count:,}</div><div class="status-pct">{위기_pct:.1f}%</div></div>', unsafe_allow_html=True)
+    
+    with col5:
+        st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value">{비상_count:,}</div><div class="status-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)

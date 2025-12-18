@@ -2579,7 +2579,8 @@ def page_news_monitor():
     with c_count:
         countdown_fragment(refresh_interval)
 
-    st.markdown("---")
+    # 최소 간격의 구분선
+    st.markdown('<div style="margin: 8px 0;"></div>', unsafe_allow_html=True)
 
     # ===== 새로고침 방식 결정 =====
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)

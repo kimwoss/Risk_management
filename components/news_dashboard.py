@@ -1,6 +1,6 @@
 """
 당일 뉴스 모니터링 현황 대시보드 컴포넌트
-당일 기사 총 건수와 카테고리별 통계 실시간 표시
+당일 기사 총 건수와 해시태그 카테고리별 통계 실시간 표시
 """
 import streamlit as st
 import streamlit.components.v1 as components
@@ -34,35 +34,36 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     # 카테고리별 카운트
     posco_intl_count = 0
+    posco_mobility_count = 0
+    samcheok_count = 0
     posco_count = 0
     others_count = 0
 
     if not today_news.empty and "검색키워드" in today_news.columns:
-        # 포스코인터내셔널 관련 키워드 (정확히 3개만)
-        posco_intl_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]
-
         for _, row in today_news.iterrows():
             keyword = str(row.get("검색키워드", ""))
             title = str(row.get("기사제목", ""))
 
-            # 포스코인터내셔널 관련 (키워드 또는 제목에 포함)
-            is_posco_intl = False
-            for kw in posco_intl_keywords:
-                if kw in keyword or kw in title:
-                    is_posco_intl = True
-                    break
-
-            if is_posco_intl:
+            # 1순위: 포스코인터내셔널 (POSCO INTERNATIONAL, 포스코인터 포함)
+            if any(kw in keyword or kw in title for kw in ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]):
                 posco_intl_count += 1
-            # 포스코 관련 (포스코인터내셔널 제외, 계열사 포함)
+            # 2순위: 포스코모빌리티솔루션
+            elif "포스코모빌리티솔루션" in keyword or "포스코모빌리티솔루션" in title:
+                posco_mobility_count += 1
+            # 3순위: 삼척블루파워
+            elif "삼척블루파워" in keyword or "삼척블루파워" in title:
+                samcheok_count += 1
+            # 4순위: 포스코 (위 항목 제외)
             elif "포스코" in keyword or "포스코" in title or "POSCO" in keyword.upper() or "POSCO" in title.upper():
                 posco_count += 1
-            # 기타 (포스코 미포함 계열사 및 기타 키워드)
+            # 5순위: 기타
             else:
                 others_count += 1
 
     # 퍼센트 계산
     posco_intl_pct = (posco_intl_count / total_today * 100) if total_today > 0 else 0
+    posco_mobility_pct = (posco_mobility_count / total_today * 100) if total_today > 0 else 0
+    samcheok_pct = (samcheok_count / total_today * 100) if total_today > 0 else 0
     posco_pct = (posco_count / total_today * 100) if total_today > 0 else 0
     others_pct = (others_count / total_today * 100) if total_today > 0 else 0
 
@@ -73,38 +74,45 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일 (대시보드 전용, 다른 요소에 영향 없도록 스코핑)
+    # CSS 스타일 (대시보드 전용, 간격 축소)
     st.markdown("""
     <style>
-    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
     .news-dash-container * { text-align: center; }
-    .news-dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .news-dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .news-dash-title { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; }
     .news-live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
     .news-last-updated { color: #888; font-size: 0.75rem; margin-left: 12px; }
 
-    .news-dash-container div[data-testid="column"] { padding: 0 6px !important; }
-    .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; transition: all 0.2s ease; min-height: 140px; display: flex; flex-direction: column; justify-content: center; }
+    .news-dash-container div[data-testid="column"] { padding: 0 4px !important; }
+    .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
     .news-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
     .news-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
     .news-card.posco-intl { border-top-color: #22c55e; }
     .news-card.posco { border-top-color: #f59e0b; }
+    .news-card.mobility { border-top-color: #3b82f6; }
+    .news-card.samcheok { border-top-color: #ec4899; }
     .news-card.others { border-top-color: #8b5cf6; }
 
-    .news-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
+    .news-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
     .news-card.total .news-label { color: #6366f1; }
     .news-card.posco-intl .news-label { color: #22c55e; }
     .news-card.posco .news-label { color: #f59e0b; }
+    .news-card.mobility .news-label { color: #3b82f6; }
+    .news-card.samcheok .news-label { color: #ec4899; }
     .news-card.others .news-label { color: #8b5cf6; }
 
-    .news-value { color: #e0e0e0; font-size: 2.2rem; font-weight: 700; margin: 8px 0; }
-    .news-card.total .news-value { font-size: 2.8rem; color: #fff; }
+    .news-value { color: #e0e0e0; font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
+    .news-card.total .news-value { font-size: 2.4rem; color: #fff; }
 
-    .news-pct { color: #888; font-size: 0.75rem; margin-top: 4px; }
+    .news-pct { color: #888; font-size: 0.7rem; margin-top: 4px; }
 
+    @media (max-width: 1200px) {
+        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 140px !important; }
+    }
     @media (max-width: 768px) {
-        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; min-width: 120px !important; }
+        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 8px) !important; min-width: 120px !important; }
     }
     @media (max-width: 480px) {
         .news-dash-container div[data-testid="column"] { flex: 1 1 100% !important; }
@@ -116,27 +124,33 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     st.markdown(f'<div class="news-dash-container"><div class="news-dash-header"><span class="news-dash-title">📊 {today_str} 당일 기사 현황</span><span>{live}<span class="news-last-updated">Last updated: {last_updated}</span></span></div>', unsafe_allow_html=True)
 
-    # 4개 카드를 한 줄에 배치
-    col1, col2, col3, col4 = st.columns(4)
+    # 6개 카드를 한 줄에 배치
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
         st.markdown(f'<div class="news-card total"><div class="news-label">당일 기사</div><div class="news-value" id="total-{unique_id}" data-target="{total_today}">0</div></div>', unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f'<div class="news-card posco-intl"><div class="news-label">포스코인터내셔널</div><div class="news-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div><div class="news-pct">{posco_intl_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="news-card posco-intl"><div class="news-label">#포스코인터내셔널</div><div class="news-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div><div class="news-pct">{posco_intl_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f'<div class="news-card posco"><div class="news-label">포스코</div><div class="news-value" id="posco-{unique_id}" data-target="{posco_count}">0</div><div class="news-pct">{posco_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="news-card posco"><div class="news-label">#포스코</div><div class="news-value" id="posco-{unique_id}" data-target="{posco_count}">0</div><div class="news-pct">{posco_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f'<div class="news-card others"><div class="news-label">기타</div><div class="news-value" id="others-{unique_id}" data-target="{others_count}">0</div><div class="news-pct">{others_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="news-card mobility"><div class="news-label">#포스코모빌리티솔루션</div><div class="news-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div><div class="news-pct">{posco_mobility_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
+    with col5:
+        st.markdown(f'<div class="news-card samcheok"><div class="news-label">#삼척블루파워</div><div class="news-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div><div class="news-pct">{samcheok_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
+    with col6:
+        st.markdown(f'<div class="news-card others"><div class="news-label">#기타</div><div class="news-value" id="others-{unique_id}" data-target="{others_count}">0</div><div class="news-pct">{others_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
     animation_script = f'''
     <script>
     (function() {{
         function animateCount() {{
-            const ids = ['total-{unique_id}', 'posco-intl-{unique_id}', 'posco-{unique_id}', 'others-{unique_id}'];
+            const ids = ['total-{unique_id}', 'posco-intl-{unique_id}', 'posco-{unique_id}', 'mobility-{unique_id}', 'samcheok-{unique_id}', 'others-{unique_id}'];
 
             function easeOutQuart(t) {{
                 return 1 - Math.pow(1 - t, 4);

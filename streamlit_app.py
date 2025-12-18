@@ -2563,6 +2563,11 @@ def page_news_monitor():
     if "trigger_news_update" not in st.session_state:
         st.session_state.trigger_news_update = False
 
+    # ===== 당일 뉴스 현황 대시보드 (최상단 배치) =====
+    # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
+    db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
+    render_news_dashboard(db_for_dashboard, show_live=True)
+
     # ===== 상단 UI (카운트다운/상태/수동 새로고침) =====
     c_count, c_status, c_btn = st.columns([1, 2.5, 1])
     with c_btn:
@@ -2802,9 +2807,6 @@ def page_news_monitor():
     st.markdown("---")
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
     db = st.session_state.get('news_display_data', load_news_db())
-
-    # 당일 뉴스 현황 대시보드
-    render_news_dashboard(db, show_live=True)
 
     # 🔍 디버그 정보 표시
     if not db.empty and "날짜" in db.columns:

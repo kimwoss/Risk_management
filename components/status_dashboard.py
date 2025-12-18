@@ -3,6 +3,7 @@
 한 줄 5개 카드 레이아웃 (총건수/관심/주의/위기/비상)
 """
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import datetime
 import pytz
 
@@ -89,44 +90,55 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = 2025, s
         st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value" id="emergency-{unique_id}" data-target="{비상_count}">0</div><div class="status-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
-    st.markdown(f'''
+    animation_script = f'''
     <script>
     (function() {{
-        const ids = ['total-{unique_id}', 'interest-{unique_id}', 'caution-{unique_id}', 'crisis-{unique_id}', 'emergency-{unique_id}'];
+        function animateCount() {{
+            const ids = ['total-{unique_id}', 'interest-{unique_id}', 'caution-{unique_id}', 'crisis-{unique_id}', 'emergency-{unique_id}'];
 
-        function easeOutQuart(t) {{
-            return 1 - Math.pow(1 - t, 4);
-        }}
-
-        function formatNumber(num) {{
-            return num.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, ",");
-        }}
-
-        ids.forEach((id, index) => {{
-            const elem = document.getElementById(id);
-            if (!elem) return;
-
-            const target = parseInt(elem.getAttribute('data-target'));
-            const duration = 700 + Math.random() * 400; // 700-1100ms
-            const startTime = performance.now();
-
-            function animate(currentTime) {{
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easedProgress = easeOutQuart(progress);
-                const current = Math.floor(easedProgress * target);
-
-                elem.textContent = formatNumber(current);
-
-                if (progress < 1) {{
-                    requestAnimationFrame(animate);
-                }}
+            function easeOutQuart(t) {{
+                return 1 - Math.pow(1 - t, 4);
             }}
 
-            requestAnimationFrame(animate);
-        }});
+            function formatNumber(num) {{
+                return num.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, ",");
+            }}
+
+            ids.forEach((id, index) => {{
+                const elem = window.parent.document.getElementById(id);
+                if (!elem) return;
+
+                const target = parseInt(elem.getAttribute('data-target'));
+                const duration = 700 + Math.random() * 400; // 700-1100ms
+                const startTime = performance.now();
+
+                function animate(currentTime) {{
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = easeOutQuart(progress);
+                    const current = Math.floor(easedProgress * target);
+
+                    elem.textContent = formatNumber(current);
+
+                    if (progress < 1) {{
+                        requestAnimationFrame(animate);
+                    }}
+                }}
+
+                requestAnimationFrame(animate);
+            }});
+        }}
+
+        // DOM이 로드된 후 실행
+        if (document.readyState === 'loading') {{
+            document.addEventListener('DOMContentLoaded', animateCount);
+        }} else {{
+            animateCount();
+        }}
     }})();
     </script>
-    ''', unsafe_allow_html=True)
+    '''
+
+    components.html(animation_script, height=0)
 
     st.markdown('</div>', unsafe_allow_html=True)

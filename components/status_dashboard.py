@@ -5,9 +5,9 @@
 카운트업 애니메이션으로 실시간 집계 느낌을 줍니다.
 """
 import streamlit as st
-import streamlit.components.v1 as components
 from datetime import datetime
 import pytz
+import uuid
 
 
 def render_status_dashboard(
@@ -54,44 +54,32 @@ def render_status_dashboard(
     if should_animate:
         st.session_state[dashboard_key] = True
 
+    # 고유 ID 생성 (스크립트 충돌 방지)
+    unique_id = str(uuid.uuid4())[:8]
+
     # LIVE 배지 HTML
-    live_badge = f'''
-    <div class="issue-dash-live-badge">
-        <div class="issue-dash-live-dot"></div>LIVE
-    </div>
-    ''' if show_live else ''
+    live_badge = f'<div class="idash-live-badge"><div class="idash-live-dot"></div>LIVE</div>' if show_live else ''
 
-    # HTML + CSS + JavaScript를 components.html로 렌더링
-    html_content = f"""
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
+    # st.markdown으로 렌더링 (unsafe_allow_html=True)
+    st.markdown(f"""
 <style>
-* {{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}}
-
-body {{
-    margin: 0;
-    padding: 0;
+/* 고유 ID로 스코프 제한 */
+#dashboard-{unique_id} {{
     width: 100%;
-    overflow-x: hidden;
+    margin: 0 0 24px 0;
+    padding: 0;
 }}
 
-.issue-dash-card {{
+#dashboard-{unique_id} .idash-card {{
     background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 24px;
     width: 100%;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }}
 
-.issue-dash-header {{
+#dashboard-{unique_id} .idash-header {{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,20 +88,20 @@ body {{
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }}
 
-.issue-dash-title {{
+#dashboard-{unique_id} .idash-title {{
     color: #e0e0e0;
     font-size: 0.95em;
     font-weight: 600;
     letter-spacing: 0.3px;
 }}
 
-.issue-dash-meta {{
+#dashboard-{unique_id} .idash-meta {{
     display: flex;
     align-items: center;
     gap: 12px;
 }}
 
-.issue-dash-live-badge {{
+#dashboard-{unique_id} .idash-live-badge {{
     display: inline-flex;
     align-items: center;
     background: rgba(239, 68, 68, 0.15);
@@ -125,33 +113,33 @@ body {{
     letter-spacing: 0.5px;
 }}
 
-.issue-dash-live-dot {{
+#dashboard-{unique_id} .idash-live-dot {{
     width: 6px;
     height: 6px;
     background: #ef4444;
     border-radius: 50%;
     margin-right: 6px;
-    animation: issue-dash-pulse 2s ease-in-out infinite;
+    animation: idash-pulse-{unique_id} 2s ease-in-out infinite;
 }}
 
-@keyframes issue-dash-pulse {{
+@keyframes idash-pulse-{unique_id} {{
     0%, 100% {{ opacity: 1; }}
     50% {{ opacity: 0.4; }}
 }}
 
-.issue-dash-last-updated {{
+#dashboard-{unique_id} .idash-last-updated {{
     color: #888;
     font-size: 0.75em;
     font-weight: 500;
 }}
 
-.issue-dash-row {{
+#dashboard-{unique_id} .idash-row {{
     display: flex;
     gap: 16px;
     align-items: stretch;
 }}
 
-.issue-dash-status-card {{
+#dashboard-{unique_id} .idash-status-card {{
     flex: 1;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
@@ -161,23 +149,23 @@ body {{
     min-width: 0;
 }}
 
-.issue-dash-status-card:hover {{
+#dashboard-{unique_id} .idash-status-card:hover {{
     background: rgba(255, 255, 255, 0.06);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }}
 
-.issue-dash-status-card.total {{
+#dashboard-{unique_id} .idash-status-card.total {{
     border-top-color: #6366f1;
     background: rgba(99, 102, 241, 0.05);
 }}
 
-.issue-dash-status-card.interest {{ border-top-color: #22c55e; }}
-.issue-dash-status-card.caution {{ border-top-color: #f59e0b; }}
-.issue-dash-status-card.crisis {{ border-top-color: #f97316; }}
-.issue-dash-status-card.emergency {{ border-top-color: #ef4444; }}
+#dashboard-{unique_id} .idash-status-card.interest {{ border-top-color: #22c55e; }}
+#dashboard-{unique_id} .idash-status-card.caution {{ border-top-color: #f59e0b; }}
+#dashboard-{unique_id} .idash-status-card.crisis {{ border-top-color: #f97316; }}
+#dashboard-{unique_id} .idash-status-card.emergency {{ border-top-color: #ef4444; }}
 
-.issue-dash-label {{
+#dashboard-{unique_id} .idash-label {{
     font-size: 0.8em;
     font-weight: 600;
     margin-bottom: 12px;
@@ -185,13 +173,13 @@ body {{
     color: #999;
 }}
 
-.issue-dash-status-card.total .issue-dash-label {{ color: #6366f1; }}
-.issue-dash-status-card.interest .issue-dash-label {{ color: #22c55e; }}
-.issue-dash-status-card.caution .issue-dash-label {{ color: #f59e0b; }}
-.issue-dash-status-card.crisis .issue-dash-label {{ color: #f97316; }}
-.issue-dash-status-card.emergency .issue-dash-label {{ color: #ef4444; }}
+#dashboard-{unique_id} .idash-status-card.total .idash-label {{ color: #6366f1; }}
+#dashboard-{unique_id} .idash-status-card.interest .idash-label {{ color: #22c55e; }}
+#dashboard-{unique_id} .idash-status-card.caution .idash-label {{ color: #f59e0b; }}
+#dashboard-{unique_id} .idash-status-card.crisis .idash-label {{ color: #f97316; }}
+#dashboard-{unique_id} .idash-status-card.emergency .idash-label {{ color: #ef4444; }}
 
-.issue-dash-value {{
+#dashboard-{unique_id} .idash-value {{
     color: #e0e0e0;
     font-size: 2.2em;
     font-weight: 700;
@@ -200,82 +188,85 @@ body {{
     font-variant-numeric: tabular-nums;
 }}
 
-.issue-dash-status-card.total .issue-dash-value {{
+#dashboard-{unique_id} .idash-status-card.total .idash-value {{
     font-size: 2.8em;
     color: #ffffff;
 }}
 
-.issue-dash-percentage {{
+#dashboard-{unique_id} .idash-percentage {{
     color: #888;
     font-size: 0.75em;
     font-weight: 500;
 }}
 
 @media (max-width: 768px) {{
-    .issue-dash-row {{
+    #dashboard-{unique_id} .idash-row {{
         flex-wrap: wrap;
     }}
-    .issue-dash-status-card {{
+    #dashboard-{unique_id} .idash-status-card {{
         flex: 1 1 calc(33.333% - 12px);
         min-width: 100px;
     }}
-    .issue-dash-status-card.total {{
+    #dashboard-{unique_id} .idash-status-card.total {{
         flex: 1 1 100%;
     }}
 }}
 
 @media (max-width: 480px) {{
-    .issue-dash-status-card {{
+    #dashboard-{unique_id} .idash-status-card {{
         flex: 1 1 calc(50% - 8px);
     }}
 }}
 </style>
-</head>
-<body>
-<div class="issue-dash-card">
-    <div class="issue-dash-header">
-        <div class="issue-dash-title">📊 {year} 누적 이슈 현황</div>
-        <div class="issue-dash-meta">
-            {live_badge}
-            <div class="issue-dash-last-updated">Last updated: {last_updated}</div>
-        </div>
-    </div>
 
-    <div class="issue-dash-row">
-        <div class="issue-dash-status-card total">
-            <div class="issue-dash-label">총 건수</div>
-            <div class="issue-dash-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{0 if should_animate else total:,}</div>
+<div id="dashboard-{unique_id}">
+    <div class="idash-card">
+        <div class="idash-header">
+            <div class="idash-title">📊 {year} 누적 이슈 현황</div>
+            <div class="idash-meta">
+                {live_badge}
+                <div class="idash-last-updated">Last updated: {last_updated}</div>
+            </div>
         </div>
 
-        <div class="issue-dash-status-card interest">
-            <div class="issue-dash-label">관심</div>
-            <div class="issue-dash-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 관심_count:,}</div>
-            <div class="issue-dash-percentage">{관심_pct:.1f}%</div>
-        </div>
+        <div class="idash-row">
+            <div class="idash-status-card total">
+                <div class="idash-label">총 건수</div>
+                <div class="idash-value" data-target="{total}" data-animate="{str(should_animate).lower()}">{0 if should_animate else total:,}</div>
+            </div>
 
-        <div class="issue-dash-status-card caution">
-            <div class="issue-dash-label">주의</div>
-            <div class="issue-dash-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 주의_count:,}</div>
-            <div class="issue-dash-percentage">{주의_pct:.1f}%</div>
-        </div>
+            <div class="idash-status-card interest">
+                <div class="idash-label">관심</div>
+                <div class="idash-value" data-target="{관심_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 관심_count:,}</div>
+                <div class="idash-percentage">{관심_pct:.1f}%</div>
+            </div>
 
-        <div class="issue-dash-status-card crisis">
-            <div class="issue-dash-label">위기</div>
-            <div class="issue-dash-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 위기_count:,}</div>
-            <div class="issue-dash-percentage">{위기_pct:.1f}%</div>
-        </div>
+            <div class="idash-status-card caution">
+                <div class="idash-label">주의</div>
+                <div class="idash-value" data-target="{주의_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 주의_count:,}</div>
+                <div class="idash-percentage">{주의_pct:.1f}%</div>
+            </div>
 
-        <div class="issue-dash-status-card emergency">
-            <div class="issue-dash-label">비상</div>
-            <div class="issue-dash-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 비상_count:,}</div>
-            <div class="issue-dash-percentage">{비상_pct:.1f}%</div>
+            <div class="idash-status-card crisis">
+                <div class="idash-label">위기</div>
+                <div class="idash-value" data-target="{위기_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 위기_count:,}</div>
+                <div class="idash-percentage">{위기_pct:.1f}%</div>
+            </div>
+
+            <div class="idash-status-card emergency">
+                <div class="idash-label">비상</div>
+                <div class="idash-value" data-target="{비상_count}" data-animate="{str(should_animate).lower()}">{0 if should_animate else 비상_count:,}</div>
+                <div class="idash-percentage">{비상_pct:.1f}%</div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
 (function() {{
-    const cards = document.querySelectorAll('.issue-dash-value[data-animate="true"]');
+    const dashboardId = 'dashboard-{unique_id}';
+    const cards = document.querySelectorAll(`#${{dashboardId}} .idash-value[data-animate="true"]`);
+
     if (cards.length === 0) return;
 
     function animateCounter(element, target, duration) {{
@@ -308,10 +299,4 @@ body {{
     }});
 }})();
 </script>
-</body>
-</html>
-"""
-
-    # Streamlit components를 사용하여 렌더링
-    # height를 충분히 크게 설정 (반응형 고려)
-    components.html(html_content, height=250, scrolling=False)
+""", unsafe_allow_html=True)

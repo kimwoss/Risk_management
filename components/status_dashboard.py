@@ -22,6 +22,11 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = 2025, s
     now_kst = datetime.now(kst)
     last_updated = now_kst.strftime('%Y-%m-%d %H:%M KST')
 
+    # 애니메이션 제어를 위한 고유 ID
+    import random
+    import string
+    unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
+
     st.markdown("""
     <style>
     div[data-testid="column"] { padding: 0 6px !important; }
@@ -69,18 +74,59 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = 2025, s
     col1, col2, col3, col4, col5 = st.columns(5)
     
     with col1:
-        st.markdown(f'<div class="status-card total"><div class="status-label">총 건수</div><div class="status-value">{total:,}</div></div>', unsafe_allow_html=True)
-    
+        st.markdown(f'<div class="status-card total"><div class="status-label">총 건수</div><div class="status-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
+
     with col2:
-        st.markdown(f'<div class="status-card interest"><div class="status-label">관심</div><div class="status-value">{관심_count:,}</div><div class="status-pct">{관심_pct:.1f}%</div></div>', unsafe_allow_html=True)
-    
+        st.markdown(f'<div class="status-card interest"><div class="status-label">관심</div><div class="status-value" id="interest-{unique_id}" data-target="{관심_count}">0</div><div class="status-pct">{관심_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
     with col3:
-        st.markdown(f'<div class="status-card caution"><div class="status-label">주의</div><div class="status-value">{주의_count:,}</div><div class="status-pct">{주의_pct:.1f}%</div></div>', unsafe_allow_html=True)
-    
+        st.markdown(f'<div class="status-card caution"><div class="status-label">주의</div><div class="status-value" id="caution-{unique_id}" data-target="{주의_count}">0</div><div class="status-pct">{주의_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
     with col4:
-        st.markdown(f'<div class="status-card crisis"><div class="status-label">위기</div><div class="status-value">{위기_count:,}</div><div class="status-pct">{위기_pct:.1f}%</div></div>', unsafe_allow_html=True)
-    
+        st.markdown(f'<div class="status-card crisis"><div class="status-label">위기</div><div class="status-value" id="crisis-{unique_id}" data-target="{위기_count}">0</div><div class="status-pct">{위기_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
     with col5:
-        st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value">{비상_count:,}</div><div class="status-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
-    
+        st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value" id="emergency-{unique_id}" data-target="{비상_count}">0</div><div class="status-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
+
+    # 카운트 애니메이션 JavaScript
+    st.markdown(f'''
+    <script>
+    (function() {{
+        const ids = ['total-{unique_id}', 'interest-{unique_id}', 'caution-{unique_id}', 'crisis-{unique_id}', 'emergency-{unique_id}'];
+
+        function easeOutQuart(t) {{
+            return 1 - Math.pow(1 - t, 4);
+        }}
+
+        function formatNumber(num) {{
+            return num.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, ",");
+        }}
+
+        ids.forEach((id, index) => {{
+            const elem = document.getElementById(id);
+            if (!elem) return;
+
+            const target = parseInt(elem.getAttribute('data-target'));
+            const duration = 700 + Math.random() * 400; // 700-1100ms
+            const startTime = performance.now();
+
+            function animate(currentTime) {{
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easedProgress = easeOutQuart(progress);
+                const current = Math.floor(easedProgress * target);
+
+                elem.textContent = formatNumber(current);
+
+                if (progress < 1) {{
+                    requestAnimationFrame(animate);
+                }}
+            }}
+
+            requestAnimationFrame(animate);
+        }});
+    }})();
+    </script>
+    ''', unsafe_allow_html=True)
+
     st.markdown('</div>', unsafe_allow_html=True)

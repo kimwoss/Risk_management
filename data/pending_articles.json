@@ -1,26 +1,36 @@
 {
   "queue": {
-    "https://www.hani.co.kr/arti/society/society_general/1235384.html": {
-      "title": "‘포스코이앤씨’ 신안산선 공사 또 사고…여의도서 철근 추락 1명 사망",
-      "link": "https://www.hani.co.kr/arti/society/society_general/1235384.html",
-      "date": "2025-12-18 19:30",
-      "press": "",
-      "keyword": "포스코",
-      "retry_count": 5,
-      "last_attempt": "2025-12-18T11:29:03.960738",
-      "hash_id": "5a42d510054fe125"
-    },
     "https://realty.chosun.com/site/data/html_dir/2025/12/18/2025121803946.html": {
       "title": "송치영 포스코이앤씨 사장, 신안산선 사망사고 사과 \"책임 통감, 깊이 사...",
       "link": "https://realty.chosun.com/site/data/html_dir/2025/12/18/2025121803946.html",
       "date": "2025-12-18 20:06",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2025-12-18T11:29:05.572137",
+      "retry_count": 3,
+      "last_attempt": "2025-12-18T11:45:54.876871",
       "hash_id": "781b41fd5d7122c3"
+    },
+    "http://news.bizwatch.co.kr/article/real_estate/2025/12/18/0045": {
+      "title": "신안산선에서만 두 번째 사망사고…또 고개 숙인 포스코이앤씨",
+      "link": "http://news.bizwatch.co.kr/article/real_estate/2025/12/18/0045",
+      "date": "2025-12-18 20:35",
+      "press": "비즈워치",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-18T11:45:56.151363",
+      "hash_id": "96e375156133c56d"
+    },
+    "https://imnews.imbc.com/replay/2025/nwdesk/article/6786697_36799.html": {
+      "title": "[단독] 또 포스코이앤씨 사망 사고‥비상연락망도 엉터리",
+      "link": "https://imnews.imbc.com/replay/2025/nwdesk/article/6786697_36799.html",
+      "date": "2025-12-18 20:22",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-18T11:45:55.251971",
+      "hash_id": "f28b26808ad53847"
     }
   },
-  "last_updated": "2025-12-18 11:29:07",
-  "count": 2
+  "last_updated": "2025-12-18 11:45:56",
+  "count": 3
 }

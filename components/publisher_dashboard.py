@@ -58,14 +58,11 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     # CSS 스타일
     st.markdown("""
     <style>
-    div[data-testid="column"] { padding: 0 4px !important; }
     .pub-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    .pub-dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .pub-dash-title { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; }
-    .pub-live-badge { background: rgba(239,68,68,0.15); color: #ef4444; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
-    .pub-last-updated { color: #888; font-size: 0.75rem; margin-left: 12px; }
+    .pub-dash-container * { text-align: center; }
+    .pub-dash-container div[data-testid="column"] { padding: 0 4px !important; }
 
-    .pub-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; text-align: center; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+    .pub-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
     .pub-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
     .pub-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
@@ -93,20 +90,19 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     .pub-pct { color: #888; font-size: 0.7rem; margin-top: 4px; }
 
     @media (max-width: 1200px) {
-        div[data-testid="column"] { flex: 1 1 calc(25% - 8px) !important; min-width: 120px !important; }
+        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(25% - 8px) !important; min-width: 120px !important; }
     }
     @media (max-width: 768px) {
-        div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 100px !important; }
+        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 100px !important; }
     }
     @media (max-width: 480px) {
-        div[data-testid="column"] { flex: 1 1 calc(50% - 8px) !important; }
+        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 8px) !important; }
     }
     </style>
     """, unsafe_allow_html=True)
 
-    live = f'<span class="pub-live-badge">LIVE</span>' if show_live else ''
-
-    st.markdown(f'<div class="pub-dash-container"><div class="pub-dash-header"><span class="pub-dash-title">📰 출입매체 현황</span><span>{live}<span class="pub-last-updated">Last updated: {last_updated}</span></span></div>', unsafe_allow_html=True)
+    # 헤더 없이 바로 컨테이너 시작
+    st.markdown('<div class="pub-dash-container">', unsafe_allow_html=True)
 
     # 총 출입매체 수 (첫 번째 행에 단독 배치)
     col_total = st.columns([1])[0]

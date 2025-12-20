@@ -476,6 +476,7 @@ def save_sent_cache(cache: set, ttl_days: int = 7):
         # 동시 쓰기 시에도 파일 손상 방지
         temp_fd, temp_path = tempfile.mkstemp(dir=DATA_FOLDER, suffix='.tmp')
         try:
+            # os.fdopen이 temp_fd를 인수받으므로, 이후 temp_fd는 자동으로 관리됨
             with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -491,9 +492,10 @@ def save_sent_cache(cache: set, ttl_days: int = 7):
 
             print(f"[DEBUG] 전송 캐시 저장 완료: {len(url_timestamps)}건 (TTL: {ttl_days}일) -> {SENT_CACHE_FILE}")
         except Exception as e:
-            # 임시 파일 정리
+            # 임시 파일 정리 - 파일이 이미 닫혔을 수 있으므로 조심스럽게 처리
             try:
-                os.remove(temp_path)
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
             except Exception:
                 pass
             raise e
@@ -582,6 +584,7 @@ def save_pending_queue(queue: dict):
         # 원자적 쓰기 (임시 파일 + rename)
         temp_fd, temp_path = tempfile.mkstemp(dir=DATA_FOLDER, suffix='.tmp')
         try:
+            # os.fdopen이 temp_fd를 인수받으므로, 이후 temp_fd는 자동으로 관리됨
             with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -595,8 +598,10 @@ def save_pending_queue(queue: dict):
             os.replace(temp_path, PENDING_QUEUE_FILE)
             print(f"[DEBUG] Pending 큐 저장 완료: {len(queue)}건 -> {PENDING_QUEUE_FILE}")
         except Exception as e:
+            # 임시 파일 정리 - 파일이 이미 닫혔을 수 있으므로 조심스럽게 처리
             try:
-                os.remove(temp_path)
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
             except Exception:
                 pass
             raise e

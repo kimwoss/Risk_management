@@ -39,6 +39,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Check open file descriptors (before)
+        run: |
+          echo "Open files before run:"
+          lsof -p $$ 2>/dev/null | wc -l || echo "lsof not available - skipping check"
+
       - name: Run news monitor
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -47,6 +52,12 @@ jobs:
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
         run: |
           python standalone_monitor.py
+
+      - name: Check open file descriptors (after)
+        if: always()
+        run: |
+          echo "Open files after run:"
+          lsof -p $$ 2>/dev/null | wc -l || echo "lsof not available - skipping check"
 
       - name: Upload news database (artifact)
         if: always()

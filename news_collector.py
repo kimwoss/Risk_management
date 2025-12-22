@@ -189,6 +189,7 @@ def _publisher_from_link(u: str) -> str:
             "job-post.co.kr": "잡포스트", "irobotnews.com": "로봇신문사", "ifm.kr": "경인방송",
             "gpkorea.com": "글로벌오토뉴스", "energydaily.co.kr": "에너지데일리",
             "cstimes.com": "컨슈머타임스", "bizwatch.co.kr": "비즈워치", "autodaily.co.kr": "오토데일리",
+
             # 추가 언론사 (2025-11-20)
             "newslock.co.kr": "뉴스락", "mbn.co.kr": "MBN", "kpenews.com": "KPE",
             "koreatimes.co.kr": "코리아타임스", "korea.kr": "대한민국 정책브리핑",
@@ -206,6 +207,13 @@ def _publisher_from_link(u: str) -> str:
             "globalepic.co.kr": "글로벌이코노믹", "financialpost.co.kr": "파이낸셜포스트",
             "economytalk.kr": "이코노미톡뉴스", "delighti.co.kr": "딜라이트이슈",
             "ddaily.co.kr": "디지털데일리", "businessplus.kr": "비즈니스플러스", "bizwnews.com": "비즈월드뉴스",
+
+            # 추가 언론사 (2025-12-22)
+            "wemakenews.co.kr": "위메이크뉴스", "tournews21.com": "투어코리아", "siminilbo.co.kr": "시민일보",
+            "public25.com": "퍼블릭타임스", "ngetnews.com": "뉴스저널리즘", "livesnews.com": "라이브뉴스",
+            "lawleader.co.kr": "로리더", "koreaittimes.com": "코리아IT타임즈", "kmaeil.com": "경인매일",
+            "incheonilbo.com": "인천일보", "ggilbo.com": "금강일보", "dnews.co.kr": "대한경제",
+            "discoverynews.kr": "디스커버리뉴스", "ccdailynews.com": "충청일보", "bzeronews.com": "불교공뉴스",
         }
         if base in base_map:
             return base_map[base]

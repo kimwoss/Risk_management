@@ -2115,7 +2115,7 @@ def page_issue_report():
     # GPT봇 버튼만 표시
     st.markdown("""
 <div style="display:flex; justify-content:flex-end; margin-bottom:16px;">
-    <a href="https://chatgpt.com/g/g-WMuN0viKE-pointeo-wigigwanrikeom-cinjeolhan-gaideu"
+    <a href="https://chatgpt.com/g/g-68d89a8acda88191b246fd6b813160a3-pointeo-wigigwanrikeom-cinjeolhan-gaideu-ver-2"
        target="_blank" rel="noopener noreferrer"
        style="display:inline-block; padding:10px 16px; border-radius:8px; font-weight:700; text-decoration:none;
               background:linear-gradient(135deg, #D4AF37, #B8941F); border:1px solid rgba(212,175,55,.4); color:#000;">

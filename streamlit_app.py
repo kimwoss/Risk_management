@@ -587,7 +587,7 @@ def _publisher_from_link(u: str) -> str:
             # 사용자 제공 도메인들 추가
             "youthdaily.co.kr": "청년일보",
             "weeklytrade.co.kr": "주간무역",
-            "viva100.com": "비바100",
+            "viva100.com": "브릿지경제",
             "obsnews.co.kr": "OBS뉴스",
             "newsworks.co.kr": "뉴스웍스",
             "newstomato.com": "뉴스토마토",
@@ -612,7 +612,7 @@ def _publisher_from_link(u: str) -> str:
             "pinpointnews.co.kr": "핀포인트뉴스",
             "ohmynews.com": "오마이뉴스",
             "ebn.co.kr": "EBN",
-            "joongangenews.com": "중앙앤뉴스",
+            "joongangenews.com": "중앙이코노미뉴스",
             "news1.kr": "뉴스1",
             "sisaweek.com": "시사위크",
             "kbsm.net": "KBS부산·경남",
@@ -791,6 +791,23 @@ def _publisher_from_link(u: str) -> str:
             "cstimes.com": "컨슈머타임스",
             "bizwatch.co.kr": "비즈워치",
             "autodaily.co.kr": "오토데일리",
+
+            # 추가 매체명 매핑 (2025-12-22)
+            "wemakenews.co.kr": "위메이크뉴스",
+            "tournews21.com": "투어코리아",
+            "siminilbo.co.kr": "시민일보",
+            "public25.com": "퍼블릭타임스",
+            "ngetnews.com": "뉴스저널리즘",
+            "livesnews.com": "라이브뉴스",
+            "lawleader.co.kr": "로리더",
+            "koreaittimes.com": "코리아IT타임즈",
+            "kmaeil.com": "경인매일",
+            "incheonilbo.com": "인천일보",
+            "ggilbo.com": "금강일보",
+            "dnews.co.kr": "대한경제",
+            "discoverynews.kr": "디스커버리뉴스",
+            "ccdailynews.com": "충청일보",
+            "bzeronews.com": "불교공뉴스",
         }
 
         return base_map.get(base, base)  # 모르는 도메인은 '기본 도메인'으로 통일

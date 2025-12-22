@@ -2313,17 +2313,17 @@ def page_contact_search():
         dept = departments["홍보그룹"]
         if "담당자들" in dept:
             for p in dept["담당자들"]:
-                rows.append(["홍보그룹", p.get("담당자",""), p.get("직급",""), p.get("연락처",""), p.get("이메일","")])
+                rows.append(["홍보그룹", p.get("담당자",""), p.get("직급","")])
     # 나머지 부서들 처리
     for dept_name, dept in departments.items():
         if dept_name == "홍보그룹":  # 이미 처리했으므로 스킵
             continue
         if "담당자들" in dept:
             for p in dept["담당자들"]:
-                rows.append([dept_name, p.get("담당자",""), p.get("직급",""), p.get("연락처",""), p.get("이메일","")])
+                rows.append([dept_name, p.get("담당자",""), p.get("직급","")])
         else:
-            rows.append([dept_name, dept.get("담당자",""), dept.get("직급",""), dept.get("연락처",""), dept.get("이메일","")])
-    df = pd.DataFrame(rows, columns=["부서명","담당자","직급","연락처","이메일"])
+            rows.append([dept_name, dept.get("담당자",""), dept.get("직급","")])
+    df = pd.DataFrame(rows, columns=["부서명","담당자","직급"])
     show_table(df, "🔷 전체 부서 담당자 정보")
     st.markdown('</div>', unsafe_allow_html=True)
 

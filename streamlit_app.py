@@ -2990,14 +2990,14 @@ def page_news_monitor():
     text-decoration: underline;
   }
 
-  /* 보고서 생성 버튼 - 링크 스타일 */
+  /* 보고서 생성 버튼 - 작고 컴팩트하게 */
   button[kind="secondary"] {
     height: auto !important;
     min-height: auto !important;
-    padding: 6px 12px !important;
-    font-size: 13px !important;
+    padding: 4px 10px !important;
+    font-size: 11px !important;
     font-weight: 500 !important;
-    border-radius: 6px !important;
+    border-radius: 4px !important;
     transition: all 0.2s ease !important;
     background-color: rgba(255,255,255,0.08) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
@@ -3100,7 +3100,6 @@ def page_news_monitor():
             
             # 보고서가 생성된 경우 하단에 표시
             if st.session_state[report_state_key]["generated"]:
-                st.markdown("#### 📋 생성된 보고서")
                 st.markdown(
                     f"""<div class="report-container">{st.session_state[report_state_key]["content"]}</div>""",
                     unsafe_allow_html=True

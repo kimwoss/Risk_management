@@ -3112,9 +3112,9 @@ def page_news_monitor():
             
             # 보고서가 생성된 경우 하단에 표시
             if st.session_state[report_state_key]["generated"]:
-                st.markdown(
-                    f"""<div class="report-container">{st.session_state[report_state_key]["content"]}</div>""",
-                    unsafe_allow_html=True
+                st.code(
+                    st.session_state[report_state_key]["content"],
+                    language=None
                 )
 
     else:

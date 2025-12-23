@@ -733,13 +733,29 @@ def _publisher_from_link(u: str) -> str:
             "bzeronews.com": "불교공뉴스",
 
             # 기타
-            "snmnews.com": "SNM뉴스",
             "kpinews.kr": "KPI뉴스",
             "nbnews.kr": "NBN뉴스",
             "nbntv.co.kr": "NBN뉴스",
             "dkilbo.com": "대경일보",
             "asiatime.co.kr": "아시아타임즈",
             "kukinews.com": "쿠키뉴스",
+            "wikileaks-kr.org": "위키리크스한국",
+            "thepowernews.co.kr": "더파워",
+            "shinailbo.co.kr": "신아일보",
+            "pinpointnews.co.kr": "핀포인트뉴스",
+            "newsworks.co.kr": "뉴스웍스",
+            "newstomato.com": "뉴스토마토",
+            "munhwa.com": "문화일보",
+            "mt.co.kr": "머니투데이",
+            "metroseoul.co.kr": "메트로서울",
+            "m-i.kr": "매일일보",
+            "lawissue.co.kr": "법률저널",
+            "joongangenews.com": "중앙이코노미뉴스",
+            "hellot.net": "헬로티",
+            "enewstoday.co.kr": "이뉴스투데이",
+            "dt.co.kr": "디지털타임스",
+            "bokuennews.com": "복지뉴스",
+            "snmnews.com": "철강금속신문",
         }
 
         return base_map.get(base, base)  # 모르는 도메인은 '기본 도메인'으로 통일

@@ -2947,6 +2947,7 @@ def page_news_monitor():
             # 파일명에 사용할 안전한 제목 생성
             safe_name = re.sub(r'[^\w가-힣\s]', '', title)[:30]
 
+            # 뉴스 카드 상단 부분 (닫지 않음)
             st.markdown(f"""
             <div class="news-card">
               <div class="news-header">
@@ -2963,35 +2964,38 @@ def page_news_monitor():
               <div class="news-url">
                 <a href="{url}" target="_blank">🔗 기사 보기: {url}</a>
               </div>
-            </div>
             """, unsafe_allow_html=True)
-            
-            # 보고서 생성 버튼을 날짜 왼쪽에 배치
-            col_btn, col_spacer = st.columns([1, 4])
-            with col_btn:
-                report_key = f"report_btn_{i}"
-                report_state_key = f"report_state_{i}"
-                
-                # 보고서 상태 초기화
-                if report_state_key not in st.session_state:
-                    st.session_state[report_state_key] = {"generated": False, "content": ""}
-                
-                if st.button("📝 보고서 생성", key=report_key, use_container_width=True):
-                    with st.spinner("기사 요약 생성 중..."):
-                        try:
-                            report_txt = make_kakao_report_from_url(
-                                url, fallback_media=media, fallback_title=title, fallback_summary=summary
-                            )
-                            # 세션 상태에 보고서 저장
-                            st.session_state[report_state_key]["generated"] = True
-                            st.session_state[report_state_key]["content"] = report_txt
-                            st.rerun()
-                        except Exception as e:
-                            # 에러 시에도 백업 보고서 제공
-                            backup_report = f"{url}\n\n{media} : \"{title}\"\n- 핵심 요약은 원문 참고\n- 상세 내용은 링크 확인 필요"
-                            st.session_state[report_state_key]["generated"] = True
-                            st.session_state[report_state_key]["content"] = backup_report
-                            st.rerun()
+
+            # 보고서 생성 버튼을 박스 내부에 배치
+            report_key = f"report_btn_{i}"
+            report_state_key = f"report_state_{i}"
+
+            # 보고서 상태 초기화
+            if report_state_key not in st.session_state:
+                st.session_state[report_state_key] = {"generated": False, "content": ""}
+
+            # 버튼을 카드 내부 스타일로 추가
+            st.markdown('<div style="padding: 0 0 10px 0;">', unsafe_allow_html=True)
+            if st.button("📝 보고서 생성하기", key=report_key, use_container_width=True):
+                with st.spinner("기사 요약 생성 중..."):
+                    try:
+                        report_txt = make_kakao_report_from_url(
+                            url, fallback_media=media, fallback_title=title, fallback_summary=summary
+                        )
+                        # 세션 상태에 보고서 저장
+                        st.session_state[report_state_key]["generated"] = True
+                        st.session_state[report_state_key]["content"] = report_txt
+                        st.rerun()
+                    except Exception as e:
+                        # 에러 시에도 백업 보고서 제공
+                        backup_report = f"{url}\n\n{media} : \"{title}\"\n- 핵심 요약은 원문 참고\n- 상세 내용은 링크 확인 필요"
+                        st.session_state[report_state_key]["generated"] = True
+                        st.session_state[report_state_key]["content"] = backup_report
+                        st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
+
+            # 뉴스 카드 닫기
+            st.markdown('</div>', unsafe_allow_html=True)
             
             # 보고서가 생성된 경우 하단에 표시
             if st.session_state[report_state_key]["generated"]:

@@ -755,6 +755,7 @@ def _publisher_from_link(u: str) -> str:
 
             # 기타 대형/보편
             "chosun.com": "조선일보",
+            "it.chosun.com": "IT조선",
             "joongang.co.kr": "중앙일보",
             "hani.co.kr": "한겨레",
             "khan.co.kr": "경향신문",
@@ -767,6 +768,17 @@ def _publisher_from_link(u: str) -> str:
             "sbs.co.kr": "SBS",
             "mbc.co.kr": "MBC",
             "inews24.com": "아이뉴스24",
+            "koit.co.kr": "정보통신신문",
+            "investchosun.com": "인베스트조선",
+            "chosunbiz.com": "조선비즈",
+            "ibabynews.com": "베이비뉴스",
+            "futurechosun.com": "더나은미래",
+            "ezyeconomy.com": "이지경제",
+            "economist.co.kr": "이코노미스트",
+            "e-science.co.kr": "e사이언스",
+            "e-platform.net": "e플랫폼",
+            "ddaily.co.kr": "디지털데일리",
+            "bbsi.co.kr": "불교방송",
 
             # 추가 매체명 매핑 (2025-11-07)
             "thepublic.kr": "더퍼블릭",

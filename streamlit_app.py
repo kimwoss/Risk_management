@@ -2953,11 +2953,9 @@ def page_news_monitor():
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.4;
     margin: 0 0 8px 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    word-break: break-word;
   }
   .news-summary{
     color: #CCCCCC;
@@ -2971,10 +2969,10 @@ def page_news_monitor():
     -webkit-box-orient: vertical;
   }
 
-  /* 하단: 링크와 버튼 우측 정렬 */
+  /* 하단: 링크와 버튼 좌측 정렬 */
   .news-footer{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     gap: 8px;
   }

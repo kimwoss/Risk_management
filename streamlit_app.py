@@ -2904,9 +2904,8 @@ def page_news_monitor():
     background: #1E1E1E;
     border: 1px solid #2A2A2A;
     border-radius: 8px;
-    padding: 12px 16px;
-    margin: 8px 0;
-    max-height: 140px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
     transition: all 0.2s ease;
     position: relative;
   }
@@ -2920,7 +2919,7 @@ def page_news_monitor():
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .news-left{
     display: flex;
@@ -2955,7 +2954,7 @@ def page_news_monitor():
     font-size: 16px;
     font-weight: 600;
     line-height: 1.3;
-    margin: 0 0 6px 0;
+    margin: 0 0 8px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2963,8 +2962,8 @@ def page_news_monitor():
   .news-summary{
     color: #CCCCCC;
     font-size: 13px;
-    line-height: 1.4;
-    margin: 0 0 8px 0;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -2972,31 +2971,30 @@ def page_news_monitor():
     -webkit-box-orient: vertical;
   }
 
-  /* 하단: 링크와 버튼 */
+  /* 하단: 링크와 버튼 우측 정렬 */
   .news-footer{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    gap: 12px;
-  }
-  .news-link{
-    flex: 1;
+    gap: 8px;
   }
   .news-link a{
     color: #55b7ff;
     text-decoration: none;
     font-size: 13px;
+    font-weight: 500;
     transition: all 0.2s ease;
+    word-break: break-all;
   }
   .news-link a:hover{
     text-decoration: underline;
   }
 
-  /* 작고 둥근 보고서 버튼 */
+  /* 보고서 생성 버튼 - 링크 스타일 */
   button[kind="secondary"] {
-    height: 32px !important;
-    min-height: 32px !important;
-    padding: 0 14px !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 6px 12px !important;
     font-size: 13px !important;
     font-weight: 500 !important;
     border-radius: 6px !important;
@@ -3008,6 +3006,20 @@ def page_news_monitor():
     background-color: #D4AF37 !important;
     border-color: #D4AF37 !important;
     color: #1E1E1E !important;
+  }
+
+  /* 생성된 보고서 스타일 */
+  .report-container {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    color: #e0e0e0;
+    font-family: monospace;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 13px;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -3038,7 +3050,7 @@ def page_news_monitor():
                   <div class="news-header">
                     <div class="news-left">
                       <span class="news-media">{media}</span>
-                      <span class="news-key">{keyword}</span>
+                      <span class="news-key">#{keyword}</span>
                     </div>
                     <span class="news-date">{formatted_dt}</span>
                   </div>
@@ -3049,11 +3061,14 @@ def page_news_monitor():
                   <!-- 요약 (최대 2줄) -->
                   <div class="news-summary">{summary}</div>
 
-                  <!-- 하단: 링크와 버튼 영역 -->
+                  <!-- 하단: 링크와 버튼 우측 정렬 -->
                   <div class="news-footer">
+                    <div class="news-link">
+                      <a href="{url}" target="_blank">🔗 {url}</a>
+                    </div>
                 """, unsafe_allow_html=True)
 
-                # 링크와 버튼 배치
+                # 보고서 생성 버튼
                 report_key = f"report_btn_{i}"
                 report_state_key = f"report_state_{i}"
 
@@ -3061,25 +3076,21 @@ def page_news_monitor():
                 if report_state_key not in st.session_state:
                     st.session_state[report_state_key] = {"generated": False, "content": ""}
 
-                # 왼쪽: 기사 보기 링크 / 오른쪽: 보고서 버튼
-                col_link, col_btn = st.columns([3, 1])
-                with col_link:
-                    st.markdown(f'<div class="news-link"><a href="{url}" target="_blank">🔗 기사 보기</a></div>', unsafe_allow_html=True)
-                with col_btn:
-                    if st.button("📄 보고서", key=report_key, use_container_width=True, type="secondary"):
-                        with st.spinner("기사 요약 생성 중..."):
-                            try:
-                                report_txt = make_kakao_report_from_url(
-                                    url, fallback_media=media, fallback_title=title, fallback_summary=summary
-                                )
-                                st.session_state[report_state_key]["generated"] = True
-                                st.session_state[report_state_key]["content"] = report_txt
-                                st.rerun()
-                            except Exception as e:
-                                backup_report = f"{url}\n\n{media} : \"{title}\"\n- 핵심 요약은 원문 참고\n- 상세 내용은 링크 확인 필요"
-                                st.session_state[report_state_key]["generated"] = True
-                                st.session_state[report_state_key]["content"] = backup_report
-                                st.rerun()
+                # 버튼만 배치 (우측 정렬)
+                if st.button("📄 보고서 생성", key=report_key, type="secondary"):
+                    with st.spinner("기사 요약 생성 중..."):
+                        try:
+                            report_txt = make_kakao_report_from_url(
+                                url, fallback_media=media, fallback_title=title, fallback_summary=summary
+                            )
+                            st.session_state[report_state_key]["generated"] = True
+                            st.session_state[report_state_key]["content"] = report_txt
+                            st.rerun()
+                        except Exception as e:
+                            backup_report = f"{url}\n\n{media} : \"{title}\"\n- 핵심 요약은 원문 참고\n- 상세 내용은 링크 확인 필요"
+                            st.session_state[report_state_key]["generated"] = True
+                            st.session_state[report_state_key]["content"] = backup_report
+                            st.rerun()
 
                 # 카드 닫기
                 st.markdown("""
@@ -3091,9 +3102,7 @@ def page_news_monitor():
             if st.session_state[report_state_key]["generated"]:
                 st.markdown("#### 📋 생성된 보고서")
                 st.markdown(
-                    f"""<div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
-                    border-radius: 8px; padding: 15px; margin: 10px 0; color: #e0e0e0; font-family: monospace; 
-                    white-space: pre-wrap; line-height: 1.5;">{st.session_state[report_state_key]["content"]}</div>""", 
+                    f"""<div class="report-container">{st.session_state[report_state_key]["content"]}</div>""",
                     unsafe_allow_html=True
                 )
 

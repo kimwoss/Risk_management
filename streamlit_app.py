@@ -1644,7 +1644,14 @@ def background_news_monitor():
                         description = str(row.get("주요기사 요약", ""))
                         content_lower = description.lower()
 
-                        if "포스코" not in title and "posco" not in title_lower:
+                        # 기존 조건: 타이틀에 "포스코" 포함
+                        title_has_posco = "포스코" in title or "posco" in title_lower
+
+                        # 새 조건: 타이틀에 "[단독]" 포함 AND 내용에 "포스코" 포함
+                        is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
+
+                        # 둘 중 하나라도 만족하면 포함
+                        if not (title_has_posco or is_exclusive_with_posco_in_content):
                             return False
 
                         for exclude_kw in exclude_keywords:
@@ -2681,8 +2688,14 @@ def page_news_monitor():
                                 description = str(row.get("주요기사 요약", ""))  # 내용 필드
                                 content_lower = description.lower()
 
-                                # 1단계: 제목에 "포스코"가 있는가?
-                                if "포스코" not in title and "posco" not in title_lower:
+                                # 기존 조건: 타이틀에 "포스코" 포함
+                                title_has_posco = "포스코" in title or "posco" in title_lower
+
+                                # 새 조건: 타이틀에 "[단독]" 포함 AND 내용에 "포스코" 포함
+                                is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
+
+                                # 둘 중 하나라도 만족하면 포함 (1단계)
+                                if not (title_has_posco or is_exclusive_with_posco_in_content):
                                     return False
 
                                 # 2단계: 제목에 제외 키워드(포스코인터내셔널 등)가 없는가?

@@ -1857,8 +1857,11 @@ def load_base_css():
         opacity: 0.9;
       }
       .stButton>button:hover{
-        border-color: rgba(212,175,55,.5);
-        box-shadow: 0 4px 16px rgba(212,175,55,.15);
+        border-color: rgba(212,175,55,.6) !important;
+        background: linear-gradient(135deg, rgba(32,34,40,.9), rgba(24,26,32,.95)) !important;
+        box-shadow: 0 4px 20px rgba(212,175,55,.12), 0 2px 8px rgba(0,0,0,0.2) !important;
+        transform: translateY(-1px) !important;
+        color: #fff !important;
       }
       .stButton>button:disabled{
         color:#fff; border-color:#fff; background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));

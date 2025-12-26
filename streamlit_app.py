@@ -1818,8 +1818,8 @@ def start_background_scheduler():
             print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
 
 # ----------------------------- 스타일 -----------------------------
-# CSS 캐시 TTL을 짧게 설정하여 빠른 업데이트 반영
-@st.cache_data(ttl=60)  # 1분으로 단축 (빠른 배포 확인)
+# CSS 캐시 비활성화 - 즉시 반영
+@st.cache_data(ttl=0)
 def load_base_css():
     st.markdown("""
     <style>
@@ -1990,8 +1990,19 @@ def render_top_nav(active_label: str):
     logo_uri = load_logo_data_uri()
     st.markdown("""
     <style>
-      /* 개선된 네비게이션 스타일 - 제네시스 톤 */
-      .stButton>button {
+      /* 네비게이션 컨테이너 */
+      .nav-container {
+        background: linear-gradient(135deg, rgba(16,18,24,.4), rgba(12,14,20,.6));
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 16px;
+        padding: 16px 20px;
+        margin: 8px 0 20px 0;
+        box-shadow: 0 8px 32px rgba(0,0,0,.2);
+        backdrop-filter: blur(12px);
+      }
+
+      /* 네비게이션 버튼 전용 스타일 - 제네시스 톤 */
+      .nav-container .stButton>button {
         border-radius: 10px !important;
         font-weight: 600 !important;
         border: 1px solid rgba(255,255,255,.12) !important;
@@ -2005,14 +2016,14 @@ def render_top_nav(active_label: str):
         font-size: 0.95rem !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
       }
-      .stButton>button:hover {
+      .nav-container .stButton>button:hover {
         border-color: rgba(212,175,55,.6) !important;
         background: linear-gradient(135deg, rgba(32,34,40,.9), rgba(24,26,32,.95)) !important;
         box-shadow: 0 4px 20px rgba(212,175,55,.12), 0 2px 8px rgba(0,0,0,0.2) !important;
         transform: translateY(-1px) !important;
         color: #fff !important;
       }
-      .stButton>button:disabled {
+      .nav-container .stButton>button:disabled {
         color: #D4AF37 !important;
         border-color: rgba(212,175,55,.8) !important;
         background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.08)) !important;
@@ -2020,19 +2031,10 @@ def render_top_nav(active_label: str):
         transform: none !important;
         font-weight: 700 !important;
       }
-      .nav-container {
-        background: linear-gradient(135deg, rgba(16,18,24,.4), rgba(12,14,20,.6));
-        border: 1px solid rgba(255,255,255,.06);
-        border-radius: 16px;
-        padding: 16px 20px;
-        margin: 8px 0 20px 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,.2);
-        backdrop-filter: blur(12px);
-      }
 
       /* 모바일 최적화 (768px 이하) */
       @media (max-width: 768px) {
-        .stButton>button {
+        .nav-container .stButton>button {
           font-size: 0.75rem !important;
           padding: 8px 6px !important;
           height: auto !important;
@@ -2052,7 +2054,7 @@ def render_top_nav(active_label: str):
 
       /* 더 작은 화면 (480px 이하) */
       @media (max-width: 480px) {
-        .stButton>button {
+        .nav-container .stButton>button {
           font-size: 0.7rem !important;
           padding: 6px 4px !important;
           min-height: 38px !important;

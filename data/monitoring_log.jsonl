@@ -22095,3 +22095,13 @@
 {"timestamp": "2025-12-29T09:43:09.351161", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 7, "api_calls": 2}}
 {"timestamp": "2025-12-29T09:43:11.764028", "event_type": "telegram", "data": {"success": 2, "failed": 1, "total": 3, "success_rate": 0.6666666666666666}}
 {"timestamp": "2025-12-29T09:43:11.814477", "event_type": "run_summary", "data": {"total_articles": 239, "new_articles": 3, "telegram_sent": 2, "errors": 0}}
+{"timestamp": "2025-12-29T09:59:13.513638", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 28, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:14.273389", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:15.030302", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:15.768876", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:17.108967", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 24, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:17.693690", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:18.456432", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:19.036433", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:19.795330", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 7, "api_calls": 2}}
+{"timestamp": "2025-12-29T09:59:19.876898", "event_type": "run_summary", "data": {"total_articles": 239, "new_articles": 0, "telegram_sent": 0, "errors": 0}}

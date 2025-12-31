@@ -1,5 +1,46 @@
 {
-  "queue": {},
-  "last_updated": "2025-12-30 23:52:22",
-  "count": 0
+  "queue": {
+    "http://www.wikileaks-kr.org/news/articleView.html?idxno=180891": {
+      "title": "포스코DX, 기업 데이터 연계한 생성형AI 플랫폼 'P-GPT 2.1' 공개",
+      "link": "http://www.wikileaks-kr.org/news/articleView.html?idxno=180891",
+      "date": "2025-12-31 10:12",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2025-12-31T01:29:19.335406",
+      "hash_id": "9f83c0c5e4877d82"
+    },
+    "https://www.newsis.com/view/NISX20251231_0003460650": {
+      "title": "NC AI 정예팀, 韓산업 특화 AI '배키' 오픈소스 공개",
+      "link": "https://www.newsis.com/view/NISX20251231_0003460650",
+      "date": "2025-12-31 09:56",
+      "press": "",
+      "keyword": "포스코인터",
+      "retry_count": 1,
+      "last_attempt": "2025-12-31T01:28:43.149872",
+      "hash_id": "ca38416150f16709"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2025123109203880847fd637f543_18": {
+      "title": "NC AI, 100B급 AI ‘배키’ 공개…국방・제조 특화 한국형 AI 모델",
+      "link": "http://www.fntimes.com/html/view.php?ud=2025123109203880847fd637f543_18",
+      "date": "2025-12-31 09:24",
+      "press": "",
+      "keyword": "포스코인터",
+      "retry_count": 1,
+      "last_attempt": "2025-12-31T01:28:28.895544",
+      "hash_id": "58772e0884aad786"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=425378": {
+      "title": "엔씨AI, 국내 산업특화 독자 AI 파운데이션 모델 '배키' 오픈소스 공개",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=425378",
+      "date": "2025-12-31 09:08",
+      "press": "",
+      "keyword": "포스코인터",
+      "retry_count": 1,
+      "last_attempt": "2025-12-31T01:28:20.861698",
+      "hash_id": "ed7ea6a4c4369c0d"
+    }
+  },
+  "last_updated": "2025-12-31 01:29:22",
+  "count": 4
 }

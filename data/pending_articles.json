@@ -6,8 +6,8 @@
       "date": "2026-01-02 13:30",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-02T05:04:10.667871",
+      "retry_count": 5,
+      "last_attempt": "2026-01-02T05:40:55.807988",
       "hash_id": "935866a3d0f276c6"
     },
     "https://www.ngetnews.com/news/articleView.html?idxno=544583": {
@@ -16,8 +16,8 @@
       "date": "2026-01-02 12:58",
       "press": "뉴스저널리즘",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-02T05:04:10.115272",
+      "retry_count": 5,
+      "last_attempt": "2026-01-02T05:40:55.247058",
       "hash_id": "66f09aa382670331"
     },
     "https://www.seoul.co.kr/news/economy/industry/2026/01/02/20260102500119?wlog_tag3=naver": {
@@ -26,11 +26,21 @@
       "date": "2026-01-02 13:57",
       "press": "",
       "keyword": "포스코인터내셔널",
-      "retry_count": 1,
-      "last_attempt": "2026-01-02T05:04:19.636456",
+      "retry_count": 3,
+      "last_attempt": "2026-01-02T05:40:56.380230",
       "hash_id": "65d4c789b8d604e7"
+    },
+    "https://biz.chosun.com/industry/company/2026/01/02/UJFAIAQRPRECLK6ZPJ5PD6L2PU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코, 안전기획실장에 김정훈 효성중공업 CSO 선임",
+      "link": "https://biz.chosun.com/industry/company/2026/01/02/UJFAIAQRPRECLK6ZPJ5PD6L2PU/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-01-02 14:16",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2026-01-02T05:41:00.582990",
+      "hash_id": "3ffffc7727465260"
     }
   },
-  "last_updated": "2026-01-02 05:04:22",
-  "count": 3
+  "last_updated": "2026-01-02 05:41:11",
+  "count": 4
 }

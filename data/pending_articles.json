@@ -6,8 +6,8 @@
       "date": "2026-01-05 11:24",
       "press": "노컷뉴스",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-05T04:10:05.672024",
+      "retry_count": 5,
+      "last_attempt": "2026-01-05T05:07:13.906720",
       "hash_id": "bc244a50101f6a0e"
     },
     "https://www.ksg.co.kr/news/main_newsView.jsp?pNum=146269": {
@@ -16,11 +16,21 @@
       "date": "2026-01-05 11:22",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-05T04:10:05.120882",
+      "retry_count": 5,
+      "last_attempt": "2026-01-05T05:07:13.492917",
       "hash_id": "2c71c7ab98f3d9de"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/01/05/2026010590153.html": {
+      "title": "포스코이앤씨 감전사고 현장소장 '구속'…\"안전 관리·감독 소홀\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/01/05/2026010590153.html",
+      "date": "2026-01-05 13:36",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2026-01-05T05:07:14.867401",
+      "hash_id": "00a7616130feb8b4"
     }
   },
-  "last_updated": "2026-01-05 04:10:16",
-  "count": 2
+  "last_updated": "2026-01-05 05:07:15",
+  "count": 3
 }

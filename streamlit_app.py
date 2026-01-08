@@ -815,7 +815,7 @@ def _publisher_from_link(u: str) -> str:
             "mhnse.com": "MHN스포츠(경제)",
             "koreastocknews.com": "코리아스탁뉴스",
             "fntimes.com": "파이낸셜뉴스타임즈",
-            "choicenews.co.kr": "초이스경제"
+            "choicenews.co.kr": "초이스경제",
             "asiatoday.co.kr": "아시아투데이",
         }
 

@@ -804,6 +804,18 @@ def _publisher_from_link(u: str) -> str:
             "bizwork.co.kr": "비즈웍스",
             "betanews.net": "베타뉴스",
             "banronbodo.com": "반론보도닷컴",
+            "topdaily.kr": "톱데일리",
+            "thebell.co.kr": "더벨",
+            "the-pr.co.kr": "더피알",
+            "stoo.com": "스포츠투데이",
+            "sportsworldi.com": "스포츠월드",
+            "seoulwire.com": "서울와이어",
+            "press9.kr": "프레스나인",
+            "newstown.co.kr": "뉴스타운",
+            "mhnse.com": "MHN스포츠(경제)",
+            "koreastocknews.com": "코리아스탁뉴스",
+            "fntimes.com": "파이낸셜뉴스타임즈",
+            "choicenews.co.kr": "초이스경제"
             "asiatoday.co.kr": "아시아투데이",
         }
 

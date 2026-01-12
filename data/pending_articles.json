@@ -6,8 +6,8 @@
       "date": "2026-01-12 16:26",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-12T07:50:18.802068",
+      "retry_count": 5,
+      "last_attempt": "2026-01-12T08:22:45.776766",
       "hash_id": "d3a7458f7cf25fff"
     },
     "https://biz.sbs.co.kr/article_hub/20000284294?division=NAVER": {
@@ -16,8 +16,8 @@
       "date": "2026-01-12 16:07",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-12T07:50:18.394291",
+      "retry_count": 5,
+      "last_attempt": "2026-01-12T08:22:45.195186",
       "hash_id": "ae477ab679bcb2d7"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=426548": {
@@ -26,8 +26,8 @@
       "date": "2026-01-12 16:04",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 3,
-      "last_attempt": "2026-01-12T07:50:17.981799",
+      "retry_count": 5,
+      "last_attempt": "2026-01-12T08:22:44.621779",
       "hash_id": "57fcf95ffe3f7111"
     },
     "https://www.hani.co.kr/arti/society/society_general/1239250.html": {
@@ -36,11 +36,21 @@
       "date": "2026-01-12 16:48",
       "press": "",
       "keyword": "포스코",
-      "retry_count": 1,
-      "last_attempt": "2026-01-12T07:50:19.774479",
+      "retry_count": 3,
+      "last_attempt": "2026-01-12T08:22:46.353178",
       "hash_id": "982c78628f6117d4"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008401261&plink=ORI&cooper=NAVER": {
+      "title": "대법원 \"포스코 노조, 기업 노조 전환 적법\" 판결 확정",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008401261&plink=ORI&cooper=NAVER",
+      "date": "2026-01-12 17:11",
+      "press": "",
+      "keyword": "포스코",
+      "retry_count": 1,
+      "last_attempt": "2026-01-12T08:22:48.428408",
+      "hash_id": "74d005d90ab8e2eb"
     }
   },
-  "last_updated": "2026-01-12 07:50:19",
-  "count": 4
+  "last_updated": "2026-01-12 08:22:50",
+  "count": 5
 }

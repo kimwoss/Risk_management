@@ -30031,3 +30031,14 @@
 {"timestamp": "2026-01-13T03:49:54.177788", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 12, "api_calls": 2}}
 {"timestamp": "2026-01-13T03:50:08.824598", "event_type": "telegram", "data": {"success": 14, "failed": 0, "total": 14, "success_rate": 1.0}}
 {"timestamp": "2026-01-13T03:50:08.859033", "event_type": "run_summary", "data": {"total_articles": 244, "new_articles": 14, "telegram_sent": 14, "errors": 0}}
+{"timestamp": "2026-01-13T04:33:09.649618", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 28, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:10.254896", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:10.876519", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:11.476505", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:12.575373", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 24, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:13.173837", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:13.776840", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:14.243351", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:14.862655", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 13, "api_calls": 2}}
+{"timestamp": "2026-01-13T04:33:17.790845", "event_type": "telegram", "data": {"success": 3, "failed": 0, "total": 3, "success_rate": 1.0}}
+{"timestamp": "2026-01-13T04:33:17.842592", "event_type": "run_summary", "data": {"total_articles": 245, "new_articles": 3, "telegram_sent": 3, "errors": 0}}

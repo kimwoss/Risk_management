@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-15T23:00:37.802567",
+      "retry_count": 3,
+      "last_attempt": "2026-01-15T23:31:06.237552",
       "hash_id": "831e4081e60f5c0c"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008406617&plink=ORI&cooper=NAVER": {
+      "title": "탁구 장우진, WTT 대회 복식서 세계 2위 린스둥 또 격파",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008406617&plink=ORI&cooper=NAVER",
+      "date": "2026-01-16 08:10",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-15T23:31:06.615320",
+      "hash_id": "c1097aa2f1c02690"
     }
   },
-  "last_updated": "2026-01-15 23:00:38",
-  "count": 1
+  "last_updated": "2026-01-15 23:31:08",
+  "count": 2
 }

@@ -32,33 +32,65 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     # 총 당일 기사 수
     total_today = len(today_news)
 
-    # 카테고리별 카운트
-    posco_intl_count = 0
-    posco_mobility_count = 0
-    samcheok_count = 0
-    posco_count = 0
-    others_count = 0
+    # 카테고리별 카운트 (긍정/부정 분리)
+    total_pos = total_neg = 0
+    posco_intl_count = posco_intl_pos = posco_intl_neg = 0
+    posco_mobility_count = posco_mobility_pos = posco_mobility_neg = 0
+    samcheok_count = samcheok_pos = samcheok_neg = 0
+    posco_count = posco_pos = posco_neg = 0
+    others_count = others_pos = others_neg = 0
 
     if not today_news.empty and "검색키워드" in today_news.columns:
         for _, row in today_news.iterrows():
             keyword = str(row.get("검색키워드", ""))
             title = str(row.get("기사제목", ""))
+            sentiment = str(row.get("sentiment", "pos"))
+
+            # sentiment 카운트
+            is_pos = sentiment == "pos"
+            is_neg = sentiment == "neg"
+
+            # 전체 sentiment 카운트
+            if is_pos:
+                total_pos += 1
+            elif is_neg:
+                total_neg += 1
 
             # 1순위: 포스코인터내셔널 (POSCO INTERNATIONAL, 포스코인터 포함)
             if any(kw in keyword or kw in title for kw in ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]):
                 posco_intl_count += 1
+                if is_pos:
+                    posco_intl_pos += 1
+                elif is_neg:
+                    posco_intl_neg += 1
             # 2순위: 포스코모빌리티솔루션
             elif "포스코모빌리티솔루션" in keyword or "포스코모빌리티솔루션" in title:
                 posco_mobility_count += 1
+                if is_pos:
+                    posco_mobility_pos += 1
+                elif is_neg:
+                    posco_mobility_neg += 1
             # 3순위: 삼척블루파워
             elif "삼척블루파워" in keyword or "삼척블루파워" in title:
                 samcheok_count += 1
+                if is_pos:
+                    samcheok_pos += 1
+                elif is_neg:
+                    samcheok_neg += 1
             # 4순위: 포스코 (위 항목 제외)
             elif "포스코" in keyword or "포스코" in title or "POSCO" in keyword.upper() or "POSCO" in title.upper():
                 posco_count += 1
+                if is_pos:
+                    posco_pos += 1
+                elif is_neg:
+                    posco_neg += 1
             # 5순위: 기타
             else:
                 others_count += 1
+                if is_pos:
+                    others_pos += 1
+                elif is_neg:
+                    others_neg += 1
 
     # 퍼센트 계산
     posco_intl_pct = (posco_intl_count / total_today * 100) if total_today > 0 else 0
@@ -104,6 +136,14 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     .news-pct { color: #888; font-size: 0.7rem; margin-top: 4px; }
 
+    /* Sentiment 표시 스타일 */
+    .news-sentiment { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.65rem; margin-top: 4px; opacity: 0.8; }
+    .news-sentiment-item { display: flex; align-items: center; gap: 3px; }
+    .news-sentiment-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .news-sentiment-dot.pos { background: #22c55e; }
+    .news-sentiment-dot.neg { background: #ef4444; }
+    .news-sentiment-count { color: #bbb; font-weight: 600; }
+
     @media (max-width: 1200px) {
         .news-dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 140px !important; }
     }
@@ -123,22 +163,69 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
-        st.markdown(f'<div class="news-card total"><div class="news-label">당일 기사</div><div class="news-value" id="total-{unique_id}" data-target="{total_today}">0</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card total">
+            <div class="news-label">당일 기사</div>
+            <div class="news-value" id="total-{unique_id}" data-target="{total_today}">0</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{total_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{total_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f'<div class="news-card posco-intl"><div class="news-label">#포스코인터내셔널</div><div class="news-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div><div class="news-pct">{posco_intl_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card posco-intl">
+            <div class="news-label">#포스코인터내셔널</div>
+            <div class="news-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
+            <div class="news-pct">{posco_intl_pct:.1f}%</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_intl_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_intl_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f'<div class="news-card posco"><div class="news-label">#포스코</div><div class="news-value" id="posco-{unique_id}" data-target="{posco_count}">0</div><div class="news-pct">{posco_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card posco">
+            <div class="news-label">#포스코</div>
+            <div class="news-value" id="posco-{unique_id}" data-target="{posco_count}">0</div>
+            <div class="news-pct">{posco_pct:.1f}%</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f'<div class="news-card mobility"><div class="news-label">#포스코모빌리티솔루션</div><div class="news-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div><div class="news-pct">{posco_mobility_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card mobility">
+            <div class="news-label">#포스코모빌리티솔루션</div>
+            <div class="news-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
+            <div class="news-pct">{posco_mobility_pct:.1f}%</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_mobility_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_mobility_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     with col5:
-        st.markdown(f'<div class="news-card samcheok"><div class="news-label">#삼척블루파워</div><div class="news-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div><div class="news-pct">{samcheok_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card samcheok">
+            <div class="news-label">#삼척블루파워</div>
+            <div class="news-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
+            <div class="news-pct">{samcheok_pct:.1f}%</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{samcheok_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{samcheok_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     with col6:
-        st.markdown(f'<div class="news-card others"><div class="news-label">#기타</div><div class="news-value" id="others-{unique_id}" data-target="{others_count}">0</div><div class="news-pct">{others_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'''<div class="news-card others">
+            <div class="news-label">#기타</div>
+            <div class="news-value" id="others-{unique_id}" data-target="{others_count}">0</div>
+            <div class="news-pct">{others_pct:.1f}%</div>
+            <div class="news-sentiment">
+                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{others_pos}</span></div>
+                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{others_neg}</span></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
     animation_script = f'''

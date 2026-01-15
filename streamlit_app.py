@@ -1171,7 +1171,7 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
                 except Exception:
                     date_str = ""
                 items.append({"날짜": date_str, "매체명": _publisher_from_link(link),
-                              "검색키워드": query, "기사제목": title, "주요기사 요약": desc, "URL": link})
+                              "검색키워드": query, "기사제목": title, "주요기사 요약": desc, "URL": link, "sentiment": "pos"})
             
             got = len(arr)
             total += got
@@ -1184,7 +1184,7 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
             break
     
     print(f"[DEBUG] crawl_naver_news completed for {query}: {len(items)} items")
-    df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL"])
+    df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL", "sentiment"])
 
     # API 할당량 초과 정보를 DataFrame 속성으로 저장
     if quota_exceeded:
@@ -1231,6 +1231,10 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
         df = pd.read_csv(StringIO(response.text), encoding="utf-8")
         response.close()
 
+        # sentiment 컬럼이 없으면 추가
+        if "sentiment" not in df.columns:
+            df["sentiment"] = "pos"
+
         # 디버그: 최신 기사 시간 출력
         if not df.empty and "날짜" in df.columns:
             latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
@@ -1243,13 +1247,16 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
         # 2차 시도: 로컬 파일에서 로드
         try:
             df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+            # sentiment 컬럼이 없으면 추가
+            if "sentiment" not in df.columns:
+                df["sentiment"] = "pos"
             if not df.empty and "날짜" in df.columns:
                 latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
                 print(f"[DEBUG] ⚠️ 로컬 파일에서 로드: {len(df)}건, 최신 기사: {latest_date}")
             return df
         except Exception as e2:
             print(f"[ERROR] 모든 로드 시도 실패: {e2}")
-            return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+            return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:
@@ -3056,12 +3063,19 @@ def page_news_monitor():
             keyword = str(row.get("검색키워드", ""))
             url = str(row.get("URL", ""))
             dt = str(row.get("날짜", ""))
+            sentiment = str(row.get("sentiment", "pos"))
             if " " in dt:
                 d, t = dt.split(" ", 1)
                 formatted_dt = f"📅 {d}  🕐 {t}"
             else:
                 formatted_dt = f"📅 {dt}"
-            
+
+            # 감성 dot 설정
+            if sentiment == "neg":
+                sentiment_dot = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>'
+            else:
+                sentiment_dot = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle;"></span>'
+
             # 파일명에 사용할 안전한 제목 생성
             safe_name = re.sub(r'[^\w가-힣\s]', '', title)[:30]
 
@@ -3073,7 +3087,7 @@ def page_news_monitor():
                   <!-- 상단: 출처 태그와 날짜 -->
                   <div class="news-header">
                     <div class="news-left">
-                      <span class="news-media">{media}</span>
+                      {sentiment_dot}<span class="news-media">{media}</span>
                       <span class="news-key">#{keyword}</span>
                     </div>
                     <span class="news-date">{formatted_dt}</span>

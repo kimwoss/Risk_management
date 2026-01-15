@@ -223,6 +223,151 @@ def _publisher_from_link(u: str) -> str:
         return ""
 
 
+# ======================== 감성 분석 함수 ========================
+
+# 감성 분석 캐시 (URL 기반)
+_sentiment_cache = {}
+
+def analyze_sentiment_rule_based(title: str, summary: str) -> str:
+    """
+    규칙 기반 감성 분석 (1차)
+
+    Args:
+        title: 기사 제목
+        summary: 기사 요약
+
+    Returns:
+        "pos" (긍정/중립), "neg" (부정), "unk" (애매함)
+    """
+    text = f"{title}\n{summary}".lower()
+
+    # 부정 키워드 (최소 세트)
+    negative_keywords = [
+        "의혹", "논란", "수사", "고발", "제재", "사고", "폭발", "중단", "실패",
+        "적자", "급락", "불법", "배임", "횡령", "담합", "위반", "처벌", "파산",
+        "해고", "감축", "적발", "기소", "벌금", "손실", "하락", "취소", "철회",
+        "문제", "우려", "비판", "반발", "갈등", "충돌", "부실", "지연"
+    ]
+
+    # 긍정 키워드 (최소 세트)
+    positive_keywords = [
+        "협력", "확대", "투자", "수주", "계약", "진출", "성과", "개선", "상승",
+        "혁신", "출시", "수상", "선정", "채택", "증가", "성장", "달성", "수익",
+        "개발", "획득", "체결", "증설", "확보", "기여", "창출", "도입", "강화"
+    ]
+
+    # 키워드 카운트
+    neg_count = sum(1 for kw in negative_keywords if kw in text)
+    pos_count = sum(1 for kw in positive_keywords if kw in text)
+
+    # 판정 로직
+    if neg_count >= 2:
+        return "neg"
+    elif neg_count == 1 and pos_count == 0:
+        return "neg"
+    elif pos_count >= 1 and neg_count == 0:
+        return "pos"
+    elif pos_count > neg_count:
+        return "pos"
+    elif neg_count > pos_count:
+        return "neg"
+    else:
+        return "unk"
+
+
+def analyze_sentiment_llm(title: str, summary: str) -> str:
+    """
+    LLM 기반 감성 분석 (2차 보정 - unk만)
+
+    Args:
+        title: 기사 제목
+        summary: 기사 요약
+
+    Returns:
+        "pos" (긍정/중립) or "neg" (부정)
+    """
+    try:
+        # OpenAI API 키 확인
+        api_key = os.getenv("OPENAI_API_KEY", "")
+        if not api_key:
+            return "unk"
+
+        # 간단한 프롬프트
+        prompt = f"""다음 뉴스 기사가 기업에게 긍정적인지 부정적인지 판단해주세요.
+
+제목: {title}
+요약: {summary}
+
+답변은 "긍정" 또는 "부정" 중 하나만 출력하세요."""
+
+        import requests
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "gpt-4o-mini",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.2,
+            "max_tokens": 10
+        }
+
+        response = requests.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            result = response.json()
+            answer = result["choices"][0]["message"]["content"].strip().lower()
+
+            if "부정" in answer or "negative" in answer:
+                return "neg"
+            elif "긍정" in answer or "positive" in answer:
+                return "pos"
+
+        return "unk"
+
+    except Exception as e:
+        print(f"[DEBUG] LLM 감성 분석 오류: {e}")
+        return "unk"
+
+
+def get_article_sentiment(title: str, summary: str, url: str = "") -> str:
+    """
+    기사 감성 분석 (캐싱 + 2단계 분석)
+
+    Args:
+        title: 기사 제목
+        summary: 기사 요약
+        url: 기사 URL (캐싱 키)
+
+    Returns:
+        "pos" (긍정/중립) or "neg" (부정)
+    """
+    # 캐시 확인
+    cache_key = url if url else f"{title}|{summary}"
+    if cache_key in _sentiment_cache:
+        return _sentiment_cache[cache_key]
+
+    # 1차: 규칙 기반
+    sentiment = analyze_sentiment_rule_based(title, summary)
+
+    # 2차: unk인 경우만 LLM 호출
+    if sentiment == "unk":
+        sentiment = analyze_sentiment_llm(title, summary)
+        # LLM도 실패하면 pos (중립) 처리
+        if sentiment == "unk":
+            sentiment = "pos"
+
+    # 캐시 저장
+    _sentiment_cache[cache_key] = sentiment
+
+    return sentiment
+
+
 # ======================== 네이버 API 함수 ========================
 
 def fetch_naver_news(query: str, start: int = 1, display: int = 50, sort: str = "date"):
@@ -300,13 +445,18 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
                     date_str = dt.strftime("%Y-%m-%d %H:%M")
                 except Exception:
                     date_str = ""
+
+                # 감성 분석 추가
+                sentiment = get_article_sentiment(title, desc, link)
+
                 items.append({
                     "날짜": date_str,
                     "매체명": _publisher_from_link(link),
                     "검색키워드": query,
                     "기사제목": title,
                     "주요기사 요약": desc,
-                    "URL": link
+                    "URL": link,
+                    "sentiment": sentiment
                 })
 
             got = len(arr)
@@ -319,7 +469,7 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
             print(f"[WARNING] Error in crawl_naver_news attempt {attempt_count}: {e}")
             break
 
-    df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL"])
+    df = pd.DataFrame(items, columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL", "sentiment"])
 
     # API 할당량 초과 정보 저장
     if quota_exceeded:
@@ -343,10 +493,14 @@ def load_news_db() -> pd.DataFrame:
     """뉴스 DB 로드"""
     if os.path.exists(NEWS_DB_FILE):
         try:
-            return pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+            df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
+            # 기존 데이터에 sentiment 컬럼이 없으면 추가
+            if "sentiment" not in df.columns:
+                df["sentiment"] = "pos"  # 기본값: 긍정/중립
+            return df
         except Exception as e:
             print(f"[WARNING] DB 로드 실패: {e}")
-    return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"])
+    return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
 
 
 def save_news_db(df: pd.DataFrame):

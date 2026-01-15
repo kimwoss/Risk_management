@@ -12,6 +12,8 @@ from news_collector import (
     EXCLUDE_KEYWORDS,
     MAX_ITEMS_PER_RUN,
     crawl_naver_news,
+    crawl_google_news_rss,
+    merge_news_sources,
     load_news_db,
     save_news_db,
     load_sent_cache,
@@ -225,7 +227,22 @@ def main():
                     safe_print(f"[MONITOR] ⚠️ API 할당량 부족하지만 우선순위 높음: '{kw}' (P{priority}) - 계속 수집")
 
             safe_print(f"[MONITOR] 키워드 '{kw}' 검색 중... (우선순위: {KEYWORD_PRIORITY.get(kw, 999)})")
-            df_kw = crawl_naver_news(kw, max_items=items_per_keyword, sort="date")
+            naver_df = crawl_naver_news(kw, max_items=items_per_keyword, sort="date")
+
+            # Google News RSS 추가 수집 (POSCO International 키워드일 때만)
+            google_df = pd.DataFrame()
+            if "posco" in kw.lower() and "international" in kw.lower():
+                try:
+                    safe_print(f"[MONITOR] Google News RSS 수집 중: {kw}")
+                    google_df = crawl_google_news_rss(query="POSCO International", max_items=50)
+                except Exception as e:
+                    safe_print(f"[MONITOR] Google News RSS 실패: {e}")
+                    google_df = pd.DataFrame()
+
+            # Naver + Google 병합
+            df_kw = merge_news_sources(naver_df, google_df)
+            if naver_df.attrs.get('quota_exceeded', False):
+                df_kw.attrs['quota_exceeded'] = True
 
             # API 사용량 증가
             current_api_usage = increment_api_usage(calls=2)

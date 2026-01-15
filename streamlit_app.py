@@ -16,6 +16,8 @@ from news_collector import (
     EXCLUDE_KEYWORDS,
     MAX_ITEMS_PER_RUN,
     crawl_naver_news,
+    crawl_google_news_rss,
+    merge_news_sources,
     load_news_db,
     _publisher_from_link,
     _clean_text,
@@ -1202,6 +1204,47 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
         df = df.loc[~key.duplicated()].reset_index(drop=True)
     return df
 
+
+@st.cache_data(ttl=1800, show_spinner=False)  # 30분 캐싱
+def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
+    """
+    Naver + Google News RSS 통합 수집 (캐싱 적용)
+
+    Args:
+        query: 검색 쿼리
+        max_items: Naver API 최대 수집 개수
+        sort: 정렬 방식
+
+    Returns:
+        병합된 DataFrame (URL 기준 dedupe, 최신순 정렬)
+    """
+    print(f"[DEBUG] crawl_all_news_sources called for query: {query}")
+
+    # Naver 뉴스 수집
+    naver_df = crawl_naver_news(query, max_items=max_items, sort=sort)
+
+    # Google News RSS 수집 (POSCO International 키워드일 때만)
+    google_df = pd.DataFrame()
+    if "posco" in query.lower() and "international" in query.lower():
+        try:
+            print(f"[DEBUG] Fetching Google News RSS for: {query}")
+            google_df = crawl_google_news_rss(query="POSCO International", max_items=50)
+        except Exception as e:
+            print(f"[WARNING] Google News RSS failed: {e}")
+            google_df = pd.DataFrame()
+
+    # 두 소스 병합
+    merged_df = merge_news_sources(naver_df, google_df)
+
+    # API 할당량 초과 정보 전달
+    if naver_df.attrs.get('quota_exceeded', False):
+        merged_df.attrs['quota_exceeded'] = True
+
+    print(f"[DEBUG] Total items after merge: {len(merged_df)} (Naver: {len(naver_df)}, Google: {len(google_df)})")
+
+    return merged_df
+
+
 def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
     """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)
 
@@ -1626,7 +1669,7 @@ def background_news_monitor():
         quota_exceeded = False
 
         for kw in keywords:
-            df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
+            df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
 
             # API 할당량 초과 체크
             if df_kw.attrs.get('quota_exceeded', False):
@@ -2675,7 +2718,7 @@ def page_news_monitor():
             if api_ok:
                 # 키워드별 최신순 수집
                 for kw in keywords:
-                    df_kw = crawl_naver_news(kw, max_items=max_items // len(keywords), sort="date")
+                    df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
 
                     # API 할당량 초과 체크
                     if df_kw.attrs.get('quota_exceeded', False):

@@ -686,7 +686,7 @@ def load_pending_queue() -> dict:
     Pending 큐 로드 (TTL 적용)
 
     Returns:
-        dict: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+        dict: {url: {title, link, date, press, keyword, sentiment, retry_count, last_attempt, hash_id}}
     """
     if os.path.exists(PENDING_QUEUE_FILE):
         try:
@@ -731,7 +731,7 @@ def save_pending_queue(queue: dict):
     Pending 큐 저장 (원자적 쓰기)
 
     Args:
-        queue: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+        queue: {url: {title, link, date, press, keyword, sentiment, retry_count, last_attempt, hash_id}}
     """
     try:
         import tempfile
@@ -776,7 +776,7 @@ def add_to_pending(article: dict, pending_queue: dict) -> dict:
     Pending 큐에 기사 추가
 
     Args:
-        article: {title, link, date, press, keyword}
+        article: {title, link, date, press, keyword, sentiment}
         pending_queue: 현재 pending 큐
 
     Returns:
@@ -800,6 +800,7 @@ def add_to_pending(article: dict, pending_queue: dict) -> dict:
             "date": article.get("date", ""),
             "press": article.get("press", ""),
             "keyword": article.get("keyword", ""),
+            "sentiment": article.get("sentiment", "pos"),
             "retry_count": 0,
             "last_attempt": datetime.now().isoformat(),
             "hash_id": hash_id
@@ -1039,13 +1040,15 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
             # 매체명과 키워드 추출
             press = _publisher_from_link(url)
             keyword = str(row.get("검색키워드", "")).strip()
+            sentiment = str(row.get("sentiment", "pos")).strip()
 
             new_articles.append({
                 "title": title if title and title != "nan" else "제목 없음",
                 "link": url,
                 "date": article_date_str,
                 "press": press,
-                "keyword": keyword
+                "keyword": keyword,
+                "sentiment": sentiment
             })
 
         print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (DB+캐시 중복 제거)")
@@ -1072,7 +1075,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
     - 전송 실패 시 retry_count 증가, 최대 초과 시 제거
 
     Args:
-        pending_queue: {url: {title, link, date, press, keyword, retry_count, last_attempt, hash_id}}
+        pending_queue: {url: {title, link, date, press, keyword, sentiment, retry_count, last_attempt, hash_id}}
         sent_cache: 전송 완료된 기사 URL 캐시
 
     Returns:
@@ -1119,6 +1122,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
             date = article.get("date", "")
             press = article.get("press", "")
             keyword = article.get("keyword", "")
+            sentiment = article.get("sentiment", "pos")
             retry_count = article.get("retry_count", 0)
 
             # 최대 재시도 초과 체크
@@ -1128,8 +1132,9 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 max_retry_exceeded_count += 1
                 continue
 
-            # 메시지 구성
-            message = f"🚨 *새 뉴스*\n\n"
+            # 메시지 구성 (sentiment에 따라 이모지 변경)
+            emoji = "🔴" if sentiment == "neg" else "🟢"
+            message = f"{emoji} *새 뉴스*\n\n"
             if keyword:
                 hashtag = keyword.replace(" ", "")
                 message += f"#{hashtag}\n"

@@ -7,11 +7,33 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-16T23:57:25.260855",
+      "retry_count": 3,
+      "last_attempt": "2026-01-17T02:18:27.721272",
       "hash_id": "e4ffa4b0ce14b314"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008408011&plink=ORI&cooper=NAVER": {
+      "title": "탁구 박강현-김나영, WTT 4강행…임종훈-신유빈 8강 탈락",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008408011&plink=ORI&cooper=NAVER",
+      "date": "2026-01-17 10:38",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-17T02:18:37.107479",
+      "hash_id": "3073ba576b6b4598"
+    },
+    "https://www.newsis.com/view/NISX20260117_0003480389": {
+      "title": "탁구 박강현-김나영, WTT 스타 컨텐더 준결승행…임종훈-신유빈 탈락",
+      "link": "https://www.newsis.com/view/NISX20260117_0003480389",
+      "date": "2026-01-17 09:07",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-17T02:18:28.293850",
+      "hash_id": "38953f90375c4ac0"
     }
   },
-  "last_updated": "2026-01-16 23:57:25",
-  "count": 1
+  "last_updated": "2026-01-17 02:18:38",
+  "count": 3
 }

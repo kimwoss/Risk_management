@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6458438?utm_source=naver&utm_medium=article&utm_campaign=20260119032133": {
-      "title": "광양-포스코, 태인동~금호동 잇는 '태인보도교' 준공",
-      "link": "https://www.nocutnews.co.kr/news/6458438?utm_source=naver&utm_medium=article&utm_campaign=20260119032133",
-      "date": "2026-01-19 15:22",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-19T07:56:11.513934",
-      "hash_id": "be728403e6004c68"
-    },
     "https://www.newsis.com/view/NISX20260119_0003482168": {
       "title": "제79회 전국남녀종합탁구선수권, 21일 충북 제천서 개막",
       "link": "https://www.newsis.com/view/NISX20260119_0003482168",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T07:56:12.473841",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T08:44:45.579131",
       "hash_id": "86237bd0d0373d6b"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T07:56:11.983135",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T08:44:45.108530",
       "hash_id": "2939d5eb14f89822"
     },
     "https://www.nocutnews.co.kr/news/6458564?utm_source=naver&utm_medium=article&utm_campaign=20260119045434": {
@@ -40,11 +29,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-19T07:56:16.189854",
+      "retry_count": 3,
+      "last_attempt": "2026-01-19T08:44:46.060980",
       "hash_id": "6740ba051c9303b0"
+    },
+    "https://www.seoul.co.kr/news/society/law/2026/01/19/20260119500205?wlog_tag3=naver": {
+      "title": "‘의령 천공기 끼임 사망사고’ 포스코이앤씨 현장소장 등 재판행",
+      "link": "https://www.seoul.co.kr/news/society/law/2026/01/19/20260119500205?wlog_tag3=naver",
+      "date": "2026-01-19 17:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T08:44:54.813740",
+      "hash_id": "93147b7fb05d1e83"
     }
   },
-  "last_updated": "2026-01-19 07:56:16",
+  "last_updated": "2026-01-19 08:44:56",
   "count": 4
 }

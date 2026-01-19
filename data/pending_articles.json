@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260119_0003482168": {
-      "title": "제79회 전국남녀종합탁구선수권, 21일 충북 제천서 개막",
-      "link": "https://www.newsis.com/view/NISX20260119_0003482168",
-      "date": "2026-01-19 16:25",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-19T08:44:45.579131",
-      "hash_id": "86237bd0d0373d6b"
-    },
-    "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver": {
-      "title": "[서울데이터랩]한화갤러리아우 29.99% 상한가 금일 증시 상승률 1위로 마...",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver",
-      "date": "2026-01-19 16:18",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-19T08:44:45.108530",
-      "hash_id": "2939d5eb14f89822"
-    },
     "https://www.nocutnews.co.kr/news/6458564?utm_source=naver&utm_medium=article&utm_campaign=20260119045434": {
       "title": "'천공기 끼임' 사망 중대재해…포스코이앤씨 소장 구속 기소",
       "link": "https://www.nocutnews.co.kr/news/6458564?utm_source=naver&utm_medium=article&utm_campaign=20260119045434",
@@ -29,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T08:44:46.060980",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T09:20:24.707202",
       "hash_id": "6740ba051c9303b0"
     },
     "https://www.seoul.co.kr/news/society/law/2026/01/19/20260119500205?wlog_tag3=naver": {
@@ -40,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-19T08:44:54.813740",
+      "retry_count": 3,
+      "last_attempt": "2026-01-19T09:20:25.285233",
       "hash_id": "93147b7fb05d1e83"
+    },
+    "https://www.chosun.com/national/2026/01/19/ACF7KPDPDBAGVIWQODUKHTFWGY/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "‘천공기 끼임 사망’ 포스코이앤씨 현장소장 구속 기소",
+      "link": "https://www.chosun.com/national/2026/01/19/ACF7KPDPDBAGVIWQODUKHTFWGY/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-01-19 17:45",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T09:20:26.590560",
+      "hash_id": "727dbecff967a211"
     }
   },
-  "last_updated": "2026-01-19 08:44:56",
-  "count": 4
+  "last_updated": "2026-01-19 09:20:35",
+  "count": 3
 }

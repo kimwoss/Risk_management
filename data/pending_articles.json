@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newspim.com/news/view/20260119000084": {
-      "title": "\"POSCO홀딩스, 철강·배터리 실적 부진에 시장 기대치 하회\" [모닝리포트...",
-      "link": "https://www.newspim.com/news/view/20260119000084",
-      "date": "2026-01-19 08:41",
-      "press": "뉴스핌",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-19T03:58:49.672871",
-      "hash_id": "2b23ad08540c4d3d"
-    },
     "http://www.globalepic.co.kr/view.php?ud=20260119094725595ebfd494dd_29": {
       "title": "포스코인터내셔널, 트럼프發 LNG·희토류 특수 잡는다",
       "link": "http://www.globalepic.co.kr/view.php?ud=20260119094725595ebfd494dd_29",
@@ -18,8 +7,8 @@
       "press": "글로벌이코노믹",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T03:58:51.316844",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T04:58:35.244069",
       "hash_id": "259f96d1f6aa92ec"
     },
     "http://www.joseilbo.com/news/news_read.php?uid=561004&class=53&grp=": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T03:58:50.909936",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T04:58:34.830050",
       "hash_id": "ff5bf283db1a65bd"
     },
     "https://www.seoul.co.kr/news/economy/2026/01/19/20260119500024?wlog_tag3=naver": {
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T03:58:50.502304",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T04:58:34.415592",
       "hash_id": "49c81542b0e8c02b"
     },
     "http://www.edaily.co.kr/news/newspath.asp?newsid=02469846645319360": {
@@ -51,11 +40,11 @@
       "press": "이데일리",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T03:58:50.079637",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T04:58:34.007167",
       "hash_id": "f0244e0f193325e6"
     }
   },
-  "last_updated": "2026-01-19 03:58:58",
-  "count": 5
+  "last_updated": "2026-01-19 04:58:38",
+  "count": 4
 }

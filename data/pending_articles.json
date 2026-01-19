@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-01-19 21:54:23",
-  "count": 0
+  "queue": {
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008410426&plink=ORI&cooper=NAVER": {
+      "title": "탁구 종합선수권 21일 제천서 개막…신유빈은 혼복 첫 우승 도전",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008410426&plink=ORI&cooper=NAVER",
+      "date": "2026-01-20 07:18",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T22:26:00.974577",
+      "hash_id": "80df355a26fa5cb7"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008410418&plink=ORI&cooper=NAVER": {
+      "title": "WTT 혼합복식 준우승 박강현-김나영, 세계랭킹 25위로 '껑충'",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008410418&plink=ORI&cooper=NAVER",
+      "date": "2026-01-20 07:13",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T22:26:00.611649",
+      "hash_id": "39e7ee9e569e4c0e"
+    }
+  },
+  "last_updated": "2026-01-19 22:26:01",
+  "count": 2
 }

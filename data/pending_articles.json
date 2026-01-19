@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=20260119101312815944093b5d4e_1": {
-      "title": "[특징주] 포스코인터내셔널, 알래스카 LNG 프로젝트 실익 확보 '강세'",
-      "link": "https://www.g-enews.com/view.php?ud=20260119101312815944093b5d4e_1",
-      "date": "2026-01-19 14:16",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-19T06:56:15.508470",
-      "hash_id": "b92b32bbb65d12e9"
-    },
     "https://www.nocutnews.co.kr/news/6458438?utm_source=naver&utm_medium=article&utm_campaign=20260119032133": {
       "title": "광양-포스코, 태인동~금호동 잇는 '태인보도교' 준공",
       "link": "https://www.nocutnews.co.kr/news/6458438?utm_source=naver&utm_medium=article&utm_campaign=20260119032133",
@@ -18,11 +7,33 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-19T06:56:17.993185",
+      "retry_count": 3,
+      "last_attempt": "2026-01-19T07:37:29.378506",
       "hash_id": "be728403e6004c68"
+    },
+    "https://www.newsis.com/view/NISX20260119_0003482168": {
+      "title": "제79회 전국남녀종합탁구선수권, 21일 충북 제천서 개막",
+      "link": "https://www.newsis.com/view/NISX20260119_0003482168",
+      "date": "2026-01-19 16:25",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T07:37:31.980884",
+      "hash_id": "86237bd0d0373d6b"
+    },
+    "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver": {
+      "title": "[서울데이터랩]한화갤러리아우 29.99% 상한가 금일 증시 상승률 1위로 마...",
+      "link": "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver",
+      "date": "2026-01-19 16:18",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T07:37:30.986388",
+      "hash_id": "2939d5eb14f89822"
     }
   },
-  "last_updated": "2026-01-19 06:56:23",
-  "count": 2
+  "last_updated": "2026-01-19 07:37:37",
+  "count": 3
 }

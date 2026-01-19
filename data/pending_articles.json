@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-19T07:37:29.378506",
+      "retry_count": 5,
+      "last_attempt": "2026-01-19T07:56:11.513934",
       "hash_id": "be728403e6004c68"
     },
     "https://www.newsis.com/view/NISX20260119_0003482168": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-19T07:37:31.980884",
+      "retry_count": 3,
+      "last_attempt": "2026-01-19T07:56:12.473841",
       "hash_id": "86237bd0d0373d6b"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/01/19/20260119500175?wlog_tag3=naver": {
@@ -29,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-19T07:37:30.986388",
+      "retry_count": 3,
+      "last_attempt": "2026-01-19T07:56:11.983135",
       "hash_id": "2939d5eb14f89822"
+    },
+    "https://www.nocutnews.co.kr/news/6458564?utm_source=naver&utm_medium=article&utm_campaign=20260119045434": {
+      "title": "'천공기 끼임' 사망 중대재해…포스코이앤씨 소장 구속 기소",
+      "link": "https://www.nocutnews.co.kr/news/6458564?utm_source=naver&utm_medium=article&utm_campaign=20260119045434",
+      "date": "2026-01-19 16:55",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-19T07:56:16.189854",
+      "hash_id": "6740ba051c9303b0"
     }
   },
-  "last_updated": "2026-01-19 07:37:37",
-  "count": 3
+  "last_updated": "2026-01-19 07:56:16",
+  "count": 4
 }

@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000286139?division=NAVER": {
-      "title": "포스코이앤씨, 산안법 403건 위반…과태료 7억7천만원 부과",
-      "link": "https://biz.sbs.co.kr/article_hub/20000286139?division=NAVER",
-      "date": "2026-01-20 12:11",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T05:04:04.765501",
-      "hash_id": "9b2abeade90bc103"
-    },
-    "https://www.nocutnews.co.kr/news/6458843?utm_source=naver&utm_medium=article&utm_campaign=20260120120048": {
-      "title": "李대통령 강력 질타 포스코이앤씨, '안전 부실' 대거 확인",
-      "link": "https://www.nocutnews.co.kr/news/6458843?utm_source=naver&utm_medium=article&utm_campaign=20260120120048",
-      "date": "2026-01-20 12:01",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T05:04:04.193561",
-      "hash_id": "a08461dd51e4d9ca"
-    },
-    "https://www.newsis.com/view/NISX20260120_0003482979": {
-      "title": "포스코이앤씨, 이유 있는 '사망 반복'…산안법 위반 400건, 안전 예산 축...",
-      "link": "https://www.newsis.com/view/NISX20260120_0003482979",
-      "date": "2026-01-20 12:00",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T05:04:03.636439",
-      "hash_id": "9350782b8b82cc34"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER": {
       "title": "포스코이앤씨 '산업안전 위반' 403건 적발…30건 사법처리",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER",
@@ -40,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T05:04:05.340020",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T05:45:17.081089",
       "hash_id": "640cafc4f2af8427"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=427384": {
+      "title": "[현장] 석탄화력 삼척블루파워 회사채 놓고 '개미투자자 주의보', \"조기...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427384",
+      "date": "2026-01-20 14:20",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T05:45:19.393840",
+      "hash_id": "8ccb989726c978ed"
     }
   },
-  "last_updated": "2026-01-20 05:04:19",
-  "count": 4
+  "last_updated": "2026-01-20 05:45:25",
+  "count": 2
 }

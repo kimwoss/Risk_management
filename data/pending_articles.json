@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-01-20 22:28:45",
-  "count": 0
+  "queue": {
+    "https://www.businesspost.co.kr/BP?command=article_view&num=427465": {
+      "title": "[Who Is ?] 장인화 포스코홀딩스 대표이사 회장",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427465",
+      "date": "2026-01-21 07:44",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T22:47:37.465472",
+      "hash_id": "345bf261f6eff529"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1240819.html": {
+      "title": "대·중소기업 미국 동반 진출하면 지원 2배 확대",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1240819.html",
+      "date": "2026-01-21 07:32",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T22:47:36.938880",
+      "hash_id": "7ae49253aca0f2f1"
+    }
+  },
+  "last_updated": "2026-01-20 22:47:37",
+  "count": 2
 }

@@ -7,11 +7,55 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T01:20:50.117753",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T03:16:35.116569",
       "hash_id": "35342f1691d41eb5"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000286139?division=NAVER": {
+      "title": "포스코이앤씨, 산안법 403건 위반…과태료 7억7천만원 부과",
+      "link": "https://biz.sbs.co.kr/article_hub/20000286139?division=NAVER",
+      "date": "2026-01-20 12:11",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T03:17:35.177099",
+      "hash_id": "9b2abeade90bc103"
+    },
+    "https://www.dailian.co.kr/news/view/1600349/?sc=Naver": {
+      "title": "사망사고 잇따른 포스코이앤씨 현장 약 90%서 법 위반 적발",
+      "link": "https://www.dailian.co.kr/news/view/1600349/?sc=Naver",
+      "date": "2026-01-20 12:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T03:17:34.808273",
+      "hash_id": "08e8c283c5b02a5b"
+    },
+    "https://www.nocutnews.co.kr/news/6458843?utm_source=naver&utm_medium=article&utm_campaign=20260120120048": {
+      "title": "李대통령 강력 질타 포스코이앤씨, '안전 부실' 대거 확인",
+      "link": "https://www.nocutnews.co.kr/news/6458843?utm_source=naver&utm_medium=article&utm_campaign=20260120120048",
+      "date": "2026-01-20 12:01",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T03:16:49.513935",
+      "hash_id": "a08461dd51e4d9ca"
+    },
+    "https://www.newsis.com/view/NISX20260120_0003482979": {
+      "title": "포스코이앤씨, 이유 있는 '사망 반복'…산안법 위반 400건, 안전 예산 축...",
+      "link": "https://www.newsis.com/view/NISX20260120_0003482979",
+      "date": "2026-01-20 12:00",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T03:16:42.312146",
+      "hash_id": "9350782b8b82cc34"
     }
   },
-  "last_updated": "2026-01-20 01:20:56",
-  "count": 1
+  "last_updated": "2026-01-20 03:17:35",
+  "count": 5
 }

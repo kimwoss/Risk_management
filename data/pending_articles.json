@@ -7,11 +7,44 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T06:01:20.344403",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T06:53:50.876936",
       "hash_id": "8ccb989726c978ed"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=427408": {
+      "title": "포스코이앤씨 산안법 위반 사례 403건 적발, 고용부 장관 김영훈 \"중대재...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427408",
+      "date": "2026-01-20 15:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T06:54:07.245987",
+      "hash_id": "aa86be4e609723a7"
+    },
+    "https://www.newsis.com/view/NISX20260120_0003483679": {
+      "title": "포스코 포항제철소, 철강 물류 운영 디지털 전환 가속화",
+      "link": "https://www.newsis.com/view/NISX20260120_0003483679",
+      "date": "2026-01-20 15:28",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T06:53:54.937381",
+      "hash_id": "e502afdb27634069"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000286180?division=NAVER": {
+      "title": "포스코이앤씨, 법 위반 무더기 적발…신안산선 적자시공 우려",
+      "link": "https://biz.sbs.co.kr/article_hub/20000286180?division=NAVER",
+      "date": "2026-01-20 15:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T06:53:53.640662",
+      "hash_id": "edc28c1492cac010"
     }
   },
-  "last_updated": "2026-01-20 06:01:23",
-  "count": 1
+  "last_updated": "2026-01-20 06:54:15",
+  "count": 4
 }

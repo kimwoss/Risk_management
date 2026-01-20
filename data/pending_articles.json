@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T03:16:35.116569",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T04:28:12.478638",
       "hash_id": "35342f1691d41eb5"
     },
     "https://biz.sbs.co.kr/article_hub/20000286139?division=NAVER": {
@@ -18,20 +18,9 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T03:17:35.177099",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T04:28:13.709414",
       "hash_id": "9b2abeade90bc103"
-    },
-    "https://www.dailian.co.kr/news/view/1600349/?sc=Naver": {
-      "title": "사망사고 잇따른 포스코이앤씨 현장 약 90%서 법 위반 적발",
-      "link": "https://www.dailian.co.kr/news/view/1600349/?sc=Naver",
-      "date": "2026-01-20 12:10",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T03:17:34.808273",
-      "hash_id": "08e8c283c5b02a5b"
     },
     "https://www.nocutnews.co.kr/news/6458843?utm_source=naver&utm_medium=article&utm_campaign=20260120120048": {
       "title": "李대통령 강력 질타 포스코이앤씨, '안전 부실' 대거 확인",
@@ -40,8 +29,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T03:16:49.513935",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T04:28:13.296658",
       "hash_id": "a08461dd51e4d9ca"
     },
     "https://www.newsis.com/view/NISX20260120_0003482979": {
@@ -51,11 +40,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T03:16:42.312146",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T04:28:12.888547",
       "hash_id": "9350782b8b82cc34"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER": {
+      "title": "포스코이앤씨 '산업안전 위반' 403건 적발…30건 사법처리",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER",
+      "date": "2026-01-20 13:06",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T04:28:16.993566",
+      "hash_id": "640cafc4f2af8427"
     }
   },
-  "last_updated": "2026-01-20 03:17:35",
+  "last_updated": "2026-01-20 04:28:17",
   "count": 5
 }

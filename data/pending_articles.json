@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T22:47:37.465472",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T23:00:16.773477",
       "hash_id": "345bf261f6eff529"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1240819.html": {
@@ -18,11 +18,44 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T22:47:36.938880",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T23:00:16.216872",
       "hash_id": "7ae49253aca0f2f1"
+    },
+    "https://www.nocutnews.co.kr/news/6459291?utm_source=naver&utm_medium=article&utm_campaign=20260121075056": {
+      "title": "중소기업, 대기업과 美투자 시 20억 준다…상생금융 1.7조 지원",
+      "link": "https://www.nocutnews.co.kr/news/6459291?utm_source=naver&utm_medium=article&utm_campaign=20260121075056",
+      "date": "2026-01-21 07:51",
+      "press": "노컷뉴스",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T23:00:22.198756",
+      "hash_id": "203c223d0ae96c9d"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000286256?division=NAVER": {
+      "title": "정부, 대·중소기업 美 진출 시 20억원 지원…1.7조원 상생금융 공급",
+      "link": "https://biz.sbs.co.kr/article_hub/20000286256?division=NAVER",
+      "date": "2026-01-21 07:50",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T23:00:17.326723",
+      "hash_id": "4c269588f0704ac2"
+    },
+    "https://www.newsis.com/view/NISX20260120_0003484094": {
+      "title": "대·중소기업 美 동반진출시 최대 20억 지원…상생금융 1.7조 공급",
+      "link": "https://www.newsis.com/view/NISX20260120_0003484094",
+      "date": "2026-01-21 07:50",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T23:00:19.344886",
+      "hash_id": "e21a6698ea2e78f9"
     }
   },
-  "last_updated": "2026-01-20 22:47:37",
-  "count": 2
+  "last_updated": "2026-01-20 23:00:28",
+  "count": 5
 }

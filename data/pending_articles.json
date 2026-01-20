@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=427384": {
-      "title": "[현장] 석탄화력 삼척블루파워 회사채 놓고 '개미투자자 주의보', \"조기...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427384",
-      "date": "2026-01-20 14:20",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T06:53:50.876936",
-      "hash_id": "8ccb989726c978ed"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=427408": {
       "title": "포스코이앤씨 산안법 위반 사례 403건 적발, 고용부 장관 김영훈 \"중대재...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427408",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T06:54:07.245987",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T07:30:21.404200",
       "hash_id": "aa86be4e609723a7"
     },
     "https://www.newsis.com/view/NISX20260120_0003483679": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T06:53:54.937381",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T07:30:20.854347",
       "hash_id": "e502afdb27634069"
     },
     "https://biz.sbs.co.kr/article_hub/20000286180?division=NAVER": {
@@ -40,11 +29,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T06:53:53.640662",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T07:30:20.332214",
       "hash_id": "edc28c1492cac010"
+    },
+    "https://m.skyedaily.com/news_view.html?ID=296074": {
+      "title": "포스코이앤씨 현장 55곳·본사서 산안법 위반 403건 적발",
+      "link": "https://m.skyedaily.com/news_view.html?ID=296074",
+      "date": "2026-01-20 16:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T07:30:29.765463",
+      "hash_id": "668cf8ec68f98151"
+    },
+    "https://imnews.imbc.com/news/2026/society/article/6794951_36918.html": {
+      "title": "포스코이앤씨 산안법 위반 403건 적발‥노동장관 \"기업 사활 걸고 쇄신...",
+      "link": "https://imnews.imbc.com/news/2026/society/article/6794951_36918.html",
+      "date": "2026-01-20 16:08",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T07:30:25.394970",
+      "hash_id": "4ae2867b2926e07c"
     }
   },
-  "last_updated": "2026-01-20 06:54:15",
-  "count": 4
+  "last_updated": "2026-01-20 07:30:37",
+  "count": 5
 }

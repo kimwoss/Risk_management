@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://m.skyedaily.com/news_view.html?ID=296074": {
-      "title": "포스코이앤씨 현장 55곳·본사서 산안법 위반 403건 적발",
-      "link": "https://m.skyedaily.com/news_view.html?ID=296074",
-      "date": "2026-01-20 16:10",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T08:30:29.557675",
-      "hash_id": "668cf8ec68f98151"
-    },
-    "https://imnews.imbc.com/news/2026/society/article/6794951_36918.html": {
-      "title": "포스코이앤씨 산안법 위반 403건 적발‥노동장관 \"기업 사활 걸고 쇄신...",
-      "link": "https://imnews.imbc.com/news/2026/society/article/6794951_36918.html",
-      "date": "2026-01-20 16:08",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T08:30:29.136746",
-      "hash_id": "4ae2867b2926e07c"
-    },
     "https://www.nocutnews.co.kr/news/6459178?utm_source=naver&utm_medium=article&utm_campaign=20260120044048": {
       "title": "삼척블루파워 임직원, 정부·지차체 표창 잇따라…안전·환경 지킴이",
       "link": "https://www.nocutnews.co.kr/news/6459178?utm_source=naver&utm_medium=article&utm_campaign=20260120044048",
@@ -29,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "삼척블루파워",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T08:30:29.972861",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T09:01:58.075831",
       "hash_id": "0bee7f557a83750c"
     },
     "https://www.newsis.com/view/NISX20260120_0003483869": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T08:30:31.561426",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T09:01:58.441624",
       "hash_id": "0058baf18914e376"
     },
     "https://www.seoul.co.kr/news/economy/industry/2026/01/20/20260120500205?wlog_tag3=naver": {
@@ -51,11 +29,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T08:30:31.972746",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T09:01:58.805348",
       "hash_id": "5f58dc53bd46bc6e"
     }
   },
-  "last_updated": "2026-01-20 08:30:38",
-  "count": 5
+  "last_updated": "2026-01-20 09:02:00",
+  "count": 3
 }

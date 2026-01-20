@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-01-20 11:40:27",
-  "count": 0
+  "queue": {
+    "https://www.businesspost.co.kr/BP?command=article_view&num=427461": {
+      "title": "[1월21일자] 비즈니스포스트 아침의 주요기사",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427461",
+      "date": "2026-01-20 20:48",
+      "press": "",
+      "keyword": "삼척블루파워",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T11:56:13.597466",
+      "hash_id": "16083a870fe40e4e"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=199505&mode=view": {
+      "title": "포스코 포항제철소 1열연공장서 노동자 끼임 사",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199505&mode=view",
+      "date": "2026-01-20 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T11:56:13.220807",
+      "hash_id": "075060561415f109"
+    }
+  },
+  "last_updated": "2026-01-20 11:56:13",
+  "count": 2
 }

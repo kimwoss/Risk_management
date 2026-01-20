@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER": {
-      "title": "포스코이앤씨 '산업안전 위반' 403건 적발…30건 사법처리",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008411049&plink=ORI&cooper=NAVER",
-      "date": "2026-01-20 13:06",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T05:45:17.081089",
-      "hash_id": "640cafc4f2af8427"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=427384": {
       "title": "[현장] 석탄화력 삼척블루파워 회사채 놓고 '개미투자자 주의보', \"조기...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427384",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T05:45:19.393840",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T06:01:20.344403",
       "hash_id": "8ccb989726c978ed"
     }
   },
-  "last_updated": "2026-01-20 05:45:25",
-  "count": 2
+  "last_updated": "2026-01-20 06:01:23",
+  "count": 1
 }

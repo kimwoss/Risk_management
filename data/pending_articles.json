@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T07:30:21.404200",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T07:52:34.339447",
       "hash_id": "aa86be4e609723a7"
     },
     "https://www.newsis.com/view/NISX20260120_0003483679": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T07:30:20.854347",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T07:52:33.758956",
       "hash_id": "e502afdb27634069"
     },
     "https://biz.sbs.co.kr/article_hub/20000286180?division=NAVER": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T07:30:20.332214",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T07:52:33.177086",
       "hash_id": "edc28c1492cac010"
     },
     "https://m.skyedaily.com/news_view.html?ID=296074": {
@@ -40,8 +40,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T07:30:29.765463",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T07:52:35.471136",
       "hash_id": "668cf8ec68f98151"
     },
     "https://imnews.imbc.com/news/2026/society/article/6794951_36918.html": {
@@ -51,11 +51,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-20T07:30:25.394970",
+      "retry_count": 3,
+      "last_attempt": "2026-01-20T07:52:34.895271",
       "hash_id": "4ae2867b2926e07c"
+    },
+    "https://www.nocutnews.co.kr/news/6459178?utm_source=naver&utm_medium=article&utm_campaign=20260120044048": {
+      "title": "삼척블루파워 임직원, 정부·지차체 표창 잇따라…안전·환경 지킴이",
+      "link": "https://www.nocutnews.co.kr/news/6459178?utm_source=naver&utm_medium=article&utm_campaign=20260120044048",
+      "date": "2026-01-20 16:41",
+      "press": "노컷뉴스",
+      "keyword": "삼척블루파워",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-20T07:52:39.718061",
+      "hash_id": "0bee7f557a83750c"
     }
   },
-  "last_updated": "2026-01-20 07:30:37",
-  "count": 5
+  "last_updated": "2026-01-20 07:52:43",
+  "count": 6
 }

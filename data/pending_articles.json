@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=427465": {
-      "title": "[Who Is ?] 장인화 포스코홀딩스 대표이사 회장",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427465",
-      "date": "2026-01-21 07:44",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T23:33:04.022344",
-      "hash_id": "345bf261f6eff529"
-    },
-    "https://www.hani.co.kr/arti/economy/economy_general/1240819.html": {
-      "title": "대·중소기업 미국 동반 진출하면 지원 2배 확대",
-      "link": "https://www.hani.co.kr/arti/economy/economy_general/1240819.html",
-      "date": "2026-01-21 07:32",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-20T23:33:03.602031",
-      "hash_id": "7ae49253aca0f2f1"
-    },
     "https://www.nocutnews.co.kr/news/6459291?utm_source=naver&utm_medium=article&utm_campaign=20260121075056": {
       "title": "중소기업, 대기업과 美투자 시 20억 준다…상생금융 1.7조 지원",
       "link": "https://www.nocutnews.co.kr/news/6459291?utm_source=naver&utm_medium=article&utm_campaign=20260121075056",
@@ -29,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T23:33:05.259486",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T23:51:32.409193",
       "hash_id": "203c223d0ae96c9d"
     },
     "https://biz.sbs.co.kr/article_hub/20000286256?division=NAVER": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T23:33:04.436270",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T23:51:31.284341",
       "hash_id": "4c269588f0704ac2"
     },
     "https://www.newsis.com/view/NISX20260120_0003484094": {
@@ -51,11 +29,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-20T23:33:04.850803",
+      "retry_count": 5,
+      "last_attempt": "2026-01-20T23:51:31.856082",
       "hash_id": "e21a6698ea2e78f9"
     }
   },
-  "last_updated": "2026-01-20 23:33:06",
-  "count": 5
+  "last_updated": "2026-01-20 23:51:40",
+  "count": 3
 }

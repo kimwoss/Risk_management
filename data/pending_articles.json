@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.bizhankook.com/bk/article/31263": {
-      "title": "[단독] 포스코 포항제철소 계약직 직원 양다리 절단 사고 발생",
-      "link": "https://www.bizhankook.com/bk/article/31263",
-      "date": "2026-01-21 10:18",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-21T01:24:21.630828",
-      "hash_id": "1b8379e754fd5a5e"
-    },
     "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500024?wlog_tag3=naver": {
       "title": "[서울데이터랩]‘넥스틸’ 27.12% 폭등…실시간 상승률 1위",
       "link": "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500024?wlog_tag3=naver",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-21T01:23:31.840111",
+      "retry_count": 3,
+      "last_attempt": "2026-01-21T03:19:11.196184",
       "hash_id": "1e49432318501d32"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500022?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-21T01:23:32.418510",
+      "retry_count": 3,
+      "last_attempt": "2026-01-21T03:19:11.748991",
       "hash_id": "7696e431fc33eba0"
     },
     "https://www.thepowernews.co.kr/view.php?ud=202601210904475841de3f0aa1be_7": {
@@ -40,11 +29,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-21T01:23:24.457529",
+      "retry_count": 3,
+      "last_attempt": "2026-01-21T03:19:10.619051",
       "hash_id": "1617ae06e47619f1"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER": {
+      "title": "[단독] 전기차 식고 계약 끊기는데…포스코퓨처엠 왜 미국에?",
+      "link": "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER",
+      "date": "2026-01-21 11:54",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-21T03:19:27.371696",
+      "hash_id": "19b76dec00cd1b57"
+    },
+    "https://www.g-enews.com/view.php?ud=2026012110352272020c8c1c064d_1": {
+      "title": "포스코인터내셔널, 인니 팜유 기업 '삼포르나 아그로' 공개매수 착수…...",
+      "link": "https://www.g-enews.com/view.php?ud=2026012110352272020c8c1c064d_1",
+      "date": "2026-01-21 10:38",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-21T03:19:14.560370",
+      "hash_id": "d07ef62a27c070d7"
     }
   },
-  "last_updated": "2026-01-21 01:24:22",
-  "count": 4
+  "last_updated": "2026-01-21 03:19:30",
+  "count": 5
 }

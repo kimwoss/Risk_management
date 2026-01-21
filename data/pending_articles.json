@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500024?wlog_tag3=naver": {
-      "title": "[서울데이터랩]‘넥스틸’ 27.12% 폭등…실시간 상승률 1위",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500024?wlog_tag3=naver",
-      "date": "2026-01-21 09:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-21T04:29:02.269953",
-      "hash_id": "1e49432318501d32"
-    },
-    "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500022?wlog_tag3=naver": {
-      "title": "[서울데이터랩]개장 직후 인기 검색 종목 20選",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/01/21/20260121500022?wlog_tag3=naver",
-      "date": "2026-01-21 09:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-21T04:29:02.683628",
-      "hash_id": "7696e431fc33eba0"
-    },
-    "https://www.thepowernews.co.kr/view.php?ud=202601210904475841de3f0aa1be_7": {
-      "title": "대미 동반진출 20억원·상생금융 1.7조…정부, 대·중소 상생투자 확대",
-      "link": "https://www.thepowernews.co.kr/view.php?ud=202601210904475841de3f0aa1be_7",
-      "date": "2026-01-21 09:08",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-21T04:29:01.845315",
-      "hash_id": "1617ae06e47619f1"
-    },
     "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER": {
       "title": "[단독] 전기차 식고 계약 끊기는데…포스코퓨처엠 왜 미국에?",
       "link": "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-21T04:29:03.510924",
+      "retry_count": 5,
+      "last_attempt": "2026-01-21T05:04:05.514787",
       "hash_id": "19b76dec00cd1b57"
     },
     "https://www.g-enews.com/view.php?ud=2026012110352272020c8c1c064d_1": {
@@ -51,11 +18,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-21T04:29:03.097551",
+      "retry_count": 5,
+      "last_attempt": "2026-01-21T05:04:04.945668",
       "hash_id": "d07ef62a27c070d7"
+    },
+    "https://biz.chosun.com/industry/company/2026/01/21/SXH6SA72YZEUTBESAZ3Q3VCPZM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "장인화 포스코그룹 회장, 다보스포럼서 ‘글로벌 공급망 협력’ 강조",
+      "link": "https://biz.chosun.com/industry/company/2026/01/21/SXH6SA72YZEUTBESAZ3Q3VCPZM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-01-21 13:58",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-21T05:04:08.096926",
+      "hash_id": "6da499a4a2f5ce29"
     }
   },
-  "last_updated": "2026-01-21 04:29:10",
-  "count": 5
+  "last_updated": "2026-01-21 05:04:08",
+  "count": 3
 }

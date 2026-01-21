@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER": {
-      "title": "[단독] 전기차 식고 계약 끊기는데…포스코퓨처엠 왜 미국에?",
-      "link": "https://biz.sbs.co.kr/article_hub/20000286404?division=NAVER",
-      "date": "2026-01-21 11:54",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-21T05:04:05.514787",
-      "hash_id": "19b76dec00cd1b57"
-    },
-    "https://www.g-enews.com/view.php?ud=2026012110352272020c8c1c064d_1": {
-      "title": "포스코인터내셔널, 인니 팜유 기업 '삼포르나 아그로' 공개매수 착수…...",
-      "link": "https://www.g-enews.com/view.php?ud=2026012110352272020c8c1c064d_1",
-      "date": "2026-01-21 10:38",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-21T05:04:04.945668",
-      "hash_id": "d07ef62a27c070d7"
-    },
     "https://biz.chosun.com/industry/company/2026/01/21/SXH6SA72YZEUTBESAZ3Q3VCPZM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "장인화 포스코그룹 회장, 다보스포럼서 ‘글로벌 공급망 협력’ 강조",
       "link": "https://biz.chosun.com/industry/company/2026/01/21/SXH6SA72YZEUTBESAZ3Q3VCPZM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -29,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-21T05:04:08.096926",
+      "retry_count": 3,
+      "last_attempt": "2026-01-21T05:44:43.675794",
       "hash_id": "6da499a4a2f5ce29"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=427529": {
+      "title": "포스코그룹 장인화 다보스포럼서 철강 탈탄소 전환과 공급망 협력 확대...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=427529",
+      "date": "2026-01-21 14:38",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-21T05:44:46.446944",
+      "hash_id": "ddf4b425ed778252"
     }
   },
-  "last_updated": "2026-01-21 05:04:08",
-  "count": 3
+  "last_updated": "2026-01-21 05:44:46",
+  "count": 2
 }

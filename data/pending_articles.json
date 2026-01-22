@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-22T05:38:11.824133",
+      "retry_count": 5,
+      "last_attempt": "2026-01-22T05:58:34.467654",
       "hash_id": "5ab5f0208ce77000"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000286753?division=NAVER": {
+      "title": "제미나이 탑재·10분 충전 340km…볼보 전기차 EX60 첫선",
+      "link": "https://biz.sbs.co.kr/article_hub/20000286753?division=NAVER",
+      "date": "2026-01-22 14:55",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-22T05:58:36.022707",
+      "hash_id": "77bdf14bb12027d6"
     }
   },
-  "last_updated": "2026-01-22 05:38:15",
-  "count": 1
+  "last_updated": "2026-01-22 05:58:36",
+  "count": 2
 }

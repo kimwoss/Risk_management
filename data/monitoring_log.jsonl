@@ -35665,3 +35665,14 @@
 {"timestamp": "2026-01-24T05:30:31.593791", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 2, "api_calls": 2}}
 {"timestamp": "2026-01-24T05:30:32.454172", "event_type": "telegram", "data": {"success": 1, "failed": 0, "total": 1, "success_rate": 1.0}}
 {"timestamp": "2026-01-24T05:30:32.498027", "event_type": "run_summary", "data": {"total_articles": 275, "new_articles": 1, "telegram_sent": 1, "errors": 0}}
+{"timestamp": "2026-01-24T05:48:43.485406", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 27, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:46.725404", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 70, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:47.209780", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:47.829402", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:48.304152", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 4, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:48.781457", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 22, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:49.390980", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:49.863605", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:50.339667", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:50.955892", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 2, "api_calls": 2}}
+{"timestamp": "2026-01-24T05:48:51.039960", "event_type": "run_summary", "data": {"total_articles": 275, "new_articles": 0, "telegram_sent": 0, "errors": 0}}

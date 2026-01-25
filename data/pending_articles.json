@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-24T23:58:48.116447",
+      "retry_count": 5,
+      "last_attempt": "2026-01-25T02:39:14.346587",
       "hash_id": "e404e2c0873236f8"
     },
     "https://www.newsis.com/view/NISX20260123_0003488222": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-24T23:58:47.735446",
+      "retry_count": 5,
+      "last_attempt": "2026-01-25T02:39:13.796022",
       "hash_id": "3187eaf6b22eb4f4"
+    },
+    "http://www.edaily.co.kr/news/newspath.asp?newsid=01246406645321328": {
+      "title": "잠자던 2차전지, 로봇이 깨웠다…전고체·2차전지 ETF 상위권 장악[펀드...",
+      "link": "http://www.edaily.co.kr/news/newspath.asp?newsid=01246406645321328",
+      "date": "2026-01-25 09:32",
+      "press": "이데일리",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-25T02:39:15.596342",
+      "hash_id": "86d61761fa1eaec9"
     }
   },
-  "last_updated": "2026-01-24 23:58:59",
-  "count": 2
+  "last_updated": "2026-01-25 02:39:17",
+  "count": 3
 }

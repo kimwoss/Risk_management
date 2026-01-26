@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008418897&plink=ORI&cooper=NAVER": {
-      "title": "신유빈, 탁구 종합선수권 2관왕 등극…혼복·단체전 우승",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008418897&plink=ORI&cooper=NAVER",
-      "date": "2026-01-26 20:15",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-26T12:00:35.026006",
-      "hash_id": "44a47b37ec051ec8"
-    },
     "https://www.newsis.com/view/NISX20260126_0003490879": {
       "title": "탁구 간판 신유빈, 종합선수권 혼복·단체전 우승 '2관왕'(종합2보)",
       "link": "https://www.newsis.com/view/NISX20260126_0003490879",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-26T12:00:35.434496",
+      "retry_count": 2,
+      "last_attempt": "2026-01-26T13:09:23.323734",
       "hash_id": "3fbf78dc9b8f5ce0"
     }
   },
-  "last_updated": "2026-01-26 12:00:35",
-  "count": 2
+  "last_updated": "2026-01-26 13:09:32",
+  "count": 1
 }

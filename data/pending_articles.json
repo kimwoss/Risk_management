@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.dizzotv.com/site/data/html_dir/2026/01/27/2026012780053.html": {
-      "title": "포스코퓨처엠, 美 전고체 배터리 기업 팩토리얼에 투자",
-      "link": "https://www.dizzotv.com/site/data/html_dir/2026/01/27/2026012780053.html",
-      "date": "2026-01-27 11:06",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-27T04:52:43.397843",
-      "hash_id": "fbde5dbec9003116"
-    },
-    "https://imnews.imbc.com/news/2026/econo/article/6796499_36932.html": {
-      "title": "산업부 \"캐나다서 방산·철강·AI 등 MOU 6건 체결\"",
-      "link": "https://imnews.imbc.com/news/2026/econo/article/6796499_36932.html",
-      "date": "2026-01-27 09:28",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-27T04:52:42.887547",
-      "hash_id": "1050fc67ebec1597"
-    },
-    "https://www.nocutnews.co.kr/news/6462236?utm_source=naver&utm_medium=article&utm_campaign=20260127085510": {
-      "title": "韓, 캐나다서 '잠수함 수주용' 철강·방산·우주·AI '묶음 판매'",
-      "link": "https://www.nocutnews.co.kr/news/6462236?utm_source=naver&utm_medium=article&utm_campaign=20260127085510",
-      "date": "2026-01-27 08:56",
-      "press": "노컷뉴스",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-27T04:52:42.376677",
-      "hash_id": "0a7a8f32b37ee3f1"
-    },
     "https://www.hani.co.kr/arti/economy/economy_general/1241840.html": {
       "title": "캐나다 잠수함 수주전, 자동차·철강·우주 투자협력으로 돌파 시도",
       "link": "https://www.hani.co.kr/arti/economy/economy_general/1241840.html",
@@ -40,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-27T04:52:43.912151",
+      "retry_count": 5,
+      "last_attempt": "2026-01-27T05:26:11.072327",
       "hash_id": "a92862b52a2e793d"
+    },
+    "https://www.nocutnews.co.kr/news/6462508?utm_source=naver&utm_medium=article&utm_campaign=20260127015113": {
+      "title": "포스코퓨처엠, 美 전고체 배터리 업체 투자",
+      "link": "https://www.nocutnews.co.kr/news/6462508?utm_source=naver&utm_medium=article&utm_campaign=20260127015113",
+      "date": "2026-01-27 13:52",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-27T05:26:11.452388",
+      "hash_id": "a034d49a5b9e144e"
     }
   },
-  "last_updated": "2026-01-27 04:52:46",
-  "count": 4
+  "last_updated": "2026-01-27 05:26:12",
+  "count": 2
 }

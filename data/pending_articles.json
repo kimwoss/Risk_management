@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-01-27 19:53:39",
-  "count": 0
+  "queue": {
+    "https://www.seoul.co.kr/news/economy/industry/2026/01/28/20260128030004?wlog_tag3=naver": {
+      "title": "한국, 캐나다와 MOU 6건 체결… ‘60조원 잠수함’ 수주 총력",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/01/28/20260128030004?wlog_tag3=naver",
+      "date": "2026-01-28 05:05",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-27T20:25:47.519767",
+      "hash_id": "d3703dd2b49ff855"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2026/01/28/20260128031005?wlog_tag3=naver": {
+      "title": "포스코퓨처엠, 美팩토리얼에 투자 [경제 브리핑]",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/01/28/20260128031005?wlog_tag3=naver",
+      "date": "2026-01-28 05:05",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-27T20:25:47.884950",
+      "hash_id": "fb85e40d772a0ec0"
+    }
+  },
+  "last_updated": "2026-01-27 20:25:48",
+  "count": 2
 }

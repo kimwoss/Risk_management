@@ -1,5 +1,17 @@
 {
-  "queue": {},
-  "last_updated": "2026-01-27 11:31:08",
-  "count": 0
+  "queue": {
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=199607&mode=view": {
+      "title": "포스코퓨처엠, 전고체 배터리 시장 선점 위해 美",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199607&mode=view",
+      "date": "2026-01-27 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-27T11:51:57.751416",
+      "hash_id": "eb8a02029f0b57ed"
+    }
+  },
+  "last_updated": "2026-01-27 11:51:57",
+  "count": 1
 }

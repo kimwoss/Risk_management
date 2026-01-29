@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T11:40:32.854305",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T12:01:59.299638",
       "hash_id": "797f9ffb05bd6fad"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=199643&mode=view": {
+      "title": "포스코인터, 작년 영업익 1조 1,653억원 '사상 최대'",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199643&mode=view",
+      "date": "2026-01-29 20:42",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T12:01:59.676914",
+      "hash_id": "d3c3923dbc33b0cd"
     }
   },
-  "last_updated": "2026-01-29 11:40:33",
-  "count": 1
+  "last_updated": "2026-01-29 12:02:00",
+  "count": 2
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.chosun.com/industry/company/2026/01/29/56TUH6YGJBHQHP3CHUQ4F55UN4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "포스코퓨처엠, 지난해 영업이익 328억원…전년比 4452%↑",
-      "link": "https://biz.chosun.com/industry/company/2026/01/29/56TUH6YGJBHQHP3CHUQ4F55UN4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-01-29 14:26",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-29T07:07:06.407401",
-      "hash_id": "6a3ef9952dff4245"
-    },
     "https://www.newsis.com/view/NISX20260129_0003495250": {
       "title": "포스코홀딩스, 지난해 영업이익 1.8조…전년보다 15%↓",
       "link": "https://www.newsis.com/view/NISX20260129_0003495250",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-29T07:07:07.447141",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T07:54:22.935385",
       "hash_id": "c3554df3f61311a6"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=428486": {
@@ -29,20 +18,9 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-29T07:07:06.928189",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T07:54:22.424041",
       "hash_id": "7ff66463284417cd"
-    },
-    "https://biz.newdaily.co.kr/site/data/html/2026/01/29/2026012900341.html": {
-      "title": "포스코홀딩스, 지난해 영업이익 1.8조 … 전년 대비 15% 감소",
-      "link": "https://biz.newdaily.co.kr/site/data/html/2026/01/29/2026012900341.html",
-      "date": "2026-01-29 16:02",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T07:08:54.634392",
-      "hash_id": "d6bcaaa42a487fdc"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=428509": {
       "title": "포스코이앤씨 지난해 영업손실 4520억으로 적자전환, 신안산선 사고 여...",
@@ -51,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T07:08:55.145676",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T07:54:23.943500",
       "hash_id": "c11a5f5c4fc30716"
     },
     "https://biz.sbs.co.kr/article_hub/20000288353?division=NAVER": {
@@ -62,22 +40,44 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T07:08:02.150510",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T07:54:23.447746",
       "hash_id": "3632b3a76ea0bfb4"
     },
-    "https://en.yna.co.kr/view/AEN20260129010500320?input=2106m": {
-      "title": "KOSPI 200 Closing Price List-1",
-      "link": "https://en.yna.co.kr/view/AEN20260129010500320?input=2106m",
-      "date": "2026-01-29 15:40",
-      "press": "연합뉴스",
-      "keyword": "POSCO INTERNATIONAL",
+    "https://www.hani.co.kr/arti/economy/economy_general/1242350.html": {
+      "title": "포스코홀딩스, 지난해 영업이익 16% 감소 “올해 성장 변곡점 될 것”",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1242350.html",
+      "date": "2026-01-29 16:52",
+      "press": "",
+      "keyword": "포스코인터내셔널",
       "sentiment": "pos",
       "retry_count": 1,
-      "last_attempt": "2026-01-29T07:07:54.451240",
-      "hash_id": "8085efc220dffbaf"
+      "last_attempt": "2026-01-29T07:55:31.272707",
+      "hash_id": "f9455fd00342f931"
+    },
+    "https://www.nocutnews.co.kr/news/6464071?utm_source=naver&utm_medium=article&utm_campaign=20260129043643": {
+      "title": "포스코홀딩스, 지난해 영업이익 1.8조…전년보다 15% 감소",
+      "link": "https://www.nocutnews.co.kr/news/6464071?utm_source=naver&utm_medium=article&utm_campaign=20260129043643",
+      "date": "2026-01-29 16:37",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T07:55:12.885779",
+      "hash_id": "19575601134d25e6"
+    },
+    "https://news.tf.co.kr/read/economy/2287550.htm": {
+      "title": "포스코홀딩스 \"안전 투자비 적지 않아, 수익성 영향은 미미\"",
+      "link": "https://news.tf.co.kr/read/economy/2287550.htm",
+      "date": "2026-01-29 16:32",
+      "press": "더팩트",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T07:55:08.945354",
+      "hash_id": "bce9caad3ca8b0bc"
     }
   },
-  "last_updated": "2026-01-29 07:09:04",
+  "last_updated": "2026-01-29 07:55:32",
   "count": 7
 }

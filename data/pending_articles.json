@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260129_0003495250": {
-      "title": "포스코홀딩스, 지난해 영업이익 1.8조…전년보다 15%↓",
-      "link": "https://www.newsis.com/view/NISX20260129_0003495250",
-      "date": "2026-01-29 14:58",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-29T07:54:22.935385",
-      "hash_id": "c3554df3f61311a6"
-    },
-    "https://www.businesspost.co.kr/BP?command=article_view&num=428486": {
-      "title": "포스코퓨처엠 작년 영업이익 328억으로 4452% 증가, 배터리 소재 사업 적...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=428486",
-      "date": "2026-01-29 14:56",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-29T07:54:22.424041",
-      "hash_id": "7ff66463284417cd"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=428509": {
       "title": "포스코이앤씨 지난해 영업손실 4520억으로 적자전환, 신안산선 사고 여...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=428509",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-29T07:54:23.943500",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T08:45:30.532336",
       "hash_id": "c11a5f5c4fc30716"
     },
     "https://biz.sbs.co.kr/article_hub/20000288353?division=NAVER": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-01-29T07:54:23.447746",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T08:45:30.165001",
       "hash_id": "3632b3a76ea0bfb4"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1242350.html": {
@@ -51,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T07:55:31.272707",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T08:45:31.258917",
       "hash_id": "f9455fd00342f931"
     },
     "https://www.nocutnews.co.kr/news/6464071?utm_source=naver&utm_medium=article&utm_campaign=20260129043643": {
@@ -62,22 +40,55 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T07:55:12.885779",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T08:45:30.896292",
       "hash_id": "19575601134d25e6"
     },
-    "https://news.tf.co.kr/read/economy/2287550.htm": {
-      "title": "포스코홀딩스 \"안전 투자비 적지 않아, 수익성 영향은 미미\"",
-      "link": "https://news.tf.co.kr/read/economy/2287550.htm",
-      "date": "2026-01-29 16:32",
-      "press": "더팩트",
+    "http://www.thebigdata.co.kr/view.php?ud=202601291726238087bbceadc3c9_23": {
+      "title": "포스코홀딩스, 작년 영업익 16% 감소…“올해가 성장 변곡점”",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202601291726238087bbceadc3c9_23",
+      "date": "2026-01-29 17:36",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T08:46:27.158417",
+      "hash_id": "eb2a3b1f20d6b5cf"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=428546": {
+      "title": "포스코홀딩스 작년 영업이익 1.82조로 16% 감소, 시황 악화에도 철강 영...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=428546",
+      "date": "2026-01-29 17:32",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T08:46:24.729299",
+      "hash_id": "4413179e8578fb54"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2026012917262126207492587736_18": {
+      "title": "‘안전사고에 영업익 14%↓’ 포스코홀딩스 “안전 투자 여느 대기업 못...",
+      "link": "http://www.fntimes.com/html/view.php?ud=2026012917262126207492587736_18",
+      "date": "2026-01-29 17:30",
+      "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
       "retry_count": 1,
-      "last_attempt": "2026-01-29T07:55:08.945354",
-      "hash_id": "bce9caad3ca8b0bc"
+      "last_attempt": "2026-01-29T08:46:24.364771",
+      "hash_id": "eec16e74f719a1d4"
+    },
+    "http://www.osen.co.kr/article/G1112736440": {
+      "title": "2026 탁구 대표 선발전 2차전 시작…제천서 ‘마지막 관문’ 향해",
+      "link": "http://www.osen.co.kr/article/G1112736440",
+      "date": "2026-01-29 17:26",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T08:46:17.737429",
+      "hash_id": "63192d595aca6b01"
     }
   },
-  "last_updated": "2026-01-29 07:55:32",
-  "count": 7
+  "last_updated": "2026-01-29 08:46:31",
+  "count": 8
 }

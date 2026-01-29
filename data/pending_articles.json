@@ -7,11 +7,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-29T23:17:49.189185",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T23:45:21.258817",
       "hash_id": "4b00d81e51d4e5c3"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000288504?division=NAVER": {
+      "title": "iM증권 \"포스코홀딩스, 턴어라운드 국면…업황 바닥 시그널\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000288504?division=NAVER",
+      "date": "2026-01-30 08:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T23:45:36.341687",
+      "hash_id": "63071437f680c771"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202601300830556335a3c244e1c9_23": {
+      "title": "포스코그룹 장인화 회장 “미래 성장 투자 성과 가시화…’수치’로 입...",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202601300830556335a3c244e1c9_23",
+      "date": "2026-01-30 08:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T23:45:35.936689",
+      "hash_id": "38e2e5793cc5d44d"
     }
   },
-  "last_updated": "2026-01-29 23:17:57",
-  "count": 1
+  "last_updated": "2026-01-29 23:45:40",
+  "count": 3
 }

@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-28T23:56:52.891816",
+      "retry_count": 5,
+      "last_attempt": "2026-01-29T02:45:52.411274",
       "hash_id": "9d73593bdadfaeef"
     },
     "https://www.g-enews.com/view.php?ud=2026012908262192046d4855fc3a_1": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-28T23:56:55.759271",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T02:45:54.879519",
       "hash_id": "0d89ec30f968dd32"
     },
     "https://biz.chosun.com/industry/company/2026/01/29/KYEI4JPOZZFCFHPQXLIYPIINOU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -29,11 +29,110 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-28T23:56:54.032870",
+      "retry_count": 3,
+      "last_attempt": "2026-01-29T02:45:54.116325",
       "hash_id": "004660842ff8dc86"
+    },
+    "http://www.globalepic.co.kr/view.php?ud=20260129112604869448439a4874_29": {
+      "title": "포스코인터, 작년 영업익 1조1653억 '사상 최대’",
+      "link": "http://www.globalepic.co.kr/view.php?ud=20260129112604869448439a4874_29",
+      "date": "2026-01-29 11:28",
+      "press": "글로벌이코노믹",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:47:55.363277",
+      "hash_id": "3d7c1585b7cffad7"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000288242?division=NAVER": {
+      "title": "포스코인터 \"알래스카 투자, 철강재 공급권·LNG 우선권 확보 차원\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000288242?division=NAVER",
+      "date": "2026-01-29 11:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:47:17.711141",
+      "hash_id": "1751ee67e9d5cc5f"
+    },
+    "https://www.joongangenews.com/news/articleView.html?idxno=491006": {
+      "title": "포스코홀딩스 주가, 1월 29일 장중 363,500원 3.84% 하락",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=491006",
+      "date": "2026-01-29 11:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:47:54.567538",
+      "hash_id": "206bd11045743ece"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=428453": {
+      "title": "포스코인터내셔널 작년 영업이익 1조1653억 '역대 최대', 매출은 제자리",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=428453",
+      "date": "2026-01-29 10:54",
+      "press": "",
+      "keyword": "구동모터코아",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:47:08.663501",
+      "hash_id": "c9beaf9642aa0ee6"
+    },
+    "https://www.newsis.com/view/NISX20260129_0003494707": {
+      "title": "포스코인터, 3년 연속 '1조 클럽'…성장 2막 열렸다",
+      "link": "https://www.newsis.com/view/NISX20260129_0003494707",
+      "date": "2026-01-29 10:27",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:46:56.084230",
+      "hash_id": "4366680fee268409"
+    },
+    "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=110&CONTENTS_NO=1&bbsGbn=245&bbsSn=245&pNttSn=238587": {
+      "title": "주거·산업용 신재생에너지 수요 확대…2026 미얀마 태양광 전시회 참관...",
+      "link": "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=110&CONTENTS_NO=1&bbsGbn=245&bbsSn=245&pNttSn=238587",
+      "date": "2026-01-29 10:24",
+      "press": "",
+      "keyword": "미얀마 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:46:55.321518",
+      "hash_id": "a20ea8f1db29edb8"
+    },
+    "https://www.sedaily.com/article/20002201?ref=naver": {
+      "title": "포스코인터내셔널, 작년 영업익 1조 1653억...사상 최대",
+      "link": "https://www.sedaily.com/article/20002201?ref=naver",
+      "date": "2026-01-29 10:23",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:46:53.612185",
+      "hash_id": "aab31453f48365ac"
+    },
+    "https://www.g-enews.com/view.php?ud=2026012909185289676d4855fc3a_1": {
+      "title": "[컨콜] 포스코인터, \"광양구역전기 집단에너지사업의 규모는 500MW\"",
+      "link": "https://www.g-enews.com/view.php?ud=2026012909185289676d4855fc3a_1",
+      "date": "2026-01-29 10:22",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:46:23.674714",
+      "hash_id": "76765065b81c76ea"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000288170?division=NAVER": {
+      "title": "포스코인터, 지난해 영업이익 1조1천653억원 '사상 최대'",
+      "link": "https://biz.sbs.co.kr/article_hub/20000288170?division=NAVER",
+      "date": "2026-01-29 09:37",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-29T02:45:56.549089",
+      "hash_id": "999a4fe95e1b2f63"
     }
   },
-  "last_updated": "2026-01-28 23:56:55",
-  "count": 3
+  "last_updated": "2026-01-29 02:47:58",
+  "count": 12
 }

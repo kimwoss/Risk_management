@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-30T06:27:42.271445",
+      "retry_count": 5,
+      "last_attempt": "2026-01-30T07:25:54.993002",
       "hash_id": "922351750f687262"
     },
     "https://www.seoul.co.kr/news/society/health-welfare/2026/01/30/20260130500155?wlog_tag3=naver": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-30T06:27:41.696740",
+      "retry_count": 5,
+      "last_attempt": "2026-01-30T07:25:54.370422",
       "hash_id": "f153e99ee73c3f5a"
     },
     "http://www.lawissue.co.kr/view.php?ud=20260130150105132367191f6c6e_12": {
@@ -29,11 +29,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-30T06:27:46.437367",
+      "retry_count": 3,
+      "last_attempt": "2026-01-30T07:25:55.597074",
       "hash_id": "74f9b9402a60f7b7"
+    },
+    "http://www.m-i.kr/news/articleView.html?idxno=1331818": {
+      "title": "포스코 노사, '사회적 책임' 다하는 K-노사문화 구축",
+      "link": "http://www.m-i.kr/news/articleView.html?idxno=1331818",
+      "date": "2026-01-30 16:22",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T07:26:56.935110",
+      "hash_id": "d007ac8b34636c30"
     }
   },
-  "last_updated": "2026-01-30 06:27:57",
-  "count": 3
+  "last_updated": "2026-01-30 07:27:00",
+  "count": 4
 }

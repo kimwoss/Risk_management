@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-30T00:01:18.015634",
+      "retry_count": 5,
+      "last_attempt": "2026-01-30T02:49:38.960676",
       "hash_id": "63071437f680c771"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202601300830556335a3c244e1c9_23": {
@@ -18,22 +18,88 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-01-30T00:01:17.503889",
+      "retry_count": 5,
+      "last_attempt": "2026-01-30T02:49:38.599096",
       "hash_id": "38e2e5793cc5d44d"
     },
-    "https://www.cstimes.com/news/articleView.html?idxno=691029": {
-      "title": "장인화 포스코그룹 회장, 올해 경영 키워드 '압도적 실행력·성과 창출...",
-      "link": "https://www.cstimes.com/news/articleView.html?idxno=691029",
-      "date": "2026-01-30 08:58",
-      "press": "컨슈머타임스",
+    "https://www.thepowernews.co.kr/view.php?ud=202601301134486406de3f0aa1be_7": {
+      "title": "포스코 장인화 회장 “압도적 실행력으로 미래 투자 성과, 수치로 입증...",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=202601301134486406de3f0aa1be_7",
+      "date": "2026-01-30 11:36",
+      "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
       "retry_count": 1,
-      "last_attempt": "2026-01-30T00:02:18.294963",
-      "hash_id": "8721751d675e613d"
+      "last_attempt": "2026-01-30T02:50:28.702417",
+      "hash_id": "4cc9c95daa6ebf8c"
+    },
+    "https://www.chosun.com/economy/industry-company/2026/01/30/6RSLYYDMM5CUTC7RTL6IYNCQRM/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "영업이익 16% 감소에…장인화 포스코그룹 회장 “올해 고강도 비상경영...",
+      "link": "https://www.chosun.com/economy/industry-company/2026/01/30/6RSLYYDMM5CUTC7RTL6IYNCQRM/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-01-30 11:32",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:50:00.257675",
+      "hash_id": "b2bec38b07b3e333"
+    },
+    "https://www.ziksir.com/news/articleView.html?idxno=121929": {
+      "title": "[CEO 직썰] 장인화 포스코 회장 \"성장 정체 돌파, 수익성 중심 체질 전환...",
+      "link": "https://www.ziksir.com/news/articleView.html?idxno=121929",
+      "date": "2026-01-30 11:32",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:50:27.795533",
+      "hash_id": "e72936c9745b308e"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2026013011161778267492587736_18": {
+      "title": "포스코그룹 장인화 “압도적 실행력으로 미래 성장 투자 성과 실현”",
+      "link": "http://www.fntimes.com/html/view.php?ud=2026013011161778267492587736_18",
+      "date": "2026-01-30 11:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:49:58.353530",
+      "hash_id": "211eb669c4c41115"
+    },
+    "https://www.newsis.com/view/NISX20260130_0003496439": {
+      "title": "포스코, 해외 거점 재편 속도…\"미국·인도 확장 본격화\"",
+      "link": "https://www.newsis.com/view/NISX20260130_0003496439",
+      "date": "2026-01-30 11:05",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:49:42.663405",
+      "hash_id": "db4e3e41801e1a2f"
+    },
+    "http://www.globalepic.co.kr/view.php?ud=20260130105636434948439a4874_29": {
+      "title": "장인화 회장 ‘압도적 실행력’ 주문했는데... 포스코, 올해는 반등할까",
+      "link": "http://www.globalepic.co.kr/view.php?ud=20260130105636434948439a4874_29",
+      "date": "2026-01-30 11:00",
+      "press": "글로벌이코노믹",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:49:41.789310",
+      "hash_id": "8e8ea57c7c3e236c"
+    },
+    "http://www.globalepic.co.kr/view.php?ud=20260130101114965748439a4874_29": {
+      "title": "포스코홀딩스, 철강 반등, 건설 추락, 2차전지 고전",
+      "link": "http://www.globalepic.co.kr/view.php?ud=20260130101114965748439a4874_29",
+      "date": "2026-01-30 10:14",
+      "press": "글로벌이코노믹",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T02:49:40.878794",
+      "hash_id": "1c399cd658216091"
     }
   },
-  "last_updated": "2026-01-30 00:02:19",
-  "count": 3
+  "last_updated": "2026-01-30 02:50:30",
+  "count": 9
 }

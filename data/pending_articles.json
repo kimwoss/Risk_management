@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://imnews.imbc.com/replay/2026/nwtoday/article/6797413_37012.html": {
-      "title": "[비즈&플러스] 외국인 대상 설 선물세트‥'60조 잠수함' 총력전",
-      "link": "https://imnews.imbc.com/replay/2026/nwtoday/article/6797413_37012.html",
-      "date": "2026-01-30 07:41",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-01-29T23:45:21.258817",
-      "hash_id": "4b00d81e51d4e5c3"
-    },
     "https://biz.sbs.co.kr/article_hub/20000288504?division=NAVER": {
       "title": "iM증권 \"포스코홀딩스, 턴어라운드 국면…업황 바닥 시그널\"",
       "link": "https://biz.sbs.co.kr/article_hub/20000288504?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T23:45:36.341687",
+      "retry_count": 3,
+      "last_attempt": "2026-01-30T00:01:18.015634",
       "hash_id": "63071437f680c771"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202601300830556335a3c244e1c9_23": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-01-29T23:45:35.936689",
+      "retry_count": 3,
+      "last_attempt": "2026-01-30T00:01:17.503889",
       "hash_id": "38e2e5793cc5d44d"
+    },
+    "https://www.cstimes.com/news/articleView.html?idxno=691029": {
+      "title": "장인화 포스코그룹 회장, 올해 경영 키워드 '압도적 실행력·성과 창출...",
+      "link": "https://www.cstimes.com/news/articleView.html?idxno=691029",
+      "date": "2026-01-30 08:58",
+      "press": "컨슈머타임스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-01-30T00:02:18.294963",
+      "hash_id": "8721751d675e613d"
     }
   },
-  "last_updated": "2026-01-29 23:45:40",
+  "last_updated": "2026-01-30 00:02:19",
   "count": 3
 }

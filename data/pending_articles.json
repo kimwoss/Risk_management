@@ -1,5 +1,17 @@
 {
-  "queue": {},
-  "last_updated": "2026-02-01 21:33:28",
-  "count": 0
+  "queue": {
+    "http://news.bizwatch.co.kr/article/real_estate/2026/01/30/0052": {
+      "title": "포스코이앤씨, 2.3만가구 '물량전'…강남 첫 '오티에르'도",
+      "link": "http://news.bizwatch.co.kr/article/real_estate/2026/01/30/0052",
+      "date": "2026-02-02 06:36",
+      "press": "비즈워치",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-01T21:53:22.921319",
+      "hash_id": "3bff4f01bf92063c"
+    }
+  },
+  "last_updated": "2026-02-01 21:53:23",
+  "count": 1
 }

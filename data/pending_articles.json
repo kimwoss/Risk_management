@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/society/health-welfare/2026/02/02/20260202500201?wlog_tag3=naver": {
-      "title": "포스코 포항제철소, 명작 영화를 다시 극장 속으로…“지역 문화 나눔”",
-      "link": "https://www.seoul.co.kr/news/society/health-welfare/2026/02/02/20260202500201?wlog_tag3=naver",
-      "date": "2026-02-02 15:16",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-02T08:30:00.782135",
-      "hash_id": "2e486e1ff922a181"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=428875": {
       "title": "포스코 장인화 본업 '철강' 경쟁력 회복에 '방점', 노후설비 퇴출·신규...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=428875",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-02T08:30:01.338416",
+      "retry_count": 5,
+      "last_attempt": "2026-02-02T09:28:15.570836",
       "hash_id": "9f5b91d67ae8f958"
     }
   },
-  "last_updated": "2026-02-02 08:30:09",
-  "count": 2
+  "last_updated": "2026-02-02 09:28:23",
+  "count": 1
 }

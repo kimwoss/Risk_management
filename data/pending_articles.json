@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008428983&plink=ORI&cooper=NAVER": {
-      "title": "포스코이앤씨 송치영 사장, 대한체조협회 제37대 회장 당선",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008428983&plink=ORI&cooper=NAVER",
-      "date": "2026-02-03 14:05",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-03T07:54:38.103969",
-      "hash_id": "f93757ddd173f21f"
-    },
     "https://www.newsis.com/view/NISX20260203_0003500831": {
       "title": "대한체조협회 회장에 포스코이앤씨 송치영 사장 선임",
       "link": "https://www.newsis.com/view/NISX20260203_0003500831",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-03T07:54:38.526180",
+      "retry_count": 5,
+      "last_attempt": "2026-02-03T08:43:17.356671",
       "hash_id": "3366acd6542510d8"
     },
     "https://biz.sbs.co.kr/article_hub/20000289343?division=NAVER": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-03T07:54:41.081620",
+      "retry_count": 3,
+      "last_attempt": "2026-02-03T08:43:18.309459",
       "hash_id": "4543b88f5594eab8"
     },
     "https://www.seoul.co.kr/news/economy/industry/2026/02/03/20260203500249?wlog_tag3=naver": {
@@ -40,11 +29,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-03T07:54:40.673554",
+      "retry_count": 3,
+      "last_attempt": "2026-02-03T08:43:17.841373",
       "hash_id": "af401b6da92878fe"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000289327?division=NAVER": {
+      "title": "[애프터마켓 브리핑] JP모건 \"코스피 6000 넘어 7500까지\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000289327?division=NAVER",
+      "date": "2026-02-03 16:52",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-03T08:43:18.795055",
+      "hash_id": "dffd71aae11b186a"
     }
   },
-  "last_updated": "2026-02-03 07:54:46",
+  "last_updated": "2026-02-03 08:43:26",
   "count": 4
 }

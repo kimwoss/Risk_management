@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-03T07:06:35.978868",
+      "retry_count": 5,
+      "last_attempt": "2026-02-03T07:54:38.103969",
       "hash_id": "f93757ddd173f21f"
     },
     "https://www.newsis.com/view/NISX20260203_0003500831": {
@@ -18,11 +18,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-03T07:06:44.090182",
+      "retry_count": 3,
+      "last_attempt": "2026-02-03T07:54:38.526180",
       "hash_id": "3366acd6542510d8"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000289343?division=NAVER": {
+      "title": "포스코, 철광석 전처리에 AI 접목…가동률 85%에서 99%로",
+      "link": "https://biz.sbs.co.kr/article_hub/20000289343?division=NAVER",
+      "date": "2026-02-03 16:32",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-03T07:54:41.081620",
+      "hash_id": "4543b88f5594eab8"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2026/02/03/20260203500249?wlog_tag3=naver": {
+      "title": "포스코 포항제철소, AI로 핵심 공정 자동화…“생산 안정성 확보”",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/02/03/20260203500249?wlog_tag3=naver",
+      "date": "2026-02-03 16:29",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-03T07:54:40.673554",
+      "hash_id": "af401b6da92878fe"
     }
   },
-  "last_updated": "2026-02-03 07:06:44",
-  "count": 2
+  "last_updated": "2026-02-03 07:54:46",
+  "count": 4
 }

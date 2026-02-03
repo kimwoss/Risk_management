@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008429576&plink=ORI&cooper=NAVER": {
-      "title": "탁구 이은혜, 국가대표 선발전 승리… 고교생 권혁도 '돌풍'",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008429576&plink=ORI&cooper=NAVER",
-      "date": "2026-02-03 19:28",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-03T12:27:33.095390",
-      "hash_id": "2f6b935cbe59de35"
-    },
     "http://www.phmbc.co.kr/www/news/desk_news?idx=199705&mode=view": {
       "title": "포스코, 철광석 소결공정에 AI 도입..가동률 99%까지 높여",
       "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199705&mode=view",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-03T12:27:33.506476",
+      "retry_count": 5,
+      "last_attempt": "2026-02-03T13:45:31.288349",
       "hash_id": "c710ab4b9057f71d"
+    },
+    "https://www.newsis.com/view/NISX20260203_0003501363": {
+      "title": "탁구 신유빈, 아시안컵서 무난한 조 편성…하야타와 1위 경쟁",
+      "link": "https://www.newsis.com/view/NISX20260203_0003501363",
+      "date": "2026-02-03 21:41",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-03T13:45:31.669970",
+      "hash_id": "87876ab315c5d27d"
     }
   },
-  "last_updated": "2026-02-03 12:27:34",
+  "last_updated": "2026-02-03 13:45:32",
   "count": 2
 }

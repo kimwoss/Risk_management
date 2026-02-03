@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.phmbc.co.kr/www/news/desk_news?idx=199705&mode=view": {
-      "title": "포스코, 철광석 소결공정에 AI 도입..가동률 99%까지 높여",
-      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199705&mode=view",
-      "date": "2026-02-03 20:42",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-03T13:45:31.288349",
-      "hash_id": "c710ab4b9057f71d"
-    },
     "https://www.newsis.com/view/NISX20260203_0003501363": {
       "title": "탁구 신유빈, 아시안컵서 무난한 조 편성…하야타와 1위 경쟁",
       "link": "https://www.newsis.com/view/NISX20260203_0003501363",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-03T13:45:31.669970",
+      "retry_count": 3,
+      "last_attempt": "2026-02-03T14:34:45.488851",
       "hash_id": "87876ab315c5d27d"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008429628&plink=ORI&cooper=NAVER": {
+      "title": "탁구 신유빈, 아시안컵서 하야타와 조 1위 경쟁",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008429628&plink=ORI&cooper=NAVER",
+      "date": "2026-02-03 22:55",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-03T14:34:46.054162",
+      "hash_id": "55ed7cc76917f851"
     }
   },
-  "last_updated": "2026-02-03 13:45:32",
+  "last_updated": "2026-02-03 14:34:46",
   "count": 2
 }

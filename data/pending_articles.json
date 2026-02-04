@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T15:02:06.765520",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T15:57:45.439106",
       "hash_id": "c15cc0abe4b0edce"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008431250&plink=ORI&cooper=NAVER": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T15:02:07.142995",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T15:57:45.803498",
       "hash_id": "5e7e0f2add583417"
+    },
+    "https://www.chosun.com/economy/industry-company/2026/02/05/5YB3YASFWZFHHJSTRYLPF7NG5U/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "“전력직거래도 막혀”… 동해안 석탄발전소 울분",
+      "link": "https://www.chosun.com/economy/industry-company/2026/02/05/5YB3YASFWZFHHJSTRYLPF7NG5U/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-02-05 00:34",
+      "press": "",
+      "keyword": "삼척블루파워",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T15:57:47.235383",
+      "hash_id": "cf04a051ae550664"
     }
   },
-  "last_updated": "2026-02-04 15:02:07",
-  "count": 2
+  "last_updated": "2026-02-04 15:57:47",
+  "count": 3
 }

@@ -7,11 +7,44 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T00:52:38.516331",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T03:30:32.520098",
       "hash_id": "aa2eef5d85998c11"
+    },
+    "https://www.munhwa.com/article/11566125?ref=naver": {
+      "title": "포스코 신입사원 ‘휴머노이드 로봇’ 들여온다",
+      "link": "https://www.munhwa.com/article/11566125?ref=naver",
+      "date": "2026-02-04 12:03",
+      "press": "문화일보",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T03:32:36.453674",
+      "hash_id": "170c6106c3208178"
+    },
+    "https://www.newsis.com/view/NISX20260204_0003502093": {
+      "title": "북미에서 유럽까지…LG전자, 글로벌 B2B 가속화",
+      "link": "https://www.newsis.com/view/NISX20260204_0003502093",
+      "date": "2026-02-04 10:58",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T03:31:36.520140",
+      "hash_id": "054c35ab6f383f61"
+    },
+    "http://www.newswatch.kr/news/articleView.html?idxno=77369": {
+      "title": "북미에서 유럽까지…LG전자, 글로벌 B2B 전시 현장 공략",
+      "link": "http://www.newswatch.kr/news/articleView.html?idxno=77369",
+      "date": "2026-02-04 10:46",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T03:31:32.418032",
+      "hash_id": "f83179a522b7ca83"
     }
   },
-  "last_updated": "2026-02-04 00:52:42",
-  "count": 1
+  "last_updated": "2026-02-04 03:32:37",
+  "count": 4
 }

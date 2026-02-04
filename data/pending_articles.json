@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T08:55:13.432778",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T09:53:39.633560",
       "hash_id": "13ab5a253c1f7f42"
     },
     "https://www.g-enews.com/view.php?ud=2026020416574942406ed0c62d49_1": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T08:55:15.586394",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T09:53:41.342709",
       "hash_id": "5aa6445dfdc5138e"
     },
     "https://www.g-enews.com/view.php?ud=202602041725155668edf69f862c_1": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T08:55:15.224008",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T09:53:40.767090",
       "hash_id": "56a700ed1add8766"
     },
     "http://www.beyondpost.co.kr/view.php?ud=202602041659253293be44c0aacd_30": {
@@ -40,11 +40,22 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T08:55:14.335569",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T09:53:40.190137",
       "hash_id": "500a68d1bf2e537c"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008431102&plink=ORI&cooper=NAVER": {
+      "title": "탁구 임종훈, 태극마크 보인다…국가대표 최종 선발전 5승1패",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008431102&plink=ORI&cooper=NAVER",
+      "date": "2026-02-04 18:27",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T09:53:46.267164",
+      "hash_id": "f437ca1364fba32b"
     }
   },
-  "last_updated": "2026-02-04 08:55:16",
-  "count": 4
+  "last_updated": "2026-02-04 09:53:47",
+  "count": 5
 }

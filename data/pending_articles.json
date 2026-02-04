@@ -1,71 +1,5 @@
 {
   "queue": {
-    "https://m.skyedaily.com/news_view.html?ID=297569": {
-      "title": "포스코 협력사·공급사 노조연대 출범… 교섭 및 협력 촉구",
-      "link": "https://m.skyedaily.com/news_view.html?ID=297569",
-      "date": "2026-02-04 14:40",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:13.573410",
-      "hash_id": "656d56ff8c930367"
-    },
-    "http://www.lawissue.co.kr/view.php?ud=20260204143335583867191f6c6e_12": {
-      "title": "포스코그룹, 제철소 철강제품 물류관리에 ‘휴머노이드 로봇’ 도입 추...",
-      "link": "http://www.lawissue.co.kr/view.php?ud=20260204143335583867191f6c6e_12",
-      "date": "2026-02-04 14:36",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:13.031673",
-      "hash_id": "bbeec599d1e0fd97"
-    },
-    "https://biz.chosun.com/industry/company/2026/02/04/VMSUGN5HNFECHM2TKCVKHDE2WE/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "포스코그룹, 美 페르소나 AI와 휴머노이드 도입 추진",
-      "link": "https://biz.chosun.com/industry/company/2026/02/04/VMSUGN5HNFECHM2TKCVKHDE2WE/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-02-04 14:31",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:12.427917",
-      "hash_id": "8e268aa5dfe79860"
-    },
-    "http://www.thebigdata.co.kr/view.php?ud=202602040922063383a3c244e1c9_23": {
-      "title": "LG전자, 북미에서 유럽까지 글로벌 B2B 현장 누빈다",
-      "link": "http://www.thebigdata.co.kr/view.php?ud=202602040922063383a3c244e1c9_23",
-      "date": "2026-02-04 14:18",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:11.825291",
-      "hash_id": "bceb27f21c85b9ad"
-    },
-    "https://www.nocutnews.co.kr/news/6466814?utm_source=naver&utm_medium=article&utm_campaign=20260204021512": {
-      "title": "포스코, 휴머노이드 로봇 제철소에 투입",
-      "link": "https://www.nocutnews.co.kr/news/6466814?utm_source=naver&utm_medium=article&utm_campaign=20260204021512",
-      "date": "2026-02-04 14:16",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:11.223466",
-      "hash_id": "2fa4a6e968632808"
-    },
-    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005757242": {
-      "title": "북미에서 유럽까지…LG전자, 글로벌 B2B 사업 가속화",
-      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005757242",
-      "date": "2026-02-04 14:08",
-      "press": "MBN",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:56:10.634617",
-      "hash_id": "7368988ec76a7558"
-    },
     "http://www.joseilbo.com/news/news_read.php?uid=562268&class=78&grp=": {
       "title": "북미서 유럽까지…LG전자, 글로벌 B2B 공략 드라이브",
       "link": "http://www.joseilbo.com/news/news_read.php?uid=562268&class=78&grp=",
@@ -73,11 +7,44 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-04T07:56:15.555667",
+      "retry_count": 3,
+      "last_attempt": "2026-02-04T08:55:13.432778",
       "hash_id": "13ab5a253c1f7f42"
+    },
+    "https://www.g-enews.com/view.php?ud=2026020416574942406ed0c62d49_1": {
+      "title": "LG전자, 북미·유럽 전시회 참가…B2B 사업 확대 속도",
+      "link": "https://www.g-enews.com/view.php?ud=2026020416574942406ed0c62d49_1",
+      "date": "2026-02-04 17:42",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T08:55:15.586394",
+      "hash_id": "5aa6445dfdc5138e"
+    },
+    "https://www.g-enews.com/view.php?ud=202602041725155668edf69f862c_1": {
+      "title": "[표] 100대 기업, 주가 및 시가총액 변동 현황",
+      "link": "https://www.g-enews.com/view.php?ud=202602041725155668edf69f862c_1",
+      "date": "2026-02-04 17:38",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T08:55:15.224008",
+      "hash_id": "56a700ed1add8766"
+    },
+    "http://www.beyondpost.co.kr/view.php?ud=202602041659253293be44c0aacd_30": {
+      "title": "북미에서 유럽까지…LG전자, 글로벌 B2B 현장 누비며 사업 확대 속도",
+      "link": "http://www.beyondpost.co.kr/view.php?ud=202602041659253293be44c0aacd_30",
+      "date": "2026-02-04 17:00",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T08:55:14.335569",
+      "hash_id": "500a68d1bf2e537c"
     }
   },
-  "last_updated": "2026-02-04 07:56:22",
-  "count": 7
+  "last_updated": "2026-02-04 08:55:16",
+  "count": 4
 }

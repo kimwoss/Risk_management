@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.thepowernews.co.kr/view.php?ud=202602041319181830de3f0aa1be_7": {
-      "title": "포스코그룹, 제철소 철강제품 물류관리에 휴머노이드 로봇 도입 추진",
-      "link": "https://www.thepowernews.co.kr/view.php?ud=202602041319181830de3f0aa1be_7",
-      "date": "2026-02-04 13:20",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:06:54.333554",
-      "hash_id": "946d2d217cdbbe18"
-    },
-    "https://m.skyedaily.com/news_view.html?ID=297551": {
-      "title": "자사주 소각 ‘의무화’ 시동… 지금 시장이 ‘사는’ 수혜주",
-      "link": "https://m.skyedaily.com/news_view.html?ID=297551",
-      "date": "2026-02-04 12:48",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-04T07:06:53.917074",
-      "hash_id": "8bc92454a0afadfc"
-    },
     "https://m.skyedaily.com/news_view.html?ID=297569": {
       "title": "포스코 협력사·공급사 노조연대 출범… 교섭 및 협력 촉구",
       "link": "https://m.skyedaily.com/news_view.html?ID=297569",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:56.815724",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:13.573410",
       "hash_id": "656d56ff8c930367"
     },
     "http://www.lawissue.co.kr/view.php?ud=20260204143335583867191f6c6e_12": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:56.407569",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:13.031673",
       "hash_id": "bbeec599d1e0fd97"
     },
     "https://biz.chosun.com/industry/company/2026/02/04/VMSUGN5HNFECHM2TKCVKHDE2WE/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -51,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:55.992067",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:12.427917",
       "hash_id": "8e268aa5dfe79860"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202602040922063383a3c244e1c9_23": {
@@ -62,8 +40,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:55.580031",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:11.825291",
       "hash_id": "bceb27f21c85b9ad"
     },
     "https://www.nocutnews.co.kr/news/6466814?utm_source=naver&utm_medium=article&utm_campaign=20260204021512": {
@@ -73,8 +51,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:55.171172",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:11.223466",
       "hash_id": "2fa4a6e968632808"
     },
     "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005757242": {
@@ -84,11 +62,22 @@
       "press": "MBN",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-04T07:06:54.750947",
+      "retry_count": 5,
+      "last_attempt": "2026-02-04T07:56:10.634617",
       "hash_id": "7368988ec76a7558"
+    },
+    "http://www.joseilbo.com/news/news_read.php?uid=562268&class=78&grp=": {
+      "title": "북미서 유럽까지…LG전자, 글로벌 B2B 공략 드라이브",
+      "link": "http://www.joseilbo.com/news/news_read.php?uid=562268&class=78&grp=",
+      "date": "2026-02-04 16:22",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-04T07:56:15.555667",
+      "hash_id": "13ab5a253c1f7f42"
     }
   },
-  "last_updated": "2026-02-04 07:07:04",
-  "count": 8
+  "last_updated": "2026-02-04 07:56:22",
+  "count": 7
 }

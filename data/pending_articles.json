@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008432793&plink=ORI&cooper=NAVER": {
-      "title": "'탈중국' 글로벌 희토류 확보전 본격화…한국도 참전",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008432793&plink=ORI&cooper=NAVER",
-      "date": "2026-02-05 17:50",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-05T10:55:51.118214",
-      "hash_id": "5e832006c9342d42"
-    },
-    "https://www.businesspost.co.kr/BP?command=article_view&num=429358": {
-      "title": "'역사적 저평가' 바닥 다진 철강주, '실적 반등 기대' 포스코홀딩스·현...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429358",
-      "date": "2026-02-05 17:24",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-05T10:55:50.606256",
-      "hash_id": "6029c079a5f6b76e"
-    },
     "https://www.seoul.co.kr/news/economy/2026/02/05/20260205500349?wlog_tag3=naver": {
       "title": "中 장악 희토류 확보전 나선 정부… 해외자원개발 재시동 “실패해도 융...",
       "link": "https://www.seoul.co.kr/news/economy/2026/02/05/20260205500349?wlog_tag3=naver",
@@ -29,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T10:55:51.612115",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T11:40:48.492067",
       "hash_id": "58b7f20057dfc572"
     }
   },
-  "last_updated": "2026-02-05 10:55:55",
-  "count": 3
+  "last_updated": "2026-02-05 11:40:49",
+  "count": 1
 }

@@ -71,7 +71,7 @@ except Exception as e:
 
 # ----------------------------- 기본 설정 -----------------------------
 st.set_page_config(
-    page_title="위기관리커뮤니케이션 AI",
+    page_title="P-IRIS",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -332,8 +332,8 @@ def show_login_page():
     # 컬럼 없이 바로 박스 렌더링
     st.markdown('<div class="login-box">', unsafe_allow_html=True)
     st.markdown('<div class="login-logo">🛡️</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-title">위기관리커뮤니케이션 AI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-subtitle">포스코인터내셔널 언론대응 시스템</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-title">P-IRIS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-subtitle">POSCO International Risk Intelligence Solution</div>', unsafe_allow_html=True)
 
     # 폼 래퍼로 입력/버튼 폭 제한
     st.markdown('<div class="login-form-wrapper">', unsafe_allow_html=True)
@@ -2191,9 +2191,9 @@ def render_main_page():
     </style>
     <section class="main-hero">
       <div class="main-copy">
-        <div class="t">위기관리커뮤니케이션</div>
-        <div class="s">AI 자동화 솔루션</div>
-        <div class="d">포스코인터내셔널의 스마트한 언론대응 시스템입니다.<br/>AI 기반 분석으로 신속하고 정확한 위기관리 솔루션을 제공합니다.</div>
+        <div class="t">P-IRIS</div>
+        <div class="s">POSCO International Risk Intelligence Solution</div>
+        <div class="d">24시간 365일, 당신을 위해 깨어 있습니다.</div>
       </div>
     </section>
     """, unsafe_allow_html=True)

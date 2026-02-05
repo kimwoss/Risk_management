@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver": {
-      "title": "포스코 포항제철소, 설 명절 앞두고 ‘온기 나눔’…“지역 상생”",
-      "link": "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver",
-      "date": "2026-02-05 16:48",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-05T09:58:53.880215",
-      "hash_id": "5e6ddccdfd087570"
-    },
-    "https://www.nocutnews.co.kr/news/6467708?utm_source=naver&utm_medium=article&utm_campaign=20260205044125": {
-      "title": "포스코퓨처엠 포항, '사랑의 헌혈'로 생명나눔 동참",
-      "link": "https://www.nocutnews.co.kr/news/6467708?utm_source=naver&utm_medium=article&utm_campaign=20260205044125",
-      "date": "2026-02-05 16:42",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-05T09:58:53.514026",
-      "hash_id": "c528baee7cec82e0"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008432793&plink=ORI&cooper=NAVER": {
       "title": "'탈중국' 글로벌 희토류 확보전 본격화…한국도 참전",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008432793&plink=ORI&cooper=NAVER",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T09:58:54.626118",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T10:55:51.118214",
       "hash_id": "5e832006c9342d42"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=429358": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T09:58:54.245425",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T10:55:50.606256",
       "hash_id": "6029c079a5f6b76e"
     },
     "https://www.seoul.co.kr/news/economy/2026/02/05/20260205500349?wlog_tag3=naver": {
@@ -51,11 +29,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-05T09:59:01.401396",
+      "retry_count": 3,
+      "last_attempt": "2026-02-05T10:55:51.612115",
       "hash_id": "58b7f20057dfc572"
     }
   },
-  "last_updated": "2026-02-05 09:59:02",
-  "count": 5
+  "last_updated": "2026-02-05 10:55:55",
+  "count": 3
 }

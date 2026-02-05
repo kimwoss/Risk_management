@@ -216,6 +216,8 @@ def _publisher_from_link(u: str) -> str:
             "lawleader.co.kr": "로리더", "koreaittimes.com": "코리아IT타임즈", "kmaeil.com": "경인매일",
             "incheonilbo.com": "인천일보", "ggilbo.com": "금강일보", "dnews.co.kr": "대한경제",
             "discoverynews.kr": "디스커버리뉴스", "ccdailynews.com": "충청일보", "bzeronews.com": "불교공뉴스",
+            # 추가 언론사 (2026-02-05)
+            "tinnews.co.kr": "틴뉴스",
         }
         if base in base_map:
             return base_map[base]
@@ -491,119 +493,137 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
 
 def crawl_google_news_rss(query: str = "POSCO International", max_items: int = 50) -> pd.DataFrame:
     """
-    Google News RSS 기반 뉴스 수집
+    Google News RSS 기반 뉴스 수집 (미국 + 한국 지역)
 
     Args:
         query: 검색 쿼리 (기본값: "POSCO International" 정확 검색)
-        max_items: 최대 수집 개수
+        max_items: 최대 수집 개수 (지역별)
 
     Returns:
         DataFrame with columns: 날짜, 매체명, 검색키워드, 기사제목, 주요기사 요약, URL, sentiment
     """
     items = []
+    seen_urls = set()  # URL 중복 방지
+
+    # 다중 지역 설정: 미국(글로벌) + 한국(로컬 언론사 커버)
+    regions = [
+        ("en-US", "US", "US:en"),   # 미국/글로벌
+        ("ko", "KR", "KR:ko"),       # 한국
+    ]
 
     try:
-        # Google News RSS URL (정확 검색을 위해 따옴표 포함)
         encoded_query = urllib.parse.quote(f'"{query}"')
-        rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
 
-        print(f"[DEBUG] Fetching Google News RSS: {rss_url}")
+        for hl, gl, ceid in regions:
+            rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl={hl}&gl={gl}&ceid={ceid}"
+            print(f"[DEBUG] Fetching Google News RSS ({gl}): {rss_url}")
 
-        # RSS 피드 가져오기
-        response = requests.get(rss_url, timeout=10, headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        })
-        response.raise_for_status()
-
-        # XML 파싱
-        root = ET.fromstring(response.content)
-
-        # RSS 2.0 형식: channel/item
-        channel = root.find('channel')
-        if channel is None:
-            print("[WARNING] No channel found in RSS feed")
-            return pd.DataFrame(columns=["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL", "sentiment"])
-
-        rss_items = channel.findall('item')[:max_items]
-        print(f"[DEBUG] Found {len(rss_items)} items in RSS feed")
-
-        for item in rss_items:
             try:
-                title_elem = item.find('title')
-                link_elem = item.find('link')
-                pub_date_elem = item.find('pubDate')
-                desc_elem = item.find('description')
+                # RSS 피드 가져오기
+                response = requests.get(rss_url, timeout=10, headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                })
+                response.raise_for_status()
 
-                if title_elem is None or link_elem is None:
+                # XML 파싱
+                root = ET.fromstring(response.content)
+
+                # RSS 2.0 형식: channel/item
+                channel = root.find('channel')
+                if channel is None:
+                    print(f"[WARNING] No channel found in RSS feed ({gl})")
                     continue
 
-                title = _clean_text(title_elem.text or "")
-                link = link_elem.text or ""
-                pub_date = pub_date_elem.text or "" if pub_date_elem is not None else ""
-                description = _clean_text(desc_elem.text or "") if desc_elem is not None else ""
+                rss_items = channel.findall('item')[:max_items]
+                print(f"[DEBUG] Found {len(rss_items)} items in RSS feed ({gl})")
 
-                # 1차 필터: 제목 또는 요약에 "POSCO International" 포함 확인 (대소문자 무시)
-                title_lower = title.lower()
-                desc_lower = description.lower()
-                target_phrase = "posco international"
-
-                if target_phrase not in title_lower and target_phrase not in desc_lower:
-                    # 2차 필터: 본문 크롤링 시도
+                for item in rss_items:
                     try:
-                        article_response = requests.get(link, timeout=5, headers={
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                        })
-                        article_response.raise_for_status()
-                        soup = BeautifulSoup(article_response.content, 'html.parser')
+                        title_elem = item.find('title')
+                        link_elem = item.find('link')
+                        pub_date_elem = item.find('pubDate')
+                        desc_elem = item.find('description')
 
-                        # 본문 텍스트 추출 (p 태그들)
-                        paragraphs = soup.find_all('p')
-                        body_text = ' '.join([p.get_text() for p in paragraphs]).lower()
-
-                        if target_phrase not in body_text:
-                            print(f"[DEBUG] Filtered out (no match in body): {title[:50]}")
+                        if title_elem is None or link_elem is None:
                             continue
-                        else:
-                            print(f"[DEBUG] Matched in body: {title[:50]}")
-                    except Exception as crawl_err:
-                        # 크롤링 실패 시 제목/요약 필터만으로 판단 (이미 필터링됨)
-                        print(f"[DEBUG] Body crawl failed, filtered out: {title[:50]} ({crawl_err})")
+
+                        title = _clean_text(title_elem.text or "")
+                        link = link_elem.text or ""
+                        pub_date = pub_date_elem.text or "" if pub_date_elem is not None else ""
+                        description = _clean_text(desc_elem.text or "") if desc_elem is not None else ""
+
+                        # URL 중복 체크 (지역 간 중복 방지)
+                        normalized_link = _normalize_url(link)
+                        if normalized_link in seen_urls:
+                            continue
+                        seen_urls.add(normalized_link)
+
+                        # 1차 필터: 제목 또는 요약에 "POSCO International" 포함 확인 (대소문자 무시)
+                        title_lower = title.lower()
+                        desc_lower = description.lower()
+                        target_phrase = "posco international"
+
+                        if target_phrase not in title_lower and target_phrase not in desc_lower:
+                            # 2차 필터: 본문 크롤링 시도
+                            try:
+                                article_response = requests.get(link, timeout=5, headers={
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                                })
+                                article_response.raise_for_status()
+                                soup = BeautifulSoup(article_response.content, 'html.parser')
+
+                                # 본문 텍스트 추출 (p 태그들)
+                                paragraphs = soup.find_all('p')
+                                body_text = ' '.join([p.get_text() for p in paragraphs]).lower()
+
+                                if target_phrase not in body_text:
+                                    print(f"[DEBUG] Filtered out (no match in body): {title[:50]}")
+                                    continue
+                                else:
+                                    print(f"[DEBUG] Matched in body: {title[:50]}")
+                            except Exception as crawl_err:
+                                # 크롤링 실패 시 제목/요약 필터만으로 판단 (이미 필터링됨)
+                                print(f"[DEBUG] Body crawl failed, filtered out: {title[:50]} ({crawl_err})")
+                                continue
+
+                        # 날짜 파싱 (RFC 822 형식)
+                        date_str = ""
+                        if pub_date:
+                            try:
+                                from email.utils import parsedate_to_datetime
+                                dt = parsedate_to_datetime(pub_date)
+                                # KST로 변환
+                                dt_kst = dt.astimezone(timezone(timedelta(hours=9)))
+                                date_str = dt_kst.strftime("%Y-%m-%d %H:%M")
+                            except Exception as date_err:
+                                print(f"[DEBUG] Date parsing failed: {pub_date} ({date_err})")
+                                date_str = ""
+
+                        # 매체명 추출
+                        publisher = _publisher_from_link(link)
+
+                        # 감성 분석
+                        sentiment = get_article_sentiment(title, description, link)
+
+                        items.append({
+                            "날짜": date_str,
+                            "매체명": publisher,
+                            "검색키워드": query,
+                            "기사제목": title,
+                            "주요기사 요약": description,
+                            "URL": link,
+                            "sentiment": sentiment
+                        })
+
+                    except Exception as item_err:
+                        print(f"[WARNING] Error processing RSS item: {item_err}")
                         continue
 
-                # 날짜 파싱 (RFC 822 형식)
-                date_str = ""
-                if pub_date:
-                    try:
-                        from email.utils import parsedate_to_datetime
-                        dt = parsedate_to_datetime(pub_date)
-                        # KST로 변환
-                        dt_kst = dt.astimezone(timezone(timedelta(hours=9)))
-                        date_str = dt_kst.strftime("%Y-%m-%d %H:%M")
-                    except Exception as date_err:
-                        print(f"[DEBUG] Date parsing failed: {pub_date} ({date_err})")
-                        date_str = ""
-
-                # 매체명 추출
-                publisher = _publisher_from_link(link)
-
-                # 감성 분석
-                sentiment = get_article_sentiment(title, description, link)
-
-                items.append({
-                    "날짜": date_str,
-                    "매체명": publisher,
-                    "검색키워드": query,
-                    "기사제목": title,
-                    "주요기사 요약": description,
-                    "URL": link,
-                    "sentiment": sentiment
-                })
-
-            except Exception as item_err:
-                print(f"[WARNING] Error processing RSS item: {item_err}")
+            except Exception as region_err:
+                print(f"[WARNING] Error fetching RSS for region {gl}: {region_err}")
                 continue
 
-        print(f"[DEBUG] Google News RSS collected {len(items)} items after filtering")
+        print(f"[DEBUG] Google News RSS collected {len(items)} items after filtering (US+KR)")
 
     except Exception as e:
         print(f"[WARNING] Error in crawl_google_news_rss: {e}")

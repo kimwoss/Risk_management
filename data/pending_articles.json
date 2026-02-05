@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6467624?utm_source=naver&utm_medium=article&utm_campaign=20260205033825": {
-      "title": "포스코 포항제철소, 설 명절 나눔 활동으로 지역사랑 실천",
-      "link": "https://www.nocutnews.co.kr/news/6467624?utm_source=naver&utm_medium=article&utm_campaign=20260205033825",
-      "date": "2026-02-05 15:39",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-05T09:00:13.980954",
-      "hash_id": "715704cdb7474e62"
-    },
     "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver": {
       "title": "포스코 포항제철소, 설 명절 앞두고 ‘온기 나눔’…“지역 상생”",
       "link": "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T09:00:15.137242",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T09:58:53.880215",
       "hash_id": "5e6ddccdfd087570"
     },
     "https://www.nocutnews.co.kr/news/6467708?utm_source=naver&utm_medium=article&utm_campaign=20260205044125": {
@@ -29,8 +18,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T09:00:14.553646",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T09:58:53.514026",
       "hash_id": "c528baee7cec82e0"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008432793&plink=ORI&cooper=NAVER": {
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-05T09:00:23.868154",
+      "retry_count": 3,
+      "last_attempt": "2026-02-05T09:58:54.626118",
       "hash_id": "5e832006c9342d42"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=429358": {
@@ -51,11 +40,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-05T09:00:17.877349",
+      "retry_count": 3,
+      "last_attempt": "2026-02-05T09:58:54.245425",
       "hash_id": "6029c079a5f6b76e"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/02/05/20260205500349?wlog_tag3=naver": {
+      "title": "中 장악 희토류 확보전 나선 정부… 해외자원개발 재시동 “실패해도 융...",
+      "link": "https://www.seoul.co.kr/news/economy/2026/02/05/20260205500349?wlog_tag3=naver",
+      "date": "2026-02-05 18:55",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-05T09:59:01.401396",
+      "hash_id": "58b7f20057dfc572"
     }
   },
-  "last_updated": "2026-02-05 09:00:26",
+  "last_updated": "2026-02-05 09:59:02",
   "count": 5
 }

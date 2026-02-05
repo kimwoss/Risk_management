@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-05T07:18:32.748517",
+      "retry_count": 5,
+      "last_attempt": "2026-02-05T08:01:49.886891",
       "hash_id": "e27ab50f319d185e"
     },
     "https://www.nocutnews.co.kr/news/6467624?utm_source=naver&utm_medium=article&utm_campaign=20260205033825": {
@@ -18,11 +18,33 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-05T07:18:34.758473",
+      "retry_count": 3,
+      "last_attempt": "2026-02-05T08:01:50.264459",
       "hash_id": "715704cdb7474e62"
+    },
+    "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver": {
+      "title": "포스코 포항제철소, 설 명절 앞두고 ‘온기 나눔’…“지역 상생”",
+      "link": "https://www.seoul.co.kr/news/society/health-welfare/2026/02/05/20260205500300?wlog_tag3=naver",
+      "date": "2026-02-05 16:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-05T08:01:58.543381",
+      "hash_id": "5e6ddccdfd087570"
+    },
+    "https://www.nocutnews.co.kr/news/6467708?utm_source=naver&utm_medium=article&utm_campaign=20260205044125": {
+      "title": "포스코퓨처엠 포항, '사랑의 헌혈'로 생명나눔 동참",
+      "link": "https://www.nocutnews.co.kr/news/6467708?utm_source=naver&utm_medium=article&utm_campaign=20260205044125",
+      "date": "2026-02-05 16:42",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-05T08:01:57.083057",
+      "hash_id": "c528baee7cec82e0"
     }
   },
-  "last_updated": "2026-02-05 07:18:40",
-  "count": 2
+  "last_updated": "2026-02-05 08:01:59",
+  "count": 4
 }

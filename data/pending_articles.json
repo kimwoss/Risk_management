@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=429540": {
-      "title": "포스코그룹 장인화 \"LNG 중심 에너지 '미래 핵심', AI 전환 서두르자\"",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429540",
-      "date": "2026-02-06 17:18",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-06T10:55:12.722526",
-      "hash_id": "da8ecf2bfc927f8d"
-    },
     "https://www.nocutnews.co.kr/news/6468470?utm_source=naver&utm_medium=article&utm_campaign=20260206072438": {
       "title": "포스코 장인화 \"LNG 중심 에너지 사업이 미래 핵심 수익원\"",
       "link": "https://www.nocutnews.co.kr/news/6468470?utm_source=naver&utm_medium=article&utm_campaign=20260206072438",
@@ -18,11 +7,11 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-06T10:55:13.130903",
+      "retry_count": 3,
+      "last_attempt": "2026-02-06T11:38:48.816497",
       "hash_id": "393262e501dee232"
     }
   },
-  "last_updated": "2026-02-06 10:55:15",
-  "count": 2
+  "last_updated": "2026-02-06 11:38:49",
+  "count": 1
 }

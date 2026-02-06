@@ -7,11 +7,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-06T11:38:48.816497",
+      "retry_count": 5,
+      "last_attempt": "2026-02-06T12:01:56.629484",
       "hash_id": "393262e501dee232"
+    },
+    "https://www.newsis.com/view/NISX20260206_0003506250": {
+      "title": "탁구 이은혜·박규현, 국가대표 선발전 1위로 태극마크 확정",
+      "link": "https://www.newsis.com/view/NISX20260206_0003506250",
+      "date": "2026-02-06 20:39",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-06T12:01:57.211557",
+      "hash_id": "a4b1cdb06e1bb407"
     }
   },
-  "last_updated": "2026-02-06 11:38:49",
-  "count": 1
+  "last_updated": "2026-02-06 12:01:57",
+  "count": 2
 }

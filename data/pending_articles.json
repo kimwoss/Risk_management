@@ -1,17 +1,39 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=429465": {
-      "title": "'현대차·포스코퓨처엠 협력' 팩토리얼, 미국 승용차에 반고체 배터리 ...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429465",
-      "date": "2026-02-06 11:14",
+    "http://www.thebigdata.co.kr/view.php?ud=202602061443489337d0a8833aad_23": {
+      "title": "장인화 포스코 회장 \"에너지사업, 차기 주력사업으로\"…지난해 국민 호...",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202602061443489337d0a8833aad_23",
+      "date": "2026-02-06 15:10",
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-06T05:43:34.018793",
-      "hash_id": "736361d0bb52b469"
+      "retry_count": 1,
+      "last_attempt": "2026-02-06T06:36:09.490282",
+      "hash_id": "6251d64bbb98ba48"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2026/02/06/20260206500209?wlog_tag3=naver": {
+      "title": "장인화 포스코 회장 “AI는 사회적 인프라, AX로 빨리 전환하는 회사가...",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/02/06/20260206500209?wlog_tag3=naver",
+      "date": "2026-02-06 15:09",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-06T06:36:09.075368",
+      "hash_id": "fbdf72854d87432a"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000290217?division=NAVER": {
+      "title": "장인화 포스코 회장 \"차기 주력사업은 LNG 중심 에너지사업\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000290217?division=NAVER",
+      "date": "2026-02-06 14:51",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-06T06:36:08.095750",
+      "hash_id": "b7cf181b08471f9d"
     }
   },
-  "last_updated": "2026-02-06 05:43:42",
-  "count": 1
+  "last_updated": "2026-02-06 06:36:27",
+  "count": 3
 }

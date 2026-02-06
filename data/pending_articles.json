@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/sport/table-tennis/2026/02/06/20260206500229?wlog_tag3=naver": {
-      "title": "탁구 이은혜, 태극마크 확정…국가대표 최종 선발전서",
-      "link": "https://www.seoul.co.kr/news/sport/table-tennis/2026/02/06/20260206500229?wlog_tag3=naver",
-      "date": "2026-02-06 15:44",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-06T09:02:00.597418",
-      "hash_id": "4cdddd11acac4897"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=429540": {
       "title": "포스코그룹 장인화 \"LNG 중심 에너지 '미래 핵심', AI 전환 서두르자\"",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429540",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-06T09:02:03.454460",
+      "retry_count": 3,
+      "last_attempt": "2026-02-06T09:59:13.234652",
       "hash_id": "da8ecf2bfc927f8d"
     }
   },
-  "last_updated": "2026-02-06 09:02:11",
-  "count": 2
+  "last_updated": "2026-02-06 09:59:16",
+  "count": 1
 }

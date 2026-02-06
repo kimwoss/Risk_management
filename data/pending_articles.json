@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-06T06:36:09.490282",
+      "retry_count": 3,
+      "last_attempt": "2026-02-06T07:35:01.633737",
       "hash_id": "6251d64bbb98ba48"
     },
     "https://www.seoul.co.kr/news/economy/industry/2026/02/06/20260206500209?wlog_tag3=naver": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-06T06:36:09.075368",
+      "retry_count": 3,
+      "last_attempt": "2026-02-06T07:35:01.260171",
       "hash_id": "fbdf72854d87432a"
     },
     "https://biz.sbs.co.kr/article_hub/20000290217?division=NAVER": {
@@ -29,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-06T06:36:08.095750",
+      "retry_count": 3,
+      "last_attempt": "2026-02-06T07:35:00.882468",
       "hash_id": "b7cf181b08471f9d"
+    },
+    "https://www.seoul.co.kr/news/sport/table-tennis/2026/02/06/20260206500229?wlog_tag3=naver": {
+      "title": "탁구 이은혜, 태극마크 확정…국가대표 최종 선발전서",
+      "link": "https://www.seoul.co.kr/news/sport/table-tennis/2026/02/06/20260206500229?wlog_tag3=naver",
+      "date": "2026-02-06 15:44",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-06T07:35:03.084033",
+      "hash_id": "4cdddd11acac4897"
     }
   },
-  "last_updated": "2026-02-06 06:36:27",
-  "count": 3
+  "last_updated": "2026-02-06 07:35:21",
+  "count": 4
 }

@@ -1208,7 +1208,10 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
 @st.cache_data(ttl=180, show_spinner=False)  # 3분 캐싱 (새로고침 주기와 동일)
 def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
     """
-    Naver + Google News RSS 통합 수집 (캐싱 적용)
+    Naver 뉴스 수집 (Streamlit용 - 빠른 응답 우선)
+
+    Google RSS는 본문 크롤링으로 느리므로 GitHub Actions에서만 수집.
+    Streamlit 앱에서는 Naver API만 사용하여 빠른 응답 제공.
 
     Args:
         query: 검색 쿼리
@@ -1216,33 +1219,12 @@ def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date")
         sort: 정렬 방식
 
     Returns:
-        병합된 DataFrame (URL 기준 dedupe, 최신순 정렬)
+        DataFrame (최신순 정렬)
     """
-    print(f"[DEBUG] crawl_all_news_sources called for query: {query}")
-
-    # Naver 뉴스 수집
+    # Naver 뉴스만 수집 (Google RSS는 GitHub Actions에서 처리)
     naver_df = crawl_naver_news(query, max_items=max_items, sort=sort)
 
-    # Google News RSS 수집 (POSCO International 키워드일 때만)
-    google_df = pd.DataFrame()
-    if "posco" in query.lower() and "international" in query.lower():
-        try:
-            print(f"[DEBUG] Fetching Google News RSS for: {query}")
-            google_df = crawl_google_news_rss(query="POSCO International", max_items=50)
-        except Exception as e:
-            print(f"[WARNING] Google News RSS failed: {e}")
-            google_df = pd.DataFrame()
-
-    # 두 소스 병합
-    merged_df = merge_news_sources(naver_df, google_df)
-
-    # API 할당량 초과 정보 전달
-    if naver_df.attrs.get('quota_exceeded', False):
-        merged_df.attrs['quota_exceeded'] = True
-
-    print(f"[DEBUG] Total items after merge: {len(merged_df)} (Naver: {len(naver_df)}, Google: {len(google_df)})")
-
-    return merged_df
+    return naver_df
 
 
 @st.cache_data(ttl=60, show_spinner=False)  # 60초 캐싱으로 초기 로드 최적화
@@ -2700,11 +2682,10 @@ def page_news_monitor():
         # 자동 새로고침 또는 초기 로드: Naver API 호출
         should_fetch = st.session_state.trigger_news_update or (not st.session_state.initial_loaded)
 
-        # 자동 새로고침 시 캐시 클리어 및 보고서 초기화
+        # 자동 새로고침 시 보고서 초기화 (캐시는 TTL 180초로 자동 갱신)
         if st.session_state.trigger_news_update:
-            # [개선] 자동 새로고침 시에도 API 캐시 클리어
-            crawl_all_news_sources.clear()
-            print(f"[DEBUG] 자동 새로고침: API 캐시 클리어")
+            # 캐시 클리어 제거 - TTL에 의해 자연스럽게 갱신됨
+            print(f"[DEBUG] 자동 새로고침: TTL 기반 캐시 갱신")
 
             report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
             for key in report_keys:

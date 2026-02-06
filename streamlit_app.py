@@ -1205,7 +1205,7 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
     return df
 
 
-@st.cache_data(ttl=1800, show_spinner=False)  # 30분 캐싱
+@st.cache_data(ttl=180, show_spinner=False)  # 3분 캐싱 (새로고침 주기와 동일)
 def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
     """
     Naver + Google News RSS 통합 수집 (캐싱 적용)
@@ -1245,27 +1245,13 @@ def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date")
     return merged_df
 
 
-def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
-    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)
-
-    Args:
-        force_refresh: True면 즉시 최신 데이터 로드 (캐시 무시)
-    """
-    # GitHub raw URL에서 직접 로드 (Streamlit Cloud 캐시 문제 해결)
+@st.cache_data(ttl=60, show_spinner=False)  # 60초 캐싱으로 초기 로드 최적화
+def _load_news_db_cached(cache_key: int) -> pd.DataFrame:
+    """캐싱된 뉴스 DB 로드 (내부 함수)"""
     GITHUB_RAW_URL = "https://raw.githubusercontent.com/kimwoss/Risk_management/main/data/news_monitor.csv"
 
     try:
-        # 1차 시도: GitHub에서 직접 로드 (캐시 우회)
-        # 캐시 버스팅을 위해 타임스탬프 추가
-        import time
-        if force_refresh:
-            # 강제 새로고침: 초 단위 타임스탬프 (즉시 최신 데이터)
-            cache_buster = int(time.time())
-        else:
-            # 일반 로드: 30초 단위로 갱신 (빠른 업데이트)
-            cache_buster = int(time.time() // 30)
-        url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_buster}"
-
+        url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_key}"
         print(f"[DEBUG] GitHub에서 직접 로드 시도: {url_with_cache_buster}")
         response = requests.get(url_with_cache_buster, timeout=10)
         response.raise_for_status()
@@ -1274,11 +1260,9 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
         df = pd.read_csv(StringIO(response.text), encoding="utf-8")
         response.close()
 
-        # sentiment 컬럼이 없으면 추가
         if "sentiment" not in df.columns:
             df["sentiment"] = "pos"
 
-        # 디버그: 최신 기사 시간 출력
         if not df.empty and "날짜" in df.columns:
             latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
             print(f"[DEBUG] ✅ GitHub에서 로드 완료: {len(df)}건, 최신 기사: {latest_date}")
@@ -1286,20 +1270,31 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
 
     except Exception as e:
         print(f"[WARNING] GitHub 로드 실패, 로컬 파일 시도: {e}")
-
-        # 2차 시도: 로컬 파일에서 로드
         try:
             df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
-            # sentiment 컬럼이 없으면 추가
             if "sentiment" not in df.columns:
                 df["sentiment"] = "pos"
-            if not df.empty and "날짜" in df.columns:
-                latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
-                print(f"[DEBUG] ⚠️ 로컬 파일에서 로드: {len(df)}건, 최신 기사: {latest_date}")
             return df
         except Exception as e2:
             print(f"[ERROR] 모든 로드 시도 실패: {e2}")
             return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
+
+
+def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
+    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit 캐싱 적용)
+
+    Args:
+        force_refresh: True면 즉시 최신 데이터 로드 (캐시 무시)
+    """
+    import time
+    if force_refresh:
+        # 강제 새로고침: 초 단위 타임스탬프 (캐시 우회)
+        cache_key = int(time.time())
+    else:
+        # 일반 로드: 60초 단위로 갱신 (캐싱 효율 향상)
+        cache_key = int(time.time() // 60)
+
+    return _load_news_db_cached(cache_key)
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:
@@ -2651,6 +2646,16 @@ def page_news_monitor():
     if "trigger_news_update" not in st.session_state:
         st.session_state.trigger_news_update = False
 
+    # ===== [개선] 초기 로드 시 DB 데이터 즉시 로드 (API 호출 없이) =====
+    # 세션에 데이터가 없으면 DB에서 로드하여 즉시 표시
+    if 'news_display_data' not in st.session_state:
+        with st.spinner("📰 저장된 뉴스 데이터 로딩 중..."):
+            cached_db = load_news_db()
+            if not cached_db.empty:
+                st.session_state.news_display_data = cached_db
+                st.session_state.initial_loaded = True  # DB 데이터 있으면 초기 로드 완료로 처리
+                print(f"[DEBUG] 초기 로드: DB에서 {len(cached_db)}건 즉시 로드 완료")
+
     # ===== 당일 뉴스 현황 대시보드 (최상단 배치) =====
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
     db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
@@ -2678,6 +2683,10 @@ def page_news_monitor():
         should_fetch = True
         st.session_state.trigger_news_update = True
 
+        # [개선] 수동 새로고침 시 API 캐시 클리어 (즉시 최신 데이터)
+        crawl_all_news_sources.clear()
+        print(f"[DEBUG] 수동 새로고침: API 캐시 클리어")
+
         # 보고서 초기화
         report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
         for key in report_keys:
@@ -2691,8 +2700,12 @@ def page_news_monitor():
         # 자동 새로고침 또는 초기 로드: Naver API 호출
         should_fetch = st.session_state.trigger_news_update or (not st.session_state.initial_loaded)
 
-        # 자동 새로고침 시 보고서 초기화
+        # 자동 새로고침 시 캐시 클리어 및 보고서 초기화
         if st.session_state.trigger_news_update:
+            # [개선] 자동 새로고침 시에도 API 캐시 클리어
+            crawl_all_news_sources.clear()
+            print(f"[DEBUG] 자동 새로고침: API 캐시 클리어")
+
             report_keys = [key for key in st.session_state.keys() if key.startswith('report_state_')]
             for key in report_keys:
                 del st.session_state[key]
@@ -2701,8 +2714,12 @@ def page_news_monitor():
 
     # ===== 뉴스 수집 로직 =====
     if should_fetch:
-        # 수집 직전 상태 메시지
-        status.info("🔄 최신 기사를 가져오는 중…")
+        # 수집 직전 상태 메시지 (기존 데이터 유무에 따라 다른 메시지)
+        has_cached_data = 'news_display_data' in st.session_state and not st.session_state.news_display_data.empty
+        if has_cached_data:
+            status.info("🔄 최신 기사로 업데이트 중... (기존 데이터는 아래에 표시됩니다)")
+        else:
+            status.info("🔄 최신 기사를 가져오는 중…")
 
         # API 키 유효성 체크
         headers = _naver_headers()
@@ -2716,115 +2733,112 @@ def page_news_monitor():
             quota_exceeded = False
 
             if api_ok:
-                # 키워드별 최신순 수집
-                for kw in keywords:
-                    df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
+                # ===== [개선] 병렬 처리로 API 호출 속도 향상 =====
+                from concurrent.futures import ThreadPoolExecutor, as_completed
 
-                    # API 할당량 초과 체크
-                    if df_kw.attrs.get('quota_exceeded', False):
-                        print(f"[DEBUG] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
-                        quota_exceeded = True
-                        break
+                def fetch_keyword_news(kw):
+                    """단일 키워드 뉴스 수집 (병렬 처리용)"""
+                    try:
+                        return kw, crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
+                    except Exception as e:
+                        print(f"[DEBUG] 키워드 '{kw}' 수집 오류: {e}")
+                        return kw, pd.DataFrame()
+
+                # 병렬로 모든 키워드 수집 (최대 5개 동시 실행)
+                keyword_results = {}
+                with ThreadPoolExecutor(max_workers=5) as executor:
+                    futures = {executor.submit(fetch_keyword_news, kw): kw for kw in keywords}
+                    for future in as_completed(futures):
+                        kw, df_kw = future.result()
+                        keyword_results[kw] = df_kw
+                        # API 할당량 초과 체크
+                        if not df_kw.empty and df_kw.attrs.get('quota_exceeded', False):
+                            print(f"[DEBUG] ⚠️ API 할당량 초과 감지")
+                            quota_exceeded = True
+
+                print(f"[DEBUG] 병렬 수집 완료: {len(keyword_results)}개 키워드")
+
+                # 수집된 결과에 필터링 적용
+                for kw in keywords:
+                    df_kw = keyword_results.get(kw, pd.DataFrame())
+                    if df_kw.empty:
+                        continue
+
+                    # "포스코인터내셔널" 정확한 매칭 강화
+                    if kw == "포스코인터내셔널":
+                        def should_include_posco_intl(row):
+                            title = str(row.get("기사제목", ""))
+                            description = str(row.get("주요기사 요약", ""))
+                            if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
+                                return False
+                            exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                            for exclude_word in exclude_words:
+                                if exclude_word in title or exclude_word in description:
+                                    return False
+                            return True
+
+                        mask = df_kw.apply(should_include_posco_intl, axis=1)
+                        df_kw = df_kw[mask].reset_index(drop=True)
+                        if not df_kw.empty:
+                            print(f"[DEBUG] '포스코인터내셔널' 필터링: {len(df_kw)}건")
+
+                    # "포스코모빌리티솔루션" 정확한 매칭 강화
+                    elif kw == "포스코모빌리티솔루션":
+                        def should_include_posco_mobility(row):
+                            title = str(row.get("기사제목", ""))
+                            description = str(row.get("주요기사 요약", ""))
+                            if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
+                                return False
+                            exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                            for exclude_word in exclude_words:
+                                if exclude_word in title or exclude_word in description:
+                                    return False
+                            return True
+
+                        mask = df_kw.apply(should_include_posco_mobility, axis=1)
+                        df_kw = df_kw[mask].reset_index(drop=True)
+                        if not df_kw.empty:
+                            print(f"[DEBUG] '포스코모빌리티솔루션' 필터링: {len(df_kw)}건")
+
+                    # "포스코" 키워드의 경우 특별 처리
+                    elif kw == "포스코":
+                        def should_include_posco(row):
+                            title = str(row.get("기사제목", ""))
+                            title_lower = title.lower()
+                            description = str(row.get("주요기사 요약", ""))
+                            title_has_posco = "포스코" in title or "posco" in title_lower
+                            is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
+                            if not (title_has_posco or is_exclusive_with_posco_in_content):
+                                return False
+                            for exclude_kw in exclude_keywords:
+                                if exclude_kw.lower() in title_lower:
+                                    return False
+                            exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
+                            for exclude_word in exclude_words:
+                                if exclude_word in title or exclude_word in description:
+                                    return False
+                            return True
+
+                        mask_posco = df_kw.apply(should_include_posco, axis=1)
+                        df_kw = df_kw[mask_posco].reset_index(drop=True)
+                        if not df_kw.empty:
+                            print(f"[DEBUG] '포스코' 필터링: {len(df_kw)}건")
+
+                    else:
+                        # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
+                        exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
+                        def should_include_general(row):
+                            title = str(row.get("기사제목", ""))
+                            for exclude_word in exclude_words:
+                                if exclude_word in title:
+                                    return False
+                            return True
+
+                        mask_general = df_kw.apply(should_include_general, axis=1)
+                        df_kw = df_kw[mask_general].reset_index(drop=True)
 
                     if not df_kw.empty:
-                        # "포스코인터내셔널" 정확한 매칭 강화
-                        if kw == "포스코인터내셔널":
-                            def should_include_posco_intl(row):
-                                title = str(row.get("기사제목", ""))
-                                description = str(row.get("주요기사 요약", ""))
-
-                                # 정확히 "포스코인터내셔널"이 포함되어야 함
-                                if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
-                                    return False
-
-                                # 제외 키워드 체크
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            mask = df_kw.apply(should_include_posco_intl, axis=1)
-                            df_kw = df_kw[mask].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코인터내셔널' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                        # "포스코모빌리티솔루션" 정확한 매칭 강화
-                        elif kw == "포스코모빌리티솔루션":
-                            def should_include_posco_mobility(row):
-                                title = str(row.get("기사제목", ""))
-                                description = str(row.get("주요기사 요약", ""))
-
-                                # 정확히 "포스코모빌리티솔루션"이 포함되어야 함
-                                if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
-                                    return False
-
-                                # 제외 키워드 체크
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            mask = df_kw.apply(should_include_posco_mobility, axis=1)
-                            df_kw = df_kw[mask].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코모빌리티솔루션' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                        # "포스코" 키워드의 경우 특별 처리
-                        elif kw == "포스코":
-                            def should_include_posco(row):
-                                title = str(row.get("기사제목", ""))
-                                title_lower = title.lower()
-                                description = str(row.get("주요기사 요약", ""))  # 내용 필드
-                                content_lower = description.lower()
-
-                                # 기존 조건: 타이틀에 "포스코" 포함
-                                title_has_posco = "포스코" in title or "posco" in title_lower
-
-                                # 새 조건: 타이틀에 "[단독]" 포함 AND 내용에 "포스코" 포함
-                                is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
-
-                                # 둘 중 하나라도 만족하면 포함 (1단계)
-                                if not (title_has_posco or is_exclusive_with_posco_in_content):
-                                    return False
-
-                                # 2단계: 제목에 제외 키워드(포스코인터내셔널 등)가 없는가?
-                                for exclude_kw in exclude_keywords:
-                                    if exclude_kw.lower() in title_lower:
-                                        return False
-
-                                # 3단계: 제목 또는 내용에 부동산 키워드가 없는가?
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            # 포스코 전용 필터링 적용
-                            mask_posco = df_kw.apply(should_include_posco, axis=1)
-                            df_kw = df_kw[mask_posco].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코' 필터링 완료: {len(df_kw)}건 추가")
-
-                        else:
-                            # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
-                            exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
-                            def should_include_general(row):
-                                title = str(row.get("기사제목", ""))
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title:
-                                        return False
-                                return True
-
-                            mask_general = df_kw.apply(should_include_general, axis=1)
-                            df_kw = df_kw[mask_general].reset_index(drop=True)
-
-                        if not df_kw.empty:
-                            all_news.append(df_kw)
+                        all_news.append(df_kw)
 
                 # API 할당량 초과 시 처리
                 if quota_exceeded:

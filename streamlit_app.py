@@ -2733,34 +2733,24 @@ def page_news_monitor():
             quota_exceeded = False
 
             if api_ok:
-                # ===== [개선] 병렬 처리로 API 호출 속도 향상 =====
-                from concurrent.futures import ThreadPoolExecutor, as_completed
+                # ===== 순차 처리 (안정성 우선) + 프로그레스 표시 =====
+                progress_bar = st.progress(0, text="뉴스 수집 중...")
 
-                def fetch_keyword_news(kw):
-                    """단일 키워드 뉴스 수집 (병렬 처리용)"""
+                for idx, kw in enumerate(keywords):
+                    progress_bar.progress((idx + 1) / len(keywords), text=f"수집 중: {kw} ({idx + 1}/{len(keywords)})")
+
                     try:
-                        return kw, crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
+                        df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
                     except Exception as e:
                         print(f"[DEBUG] 키워드 '{kw}' 수집 오류: {e}")
-                        return kw, pd.DataFrame()
+                        df_kw = pd.DataFrame()
 
-                # 병렬로 모든 키워드 수집 (최대 5개 동시 실행)
-                keyword_results = {}
-                with ThreadPoolExecutor(max_workers=5) as executor:
-                    futures = {executor.submit(fetch_keyword_news, kw): kw for kw in keywords}
-                    for future in as_completed(futures):
-                        kw, df_kw = future.result()
-                        keyword_results[kw] = df_kw
-                        # API 할당량 초과 체크
-                        if not df_kw.empty and df_kw.attrs.get('quota_exceeded', False):
-                            print(f"[DEBUG] ⚠️ API 할당량 초과 감지")
-                            quota_exceeded = True
+                    # API 할당량 초과 체크
+                    if not df_kw.empty and df_kw.attrs.get('quota_exceeded', False):
+                        print(f"[DEBUG] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
+                        quota_exceeded = True
+                        break
 
-                print(f"[DEBUG] 병렬 수집 완료: {len(keyword_results)}개 키워드")
-
-                # 수집된 결과에 필터링 적용
-                for kw in keywords:
-                    df_kw = keyword_results.get(kw, pd.DataFrame())
                     if df_kw.empty:
                         continue
 
@@ -2839,6 +2829,9 @@ def page_news_monitor():
 
                     if not df_kw.empty:
                         all_news.append(df_kw)
+
+                # 프로그레스 바 완료 처리
+                progress_bar.progress(1.0, text="✅ 수집 완료!")
 
                 # API 할당량 초과 시 처리
                 if quota_exceeded:

@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-07T02:48:47.433732",
+      "retry_count": 3,
+      "last_attempt": "2026-02-07T04:23:40.817929",
       "hash_id": "eb35db25c76d3bde"
     },
     "https://www.g-enews.com/view.php?ud=20260207091111101fbbec65dfb_1": {
@@ -18,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-02-07T02:48:44.811711",
+      "retry_count": 3,
+      "last_attempt": "2026-02-07T04:23:40.279792",
       "hash_id": "0dae2a3c39642f1a"
     }
   },
-  "last_updated": "2026-02-07 02:48:47",
+  "last_updated": "2026-02-07 04:23:42",
   "count": 2
 }

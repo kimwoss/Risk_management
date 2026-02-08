@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008435302&plink=ORI&cooper=NAVER": {
-      "title": "탁구 신유빈, 아시안컵서 '한국 천적' 왕만위에 막혀 4강행 실패",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008435302&plink=ORI&cooper=NAVER",
-      "date": "2026-02-08 09:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-02-08T05:41:57.304805",
-      "hash_id": "5bb6951410eddb70"
-    },
     "https://www.newsis.com/view/NISX20260208_0003506839": {
       "title": "\"상생 앞장\" 포스코그룹, 설 명절 전 협력사에 4216억 '조기 지급'",
       "link": "https://www.newsis.com/view/NISX20260208_0003506839",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-08T05:41:58.430796",
+      "retry_count": 5,
+      "last_attempt": "2026-02-08T06:33:14.972718",
       "hash_id": "1e236f21bc11e2c9"
     },
     "https://biz.sbs.co.kr/article_hub/20000290351?division=NAVER": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코플로우",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-08T05:41:57.857384",
+      "retry_count": 5,
+      "last_attempt": "2026-02-08T06:33:14.566369",
       "hash_id": "e7aee5ffae7410df"
     }
   },
-  "last_updated": "2026-02-08 05:42:08",
-  "count": 3
+  "last_updated": "2026-02-08 06:33:22",
+  "count": 2
 }

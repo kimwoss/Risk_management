@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=429824": {
-      "title": "포스코이앤씨 현장 안전점검, 송치영 \"안전은 모든 의사결정의 최우선 ...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429824",
-      "date": "2026-02-10 13:56",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-10T07:45:37.754457",
-      "hash_id": "c5a8ba7900f034e6"
-    },
     "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html": {
       "title": "송치영 포스코이앤씨 사장, 동절기 현장 안전점검…\"안전이 최우선\"",
       "link": "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-10T07:45:38.119123",
+      "retry_count": 5,
+      "last_attempt": "2026-02-10T08:34:32.663869",
       "hash_id": "031afb7d3748b736"
     }
   },
-  "last_updated": "2026-02-10 07:45:50",
-  "count": 2
+  "last_updated": "2026-02-10 08:34:35",
+  "count": 1
 }

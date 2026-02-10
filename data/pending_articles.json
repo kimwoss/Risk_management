@@ -1,17 +1,28 @@
 {
   "queue": {
-    "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html": {
-      "title": "송치영 포스코이앤씨 사장, 동절기 현장 안전점검…\"안전이 최우선\"",
-      "link": "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html",
-      "date": "2026-02-10 14:41",
-      "press": "",
+    "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=38840": {
+      "title": "포스코 하청 근로자, 45개 업무서 불법파견 ‘승소’",
+      "link": "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=38840",
+      "date": "2026-02-10 18:36",
+      "press": "워크로",
       "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-10T08:34:32.663869",
-      "hash_id": "031afb7d3748b736"
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-02-10T09:41:44.552550",
+      "hash_id": "bced01954f188364"
+    },
+    "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=38844": {
+      "title": "[단독] 포스코 포장업무 ‘적법도급’ 첫 판결…‘MES=불법파견’ 공식...",
+      "link": "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=38844",
+      "date": "2026-02-10 18:02",
+      "press": "워크로",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-02-10T09:41:37.939766",
+      "hash_id": "908c344947908029"
     }
   },
-  "last_updated": "2026-02-10 08:34:35",
-  "count": 1
+  "last_updated": "2026-02-10 09:41:44",
+  "count": 2
 }

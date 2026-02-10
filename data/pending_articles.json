@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.chosun.com/industry/company/2026/02/09/NYCG5ZJRYZGFNO54JZVZU43TAQ/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "[재계 키맨] 자나깨나 안전조업 기도하는 이희근 포스코 사장… ‘등대...",
-      "link": "https://biz.chosun.com/industry/company/2026/02/09/NYCG5ZJRYZGFNO54JZVZU43TAQ/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-02-10 08:01",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-02-10T03:26:19.280783",
-      "hash_id": "b2b86564682d9ef4"
-    },
     "http://www.globalepic.co.kr/view.php?ud=20260210110405887748439a4874_29": {
       "title": "포스코이앤씨, 동절기 현장 안전점검 릴레이 캠페인 진행",
       "link": "http://www.globalepic.co.kr/view.php?ud=20260210110405887748439a4874_29",
@@ -18,11 +7,22 @@
       "press": "글로벌이코노믹",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-10T03:26:21.376040",
+      "retry_count": 3,
+      "last_attempt": "2026-02-10T05:18:31.013244",
       "hash_id": "5beda6211134da4c"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=429824": {
+      "title": "포스코이앤씨 현장 안전점검, 송치영 \"안전은 모든 의사결정의 최우선 ...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=429824",
+      "date": "2026-02-10 13:56",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-10T05:18:39.939892",
+      "hash_id": "c5a8ba7900f034e6"
     }
   },
-  "last_updated": "2026-02-10 03:26:38",
+  "last_updated": "2026-02-10 05:18:44",
   "count": 2
 }

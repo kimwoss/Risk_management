@@ -7,8 +7,8 @@
       "press": "글로벌이코노믹",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-10T05:18:31.013244",
+      "retry_count": 5,
+      "last_attempt": "2026-02-10T06:40:21.805590",
       "hash_id": "5beda6211134da4c"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=429824": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-10T05:18:39.939892",
+      "retry_count": 3,
+      "last_attempt": "2026-02-10T06:40:22.212781",
       "hash_id": "c5a8ba7900f034e6"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html": {
+      "title": "송치영 포스코이앤씨 사장, 동절기 현장 안전점검…\"안전이 최우선\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/02/10/2026021090169.html",
+      "date": "2026-02-10 14:41",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-10T06:40:25.539312",
+      "hash_id": "031afb7d3748b736"
     }
   },
-  "last_updated": "2026-02-10 05:18:44",
-  "count": 2
+  "last_updated": "2026-02-10 06:40:36",
+  "count": 3
 }

@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-11T04:39:32.944214",
+      "retry_count": 3,
+      "last_attempt": "2026-02-11T05:59:01.604827",
       "hash_id": "b4102bc3ff604d1e"
     },
     "http://www.fntimes.com/html/view.php?ud=2026021112402727237492587736_18": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-11T04:39:26.456293",
+      "retry_count": 3,
+      "last_attempt": "2026-02-11T05:59:01.222783",
       "hash_id": "68a466332c9f7aca"
+    },
+    "https://www.g-enews.com/view.php?ud=202602111432355827fbbec65dfb_1": {
+      "title": "포스코 리튬 광산 해발 3750m서 광부 사망…시신 옆 퓨마 발견, 공격 여...",
+      "link": "https://www.g-enews.com/view.php?ud=202602111432355827fbbec65dfb_1",
+      "date": "2026-02-11 14:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-11T05:59:03.606620",
+      "hash_id": "cf9c71038e2e71ef"
     }
   },
-  "last_updated": "2026-02-11 04:39:40",
-  "count": 2
+  "last_updated": "2026-02-11 05:59:09",
+  "count": 3
 }

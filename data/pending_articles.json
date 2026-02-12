@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.hani.co.kr/arti/economy/economy_general/1244684.html": {
-      "title": "포스코, 함정용 고연성강·방탄강 국내 최초 개발",
-      "link": "https://www.hani.co.kr/arti/economy/economy_general/1244684.html",
-      "date": "2026-02-12 11:40",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-12T06:17:13.260829",
-      "hash_id": "34f6e00b008e8135"
-    },
-    "https://www.hani.co.kr/arti/economy/economy_general/1244683.html": {
-      "title": "한국무역보험공사, 포스코·기업은행과 손잡고 ‘철강 공급망’ 지원",
-      "link": "https://www.hani.co.kr/arti/economy/economy_general/1244683.html",
-      "date": "2026-02-12 11:38",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-12T06:17:12.907536",
-      "hash_id": "11d341d3367b4de7"
-    },
-    "https://m.skyedaily.com/news_view.html?ID=298295": {
-      "title": "포스코, 함정용 고연성강·방탄강 개발... 국내 최초",
-      "link": "https://m.skyedaily.com/news_view.html?ID=298295",
-      "date": "2026-02-12 11:24",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-12T06:17:12.542888",
-      "hash_id": "c7a9b0124209cc30"
-    },
     "https://www.newsis.com/view/NISX20260212_0003513394": {
       "title": "포스코, 함정용 '고연성강·방탄강' 개발…KR 인증 획득",
       "link": "https://www.newsis.com/view/NISX20260212_0003513394",
@@ -40,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-12T06:17:14.623635",
+      "retry_count": 3,
+      "last_attempt": "2026-02-12T07:32:54.090941",
       "hash_id": "8a1bf572c05457c1"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2026021216060199527492587736_18": {
+      "title": "‘이례적 연임’ 포스코퓨처엠 엄기천 대표, 탈중국·기술력 ‘턴어라운...",
+      "link": "http://www.fntimes.com/html/view.php?ud=2026021216060199527492587736_18",
+      "date": "2026-02-12 16:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-12T07:33:03.032401",
+      "hash_id": "6b227d4e92df17b2"
     }
   },
-  "last_updated": "2026-02-12 06:17:27",
-  "count": 4
+  "last_updated": "2026-02-12 07:33:05",
+  "count": 2
 }

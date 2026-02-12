@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=202602120815188630bb91c46fcd_1": {
-      "title": "무보·포스코·기업은행, 철강산업 위기 극복 협력...‘수출공급망강화...",
-      "link": "https://www.g-enews.com/view.php?ud=202602120815188630bb91c46fcd_1",
-      "date": "2026-02-12 09:00",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-12T05:12:23.895626",
-      "hash_id": "edd1a8d2b1961892"
-    },
     "https://www.hani.co.kr/arti/economy/economy_general/1244684.html": {
       "title": "포스코, 함정용 고연성강·방탄강 국내 최초 개발",
       "link": "https://www.hani.co.kr/arti/economy/economy_general/1244684.html",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-12T05:12:25.388694",
+      "retry_count": 5,
+      "last_attempt": "2026-02-12T06:17:13.260829",
       "hash_id": "34f6e00b008e8135"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1244683.html": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-12T05:12:24.898236",
+      "retry_count": 5,
+      "last_attempt": "2026-02-12T06:17:12.907536",
       "hash_id": "11d341d3367b4de7"
     },
     "https://m.skyedaily.com/news_view.html?ID=298295": {
@@ -40,11 +29,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-12T05:12:24.389247",
+      "retry_count": 5,
+      "last_attempt": "2026-02-12T06:17:12.542888",
       "hash_id": "c7a9b0124209cc30"
+    },
+    "https://www.newsis.com/view/NISX20260212_0003513394": {
+      "title": "포스코, 함정용 '고연성강·방탄강' 개발…KR 인증 획득",
+      "link": "https://www.newsis.com/view/NISX20260212_0003513394",
+      "date": "2026-02-12 14:15",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-12T06:17:14.623635",
+      "hash_id": "8a1bf572c05457c1"
     }
   },
-  "last_updated": "2026-02-12 05:12:35",
+  "last_updated": "2026-02-12 06:17:27",
   "count": 4
 }

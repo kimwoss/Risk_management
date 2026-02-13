@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=430332": {
-      "title": "[코스피 5천 그늘⑨] 포스코그룹 '2030 시총 200조' 열쇠는 배터리 소재...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=430332",
-      "date": "2026-02-13 16:30",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-13T09:25:23.957805",
-      "hash_id": "b9373af3fb190b4e"
-    },
     "https://www.newsis.com/view/NISX20260213_0003515544": {
       "title": "탁구 임종훈-오준성, WTT 스타 컨텐더 첸나이 준결승 진출",
       "link": "https://www.newsis.com/view/NISX20260213_0003515544",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-13T09:25:24.477280",
+      "retry_count": 5,
+      "last_attempt": "2026-02-13T10:09:22.583728",
       "hash_id": "bb8391b4690b423d"
     }
   },
-  "last_updated": "2026-02-13 09:25:26",
-  "count": 2
+  "last_updated": "2026-02-13 10:09:24",
+  "count": 1
 }

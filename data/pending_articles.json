@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260213_0003514526": {
-      "title": "한·미 핵심광물 협력 본격화…고려아연·포스코인터도 투자 확대",
-      "link": "https://www.newsis.com/view/NISX20260213_0003514526",
-      "date": "2026-02-13 14:06",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-13T07:38:42.867369",
-      "hash_id": "18756aa9d130af40"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=430332": {
       "title": "[코스피 5천 그늘⑨] 포스코그룹 '2030 시총 200조' 열쇠는 배터리 소재...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=430332",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-13T07:38:49.658782",
+      "retry_count": 3,
+      "last_attempt": "2026-02-13T08:27:32.063010",
       "hash_id": "b9373af3fb190b4e"
+    },
+    "https://www.newsis.com/view/NISX20260213_0003515544": {
+      "title": "탁구 임종훈-오준성, WTT 스타 컨텐더 첸나이 준결승 진출",
+      "link": "https://www.newsis.com/view/NISX20260213_0003515544",
+      "date": "2026-02-13 16:43",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-13T08:27:32.433351",
+      "hash_id": "bb8391b4690b423d"
     }
   },
-  "last_updated": "2026-02-13 07:38:49",
+  "last_updated": "2026-02-13 08:27:33",
   "count": 2
 }

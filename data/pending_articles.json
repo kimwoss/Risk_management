@@ -1,5 +1,17 @@
 {
-  "queue": {},
-  "last_updated": "2026-02-14 22:56:11",
-  "count": 0
+  "queue": {
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008444773&plink=ORI&cooper=NAVER": {
+      "title": "탁구 김나영-유한나, WTT 첸나이 준우승",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008444773&plink=ORI&cooper=NAVER",
+      "date": "2026-02-15 08:08",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-14T23:33:39.589151",
+      "hash_id": "bca60851b0c51cf8"
+    }
+  },
+  "last_updated": "2026-02-14 23:33:39",
+  "count": 1
 }

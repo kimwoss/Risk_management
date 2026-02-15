@@ -7,11 +7,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-02-14T23:54:34.663242",
+      "retry_count": 4,
+      "last_attempt": "2026-02-15T02:43:29.651529",
       "hash_id": "bca60851b0c51cf8"
+    },
+    "https://www.newsis.com/view/NISX20260215_0003516363": {
+      "title": "탁구 김나영-유한나·임종훈-오준성 WTT 첸나이 준우승…새해 첫 승 불발",
+      "link": "https://www.newsis.com/view/NISX20260215_0003516363",
+      "date": "2026-02-15 10:00",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-02-15T02:43:31.594289",
+      "hash_id": "36e6953c1ad111fe"
+    },
+    "https://www.g-enews.com/view.php?ud=2026021509363157900c8c1c064d_1": {
+      "title": "포스코, 아르헨티나 리튬 ‘살 데 오로’ 가속화… 2026년 탄산리튬 공...",
+      "link": "https://www.g-enews.com/view.php?ud=2026021509363157900c8c1c064d_1",
+      "date": "2026-02-15 09:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-15T02:43:30.662766",
+      "hash_id": "c6c771ef476b2cac"
     }
   },
-  "last_updated": "2026-02-14 23:54:53",
-  "count": 1
+  "last_updated": "2026-02-15 02:43:33",
+  "count": 3
 }

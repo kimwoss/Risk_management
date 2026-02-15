@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-02-15T04:47:11.219191",
+      "retry_count": 5,
+      "last_attempt": "2026-02-15T05:46:24.740161",
       "hash_id": "36e6953c1ad111fe"
     },
     "https://www.g-enews.com/view.php?ud=2026021509363157900c8c1c064d_1": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-15T04:47:10.735186",
+      "retry_count": 5,
+      "last_attempt": "2026-02-15T05:46:24.381929",
       "hash_id": "c6c771ef476b2cac"
+    },
+    "https://www.ekn.kr/web/view.php?key=20260214027069853": {
+      "title": "로봇에 들썩인 이차전지株…“실적 없는 랠리는 오래 못 간다” [포스트...",
+      "link": "https://www.ekn.kr/web/view.php?key=20260214027069853",
+      "date": "2026-02-15 14:00",
+      "press": "에너지경제",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-15T05:46:25.603814",
+      "hash_id": "424801d9c29007db"
     }
   },
-  "last_updated": "2026-02-15 04:47:12",
-  "count": 2
+  "last_updated": "2026-02-15 05:46:26",
+  "count": 3
 }

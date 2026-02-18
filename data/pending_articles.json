@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260218_0003517696": {
-      "title": "SK이노베이션 컨소, 베트남 꾸잉랍 LNG 발전소 수주…\"3조원 규모\"",
-      "link": "https://www.newsis.com/view/NISX20260218_0003517696",
-      "date": "2026-02-19 06:30",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-18T22:57:56.422516",
-      "hash_id": "fec86cf346fc76c2"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=430454": {
       "title": "[Who Is ?] 이준호 에스피지 대표이사 회장",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=430454",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-18T22:57:57.576679",
+      "retry_count": 3,
+      "last_attempt": "2026-02-18T23:39:32.241579",
       "hash_id": "eb9a32e5073f9ab3"
     }
   },
-  "last_updated": "2026-02-18 22:57:57",
-  "count": 2
+  "last_updated": "2026-02-18 23:39:32",
+  "count": 1
 }

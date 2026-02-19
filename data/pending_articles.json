@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-19T11:52:06.693663",
+      "retry_count": 5,
+      "last_attempt": "2026-02-19T12:59:46.274168",
       "hash_id": "ca4026c693566ec0"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=430584": {
+      "title": "포스코홀딩스 이사회 열고 사내이사 신규 후보 정석모 추천, 자사주 2% ...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=430584",
+      "date": "2026-02-19 21:04",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-19T12:59:47.603729",
+      "hash_id": "be9b1894f9c99a7b"
     }
   },
-  "last_updated": "2026-02-19 11:52:13",
-  "count": 1
+  "last_updated": "2026-02-19 12:59:56",
+  "count": 2
 }

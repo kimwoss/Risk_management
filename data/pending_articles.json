@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=2026022008484567820c8c1c064d_1": {
-      "title": "포스코, 아르헨티나 '살 데 오로' 탄산리튬 공장 2026년 준공… 글로벌...",
-      "link": "https://www.g-enews.com/view.php?ud=2026022008484567820c8c1c064d_1",
-      "date": "2026-02-20 08:52",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-20T04:44:22.730748",
-      "hash_id": "b9d215a48c270045"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=202602201223352735570d99e4c8_23": {
       "title": "포스코·현대제철 ‘더 비싼’ 美 철강 시장에서 성공할 수 있을까",
       "link": "http://www.thebigdata.co.kr/view.php?ud=202602201223352735570d99e4c8_23",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-20T04:44:26.162966",
+      "retry_count": 3,
+      "last_attempt": "2026-02-20T05:43:33.834619",
       "hash_id": "2fb5cfb0d1b7fabd"
+    },
+    "https://www.bizwork.co.kr/news/articleView.html?idxno=412682": {
+      "title": "포스코청암재단, 제20회 수상자 선정",
+      "link": "https://www.bizwork.co.kr/news/articleView.html?idxno=412682",
+      "date": "2026-02-20 14:34",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-20T05:44:34.779485",
+      "hash_id": "195b2ba08ca136ec"
+    },
+    "https://biz.chosun.com/industry/company/2026/02/20/UW372RLXCFEFLICGPERXJTNQ4E/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코청암상 20주년…과학·교육·봉사·기술 4인 영예",
+      "link": "https://biz.chosun.com/industry/company/2026/02/20/UW372RLXCFEFLICGPERXJTNQ4E/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-02-20 14:33",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-20T05:43:57.098416",
+      "hash_id": "89579b89f12a9a7f"
     }
   },
-  "last_updated": "2026-02-20 04:44:33",
-  "count": 2
+  "last_updated": "2026-02-20 05:44:36",
+  "count": 3
 }

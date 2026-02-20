@@ -2495,17 +2495,17 @@ def page_history_search():
         df_all["발생 유형"] = df_all["발생 유형"].replace(['nan', 'None', '', 'NaN', 'NAN'], pd.NA)
         df_all["발생 유형"] = df_all["발생 유형"].replace(type_mapping)
 
-    # 2025년 데이터 필터링
-    df_2025 = df_all[df_all["발생 일시"].dt.year == 2025].copy()
+    # 2026년 데이터 필터링
+    df_2026 = df_all[df_all["발생 일시"].dt.year == 2026].copy()
 
-    # 2025년 통계 정보 표시 (상단에 바로 표시)
-    stage_counts = df_2025["단계"].value_counts().to_dict()
+    # 2026년 통계 정보 표시 (상단에 바로 표시)
+    stage_counts = df_2026["단계"].value_counts().to_dict()
     관심_count = stage_counts.get('관심', 0)
     주의_count = stage_counts.get('주의', 0)
     위기_count = stage_counts.get('위기', 0)
     비상_count = stage_counts.get('비상', 0)
 
-    total = len(df_2025)
+    total = len(df_2026)
     관심_pct = (관심_count / total * 100) if total > 0 else 0
     주의_pct = (주의_count / total * 100) if total > 0 else 0
     위기_pct = (위기_count / total * 100) if total > 0 else 0
@@ -2520,7 +2520,7 @@ def page_history_search():
             '위기': 위기_count,
             '비상': 비상_count
         },
-        year=2025,
+        year=2026,
         show_live=True
     )
 

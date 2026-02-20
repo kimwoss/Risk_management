@@ -8,7 +8,9 @@ from datetime import datetime
 import pytz
 
 
-def render_status_dashboard(total: int, status_counts: dict, year: int = 2026, show_live: bool = True):
+def render_status_dashboard(total: int, status_counts: dict, year: int = None, show_live: bool = True):
+    if year is None:
+        year = datetime.now().year
     관심_count = status_counts.get('관심', 0)
     주의_count = status_counts.get('주의', 0)
     위기_count = status_counts.get('위기', 0)

@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-19T23:59:49.398958",
+      "retry_count": 3,
+      "last_attempt": "2026-02-20T02:51:35.299251",
       "hash_id": "b9d215a48c270045"
+    },
+    "https://biz.heraldcorp.com/article/10678983?ref=naver": {
+      "title": "일본보다 대미투자 늦을수록 청구서 커진다…내달 19일이전 확정해야",
+      "link": "https://biz.heraldcorp.com/article/10678983?ref=naver",
+      "date": "2026-02-20 11:01",
+      "press": "헤럴드경제",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-20T02:52:35.933918",
+      "hash_id": "a26dfa11dbd8a08a"
     }
   },
-  "last_updated": "2026-02-19 23:59:56",
-  "count": 1
+  "last_updated": "2026-02-20 02:52:38",
+  "count": 2
 }

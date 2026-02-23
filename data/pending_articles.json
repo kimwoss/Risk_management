@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008452322&plink=ORI&cooper=NAVER": {
-      "title": "'세계 1위' 임종훈-신유빈, 싱가포르 스매시 8강 진출",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008452322&plink=ORI&cooper=NAVER",
-      "date": "2026-02-23 19:07",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-23T12:01:35.960168",
-      "hash_id": "55c98fa7f7587b3a"
-    },
     "https://www.newsis.com/view/NISX20260223_0003523301": {
       "title": "탁구 임종훈-신유빈, 싱가포르 스매시 혼합복식 8강행",
       "link": "https://www.newsis.com/view/NISX20260223_0003523301",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-23T12:01:37.266400",
+      "retry_count": 3,
+      "last_attempt": "2026-02-23T13:39:15.160765",
       "hash_id": "1eb2b13a99f82783"
     },
     "http://www.phmbc.co.kr/www/news/desk_news?idx=199963&mode=view": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-23T12:01:36.338107",
+      "retry_count": 3,
+      "last_attempt": "2026-02-23T13:39:14.581428",
       "hash_id": "53e4e2ae5c6da211"
     }
   },
-  "last_updated": "2026-02-23 12:01:37",
-  "count": 3
+  "last_updated": "2026-02-23 13:39:16",
+  "count": 2
 }

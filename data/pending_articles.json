@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260223_0003523154": {
-      "title": "포스코그룹, 제철소 물류에 '휴머노이드 도입' 추진…\"피지컬 AI 실증 본...",
-      "link": "https://www.newsis.com/view/NISX20260223_0003523154",
-      "date": "2026-02-23 17:38",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-23T11:25:36.466239",
-      "hash_id": "e9aa1a4ea8b66851"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008452322&plink=ORI&cooper=NAVER": {
       "title": "'세계 1위' 임종훈-신유빈, 싱가포르 스매시 8강 진출",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008452322&plink=ORI&cooper=NAVER",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-23T11:25:37.018633",
+      "retry_count": 5,
+      "last_attempt": "2026-02-23T12:01:35.960168",
       "hash_id": "55c98fa7f7587b3a"
+    },
+    "https://www.newsis.com/view/NISX20260223_0003523301": {
+      "title": "탁구 임종훈-신유빈, 싱가포르 스매시 혼합복식 8강행",
+      "link": "https://www.newsis.com/view/NISX20260223_0003523301",
+      "date": "2026-02-23 20:49",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-23T12:01:37.266400",
+      "hash_id": "1eb2b13a99f82783"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=199963&mode=view": {
+      "title": "포스코퓨처엠, S&P 글로벌 지속가능경영 보고서",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=199963&mode=view",
+      "date": "2026-02-23 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-23T12:01:36.338107",
+      "hash_id": "53e4e2ae5c6da211"
     }
   },
-  "last_updated": "2026-02-23 11:25:38",
-  "count": 2
+  "last_updated": "2026-02-23 12:01:37",
+  "count": 3
 }

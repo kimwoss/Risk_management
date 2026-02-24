@@ -1,5 +1,39 @@
 {
-  "queue": {},
-  "last_updated": "2026-02-24 23:01:42",
-  "count": 0
+  "queue": {
+    "https://www.viva100.com/article/20260225500060": {
+      "title": "포스코, SK온에 리튬 2만5000t 공급⋯ 상업생산 이후 최대 규모",
+      "link": "https://www.viva100.com/article/20260225500060",
+      "date": "2026-02-25 08:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-24T23:46:17.952986",
+      "hash_id": "a7be22ef5ed912e0"
+    },
+    "https://www.newsis.com/view/NISX20260225_0003525255": {
+      "title": "SK온, 포스코그룹과 리튬 2만5000t 계약…ESS·재활용까지 협력 확대",
+      "link": "https://www.newsis.com/view/NISX20260225_0003525255",
+      "date": "2026-02-25 08:35",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-24T23:45:40.237172",
+      "hash_id": "4f7a141349e1cd72"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202602250819272916570d99e4c8_23": {
+      "title": "포스코그룹, SK온에 유럽·북미 전기차 배터리용 리튬 공급",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202602250819272916570d99e4c8_23",
+      "date": "2026-02-25 08:28",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-24T23:45:32.443585",
+      "hash_id": "32fe817b2fcfd673"
+    }
+  },
+  "last_updated": "2026-02-24 23:46:19",
+  "count": 3
 }

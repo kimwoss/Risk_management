@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431002": {
-      "title": "포스코 대학생 봉사단 '비욘드' 누적 단원 1500명 돌파, 올해 4월 '19기'...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431002",
-      "date": "2026-02-24 17:24",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-24T11:08:33.008570",
-      "hash_id": "8ecb716057b27b1d"
-    },
     "https://biz.sbs.co.kr/article_hub/20000293330?division=NAVER": {
       "title": "포스코퓨처엠, 사내외이사 후보 확정…내달 주총 개최",
       "link": "https://biz.sbs.co.kr/article_hub/20000293330?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-24T11:08:34.102492",
+      "retry_count": 5,
+      "last_attempt": "2026-02-24T11:56:28.783071",
       "hash_id": "2ca474b9471df531"
     },
     "https://www.newsis.com/view/NISX20260224_0003524968": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-24T11:08:33.556103",
+      "retry_count": 5,
+      "last_attempt": "2026-02-24T11:56:28.226430",
       "hash_id": "08f3dcfeecbf9ba2"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008453989&plink=ORI&cooper=NAVER": {
@@ -40,11 +29,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-24T11:08:35.443752",
+      "retry_count": 3,
+      "last_attempt": "2026-02-24T11:56:29.303112",
       "hash_id": "9d378f31d8bdc5e7"
     }
   },
-  "last_updated": "2026-02-24 11:08:43",
-  "count": 4
+  "last_updated": "2026-02-24 11:56:31",
+  "count": 3
 }

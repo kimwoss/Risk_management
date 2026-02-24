@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008453989&plink=ORI&cooper=NAVER": {
-      "title": "탁구 김나영-유한나 콤비, WTT 싱가포르 스매시 8강 진출",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008453989&plink=ORI&cooper=NAVER",
-      "date": "2026-02-24 19:20",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-24T13:26:39.015866",
-      "hash_id": "9d378f31d8bdc5e7"
-    },
     "https://www.g-enews.com/view.php?ud=2026022421591924453d7a510102_1": {
       "title": "포스코퓨처엠, 김성진 본부장 등 신임 사내외이사 추천",
       "link": "https://www.g-enews.com/view.php?ud=2026022421591924453d7a510102_1",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-24T13:26:46.940090",
+      "retry_count": 3,
+      "last_attempt": "2026-02-24T14:34:35.293614",
       "hash_id": "df14267d40702d0c"
     }
   },
-  "last_updated": "2026-02-24 13:26:47",
-  "count": 2
+  "last_updated": "2026-02-24 14:34:37",
+  "count": 1
 }

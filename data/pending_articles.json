@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000293330?division=NAVER": {
-      "title": "포스코퓨처엠, 사내외이사 후보 확정…내달 주총 개최",
-      "link": "https://biz.sbs.co.kr/article_hub/20000293330?division=NAVER",
-      "date": "2026-02-24 18:55",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-24T11:56:28.783071",
-      "hash_id": "2ca474b9471df531"
-    },
-    "https://www.newsis.com/view/NISX20260224_0003524968": {
-      "title": "포스코퓨처엠, 김성진 본부장 사내이사 추천…재무·배터리 전문가로 이...",
-      "link": "https://www.newsis.com/view/NISX20260224_0003524968",
-      "date": "2026-02-24 18:27",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-24T11:56:28.226430",
-      "hash_id": "08f3dcfeecbf9ba2"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008453989&plink=ORI&cooper=NAVER": {
       "title": "탁구 김나영-유한나 콤비, WTT 싱가포르 스매시 8강 진출",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008453989&plink=ORI&cooper=NAVER",
@@ -29,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-24T11:56:29.303112",
+      "retry_count": 5,
+      "last_attempt": "2026-02-24T13:26:39.015866",
       "hash_id": "9d378f31d8bdc5e7"
+    },
+    "https://www.g-enews.com/view.php?ud=2026022421591924453d7a510102_1": {
+      "title": "포스코퓨처엠, 김성진 본부장 등 신임 사내외이사 추천",
+      "link": "https://www.g-enews.com/view.php?ud=2026022421591924453d7a510102_1",
+      "date": "2026-02-24 22:04",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-24T13:26:46.940090",
+      "hash_id": "df14267d40702d0c"
     }
   },
-  "last_updated": "2026-02-24 11:56:31",
-  "count": 3
+  "last_updated": "2026-02-24 13:26:47",
+  "count": 2
 }

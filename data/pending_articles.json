@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431165": {
-      "title": "공정위 포스코이앤씨 포함 4개 건설사 대상 심의 진행, 안전비용 전가 ...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431165",
-      "date": "2026-02-25 17:20",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T10:33:03.369759",
-      "hash_id": "d05b38731686edf7"
-    },
-    "https://www.nocutnews.co.kr/news/6476448?utm_source=naver&utm_medium=article&utm_campaign=20260225050935": {
-      "title": "전주 덕진공원에 '포스코이앤씨 기업정원' 들어선다",
-      "link": "https://www.nocutnews.co.kr/news/6476448?utm_source=naver&utm_medium=article&utm_campaign=20260225050935",
-      "date": "2026-02-25 17:10",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T10:33:02.923886",
-      "hash_id": "f97310521c07e6d6"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008455492&plink=ORI&cooper=NAVER": {
       "title": "탁구 신유빈, 나가사키와 짝이뤄 싱가포르 스매시 여복 준결승 진출",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008455492&plink=ORI&cooper=NAVER",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T10:33:04.187922",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T11:26:50.121319",
       "hash_id": "57c101c2f5f0b1d6"
     },
     "https://www.newsis.com/view/NISX20260225_0003526581": {
@@ -40,11 +18,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T10:33:03.779868",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T11:26:49.610986",
       "hash_id": "8af02d6b650a4f68"
     }
   },
-  "last_updated": "2026-02-25 10:33:12",
-  "count": 4
+  "last_updated": "2026-02-25 11:26:53",
+  "count": 2
 }

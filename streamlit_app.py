@@ -3159,7 +3159,7 @@ def page_news_monitor():
                     st.session_state[report_state_key] = {"generated": False, "content": ""}
 
                 # 버튼만 배치 (우측 정렬)
-                if st.button("📄 보고서 생성", key=report_key, type="secondary"):
+                if st.button("📄 기사 요약", key=report_key, type="secondary"):
                     with st.spinner("기사 요약 생성 중..."):
                         try:
                             report_txt = make_kakao_report_from_url(

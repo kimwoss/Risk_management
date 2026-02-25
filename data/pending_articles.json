@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://biz.chosun.com/industry/company/2026/02/25/6LELSFHLBJHAPNL36X6WR4SWHI/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "포스코그룹, SK온과 2.5만t 규모 전기차 배터리용 리튬 공급 계약 체결",
-      "link": "https://biz.chosun.com/industry/company/2026/02/25/6LELSFHLBJHAPNL36X6WR4SWHI/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-02-25 10:08",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T03:06:25.802899",
-      "hash_id": "ac2e18cc9674ef70"
-    },
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431054": {
-      "title": "포스코그룹 SK온에 전기차용 리튬 공급, 3년간 최대 2만5천 톤 규모",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431054",
-      "date": "2026-02-25 10:06",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T03:06:25.423573",
-      "hash_id": "9d4cbf4a85dfa465"
-    },
     "https://www.newsis.com/view/NISX20260225_0003525760": {
       "title": "포스코이앤씨, 하청에 \"방호장치는 안전관리비 非정산\" 특약 설정?…심...",
       "link": "https://www.newsis.com/view/NISX20260225_0003525760",
@@ -29,11 +7,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-02-25T03:06:33.450150",
+      "retry_count": 3,
+      "last_attempt": "2026-02-25T03:43:21.382139",
       "hash_id": "b37b7b5c11e3edaa"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000293504?division=NAVER": {
+      "title": "\"사고 나면 하청 책임\"…포스코이앤씨 등 4곳 제재절차 착수",
+      "link": "https://biz.sbs.co.kr/article_hub/20000293504?division=NAVER",
+      "date": "2026-02-25 12:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T03:43:25.455754",
+      "hash_id": "1b5f5cf8cf7e9840"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2026022512084471257492587736_18": {
+      "title": "‘소재 동맹’ 포스코그룹-SK온, 2만5000톤 전기차 배터리 리튬 계약",
+      "link": "http://www.fntimes.com/html/view.php?ud=2026022512084471257492587736_18",
+      "date": "2026-02-25 12:12",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T03:43:24.163633",
+      "hash_id": "02efff2312aa0e89"
     }
   },
-  "last_updated": "2026-02-25 03:06:45",
+  "last_updated": "2026-02-25 03:43:31",
   "count": 3
 }

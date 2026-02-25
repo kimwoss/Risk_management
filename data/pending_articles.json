@@ -1,28 +1,17 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008455492&plink=ORI&cooper=NAVER": {
-      "title": "탁구 신유빈, 나가사키와 짝이뤄 싱가포르 스매시 여복 준결승 진출",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008455492&plink=ORI&cooper=NAVER",
-      "date": "2026-02-25 17:48",
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=200001&mode=view": {
+      "title": "포스코퓨처엠, 사내외 이사 후보 추천..다음달",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=200001&mode=view",
+      "date": "2026-02-25 20:40",
       "press": "",
-      "keyword": "포스코인터내셔널",
+      "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T11:26:50.121319",
-      "hash_id": "57c101c2f5f0b1d6"
-    },
-    "https://www.newsis.com/view/NISX20260225_0003526581": {
-      "title": "인천상의, 신임 부회장 3명·상임의원 8명 선출",
-      "link": "https://www.newsis.com/view/NISX20260225_0003526581",
-      "date": "2026-02-25 17:30",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T11:26:49.610986",
-      "hash_id": "8af02d6b650a4f68"
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T12:03:02.969388",
+      "hash_id": "7c33ee16f4059b49"
     }
   },
-  "last_updated": "2026-02-25 11:26:53",
-  "count": 2
+  "last_updated": "2026-02-25 12:03:04",
+  "count": 1
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.viva100.com/article/20260225500060": {
-      "title": "포스코, SK온에 리튬 2만5000t 공급⋯ 상업생산 이후 최대 규모",
-      "link": "https://www.viva100.com/article/20260225500060",
-      "date": "2026-02-25 08:42",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-24T23:46:17.952986",
-      "hash_id": "a7be22ef5ed912e0"
-    },
     "https://www.newsis.com/view/NISX20260225_0003525255": {
       "title": "SK온, 포스코그룹과 리튬 2만5000t 계약…ESS·재활용까지 협력 확대",
       "link": "https://www.newsis.com/view/NISX20260225_0003525255",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-24T23:45:40.237172",
+      "retry_count": 3,
+      "last_attempt": "2026-02-25T00:50:41.218666",
       "hash_id": "4f7a141349e1cd72"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202602250819272916570d99e4c8_23": {
@@ -29,11 +18,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-24T23:45:32.443585",
+      "retry_count": 3,
+      "last_attempt": "2026-02-25T00:50:40.813778",
       "hash_id": "32fe817b2fcfd673"
+    },
+    "http://www.snmnews.com/news/articleView.html?idxno=565668": {
+      "title": "포스코퓨처엠, 정기이사회서 사내외이사 후보 의결…3월 주총 상정",
+      "link": "http://www.snmnews.com/news/articleView.html?idxno=565668",
+      "date": "2026-02-25 09:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T00:51:19.803132",
+      "hash_id": "5e2913d40e5d3f2c"
+    },
+    "https://www.nocutnews.co.kr/news/6475971?utm_source=naver&utm_medium=article&utm_campaign=20260225093432": {
+      "title": "포스코퓨처엠, 정기이사회…사내외이사 후보 추천",
+      "link": "https://www.nocutnews.co.kr/news/6475971?utm_source=naver&utm_medium=article&utm_campaign=20260225093432",
+      "date": "2026-02-25 09:35",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T00:50:56.794688",
+      "hash_id": "fc7a9cdb4aeb7092"
     }
   },
-  "last_updated": "2026-02-24 23:46:19",
-  "count": 3
+  "last_updated": "2026-02-25 00:51:26",
+  "count": 4
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6475997?utm_source=naver&utm_medium=article&utm_campaign=20260225095531": {
-      "title": "포스코그룹 SK온에 리튬 장기공급 계약…'전기차 40만대' 규모",
-      "link": "https://www.nocutnews.co.kr/news/6475997?utm_source=naver&utm_medium=article&utm_campaign=20260225095531",
-      "date": "2026-02-25 09:56",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T02:56:08.291297",
-      "hash_id": "e7b72e9f992efa84"
-    },
     "https://biz.chosun.com/industry/company/2026/02/25/6LELSFHLBJHAPNL36X6WR4SWHI/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "포스코그룹, SK온과 2.5만t 규모 전기차 배터리용 리튬 공급 계약 체결",
       "link": "https://biz.chosun.com/industry/company/2026/02/25/6LELSFHLBJHAPNL36X6WR4SWHI/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T02:56:09.040882",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T03:06:25.802899",
       "hash_id": "ac2e18cc9674ef70"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=431054": {
@@ -29,22 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T02:56:08.666061",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T03:06:25.423573",
       "hash_id": "9d4cbf4a85dfa465"
     },
-    "https://www.gpkorea.com/news/articleView.html?idxno=140327": {
-      "title": "SK온, 포스코그룹과 리튬 2.5만t 구매 계약…\"공급망 다변화\"",
-      "link": "https://www.gpkorea.com/news/articleView.html?idxno=140327",
-      "date": "2026-02-25 11:52",
-      "press": "글로벌오토뉴스",
+    "https://www.newsis.com/view/NISX20260225_0003525760": {
+      "title": "포스코이앤씨, 하청에 \"방호장치는 안전관리비 非정산\" 특약 설정?…심...",
+      "link": "https://www.newsis.com/view/NISX20260225_0003525760",
+      "date": "2026-02-25 12:00",
+      "press": "",
       "keyword": "포스코",
-      "sentiment": "pos",
+      "sentiment": "neg",
       "retry_count": 1,
-      "last_attempt": "2026-02-25T02:57:09.762933",
-      "hash_id": "c09a6bff1eb4cc34"
+      "last_attempt": "2026-02-25T03:06:33.450150",
+      "hash_id": "b37b7b5c11e3edaa"
     }
   },
-  "last_updated": "2026-02-25 02:57:09",
-  "count": 4
+  "last_updated": "2026-02-25 03:06:45",
+  "count": 3
 }

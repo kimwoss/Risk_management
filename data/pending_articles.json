@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T00:50:41.218666",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T01:00:12.815996",
       "hash_id": "4f7a141349e1cd72"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202602250819272916570d99e4c8_23": {
@@ -18,20 +18,9 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T00:50:40.813778",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T01:00:12.244835",
       "hash_id": "32fe817b2fcfd673"
-    },
-    "http://www.snmnews.com/news/articleView.html?idxno=565668": {
-      "title": "포스코퓨처엠, 정기이사회서 사내외이사 후보 의결…3월 주총 상정",
-      "link": "http://www.snmnews.com/news/articleView.html?idxno=565668",
-      "date": "2026-02-25 09:40",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-25T00:51:19.803132",
-      "hash_id": "5e2913d40e5d3f2c"
     },
     "https://www.nocutnews.co.kr/news/6475971?utm_source=naver&utm_medium=article&utm_campaign=20260225093432": {
       "title": "포스코퓨처엠, 정기이사회…사내외이사 후보 추천",
@@ -40,11 +29,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-25T00:50:56.794688",
+      "retry_count": 3,
+      "last_attempt": "2026-02-25T01:00:13.404706",
       "hash_id": "fc7a9cdb4aeb7092"
+    },
+    "https://www.nocutnews.co.kr/news/6475997?utm_source=naver&utm_medium=article&utm_campaign=20260225095531": {
+      "title": "포스코그룹 SK온에 리튬 장기공급 계약…'전기차 40만대' 규모",
+      "link": "https://www.nocutnews.co.kr/news/6475997?utm_source=naver&utm_medium=article&utm_campaign=20260225095531",
+      "date": "2026-02-25 09:56",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T01:00:22.924892",
+      "hash_id": "e7b72e9f992efa84"
     }
   },
-  "last_updated": "2026-02-25 00:51:26",
+  "last_updated": "2026-02-25 01:00:23",
   "count": 4
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260225_0003525760": {
-      "title": "포스코이앤씨, 하청에 \"방호장치는 안전관리비 非정산\" 특약 설정?…심...",
-      "link": "https://www.newsis.com/view/NISX20260225_0003525760",
-      "date": "2026-02-25 12:00",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T03:58:41.985606",
-      "hash_id": "b37b7b5c11e3edaa"
-    },
     "https://biz.sbs.co.kr/article_hub/20000293504?division=NAVER": {
       "title": "\"사고 나면 하청 책임\"…포스코이앤씨 등 4곳 제재절차 착수",
       "link": "https://biz.sbs.co.kr/article_hub/20000293504?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T03:58:42.996556",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T05:16:28.409870",
       "hash_id": "1b5f5cf8cf7e9840"
     },
     "http://www.fntimes.com/html/view.php?ud=2026022512084471257492587736_18": {
@@ -29,11 +18,44 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T03:58:42.496532",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T05:16:27.896497",
       "hash_id": "02efff2312aa0e89"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1246470.html": {
+      "title": "공정위, 포스코이앤씨 등 4곳 심의…안전 비용 하도급에 떠넘긴 혐의",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1246470.html",
+      "date": "2026-02-25 13:28",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T05:16:37.152420",
+      "hash_id": "d8e276b7cff4596e"
+    },
+    "https://www.nocutnews.co.kr/news/6476147?utm_source=naver&utm_medium=article&utm_campaign=20260225012333": {
+      "title": "공정위, 포스코이앤씨 등 4개 건설사 '부당특약 설정' 심의 착수",
+      "link": "https://www.nocutnews.co.kr/news/6476147?utm_source=naver&utm_medium=article&utm_campaign=20260225012333",
+      "date": "2026-02-25 13:24",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T05:16:31.653867",
+      "hash_id": "b0b4aeaa6d854a9f"
+    },
+    "http://www.globalepic.co.kr/view.php?ud=20260225131805522548439a4874_29": {
+      "title": "[C-레벨 탐구 ⑥ 포스코그룹] 철강·건설·이차전지·디지털 4개축 리더...",
+      "link": "http://www.globalepic.co.kr/view.php?ud=20260225131805522548439a4874_29",
+      "date": "2026-02-25 13:24",
+      "press": "글로벌이코노믹",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T05:16:32.819374",
+      "hash_id": "1a2b53d63b30407f"
     }
   },
-  "last_updated": "2026-02-25 03:58:43",
-  "count": 3
+  "last_updated": "2026-02-25 05:16:51",
+  "count": 5
 }

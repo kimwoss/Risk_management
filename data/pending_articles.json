@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.hani.co.kr/arti/economy/economy_general/1246470.html": {
-      "title": "공정위, 포스코이앤씨 등 4곳 심의…안전 비용 하도급에 떠넘긴 혐의",
-      "link": "https://www.hani.co.kr/arti/economy/economy_general/1246470.html",
-      "date": "2026-02-25 13:28",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T07:38:26.093961",
-      "hash_id": "d8e276b7cff4596e"
-    },
-    "https://www.nocutnews.co.kr/news/6476147?utm_source=naver&utm_medium=article&utm_campaign=20260225012333": {
-      "title": "공정위, 포스코이앤씨 등 4개 건설사 '부당특약 설정' 심의 착수",
-      "link": "https://www.nocutnews.co.kr/news/6476147?utm_source=naver&utm_medium=article&utm_campaign=20260225012333",
-      "date": "2026-02-25 13:24",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T07:38:25.247974",
-      "hash_id": "b0b4aeaa6d854a9f"
-    },
-    "http://www.globalepic.co.kr/view.php?ud=20260225131805522548439a4874_29": {
-      "title": "[C-레벨 탐구 ⑥ 포스코그룹] 철강·건설·이차전지·디지털 4개축 리더...",
-      "link": "http://www.globalepic.co.kr/view.php?ud=20260225131805522548439a4874_29",
-      "date": "2026-02-25 13:24",
-      "press": "글로벌이코노믹",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-25T07:38:25.662485",
-      "hash_id": "1a2b53d63b30407f"
-    },
     "https://www.seoul.co.kr/news/economy/industry/2026/02/25/20260225500200?wlog_tag3=naver": {
       "title": "SK온, 포스코그룹과 리튬 장기 구매 계약…유럽·북미 공급 역량 넓힌다",
       "link": "https://www.seoul.co.kr/news/economy/industry/2026/02/25/20260225500200?wlog_tag3=naver",
@@ -40,11 +7,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-25T07:38:26.503119",
+      "retry_count": 5,
+      "last_attempt": "2026-02-25T08:29:56.767456",
       "hash_id": "c0752ee183c3915c"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=431165": {
+      "title": "공정위 포스코이앤씨 포함 4개 건설사 대상 심의 진행, 안전비용 전가 ...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431165",
+      "date": "2026-02-25 17:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T08:30:06.458396",
+      "hash_id": "d05b38731686edf7"
+    },
+    "https://www.nocutnews.co.kr/news/6476448?utm_source=naver&utm_medium=article&utm_campaign=20260225050935": {
+      "title": "전주 덕진공원에 '포스코이앤씨 기업정원' 들어선다",
+      "link": "https://www.nocutnews.co.kr/news/6476448?utm_source=naver&utm_medium=article&utm_campaign=20260225050935",
+      "date": "2026-02-25 17:10",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-25T08:29:59.346730",
+      "hash_id": "f97310521c07e6d6"
     }
   },
-  "last_updated": "2026-02-25 07:38:40",
-  "count": 4
+  "last_updated": "2026-02-25 08:30:18",
+  "count": 3
 }

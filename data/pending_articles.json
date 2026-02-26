@@ -7,11 +7,22 @@
       "press": "문화일보",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-26T03:41:45.410800",
+      "retry_count": 3,
+      "last_attempt": "2026-02-26T05:12:37.370843",
       "hash_id": "7138ac3346df5ab9"
+    },
+    "http://www.lawissue.co.kr/view.php?ud=20260226134653127067191f6c6e_12": {
+      "title": "포스코그룹, 국립중앙박물관에 사회적 약자 위한 ‘포스아트’ 전시물...",
+      "link": "http://www.lawissue.co.kr/view.php?ud=20260226134653127067191f6c6e_12",
+      "date": "2026-02-26 13:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-26T05:12:46.251401",
+      "hash_id": "339dbee40f0298ed"
     }
   },
-  "last_updated": "2026-02-26 03:41:46",
-  "count": 1
+  "last_updated": "2026-02-26 05:12:47",
+  "count": 2
 }

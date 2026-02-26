@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6477096?utm_source=naver&utm_medium=article&utm_campaign=20260226043648": {
-      "title": "박승호 포항시장 예비후보 '포스코 상생프로젝트' 공약",
-      "link": "https://www.nocutnews.co.kr/news/6477096?utm_source=naver&utm_medium=article&utm_campaign=20260226043648",
-      "date": "2026-02-26 16:37",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-26T10:05:28.850242",
-      "hash_id": "3b4af85081b7f56d"
-    },
-    "https://www.newsis.com/view/NISX20260226_0003528133": {
-      "title": "첫 승 보인다…탁구 '황금 콤비' 임종훈-신유빈, 싱가포르 스매시 결승...",
-      "link": "https://www.newsis.com/view/NISX20260226_0003528133",
-      "date": "2026-02-26 16:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-02-26T10:05:28.370902",
-      "hash_id": "cf9bb5178a588b37"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008457370&plink=ORI&cooper=NAVER": {
       "title": "탁구 혼복 세계 1위 임종훈-신유빈, 싱가포르 스매시 결승행",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008457370&plink=ORI&cooper=NAVER",
@@ -29,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-26T10:05:32.573796",
+      "retry_count": 3,
+      "last_attempt": "2026-02-26T11:05:29.947545",
       "hash_id": "5c31389c18d0222b"
     }
   },
-  "last_updated": "2026-02-26 10:05:38",
-  "count": 3
+  "last_updated": "2026-02-26 11:05:30",
+  "count": 1
 }

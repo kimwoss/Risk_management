@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-26T09:05:13.545371",
+      "retry_count": 5,
+      "last_attempt": "2026-02-26T10:05:28.850242",
       "hash_id": "3b4af85081b7f56d"
     },
     "https://www.newsis.com/view/NISX20260226_0003528133": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-26T09:05:13.007572",
+      "retry_count": 5,
+      "last_attempt": "2026-02-26T10:05:28.370902",
       "hash_id": "cf9bb5178a588b37"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008457370&plink=ORI&cooper=NAVER": {
+      "title": "탁구 혼복 세계 1위 임종훈-신유빈, 싱가포르 스매시 결승행",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008457370&plink=ORI&cooper=NAVER",
+      "date": "2026-02-26 18:49",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-26T10:05:32.573796",
+      "hash_id": "5c31389c18d0222b"
     }
   },
-  "last_updated": "2026-02-26 09:05:28",
-  "count": 2
+  "last_updated": "2026-02-26 10:05:38",
+  "count": 3
 }

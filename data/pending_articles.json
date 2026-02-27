@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.bizwork.co.kr/news/articleView.html?idxno=412946": {
-      "title": "\"초격차\" 승부수 던진 포스코, '8대 핵심 전략제품' 역량 집중...\"미래 시...",
-      "link": "https://www.bizwork.co.kr/news/articleView.html?idxno=412946",
-      "date": "2026-02-27 10:00",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T01:07:11.802172",
-      "hash_id": "dbc968305477238b"
-    },
     "https://www.newsis.com/view/NISX20260227_0003528951": {
       "title": "장인화 회장 '원팀' 승부수…포스코, 8대 전략제품으로 초격차 재건",
       "link": "https://www.newsis.com/view/NISX20260227_0003528951",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T01:06:20.589457",
+      "retry_count": 3,
+      "last_attempt": "2026-02-27T03:38:41.985897",
       "hash_id": "c7a0e1a7a50a248a"
     },
     "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23849&Newsnumb=20260223849": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T01:06:19.680355",
+      "retry_count": 3,
+      "last_attempt": "2026-02-27T03:38:41.574823",
       "hash_id": "5ed44e62cc3149a8"
     },
     "https://biz.chosun.com/industry/company/2026/02/27/PTNAAE2M75HPLPRGL22XBUJJSM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -40,11 +29,44 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T01:06:18.778597",
+      "retry_count": 3,
+      "last_attempt": "2026-02-27T03:38:41.159211",
       "hash_id": "d7b3b2842c6aa40b"
+    },
+    "https://www.g-enews.com/view.php?ud=20260227103110172424debea800_1": {
+      "title": "포스코, 8대 전략제품 프로젝트팀 가동...‘원팀’ 체제 구축",
+      "link": "https://www.g-enews.com/view.php?ud=20260227103110172424debea800_1",
+      "date": "2026-02-27 12:06",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T03:39:01.915122",
+      "hash_id": "4b6c28b7e1b29272"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=431428": {
+      "title": "포스코 '8대 철강 전략제품' 프로젝트팀 본격 가동, \"철강 신성장 승부...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431428",
+      "date": "2026-02-27 11:50",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T03:38:56.563405",
+      "hash_id": "99ca1b88bf1d50d5"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2026/02/27/20260227500123?wlog_tag3=naver": {
+      "title": "포스코, 8대 전략제품으로 철강 초격차 구축",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/02/27/20260227500123?wlog_tag3=naver",
+      "date": "2026-02-27 11:34",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T03:38:54.942090",
+      "hash_id": "52b9016cf4994c7f"
     }
   },
-  "last_updated": "2026-02-27 01:07:12",
-  "count": 4
+  "last_updated": "2026-02-27 03:39:02",
+  "count": 6
 }

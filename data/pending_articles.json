@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-02-27T07:58:38.121820",
+      "retry_count": 5,
+      "last_attempt": "2026-02-27T08:55:53.138334",
       "hash_id": "7641c7fbe12e3e3d"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202602271610477822570d99e4c8_23": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T07:58:40.466345",
+      "retry_count": 3,
+      "last_attempt": "2026-02-27T08:55:56.285157",
       "hash_id": "e66328268e3e798b"
     },
     "https://www.nocutnews.co.kr/news/6477686?utm_source=naver&utm_medium=article&utm_campaign=20260227043407": {
@@ -29,11 +29,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-02-27T07:58:39.555985",
+      "retry_count": 3,
+      "last_attempt": "2026-02-27T08:55:55.734983",
       "hash_id": "75957a7eb6550725"
+    },
+    "https://www.g-enews.com/view.php?ud=202602271712395861edf69f862c_1": {
+      "title": "[시총 100대기업] 2월 대부분 상승…한화솔루션 상승률 1위, 한화에어로...",
+      "link": "https://www.g-enews.com/view.php?ud=202602271712395861edf69f862c_1",
+      "date": "2026-02-27 17:26",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T08:56:01.556775",
+      "hash_id": "46589faca2d02c4e"
     }
   },
-  "last_updated": "2026-02-27 07:58:41",
-  "count": 3
+  "last_updated": "2026-02-27 08:56:08",
+  "count": 4
 }

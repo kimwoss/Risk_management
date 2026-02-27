@@ -1,17 +1,50 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431371": {
-      "title": "[Who Is ?] 김치형 효성티앤씨 대표이사",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431371",
-      "date": "2026-02-27 07:40",
+    "https://www.bizwork.co.kr/news/articleView.html?idxno=412946": {
+      "title": "\"초격차\" 승부수 던진 포스코, '8대 핵심 전략제품' 역량 집중...\"미래 시...",
+      "link": "https://www.bizwork.co.kr/news/articleView.html?idxno=412946",
+      "date": "2026-02-27 10:00",
       "press": "",
-      "keyword": "POSCO INTERNATIONAL",
+      "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-02-26T23:48:57.220017",
-      "hash_id": "50ee7763f17ea87f"
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T01:07:11.802172",
+      "hash_id": "dbc968305477238b"
+    },
+    "https://www.newsis.com/view/NISX20260227_0003528951": {
+      "title": "장인화 회장 '원팀' 승부수…포스코, 8대 전략제품으로 초격차 재건",
+      "link": "https://www.newsis.com/view/NISX20260227_0003528951",
+      "date": "2026-02-27 09:45",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T01:06:20.589457",
+      "hash_id": "c7a0e1a7a50a248a"
+    },
+    "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23849&Newsnumb=20260223849": {
+      "title": "포스코가 꼽은 미래 철강시장을 선점 할 8대 핵심 제품은? | '고부가가치...",
+      "link": "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23849&Newsnumb=20260223849",
+      "date": "2026-02-27 09:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T01:06:19.680355",
+      "hash_id": "5ed44e62cc3149a8"
+    },
+    "https://biz.chosun.com/industry/company/2026/02/27/PTNAAE2M75HPLPRGL22XBUJJSM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코, ‘8대 전략제품’으로 ‘철강 초격차’ 승부수",
+      "link": "https://biz.chosun.com/industry/company/2026/02/27/PTNAAE2M75HPLPRGL22XBUJJSM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-02-27 09:38",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-02-27T01:06:18.778597",
+      "hash_id": "d7b3b2842c6aa40b"
     }
   },
-  "last_updated": "2026-02-26 23:49:14",
-  "count": 1
+  "last_updated": "2026-02-27 01:07:12",
+  "count": 4
 }

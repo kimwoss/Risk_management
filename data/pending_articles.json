@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-02T04:29:11.896641",
+      "retry_count": 5,
+      "last_attempt": "2026-03-02T05:38:58.131888",
       "hash_id": "a566e0f0626179ce"
     },
     "https://www.nocutnews.co.kr/news/6478146?utm_source=naver&utm_medium=article&utm_campaign=20260302011345": {
@@ -18,8 +18,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-02T04:29:23.548605",
+      "retry_count": 3,
+      "last_attempt": "2026-03-02T05:38:58.946685",
       "hash_id": "59bf11d3638b6464"
     },
     "https://www.newsis.com/view/NISX20260302_0003531338": {
@@ -29,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-02T04:29:14.692233",
+      "retry_count": 3,
+      "last_attempt": "2026-03-02T05:38:58.540984",
       "hash_id": "2a0e8648358299ba"
+    },
+    "https://biz.chosun.com/industry/company/2026/03/02/NCABK4BEERF5VKEPM7FS6S4HTY/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[美 이란 공습] ‘최전선’ 정유·항공·해운 일제히 긴급 대응… 대체...",
+      "link": "https://biz.chosun.com/industry/company/2026/03/02/NCABK4BEERF5VKEPM7FS6S4HTY/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-03-02 10:33",
+      "press": "",
+      "keyword": "미얀마 LNG",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-02T05:38:57.725043",
+      "hash_id": "78f2d59a9e3aa6eb"
     }
   },
-  "last_updated": "2026-03-02 04:29:24",
-  "count": 3
+  "last_updated": "2026-03-02 05:39:07",
+  "count": 4
 }

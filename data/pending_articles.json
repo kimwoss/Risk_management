@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6478146?utm_source=naver&utm_medium=article&utm_campaign=20260302011345": {
-      "title": "국내 배터리 기업들, '인터배터리' 총출동…ESS·로봇용 신기술 제시",
-      "link": "https://www.nocutnews.co.kr/news/6478146?utm_source=naver&utm_medium=article&utm_campaign=20260302011345",
-      "date": "2026-03-02 13:14",
-      "press": "노컷뉴스",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-02T06:38:21.779209",
-      "hash_id": "59bf11d3638b6464"
-    },
-    "https://www.newsis.com/view/NISX20260302_0003531338": {
-      "title": "포스코퓨처엠, 인터배터리서 미래 양·음극재 기술 공개",
-      "link": "https://www.newsis.com/view/NISX20260302_0003531338",
-      "date": "2026-03-02 12:03",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-02T06:38:21.283610",
-      "hash_id": "2a0e8648358299ba"
-    },
     "https://biz.chosun.com/industry/company/2026/03/02/NCABK4BEERF5VKEPM7FS6S4HTY/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "[美 이란 공습] ‘최전선’ 정유·항공·해운 일제히 긴급 대응… 대체...",
       "link": "https://biz.chosun.com/industry/company/2026/03/02/NCABK4BEERF5VKEPM7FS6S4HTY/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -29,11 +7,11 @@
       "press": "",
       "keyword": "미얀마 LNG",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-03-02T06:38:20.773004",
+      "retry_count": 5,
+      "last_attempt": "2026-03-02T07:38:22.507464",
       "hash_id": "78f2d59a9e3aa6eb"
     }
   },
-  "last_updated": "2026-03-02 06:38:29",
-  "count": 3
+  "last_updated": "2026-03-02 07:38:32",
+  "count": 1
 }

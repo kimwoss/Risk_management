@@ -1,5 +1,17 @@
 {
-  "queue": {},
-  "last_updated": "2026-03-02 11:39:48",
-  "count": 0
+  "queue": {
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=200057&mode=view": {
+      "title": "포스코, 8대 핵심전략기술 프로젝트팀 구성..초",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=200057&mode=view",
+      "date": "2026-03-02 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-02T12:01:19.282643",
+      "hash_id": "86ded02b35fd387f"
+    }
+  },
+  "last_updated": "2026-03-02 12:01:19",
+  "count": 1
 }

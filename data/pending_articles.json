@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-03T23:13:35.322686",
+      "retry_count": 5,
+      "last_attempt": "2026-03-03T23:45:03.426696",
       "hash_id": "da8c6296fc7a3812"
     },
     "http://www.thebigdata.co.kr/view.php?ud=20260304042237428807d270612f_23": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-03T23:13:35.699624",
+      "retry_count": 3,
+      "last_attempt": "2026-03-03T23:45:04.025433",
       "hash_id": "2df63842857c07f1"
+    },
+    "https://www.g-enews.com/view.php?ud=2026030408241363210c8c1c064d_1": {
+      "title": "포스코홀딩스, 아르헨티나 염수 리튬 ‘상업 가동’ 개시… 이차전지 소...",
+      "link": "https://www.g-enews.com/view.php?ud=2026030408241363210c8c1c064d_1",
+      "date": "2026-03-04 08:26",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-03T23:45:05.387575",
+      "hash_id": "393101308310afea"
     }
   },
-  "last_updated": "2026-03-03 23:13:35",
-  "count": 2
+  "last_updated": "2026-03-03 23:45:05",
+  "count": 3
 }

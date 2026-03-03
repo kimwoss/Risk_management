@@ -2660,19 +2660,13 @@ def page_news_monitor():
     db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
     render_news_dashboard(db_for_dashboard, show_live=True)
 
-    # ===== 상단 UI (카운트다운/상태/수동 새로고침) =====
-    c_count, c_status, c_btn = st.columns([1, 2.5, 1])
-    with c_btn:
-        manual_refresh = st.button("🔄 지금 새로고침", use_container_width=True)
-    with c_status:
+    # ===== [Row 1] 업데이트 알림 메시지 + 새로고침 버튼 =====
+    r1_msg, r1_btn = st.columns([4, 1])
+    with r1_msg:
         status = st.empty()
-
-    # 카운트다운 프래그먼트 (1초 단위 업데이트)
-    with c_count:
         countdown_fragment(refresh_interval)
-
-    # 최소 간격의 구분선
-    st.markdown('<div style="margin: 8px 0;"></div>', unsafe_allow_html=True)
+    with r1_btn:
+        manual_refresh = st.button("🔄 지금 새로고침", use_container_width=True)
 
     # ===== 새로고침 방식 결정 =====
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
@@ -2903,17 +2897,8 @@ def page_news_monitor():
         st.session_state.initial_loaded = True
 
     # ===== 화면 표시 (저장된 최신 데이터 기준) =====
-    st.markdown("---")
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
     db = st.session_state.get('news_display_data', load_news_db())
-
-    # 🔍 디버그 정보 표시
-    if not db.empty and "날짜" in db.columns:
-        latest_article = db["날짜"].iloc[0] if len(db) > 0 else "N/A"
-        load_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        st.markdown(f'<div style="background: #1e1e1e; padding: 8px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; color: #888;">'
-                   f'📊 DB 로드: {load_time} | 총 {len(db)}건 | 최신 기사: {latest_article}</div>',
-                   unsafe_allow_html=True)
 
     if db.empty:
         st.markdown('<p style="color: white;">📰 저장된 뉴스 데이터가 없습니다.</p>', unsafe_allow_html=True)
@@ -2936,10 +2921,50 @@ def page_news_monitor():
             lambda row: _publisher_from_link(row["URL"]) if pd.notna(row["URL"]) else row["매체명"], axis=1
         )
 
-    ch1, ch2 = st.columns([3, 1])
-    with ch1:
-        st.markdown(f"**포스코인터내셔널 관련 기사: 최신 {len(df_show)}건**")
-    with ch2:
+    # ===== [Row 2] 표시 방식 + CSV 다운로드 =====
+    st.markdown("""
+    <style>
+    /* 컨트롤 패널 행간 여백 최소화 */
+    section[data-testid="stMain"] .block-container { padding-top: 1rem !important; }
+    div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"],
+    div[data-testid="stVerticalBlock"] > div:has(> div[data-testid="stRadio"]) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    /* 라디오 버튼 영역 여백 제거 */
+    div[data-testid="stRadio"] {
+        margin-top: 2px !important;
+        padding-top: 0 !important;
+    }
+    div[data-testid="stRadio"] > div { gap: 0.6rem !important; align-items: center; }
+    div[data-testid="stRadio"] > label {
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        color: white !important;
+        margin-bottom: 2px !important;
+        padding-bottom: 0 !important;
+    }
+    div[data-testid="stRadio"] label { color: white !important; }
+    div[data-testid="stRadio"] label > div { color: white !important; }
+    div[data-testid="stRadio"] span { color: white !important; }
+    div[data-testid="stRadio"] p { color: white !important; }
+    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
+    /* 다운로드·일반 버튼 상단 여백 제거 */
+    div[data-testid="stColumn"] .stDownloadButton,
+    div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
+    div[data-testid="stColumn"] .stDownloadButton > button,
+    div[data-testid="stColumn"] .stButton > button { margin-top: 0 !important; }
+    /* 상태 알림(info/warning/error) 여백 축소 */
+    div[data-testid="stColumn"] .stAlert { margin-top: 2px !important; margin-bottom: 2px !important; padding: 6px 10px !important; }
+    /* Row 사이 가로 블록 간격 */
+    div[data-testid="stHorizontalBlock"] { gap: 0.5rem !important; margin-bottom: 4px !important; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    r2_left, r2_right = st.columns([3, 1])
+    with r2_left:
+        view = st.radio("표시 방식", ["카드형 뷰", "테이블 뷰"], index=0, horizontal=True, key="news_view")
+    with r2_right:
         st.download_button(
             "⬇ CSV 다운로드",
             df_show.to_csv(index=False).encode("utf-8"),
@@ -2947,34 +2972,6 @@ def page_news_monitor():
             mime="text/csv",
             use_container_width=True
         )
-
-    st.markdown('<p style="color: white; font-weight: 600; margin-bottom: 8px;">표시 방식</p>', unsafe_allow_html=True)
-    
-    # 라디오 버튼 텍스트 색상을 하얀색으로 변경
-    st.markdown("""
-    <style>
-    div[data-testid="stRadio"] > div {
-        color: white !important;
-    }
-    div[data-testid="stRadio"] label {
-        color: white !important;
-    }
-    div[data-testid="stRadio"] label > div {
-        color: white !important;
-    }
-    div[data-testid="stRadio"] span {
-        color: white !important;
-    }
-    div[data-testid="stRadio"] p {
-        color: white !important;
-    }
-    .stRadio > label > div[data-testid="stMarkdownContainer"] > p {
-        color: white !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    view = st.radio("", ["카드형 뷰", "테이블 뷰"], index=0, horizontal=True, key="news_view", label_visibility="collapsed")
 
     if view == "카드형 뷰":
         st.markdown("""

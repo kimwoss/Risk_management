@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://m.skyedaily.com/news_view.html?ID=299453": {
-      "title": "아기 엉덩이는 우리가 지킨다… GS칼텍스, ‘착한 기저귀’첫 도전",
-      "link": "https://m.skyedaily.com/news_view.html?ID=299453",
-      "date": "2026-03-04 06:20",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-03-03T22:46:41.334293",
-      "hash_id": "54a4fbecb2a53c0f"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=431758": {
       "title": "[Who Is ?] 구혁서 LX인터내셔널 대표이사 내정자",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431758",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-03T22:46:42.452433",
+      "retry_count": 3,
+      "last_attempt": "2026-03-03T23:13:35.322686",
       "hash_id": "da8c6296fc7a3812"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=20260304042237428807d270612f_23": {
+      "title": "포스코홀딩스, 철강 상장기업 브랜드평판 3월 빅데이터 분석 1위…현대...",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=20260304042237428807d270612f_23",
+      "date": "2026-03-04 07:58",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-03T23:13:35.699624",
+      "hash_id": "2df63842857c07f1"
     }
   },
-  "last_updated": "2026-03-03 22:46:42",
+  "last_updated": "2026-03-03 23:13:35",
   "count": 2
 }

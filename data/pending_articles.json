@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008461343&plink=ORI&cooper=NAVER": {
-      "title": "김나영-유한나, 탁구 여자복식 세계랭킹 1위 등극",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008461343&plink=ORI&cooper=NAVER",
-      "date": "2026-03-03 07:45",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-03-02T23:59:58.338549",
-      "hash_id": "1fde9f2c260b5017"
-    },
     "https://www.nocutnews.co.kr/news/6478318?utm_source=naver&utm_medium=article&utm_campaign=20260303083257": {
       "title": "女 탁구 김나영-유한나, 복식 세계 랭킹 1위 등극…신유빈-임종훈도 혼...",
       "link": "https://www.nocutnews.co.kr/news/6478318?utm_source=naver&utm_medium=article&utm_campaign=20260303083257",
@@ -18,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-03-02T23:59:59.464667",
+      "retry_count": 4,
+      "last_attempt": "2026-03-03T02:54:59.310376",
       "hash_id": "16b42bfbd6f057a2"
     },
     "https://biz.sbs.co.kr/article_hub/20000294576?division=NAVER": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-03-02T23:59:59.092086",
+      "retry_count": 4,
+      "last_attempt": "2026-03-03T02:54:58.896678",
       "hash_id": "9e7d955a738b6e4e"
     },
     "https://www.newsis.com/view/NISX20260303_0003531852": {
@@ -40,11 +29,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-03-02T23:59:58.718198",
+      "retry_count": 4,
+      "last_attempt": "2026-03-03T02:54:58.494028",
       "hash_id": "1d749676b451a97c"
     }
   },
-  "last_updated": "2026-03-03 00:00:15",
-  "count": 4
+  "last_updated": "2026-03-03 02:55:13",
+  "count": 3
 }

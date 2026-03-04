@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431758": {
-      "title": "[Who Is ?] 구혁서 LX인터내셔널 대표이사 내정자",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431758",
-      "date": "2026-03-04 07:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-03T23:45:03.426696",
-      "hash_id": "da8c6296fc7a3812"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=20260304042237428807d270612f_23": {
       "title": "포스코홀딩스, 철강 상장기업 브랜드평판 3월 빅데이터 분석 1위…현대...",
       "link": "http://www.thebigdata.co.kr/view.php?ud=20260304042237428807d270612f_23",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-03T23:45:04.025433",
+      "retry_count": 5,
+      "last_attempt": "2026-03-04T00:02:21.692726",
       "hash_id": "2df63842857c07f1"
     },
     "https://www.g-enews.com/view.php?ud=2026030408241363210c8c1c064d_1": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-03T23:45:05.387575",
+      "retry_count": 3,
+      "last_attempt": "2026-03-04T00:02:22.099380",
       "hash_id": "393101308310afea"
     }
   },
-  "last_updated": "2026-03-03 23:45:05",
-  "count": 3
+  "last_updated": "2026-03-04 00:02:22",
+  "count": 2
 }

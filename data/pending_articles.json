@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-04T04:24:48.811037",
+      "retry_count": 5,
+      "last_attempt": "2026-03-04T05:31:00.616275",
       "hash_id": "0f1ba2ea66728d26"
     },
     "http://www.lawissue.co.kr/view.php?ud=20260304105050846667191f6c6e_12": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-04T04:24:48.254591",
+      "retry_count": 5,
+      "last_attempt": "2026-03-04T05:31:00.010355",
       "hash_id": "f2f7e19d64f37ebd"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=431818": {
+      "title": "글로벌 녹색철강 산업 자금난에 허덕, 'K스틸법'만으로 포스코 지원 부...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431818",
+      "date": "2026-03-04 14:14",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-04T05:31:09.771871",
+      "hash_id": "06f32133d6837c5f"
     }
   },
-  "last_updated": "2026-03-04 04:24:51",
-  "count": 2
+  "last_updated": "2026-03-04 05:31:10",
+  "count": 3
 }

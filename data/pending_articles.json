@@ -1,5 +1,17 @@
 {
-  "queue": {},
-  "last_updated": "2026-03-05 11:39:18",
-  "count": 0
+  "queue": {
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=200117&mode=view": {
+      "title": "포항시장 예비후보들, ‘포스코 살리기’ 전면에",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=200117&mode=view",
+      "date": "2026-03-05 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-05T12:02:43.705969",
+      "hash_id": "1d11708d8a2638b9"
+    }
+  },
+  "last_updated": "2026-03-05 12:02:43",
+  "count": 1
 }

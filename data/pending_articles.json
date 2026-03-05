@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-05T02:50:48.848979",
+      "retry_count": 3,
+      "last_attempt": "2026-03-05T04:41:19.103242",
       "hash_id": "e28f402e158de828"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=431950": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-05T02:50:47.886921",
+      "retry_count": 3,
+      "last_attempt": "2026-03-05T04:41:18.743302",
       "hash_id": "2873ea9c4c82b9f5"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202603051204485477570d99e4c8_23": {
+      "title": "‘기우’로 끝난 고로 쇳물로 만든 포스코 코일 철근",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202603051204485477570d99e4c8_23",
+      "date": "2026-03-05 12:18",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-05T04:41:19.481031",
+      "hash_id": "36239771138dee27"
     }
   },
-  "last_updated": "2026-03-05 02:50:49",
-  "count": 2
+  "last_updated": "2026-03-05 04:41:19",
+  "count": 3
 }

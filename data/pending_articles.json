@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6479974?utm_source=naver&utm_medium=article&utm_campaign=20260305113624": {
-      "title": "이충재 광양시장 예비후보 \"포스코 주택단지 첨단거점화\" 1호 공약",
-      "link": "https://www.nocutnews.co.kr/news/6479974?utm_source=naver&utm_medium=article&utm_campaign=20260305113624",
-      "date": "2026-03-05 11:37",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-05T05:37:30.592791",
-      "hash_id": "e28f402e158de828"
-    },
-    "https://www.businesspost.co.kr/BP?command=article_view&num=431950": {
-      "title": "미국 상무부 한국산 냉연강판 관세율 조정, 포스코 인상 현대제철 인하...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=431950",
-      "date": "2026-03-05 11:32",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-05T05:37:30.186760",
-      "hash_id": "2873ea9c4c82b9f5"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=202603051204485477570d99e4c8_23": {
       "title": "‘기우’로 끝난 고로 쇳물로 만든 포스코 코일 철근",
       "link": "http://www.thebigdata.co.kr/view.php?ud=202603051204485477570d99e4c8_23",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-05T05:37:31.006069",
+      "retry_count": 5,
+      "last_attempt": "2026-03-05T06:31:08.961846",
       "hash_id": "36239771138dee27"
     },
     "https://biz.chosun.com/industry/company/2026/03/05/NEJRXSQVW5C5VLYJ24YMY66K7A/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-05T05:37:52.823057",
+      "retry_count": 3,
+      "last_attempt": "2026-03-05T06:31:10.200253",
       "hash_id": "9c4bb4b1243af4e6"
     },
     "https://biz.sbs.co.kr/article_hub/20000295339?division=NAVER": {
@@ -51,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-05T05:37:51.290564",
+      "retry_count": 3,
+      "last_attempt": "2026-03-05T06:31:09.789745",
       "hash_id": "59e3cea5a31d6038"
     },
     "https://www.seoul.co.kr/news/society/health-welfare/2026/03/05/20260305500166?wlog_tag3=naver": {
@@ -62,11 +40,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-05T05:37:33.122678",
+      "retry_count": 3,
+      "last_attempt": "2026-03-05T06:31:09.368729",
       "hash_id": "707e786fb724d8b6"
+    },
+    "https://www.newsis.com/view/NISX20260305_0003536285": {
+      "title": "포스코퓨처엠, 3570억 투자 베트남에 인조흑연 음극재 공장 구축",
+      "link": "https://www.newsis.com/view/NISX20260305_0003536285",
+      "date": "2026-03-05 15:16",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-05T06:31:23.764125",
+      "hash_id": "c063f1635a46683a"
+    },
+    "https://www.nocutnews.co.kr/news/6480135?utm_source=naver&utm_medium=article&utm_campaign=20260305030226": {
+      "title": "포스코퓨처엠, 베트남 인조흑연 음극재공장 신설 투자",
+      "link": "https://www.nocutnews.co.kr/news/6480135?utm_source=naver&utm_medium=article&utm_campaign=20260305030226",
+      "date": "2026-03-05 15:03",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-05T06:31:17.818815",
+      "hash_id": "cd7ad1432e8da925"
     }
   },
-  "last_updated": "2026-03-05 05:37:53",
+  "last_updated": "2026-03-05 06:31:29",
   "count": 6
 }

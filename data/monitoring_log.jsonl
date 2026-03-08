@@ -50769,3 +50769,15 @@
 {"timestamp": "2026-03-07T23:53:20.319906", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 15, "api_calls": 2}}
 {"timestamp": "2026-03-07T23:53:22.609337", "event_type": "telegram", "data": {"success": 3, "failed": 0, "total": 3, "success_rate": 1.0}}
 {"timestamp": "2026-03-07T23:53:22.664230", "event_type": "run_summary", "data": {"total_articles": 310, "new_articles": 3, "telegram_sent": 3, "errors": 0}}
+{"timestamp": "2026-03-08T02:09:34.384199", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 29, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:45.781604", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 89, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:46.490995", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:47.204729", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:47.916283", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 2, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:48.639371", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 25, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:49.362595", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:50.087371", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:50.650278", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:09:51.204643", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 10, "api_calls": 2}}
+{"timestamp": "2026-03-08T02:10:05.666961", "event_type": "telegram", "data": {"success": 12, "failed": 1, "total": 13, "success_rate": 0.9230769230769231}}
+{"timestamp": "2026-03-08T02:10:05.724695", "event_type": "run_summary", "data": {"total_articles": 305, "new_articles": 13, "telegram_sent": 12, "errors": 0}}

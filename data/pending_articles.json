@@ -7,8 +7,8 @@
       "press": "헤럴드경제",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T02:29:15.799987",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T04:31:01.712590",
       "hash_id": "3f721b26e29d572f"
     },
     "https://www.newsis.com/view/NISX20260309_0003540111": {
@@ -18,20 +18,9 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T02:29:13.146174",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T04:31:01.309362",
       "hash_id": "20a6771c24603ead"
-    },
-    "http://www.issuenbiz.com/news/articleView.html?idxno=73887": {
-      "title": "[특징주] 폭락장 속 종합상사 관련주 상승…반사이익 예상",
-      "link": "http://www.issuenbiz.com/news/articleView.html?idxno=73887",
-      "date": "2026-03-09 10:36",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T02:29:11.141708",
-      "hash_id": "e3e83103f0596d3a"
     },
     "https://biz.heraldcorp.com/article/10689803?ref=naver": {
       "title": "이란 사태에 코스피 하락…포스코인터 ‘나홀로’ 8%대 급등 이유는? [종...",
@@ -40,8 +29,8 @@
       "press": "헤럴드경제",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T02:28:33.006997",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T04:31:00.899792",
       "hash_id": "7f9cbfaa2d4312dd"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500045?wlog_tag3=naver": {
@@ -51,11 +40,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T02:28:27.212246",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T04:31:00.492786",
       "hash_id": "668b45522d3cae92"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER": {
+      "title": "유가급등에 코스피 장중 8%·코스닥 7%대 폭락…코스피 또 '서킷브레이...",
+      "link": "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER",
+      "date": "2026-03-09 11:39",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T04:31:03.246506",
+      "hash_id": "02cf10eea7e3bbbf"
     }
   },
-  "last_updated": "2026-03-09 02:29:19",
+  "last_updated": "2026-03-09 04:31:11",
   "count": 5
 }

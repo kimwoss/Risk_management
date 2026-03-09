@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER": {
-      "title": "검은 월요일…코스피 폭락에 또 서킷브레이커",
-      "link": "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER",
-      "date": "2026-03-09 15:06",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T08:28:07.226238",
-      "hash_id": "d7127a2e0c1314b7"
-    },
     "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER": {
       "title": "[애프터마켓 브리핑] 유가 100달러 돌파에 환율 1500원 위협",
       "link": "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T08:28:07.706146",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T09:28:37.870917",
       "hash_id": "92cf06a8bc7b104a"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T08:28:09.460555",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T09:28:38.443155",
       "hash_id": "4b6d49a1b4770f95"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver": {
@@ -40,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T08:28:09.945716",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T09:28:39.005348",
       "hash_id": "c5fc0c5bd8d6f5b6"
+    },
+    "https://www.g-enews.com/view.php?ud=202603091734467553df2f5bc1bc_1": {
+      "title": "[특징주] 포스코인터내셔널, '원자재 판매가 인상' 수혜 기대…52주 신고...",
+      "link": "https://www.g-enews.com/view.php?ud=202603091734467553df2f5bc1bc_1",
+      "date": "2026-03-09 17:44",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T09:28:41.059034",
+      "hash_id": "a850b82753434013"
     }
   },
-  "last_updated": "2026-03-09 08:28:16",
+  "last_updated": "2026-03-09 09:28:50",
   "count": 4
 }

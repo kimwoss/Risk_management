@@ -1,49 +1,5 @@
 {
   "queue": {
-    "https://biz.heraldcorp.com/article/10689895?ref=naver": {
-      "title": "희토류 전쟁은 변신의 기회…‘자원 밸류체인 기업’으로 진화[그 회사...",
-      "link": "https://biz.heraldcorp.com/article/10689895?ref=naver",
-      "date": "2026-03-09 11:14",
-      "press": "헤럴드경제",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T05:43:45.074161",
-      "hash_id": "3f721b26e29d572f"
-    },
-    "https://www.newsis.com/view/NISX20260309_0003540111": {
-      "title": "코스피 급락에도 종합상사株 강세…포스코인터내셔널 8%↑",
-      "link": "https://www.newsis.com/view/NISX20260309_0003540111",
-      "date": "2026-03-09 10:57",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T05:43:44.710232",
-      "hash_id": "20a6771c24603ead"
-    },
-    "https://biz.heraldcorp.com/article/10689803?ref=naver": {
-      "title": "이란 사태에 코스피 하락…포스코인터 ‘나홀로’ 8%대 급등 이유는? [종...",
-      "link": "https://biz.heraldcorp.com/article/10689803?ref=naver",
-      "date": "2026-03-09 10:29",
-      "press": "헤럴드경제",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T05:43:44.350774",
-      "hash_id": "7f9cbfaa2d4312dd"
-    },
-    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500045?wlog_tag3=naver": {
-      "title": "[서울데이터랩]‘조비’ 29.95% 상한가…실시간 상승률 1위",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500045?wlog_tag3=naver",
-      "date": "2026-03-09 10:08",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T05:43:43.981163",
-      "hash_id": "668b45522d3cae92"
-    },
     "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER": {
       "title": "유가급등에 코스피 장중 8%·코스닥 7%대 폭락…코스피 또 '서킷브레이...",
       "link": "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER",
@@ -51,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T05:43:45.434952",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T06:43:12.285832",
       "hash_id": "02cf10eea7e3bbbf"
     },
     "https://www.thepowernews.co.kr/view.php?ud=202603091435039296de3f0aa1be_7": {
@@ -62,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T05:43:57.867973",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T06:43:12.668802",
       "hash_id": "e519472d376510a9"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER": {
+      "title": "검은 월요일…코스피 폭락에 또 서킷브레이커",
+      "link": "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER",
+      "date": "2026-03-09 15:06",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T06:43:13.631311",
+      "hash_id": "d7127a2e0c1314b7"
     }
   },
-  "last_updated": "2026-03-09 05:43:58",
-  "count": 6
+  "last_updated": "2026-03-09 06:43:16",
+  "count": 3
 }

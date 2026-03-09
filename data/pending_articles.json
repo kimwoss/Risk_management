@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver": {
-      "title": "[서울데이터랩]마감 직후 인기 검색 종목 20選",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver",
-      "date": "2026-03-09 16:53",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T10:27:04.105307",
-      "hash_id": "4b6d49a1b4770f95"
-    },
-    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver": {
-      "title": "[서울데이터랩]‘에이엔피’ 29.90% 상한가…금일 증시 상승률 1위로 마...",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver",
-      "date": "2026-03-09 16:53",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T10:27:04.629392",
-      "hash_id": "c5fc0c5bd8d6f5b6"
-    },
     "https://www.g-enews.com/view.php?ud=202603091734467553df2f5bc1bc_1": {
       "title": "[특징주] 포스코인터내셔널, '원자재 판매가 인상' 수혜 기대…52주 신고...",
       "link": "https://www.g-enews.com/view.php?ud=202603091734467553df2f5bc1bc_1",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T10:27:05.139003",
+      "retry_count": 4,
+      "last_attempt": "2026-03-09T11:11:06.251990",
       "hash_id": "a850b82753434013"
     },
     "https://www.g-enews.com/view.php?ud=202603091310086212ea14faf6f5_1": {
@@ -40,11 +18,11 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T10:27:06.337065",
+      "retry_count": 2,
+      "last_attempt": "2026-03-09T11:11:06.826474",
       "hash_id": "848a27c7f913c901"
     }
   },
-  "last_updated": "2026-03-09 10:27:07",
-  "count": 4
+  "last_updated": "2026-03-09 11:11:23",
+  "count": 2
 }

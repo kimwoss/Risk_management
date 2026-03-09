@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER": {
-      "title": "[애프터마켓 브리핑] 유가 100달러 돌파에 환율 1500원 위협",
-      "link": "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER",
-      "date": "2026-03-09 16:33",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T09:28:37.870917",
-      "hash_id": "92cf06a8bc7b104a"
-    },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver": {
       "title": "[서울데이터랩]마감 직후 인기 검색 종목 20選",
       "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T09:28:38.443155",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T10:27:04.105307",
       "hash_id": "4b6d49a1b4770f95"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T09:28:39.005348",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T10:27:04.629392",
       "hash_id": "c5fc0c5bd8d6f5b6"
     },
     "https://www.g-enews.com/view.php?ud=202603091734467553df2f5bc1bc_1": {
@@ -40,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T09:28:41.059034",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T10:27:05.139003",
       "hash_id": "a850b82753434013"
+    },
+    "https://www.g-enews.com/view.php?ud=202603091310086212ea14faf6f5_1": {
+      "title": "“캐즘 뚫을 인재 찾습니다”…K-배터리 3사, 잡페어서 채용 접점 넓힌...",
+      "link": "https://www.g-enews.com/view.php?ud=202603091310086212ea14faf6f5_1",
+      "date": "2026-03-09 18:36",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T10:27:06.337065",
+      "hash_id": "848a27c7f913c901"
     }
   },
-  "last_updated": "2026-03-09 09:28:50",
+  "last_updated": "2026-03-09 10:27:07",
   "count": 4
 }

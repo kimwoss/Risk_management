@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.thepowernews.co.kr/view.php?ud=202603091435039296de3f0aa1be_7": {
-      "title": "포스코퓨처엠, 베트남 인조흑연 투자…음극재 반등 기대",
-      "link": "https://www.thepowernews.co.kr/view.php?ud=202603091435039296de3f0aa1be_7",
-      "date": "2026-03-09 14:38",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T07:41:14.272934",
-      "hash_id": "e519472d376510a9"
-    },
     "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER": {
       "title": "검은 월요일…코스피 폭락에 또 서킷브레이커",
       "link": "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T07:41:14.641028",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T08:28:07.226238",
       "hash_id": "d7127a2e0c1314b7"
     },
     "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER": {
@@ -29,11 +18,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T07:41:23.620851",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T08:28:07.706146",
       "hash_id": "92cf06a8bc7b104a"
+    },
+    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver": {
+      "title": "[서울데이터랩]마감 직후 인기 검색 종목 20選",
+      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500243?wlog_tag3=naver",
+      "date": "2026-03-09 16:53",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T08:28:09.460555",
+      "hash_id": "4b6d49a1b4770f95"
+    },
+    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver": {
+      "title": "[서울데이터랩]‘에이엔피’ 29.90% 상한가…금일 증시 상승률 1위로 마...",
+      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500247?wlog_tag3=naver",
+      "date": "2026-03-09 16:53",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T08:28:09.945716",
+      "hash_id": "c5fc0c5bd8d6f5b6"
     }
   },
-  "last_updated": "2026-03-09 07:41:28",
-  "count": 3
+  "last_updated": "2026-03-09 08:28:16",
+  "count": 4
 }

@@ -1,5 +1,61 @@
 {
-  "queue": {},
-  "last_updated": "2026-03-08 23:54:11",
-  "count": 0
+  "queue": {
+    "https://biz.heraldcorp.com/article/10689895?ref=naver": {
+      "title": "희토류 전쟁은 변신의 기회…‘자원 밸류체인 기업’으로 진화[그 회사...",
+      "link": "https://biz.heraldcorp.com/article/10689895?ref=naver",
+      "date": "2026-03-09 11:14",
+      "press": "헤럴드경제",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T02:29:15.799987",
+      "hash_id": "3f721b26e29d572f"
+    },
+    "https://www.newsis.com/view/NISX20260309_0003540111": {
+      "title": "코스피 급락에도 종합상사株 강세…포스코인터내셔널 8%↑",
+      "link": "https://www.newsis.com/view/NISX20260309_0003540111",
+      "date": "2026-03-09 10:57",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T02:29:13.146174",
+      "hash_id": "20a6771c24603ead"
+    },
+    "http://www.issuenbiz.com/news/articleView.html?idxno=73887": {
+      "title": "[특징주] 폭락장 속 종합상사 관련주 상승…반사이익 예상",
+      "link": "http://www.issuenbiz.com/news/articleView.html?idxno=73887",
+      "date": "2026-03-09 10:36",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T02:29:11.141708",
+      "hash_id": "e3e83103f0596d3a"
+    },
+    "https://biz.heraldcorp.com/article/10689803?ref=naver": {
+      "title": "이란 사태에 코스피 하락…포스코인터 ‘나홀로’ 8%대 급등 이유는? [종...",
+      "link": "https://biz.heraldcorp.com/article/10689803?ref=naver",
+      "date": "2026-03-09 10:29",
+      "press": "헤럴드경제",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T02:28:33.006997",
+      "hash_id": "7f9cbfaa2d4312dd"
+    },
+    "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500045?wlog_tag3=naver": {
+      "title": "[서울데이터랩]‘조비’ 29.95% 상한가…실시간 상승률 1위",
+      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/09/20260309500045?wlog_tag3=naver",
+      "date": "2026-03-09 10:08",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T02:28:27.212246",
+      "hash_id": "668b45522d3cae92"
+    }
+  },
+  "last_updated": "2026-03-09 02:29:19",
+  "count": 5
 }

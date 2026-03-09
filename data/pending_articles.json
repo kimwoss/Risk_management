@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER": {
-      "title": "유가급등에 코스피 장중 8%·코스닥 7%대 폭락…코스피 또 '서킷브레이...",
-      "link": "https://biz.sbs.co.kr/article_hub/20000295972?division=NAVER",
-      "date": "2026-03-09 11:39",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-09T06:43:12.285832",
-      "hash_id": "02cf10eea7e3bbbf"
-    },
     "https://www.thepowernews.co.kr/view.php?ud=202603091435039296de3f0aa1be_7": {
       "title": "포스코퓨처엠, 베트남 인조흑연 투자…음극재 반등 기대",
       "link": "https://www.thepowernews.co.kr/view.php?ud=202603091435039296de3f0aa1be_7",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-09T06:43:12.668802",
+      "retry_count": 5,
+      "last_attempt": "2026-03-09T07:41:14.272934",
       "hash_id": "e519472d376510a9"
     },
     "https://biz.sbs.co.kr/article_hub/20000296047?division=NAVER": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-09T06:43:13.631311",
+      "retry_count": 3,
+      "last_attempt": "2026-03-09T07:41:14.641028",
       "hash_id": "d7127a2e0c1314b7"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER": {
+      "title": "[애프터마켓 브리핑] 유가 100달러 돌파에 환율 1500원 위협",
+      "link": "https://biz.sbs.co.kr/article_hub/20000296039?division=NAVER",
+      "date": "2026-03-09 16:33",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-09T07:41:23.620851",
+      "hash_id": "92cf06a8bc7b104a"
     }
   },
-  "last_updated": "2026-03-09 06:43:16",
+  "last_updated": "2026-03-09 07:41:28",
   "count": 3
 }

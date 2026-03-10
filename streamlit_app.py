@@ -2709,9 +2709,9 @@ def page_news_monitor():
     </style>
     """, unsafe_allow_html=True)
 
-    # 5컬럼: [알림(5)] [표시방식(3)] [타이머(2)] [새로고침(2)] [CSV(2)]
+    # 5컬럼: [알림(5)] [타이머(2)] [새로고침(2)] [표시방식(3)] [CSV(2)]
     # c_view · c_download 는 df_show 준비 후 채워짐
-    c_status, c_view, c_timer, c_refresh, c_download = st.columns([5, 3, 2, 2, 2])
+    c_status, c_timer, c_refresh, c_view, c_download = st.columns([5, 2, 2, 3, 2])
     with c_status:
         status = st.empty()
     with c_timer:

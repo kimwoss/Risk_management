@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-10T23:38:53.766185",
+      "retry_count": 5,
+      "last_attempt": "2026-03-10T23:58:12.278564",
       "hash_id": "99d56e332a8c58db"
     },
     "https://www.g-enews.com/view.php?ud=202603110836237968a96f092d0c_1": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-10T23:39:02.863684",
+      "retry_count": 3,
+      "last_attempt": "2026-03-10T23:58:13.557656",
       "hash_id": "b8b0800493b4d696"
     },
     "https://www.g-enews.com/view.php?ud=202603110833112279a96f092d0c_1": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-10T23:39:02.377610",
+      "retry_count": 3,
+      "last_attempt": "2026-03-10T23:58:13.114947",
       "hash_id": "f0db97361b78feff"
     },
     "https://www.newsis.com/view/NISX20260311_0003543069": {
@@ -40,11 +40,66 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-10T23:38:55.581571",
+      "retry_count": 3,
+      "last_attempt": "2026-03-10T23:58:12.692691",
       "hash_id": "d2bdc083d9ccfe10"
+    },
+    "https://www.newsis.com/view/NISI20260311_0021203646": {
+      "title": "질문에 답하는 엄기천 포스코퓨처엠 대표이사",
+      "link": "https://www.newsis.com/view/NISI20260311_0021203646",
+      "date": "2026-03-11 08:40",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T23:58:13.961545",
+      "hash_id": "7fe30aa04d0654de"
+    },
+    "https://www.newsis.com/view/NISI20260311_0021203644": {
+      "title": "질문에 답하는 엄기천 포스코퓨처엠 대표이사",
+      "link": "https://www.newsis.com/view/NISI20260311_0021203644",
+      "date": "2026-03-11 08:40",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T23:58:14.365004",
+      "hash_id": "7fe30aa04d0654de"
+    },
+    "https://www.newsis.com/view/NISI20260311_0021203642": {
+      "title": "질문에 답하는 엄기천 포스코퓨처엠 대표이사",
+      "link": "https://www.newsis.com/view/NISI20260311_0021203642",
+      "date": "2026-03-11 08:40",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T23:58:14.806458",
+      "hash_id": "7fe30aa04d0654de"
+    },
+    "https://www.newsis.com/view/NISI20260311_0021203645": {
+      "title": "질문에 답하는 엄기천 포스코퓨처엠 대표이사",
+      "link": "https://www.newsis.com/view/NISI20260311_0021203645",
+      "date": "2026-03-11 08:40",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T23:58:15.224068",
+      "hash_id": "7fe30aa04d0654de"
+    },
+    "https://www.newsis.com/view/NISI20260311_0021203643": {
+      "title": "질문에 답하는 엄기천 포스코퓨처엠 대표이사",
+      "link": "https://www.newsis.com/view/NISI20260311_0021203643",
+      "date": "2026-03-11 08:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T23:58:15.652551",
+      "hash_id": "7fe30aa04d0654de"
     }
   },
-  "last_updated": "2026-03-10 23:39:03",
-  "count": 4
+  "last_updated": "2026-03-10 23:58:17",
+  "count": 9
 }

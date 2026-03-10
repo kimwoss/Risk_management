@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-03-10 08:58:38",
-  "count": 0
+  "queue": {
+    "https://biz.sbs.co.kr/article_hub/20000296423?division=NAVER": {
+      "title": "노란봉투법 첫날 산업계 요동…포스코 1호",
+      "link": "https://biz.sbs.co.kr/article_hub/20000296423?division=NAVER",
+      "date": "2026-03-10 18:19",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T09:57:00.363134",
+      "hash_id": "36a96f78c0c9769e"
+    },
+    "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=124&in_cate2=0&gopage=1&bi_pidx=38946": {
+      "title": "포스코ㆍ쿠팡 CLS, 교섭요구 사실 공고…복수노조, 교섭단위 분리 신청",
+      "link": "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=124&in_cate2=0&gopage=1&bi_pidx=38946",
+      "date": "2026-03-10 18:06",
+      "press": "워크로",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T09:56:59.984307",
+      "hash_id": "bcce30b2fc6933ba"
+    }
+  },
+  "last_updated": "2026-03-10 09:57:02",
+  "count": 2
 }

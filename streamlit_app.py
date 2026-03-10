@@ -1051,13 +1051,13 @@ https://www.newsis.com/view/NISX20260219_0003519127
 def _countdown_badge_html(secs_left: int) -> str:
     return f"""
     <div style="
-        display:inline-flex; align-items:center; justify-content:center;
-        padding:5px 14px;
+        display:flex; align-items:center; justify-content:center;
+        padding:6px 12px;
         background:rgba(200,146,10,0.20);
         border:1px solid rgba(200,146,10,0.35);
-        border-radius:20px;
+        border-radius:8px;
         color:#e8b84b; font-weight:700; font-size:0.88rem;
-        width:fit-content; white-space:nowrap;">
+        width:100%; box-sizing:border-box; white-space:nowrap;">
         ⏱ {secs_left}s
     </div>"""
 
@@ -2929,39 +2929,48 @@ def page_news_monitor():
     # ===== [Row 2] 표시 방식 + CSV 다운로드 =====
     st.markdown("""
     <style>
-    /* ── Row 전체 간격 ── */
-    div[data-testid="stHorizontalBlock"] { gap: 0.5rem !important; margin-bottom: 8px !important; }
-
-    /* ── Row 1 / Row 2 모든 컬럼: 수직 중앙 정렬 ── */
-    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        height: 100% !important;
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Row 공통: 수직 중앙 정렬 + 섹션 간격 22px
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    div[data-testid="stHorizontalBlock"] {
+        gap: 0.5rem !important;
+        margin-bottom: 22px !important;
+        align-items: center !important;
     }
 
-    /* ── 상태 알림(info/warning/error) 여백 최소화 ── */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       상태 알림 여백 최소화
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     div[data-testid="stColumn"] .stAlert {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        margin: 0 !important;
         padding: 6px 10px !important;
     }
 
-    /* ── 버튼 상단 여백 제거 ── */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       버튼 여백 제거
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     div[data-testid="stColumn"] .stDownloadButton,
     div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
     div[data-testid="stColumn"] .stDownloadButton > button,
     div[data-testid="stColumn"] .stButton > button { margin-top: 0 !important; }
 
-    /* ── CSV 다운로드 버튼: 너비를 내용물에 맞게 ── */
-    div[data-testid="stColumn"] .stDownloadButton { width: auto !important; display: flex; justify-content: flex-end; }
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CSV 다운로드 버튼: 내용물 너비 + 우측 정렬
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    div[data-testid="stColumn"] .stDownloadButton {
+        width: auto !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
     div[data-testid="stColumn"] .stDownloadButton > button {
         width: auto !important;
         padding: 8px 20px !important;
         white-space: nowrap !important;
     }
 
-    /* ── 라디오 버튼 여백 제거 + 색상 ── */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       라디오 버튼 정돈
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     div[data-testid="stRadio"] { margin-top: 0 !important; padding-top: 0 !important; }
     div[data-testid="stRadio"] > div { gap: 0.6rem !important; align-items: center; }
     div[data-testid="stRadio"] > label {
@@ -2990,7 +2999,7 @@ def page_news_monitor():
     if view == "카드형 뷰":
         st.markdown("""
 <style>
-  /* 컴팩트한 뉴스 카드 스타일 */
+  /* 기사 목록 카드 — 좌측 정렬 강제 (dashboard .news-card의 center 덮어쓰기) */
   .news-card{
     background: #1E1E1E;
     border: 1px solid #2A2A2A;
@@ -2999,6 +3008,10 @@ def page_news_monitor():
     margin-bottom: 12px;
     transition: all 0.2s ease;
     position: relative;
+    /* 좌측 정렬 override */
+    display: block !important;
+    text-align: left !important;
+    align-items: flex-start !important;
   }
   .news-card:hover{
     background: #252525;
@@ -3039,7 +3052,7 @@ def page_news_monitor():
     font-weight: 400;
   }
 
-  /* 중간: 제목과 요약 */
+  /* 중간: 제목과 요약 — 좌측 정렬 명시 */
   .news-title{
     color: #FFFFFF;
     font-size: 16px;
@@ -3047,12 +3060,14 @@ def page_news_monitor():
     line-height: 1.55;
     margin: 0 0 12px 0;
     word-break: break-word;
+    text-align: left !important;
   }
   .news-summary{
     color: #CCCCCC;
     font-size: 13px;
     line-height: 1.7;
     margin: 0 0 16px 0;
+    text-align: left !important;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -109,8 +109,13 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     # CSS 스타일 (대시보드 전용)
     st.markdown("""
     <style>
-    /* 개별 카드: 중앙 정렬 + 플렉스 세로 배치 */
-    .news-card {
+    /* 대시보드 요약 카드 (variant 클래스가 있는 것만 중앙 정렬 적용) */
+    .news-card.total,
+    .news-card.posco-intl,
+    .news-card.posco,
+    .news-card.mobility,
+    .news-card.samcheok,
+    .news-card.others {
         background: rgba(255,255,255,0.03);
         border-radius: 12px;
         padding: 16px 12px;
@@ -121,7 +126,16 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
         justify-content: center; align-items: center;
         text-align: center;
     }
-    .news-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .news-card.total:hover,
+    .news-card.posco-intl:hover,
+    .news-card.posco:hover,
+    .news-card.mobility:hover,
+    .news-card.samcheok:hover,
+    .news-card.others:hover {
+        background: rgba(255,255,255,0.06);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
 
     .news-card.total    { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
     .news-card.posco-intl { border-top-color: #22c55e; }

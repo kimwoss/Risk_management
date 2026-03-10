@@ -7,11 +7,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-10T05:34:00.472751",
+      "retry_count": 3,
+      "last_attempt": "2026-03-10T06:28:19.474302",
       "hash_id": "05c82a37a29ecffa"
+    },
+    "https://www.g-enews.com/view.php?ud=2026031014544434046ed0c62d49_1": {
+      "title": "LG전자 AI홈 허브 '씽큐 온', 포스코 ‘더샵’ 아파트 공급 1만 세대 돌...",
+      "link": "https://www.g-enews.com/view.php?ud=2026031014544434046ed0c62d49_1",
+      "date": "2026-03-10 15:18",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-10T06:28:27.788554",
+      "hash_id": "bb284194f4b1034a"
     }
   },
-  "last_updated": "2026-03-10 05:34:00",
-  "count": 1
+  "last_updated": "2026-03-10 06:28:27",
+  "count": 2
 }

@@ -1052,12 +1052,12 @@ def _countdown_badge_html(secs_left: int) -> str:
     return f"""
     <div style="
         display:flex; align-items:center; justify-content:center;
-        padding:6px 12px;
+        height:38px; box-sizing:border-box;
         background:rgba(200,146,10,0.20);
         border:1px solid rgba(200,146,10,0.35);
         border-radius:8px;
-        color:#e8b84b; font-weight:700; font-size:0.88rem;
-        width:100%; box-sizing:border-box; white-space:nowrap;">
+        color:#e8b84b; font-weight:700; font-size:0.82rem;
+        width:100%; white-space:nowrap;">
         ⏱ {secs_left}s
     </div>"""
 
@@ -2664,14 +2664,60 @@ def page_news_monitor():
     db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
     render_news_dashboard(db_for_dashboard, show_live=True)
 
-    # ===== [Row 1] 업데이트 알림 메시지 | 타이머 뱃지 | 새로고침 버튼 =====
-    r1_status, r1_timer, r1_btn = st.columns([5, 1, 1])
-    with r1_status:
+    # ===== [컨트롤 Row] 알림 | 표시방식 | 타이머 | 새로고침 | CSV — 1줄 통합 =====
+    # CSS 전역 주입 (타이머·버튼 동일 높이 38px 포함)
+    st.markdown("""
+    <style>
+    /* ━━━ 모든 Row: 수직 중앙 + 섹션 간격 ━━━ */
+    div[data-testid="stHorizontalBlock"] {
+        gap: 0.5rem !important;
+        margin-bottom: 22px !important;
+        align-items: center !important;
+    }
+    /* ━━━ 상태 알림 여백 최소화 ━━━ */
+    div[data-testid="stColumn"] .stAlert {
+        margin: 0 !important;
+        padding: 6px 10px !important;
+    }
+    /* ━━━ 버튼 여백 제거 ━━━ */
+    div[data-testid="stColumn"] .stDownloadButton,
+    div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
+    /* ━━━ 새로고침·CSV 버튼: 38px 동일 높이 ━━━ */
+    div[data-testid="stColumn"] .stButton > button,
+    div[data-testid="stColumn"] .stDownloadButton > button {
+        height: 38px !important;
+        min-height: 38px !important;
+        padding: 0 10px !important;
+        font-size: 0.82rem !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+    }
+    /* ━━━ CSV 래퍼 전체 폭 ━━━ */
+    div[data-testid="stColumn"] .stDownloadButton {
+        width: 100% !important;
+        display: flex !important;
+    }
+    /* ━━━ 라디오 버튼 ━━━ */
+    div[data-testid="stRadio"] { margin-top: 0 !important; padding-top: 0 !important; }
+    div[data-testid="stRadio"] > div { gap: 0.5rem !important; align-items: center; }
+    div[data-testid="stRadio"] label,
+    div[data-testid="stRadio"] label > div,
+    div[data-testid="stRadio"] span,
+    div[data-testid="stRadio"] p,
+    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # 5컬럼: [알림(5)] [표시방식(3)] [타이머(2)] [새로고침(2)] [CSV(2)]
+    # c_view · c_download 는 df_show 준비 후 채워짐
+    c_status, c_view, c_timer, c_refresh, c_download = st.columns([5, 3, 2, 2, 2])
+    with c_status:
         status = st.empty()
-    with r1_timer:
+    with c_timer:
         countdown_fragment(refresh_interval)
-    with r1_btn:
-        manual_refresh = st.button("🔄 지금 새로고침", use_container_width=True)
+    with c_refresh:
+        manual_refresh = st.button("🔄 새로고침", use_container_width=True)
 
     # ===== 새로고침 방식 결정 =====
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
@@ -2926,74 +2972,20 @@ def page_news_monitor():
             lambda row: _publisher_from_link(row["URL"]) if pd.notna(row["URL"]) else row["매체명"], axis=1
         )
 
-    # ===== [Row 2] 표시 방식 + CSV 다운로드 =====
-    st.markdown("""
-    <style>
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       Row 공통: 수직 중앙 정렬 + 섹션 간격 22px
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    div[data-testid="stHorizontalBlock"] {
-        gap: 0.5rem !important;
-        margin-bottom: 22px !important;
-        align-items: center !important;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       상태 알림 여백 최소화
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    div[data-testid="stColumn"] .stAlert {
-        margin: 0 !important;
-        padding: 6px 10px !important;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       버튼 여백 제거
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    div[data-testid="stColumn"] .stDownloadButton,
-    div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
-    div[data-testid="stColumn"] .stDownloadButton > button,
-    div[data-testid="stColumn"] .stButton > button { margin-top: 0 !important; }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       CSV 다운로드 버튼: 내용물 너비 + 우측 정렬
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    div[data-testid="stColumn"] .stDownloadButton {
-        width: auto !important;
-        display: flex !important;
-        justify-content: flex-end !important;
-    }
-    div[data-testid="stColumn"] .stDownloadButton > button {
-        width: auto !important;
-        padding: 8px 20px !important;
-        white-space: nowrap !important;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       라디오 버튼 정돈
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    div[data-testid="stRadio"] { margin-top: 0 !important; padding-top: 0 !important; }
-    div[data-testid="stRadio"] > div { gap: 0.6rem !important; align-items: center; }
-    div[data-testid="stRadio"] > label {
-        font-size: 0.875rem !important; font-weight: 600 !important;
-        color: white !important; margin-bottom: 2px !important; padding-bottom: 0 !important;
-    }
-    div[data-testid="stRadio"] label,
-    div[data-testid="stRadio"] label > div,
-    div[data-testid="stRadio"] span,
-    div[data-testid="stRadio"] p,
-    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
-    </style>
-    """, unsafe_allow_html=True)
-
-    r2_left, r2_right = st.columns([3, 1])
-    with r2_left:
-        view = st.radio("표시 방식", ["카드형 뷰", "테이블 뷰"], index=0, horizontal=True, key="news_view")
-    with r2_right:
+    # ===== 컨트롤 Row 나머지 컬럼 채우기 (df_show 준비 완료 후) =====
+    with c_view:
+        view = st.radio(
+            "표시 방식", ["카드형 뷰", "테이블 뷰"],
+            index=0, horizontal=True, key="news_view",
+            label_visibility="collapsed"
+        )
+    with c_download:
         st.download_button(
             "⬇ CSV 다운로드",
             df_show.to_csv(index=False).encode("utf-8"),
             file_name=f"posco_news_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M')}.csv",
             mime="text/csv",
+            use_container_width=True,
         )
 
     if view == "카드형 뷰":

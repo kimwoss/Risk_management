@@ -106,30 +106,37 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일 (대시보드 전용, 간격 축소, 헤더 없음)
+    # CSS 스타일 (대시보드 전용)
     st.markdown("""
     <style>
-    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    .news-dash-container * { text-align: center; }
-
-    .news-dash-container div[data-testid="column"] { padding: 0 4px !important; }
-    .news-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+    /* 개별 카드: 중앙 정렬 + 플렉스 세로 배치 */
+    .news-card {
+        background: rgba(255,255,255,0.03);
+        border-radius: 12px;
+        padding: 16px 12px;
+        border-top: 3px solid;
+        transition: all 0.2s ease;
+        min-height: 120px;
+        display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+        text-align: center;
+    }
     .news-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
-    .news-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
+    .news-card.total    { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
     .news-card.posco-intl { border-top-color: #22c55e; }
-    .news-card.posco { border-top-color: #c8920a; }
+    .news-card.posco    { border-top-color: #c8920a; }
     .news-card.mobility { border-top-color: #3b82f6; }
     .news-card.samcheok { border-top-color: #ec4899; }
-    .news-card.others { border-top-color: #8b5cf6; }
+    .news-card.others   { border-top-color: #8b5cf6; }
 
     .news-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
-    .news-card.total .news-label { color: #6366f1; }
+    .news-card.total     .news-label { color: #6366f1; }
     .news-card.posco-intl .news-label { color: #22c55e; }
-    .news-card.posco .news-label { color: #c8920a; }
-    .news-card.mobility .news-label { color: #3b82f6; }
-    .news-card.samcheok .news-label { color: #ec4899; }
-    .news-card.others .news-label { color: #8b5cf6; }
+    .news-card.posco     .news-label { color: #c8920a; }
+    .news-card.mobility  .news-label { color: #3b82f6; }
+    .news-card.samcheok  .news-label { color: #ec4899; }
+    .news-card.others    .news-label { color: #8b5cf6; }
 
     .news-value { color: #e0e0e0; font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
     .news-card.total .news-value { font-size: 2.4rem; color: #fff; }
@@ -143,21 +150,8 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     .news-sentiment-dot.pos { background: #22c55e; }
     .news-sentiment-dot.neg { background: #ef4444; }
     .news-sentiment-count { color: #bbb; font-weight: 600; }
-
-    @media (max-width: 1200px) {
-        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 140px !important; }
-    }
-    @media (max-width: 768px) {
-        .news-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 8px) !important; min-width: 120px !important; }
-    }
-    @media (max-width: 480px) {
-        .news-dash-container div[data-testid="column"] { flex: 1 1 100% !important; }
-    }
     </style>
     """, unsafe_allow_html=True)
-
-    # 헤더 없이 바로 컨테이너 시작
-    st.markdown('<div class="news-dash-container">', unsafe_allow_html=True)
 
     # 6개 카드를 한 줄에 배치
     col1, col2, col3, col4, col5, col6 = st.columns(6)
@@ -278,5 +272,3 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     '''
 
     components.html(animation_script, height=0)
-
-    st.markdown('</div>', unsafe_allow_html=True)

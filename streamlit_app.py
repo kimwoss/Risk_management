@@ -1051,10 +1051,14 @@ https://www.newsis.com/view/NISX20260219_0003519127
 def _countdown_badge_html(secs_left: int) -> str:
     return f"""
     <div style="
-        padding:8px 12px; background:rgba(212,175,55,0.28);
-        border-radius:10px; text-align:center;
-        color:#F6D47A; font-weight:800; font-size:1.15rem;">
-        {secs_left}
+        display:inline-flex; align-items:center; justify-content:center;
+        padding:5px 14px;
+        background:rgba(200,146,10,0.20);
+        border:1px solid rgba(200,146,10,0.35);
+        border-radius:20px;
+        color:#e8b84b; font-weight:700; font-size:0.88rem;
+        width:fit-content; white-space:nowrap;">
+        ⏱ {secs_left}s
     </div>"""
 
 if SUPPORTS_FRAGMENT:
@@ -2660,10 +2664,11 @@ def page_news_monitor():
     db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
     render_news_dashboard(db_for_dashboard, show_live=True)
 
-    # ===== [Row 1] 업데이트 알림 메시지 + 새로고침 버튼 =====
-    r1_msg, r1_btn = st.columns([4, 1])
-    with r1_msg:
+    # ===== [Row 1] 업데이트 알림 메시지 | 타이머 뱃지 | 새로고침 버튼 =====
+    r1_status, r1_timer, r1_btn = st.columns([5, 1, 1])
+    with r1_status:
         status = st.empty()
+    with r1_timer:
         countdown_fragment(refresh_interval)
     with r1_btn:
         manual_refresh = st.button("🔄 지금 새로고침", use_container_width=True)
@@ -2924,47 +2929,50 @@ def page_news_monitor():
     # ===== [Row 2] 표시 방식 + CSV 다운로드 =====
     st.markdown("""
     <style>
-    /* 컨트롤 패널 행간 여백 최소화 */
-    section[data-testid="stMain"] .block-container { padding-top: 1rem !important; }
-    div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"],
-    div[data-testid="stVerticalBlock"] > div:has(> div[data-testid="stRadio"]) {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-    /* 라디오 버튼 영역 여백 제거 */
-    div[data-testid="stRadio"] {
-        margin-top: 2px !important;
-        padding-top: 0 !important;
-    }
-    div[data-testid="stRadio"] > div { gap: 0.6rem !important; align-items: center; }
-    div[data-testid="stRadio"] > label {
-        font-size: 0.875rem !important;
-        font-weight: 600 !important;
-        color: white !important;
-        margin-bottom: 2px !important;
-        padding-bottom: 0 !important;
-    }
-    div[data-testid="stRadio"] label { color: white !important; }
-    div[data-testid="stRadio"] label > div { color: white !important; }
-    div[data-testid="stRadio"] span { color: white !important; }
-    div[data-testid="stRadio"] p { color: white !important; }
-    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
-    /* 다운로드·일반 버튼 상단 여백 제거 */
-    div[data-testid="stColumn"] .stDownloadButton,
-    div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
-    div[data-testid="stColumn"] .stDownloadButton > button,
-    div[data-testid="stColumn"] .stButton > button { margin-top: 0 !important; }
-    /* 상태 알림(info/warning/error) 여백 축소 */
-    div[data-testid="stColumn"] .stAlert { margin-top: 2px !important; margin-bottom: 2px !important; padding: 6px 10px !important; }
-    /* Row 사이 가로 블록 간격 */
+    /* ── Row 전체 간격 ── */
     div[data-testid="stHorizontalBlock"] { gap: 0.5rem !important; margin-bottom: 8px !important; }
-    /* 새로고침 버튼 컬럼 수직 중앙 정렬 */
-    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:last-child > div[data-testid="stVerticalBlock"] {
+
+    /* ── Row 1 / Row 2 모든 컬럼: 수직 중앙 정렬 ── */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] {
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         height: 100% !important;
     }
+
+    /* ── 상태 알림(info/warning/error) 여백 최소화 ── */
+    div[data-testid="stColumn"] .stAlert {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 6px 10px !important;
+    }
+
+    /* ── 버튼 상단 여백 제거 ── */
+    div[data-testid="stColumn"] .stDownloadButton,
+    div[data-testid="stColumn"] .stButton { margin-top: 0 !important; }
+    div[data-testid="stColumn"] .stDownloadButton > button,
+    div[data-testid="stColumn"] .stButton > button { margin-top: 0 !important; }
+
+    /* ── CSV 다운로드 버튼: 너비를 내용물에 맞게 ── */
+    div[data-testid="stColumn"] .stDownloadButton { width: auto !important; display: flex; justify-content: flex-end; }
+    div[data-testid="stColumn"] .stDownloadButton > button {
+        width: auto !important;
+        padding: 8px 20px !important;
+        white-space: nowrap !important;
+    }
+
+    /* ── 라디오 버튼 여백 제거 + 색상 ── */
+    div[data-testid="stRadio"] { margin-top: 0 !important; padding-top: 0 !important; }
+    div[data-testid="stRadio"] > div { gap: 0.6rem !important; align-items: center; }
+    div[data-testid="stRadio"] > label {
+        font-size: 0.875rem !important; font-weight: 600 !important;
+        color: white !important; margin-bottom: 2px !important; padding-bottom: 0 !important;
+    }
+    div[data-testid="stRadio"] label,
+    div[data-testid="stRadio"] label > div,
+    div[data-testid="stRadio"] span,
+    div[data-testid="stRadio"] p,
+    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -2977,7 +2985,6 @@ def page_news_monitor():
             df_show.to_csv(index=False).encode("utf-8"),
             file_name=f"posco_news_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M')}.csv",
             mime="text/csv",
-            use_container_width=True
         )
 
     if view == "카드형 뷰":

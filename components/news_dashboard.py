@@ -109,7 +109,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     # CSS 스타일 (대시보드 전용, 간격 축소, 헤더 없음)
     st.markdown("""
     <style>
-    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 6px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .news-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
     .news-dash-container * { text-align: center; }
 
     .news-dash-container div[data-testid="column"] { padding: 0 4px !important; }
@@ -118,7 +118,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     .news-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
     .news-card.posco-intl { border-top-color: #22c55e; }
-    .news-card.posco { border-top-color: #f59e0b; }
+    .news-card.posco { border-top-color: #c8920a; }
     .news-card.mobility { border-top-color: #3b82f6; }
     .news-card.samcheok { border-top-color: #ec4899; }
     .news-card.others { border-top-color: #8b5cf6; }
@@ -126,7 +126,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     .news-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
     .news-card.total .news-label { color: #6366f1; }
     .news-card.posco-intl .news-label { color: #22c55e; }
-    .news-card.posco .news-label { color: #f59e0b; }
+    .news-card.posco .news-label { color: #c8920a; }
     .news-card.mobility .news-label { color: #3b82f6; }
     .news-card.samcheok .news-label { color: #ec4899; }
     .news-card.others .news-label { color: #8b5cf6; }

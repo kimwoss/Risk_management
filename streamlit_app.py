@@ -1934,9 +1934,9 @@ def load_base_css():
 
       /* 다운로드 버튼 특별 스타일 */
       .stDownloadButton>button{
-        background: linear-gradient(135deg, #D4AF37, #B8941F) !important;
-        border: 1px solid rgba(212,175,55,.4) !important;
-        color: #000 !important;
+        background: linear-gradient(135deg, #b09530, #8e771a) !important;
+        border: 1px solid rgba(175,148,40,.4) !important;
+        color: #f0e8c8 !important;
         font-weight: 700 !important;
         border-radius: 8px !important;
         padding: 10px 16px !important;
@@ -1944,11 +1944,11 @@ def load_base_css():
         transition: all 0.25s ease !important;
       }
       .stDownloadButton>button:hover{
-        background: linear-gradient(135deg, #E6C55A, #D4AF37) !important;
-        border-color: rgba(212,175,55,.8) !important;
-        box-shadow: 0 4px 20px rgba(212,175,55,.25) !important;
+        background: linear-gradient(135deg, #c4a52e, #b09530) !important;
+        border-color: rgba(175,148,40,.7) !important;
+        box-shadow: 0 4px 20px rgba(175,148,40,.2) !important;
         transform: translateY(-1px) !important;
-        color: #000 !important;
+        color: #f8f0d8 !important;
       }
 
       /* 데이터프레임 */
@@ -2957,7 +2957,14 @@ def page_news_monitor():
     /* 상태 알림(info/warning/error) 여백 축소 */
     div[data-testid="stColumn"] .stAlert { margin-top: 2px !important; margin-bottom: 2px !important; padding: 6px 10px !important; }
     /* Row 사이 가로 블록 간격 */
-    div[data-testid="stHorizontalBlock"] { gap: 0.5rem !important; margin-bottom: 4px !important; }
+    div[data-testid="stHorizontalBlock"] { gap: 0.5rem !important; margin-bottom: 8px !important; }
+    /* 새로고침 버튼 컬럼 수직 중앙 정렬 */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:last-child > div[data-testid="stVerticalBlock"] {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        height: 100% !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -2981,7 +2988,7 @@ def page_news_monitor():
     background: #1E1E1E;
     border: 1px solid #2A2A2A;
     border-radius: 8px;
-    padding: 16px 20px;
+    padding: 20px 24px;
     margin-bottom: 12px;
     transition: all 0.2s ease;
     position: relative;
@@ -3004,16 +3011,16 @@ def page_news_monitor():
     gap: 6px;
   }
   .news-media{
-    background: rgba(212,175,55,.2);
-    color: #D4AF37;
+    background: rgba(175,140,30,.16);
+    color: #c4a030;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
   }
   .news-key{
-    background: rgba(135,206,235,.12);
-    color: #87CEEB;
+    background: rgba(100,155,195,.10);
+    color: #7ab8d8;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 11px;
@@ -3030,15 +3037,15 @@ def page_news_monitor():
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
-    line-height: 1.4;
-    margin: 0 0 8px 0;
+    line-height: 1.55;
+    margin: 0 0 12px 0;
     word-break: break-word;
   }
   .news-summary{
     color: #CCCCCC;
     font-size: 13px;
-    line-height: 1.5;
-    margin: 0 0 12px 0;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -3065,22 +3072,23 @@ def page_news_monitor():
     text-decoration: underline;
   }
 
-  /* 보고서 생성 버튼 - 작고 컴팩트하게 */
+  /* 보고서 생성 버튼 - 적당한 여백으로 가독성 확보 */
   button[kind="secondary"] {
     height: auto !important;
     min-height: auto !important;
-    padding: 4px 10px !important;
+    padding: 7px 14px !important;
     font-size: 11px !important;
     font-weight: 500 !important;
     border-radius: 4px !important;
     transition: all 0.2s ease !important;
     background-color: rgba(255,255,255,0.08) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
+    margin-bottom: 4px !important;
   }
   button[kind="secondary"]:hover {
-    background-color: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #1E1E1E !important;
+    background-color: #b09530 !important;
+    border-color: #b09530 !important;
+    color: #f0e8c8 !important;
   }
 
   /* 생성된 보고서 스타일 */

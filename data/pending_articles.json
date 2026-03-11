@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-11T08:04:08.716492",
+      "retry_count": 5,
+      "last_attempt": "2026-03-11T08:59:12.383032",
       "hash_id": "f4ccbafbe8171fa0"
     },
     "https://www.newsis.com/view/NISX20260311_0003544239": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-11T08:04:08.339187",
+      "retry_count": 5,
+      "last_attempt": "2026-03-11T08:59:12.006017",
       "hash_id": "14be68647a23f52d"
     },
     "http://www.fntimes.com/html/view.php?ud=2026031115260247937492587736_18": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-11T08:04:07.965860",
+      "retry_count": 5,
+      "last_attempt": "2026-03-11T08:59:11.576787",
       "hash_id": "d02c198fb4b54ee3"
     },
     "https://www.newsway.co.kr/news/view?ud=2026031116262740570": {
@@ -40,8 +40,8 @@
       "press": "뉴스웨이",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-11T08:04:17.192932",
+      "retry_count": 3,
+      "last_attempt": "2026-03-11T08:59:13.140902",
       "hash_id": "f3bff1af63fbc8f2"
     },
     "https://biz.sbs.co.kr/article_hub/20000296669?division=NAVER": {
@@ -51,11 +51,44 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-11T08:04:15.753537",
+      "retry_count": 3,
+      "last_attempt": "2026-03-11T08:59:12.761104",
       "hash_id": "2783ad26393606a2"
+    },
+    "https://www.newsis.com/view/NISX20260311_0003544466": {
+      "title": "광양항 입주기업 플로우케이, '첨단 물류센터' 본격 운영",
+      "link": "https://www.newsis.com/view/NISX20260311_0003544466",
+      "date": "2026-03-11 17:55",
+      "press": "",
+      "keyword": "포스코플로우",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-11T09:00:22.439925",
+      "hash_id": "efed573c847ed1f7"
+    },
+    "https://www.youthdaily.co.kr/news/article.html?no=215172": {
+      "title": "포스코 포항제철소, 중앙수리섹션 가공공장 준공식…노후설비 개선",
+      "link": "https://www.youthdaily.co.kr/news/article.html?no=215172",
+      "date": "2026-03-11 17:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-11T09:00:13.389945",
+      "hash_id": "13369a54401f7574"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/03/11/20260311500226?wlog_tag3=naver": {
+      "title": "로봇·AI에 배터리 있다…“K배터리에 기회 열려”",
+      "link": "https://www.seoul.co.kr/news/economy/2026/03/11/20260311500226?wlog_tag3=naver",
+      "date": "2026-03-11 17:25",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-11T08:59:26.925596",
+      "hash_id": "5cee4fb1ba12be13"
     }
   },
-  "last_updated": "2026-03-11 08:04:22",
-  "count": 5
+  "last_updated": "2026-03-11 09:00:27",
+  "count": 8
 }

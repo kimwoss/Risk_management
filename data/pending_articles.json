@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260311_0003544511": {
-      "title": "'노란봉투법' 첫날 407개 노조 교섭요구…'1호' 한화오션·포스코 등(종...",
-      "link": "https://www.newsis.com/view/NISX20260311_0003544511",
-      "date": "2026-03-11 18:31",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-11T11:35:16.949379",
-      "hash_id": "cd2c1f7dc918f793"
-    },
     "https://www.newsway.co.kr/news/view?ud=2026031117551661755": {
       "title": "인터배터리 달군 '꿈의 전고체'…韓 배터리·소재 '기술 총출동'[인터배...",
       "link": "https://www.newsway.co.kr/news/view?ud=2026031117551661755",
@@ -18,8 +7,8 @@
       "press": "뉴스웨이",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-11T11:35:17.781215",
+      "retry_count": 5,
+      "last_attempt": "2026-03-11T12:00:39.976344",
       "hash_id": "324ceb267f9c6af5"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1248881.html": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-11T11:35:17.360869",
+      "retry_count": 5,
+      "last_attempt": "2026-03-11T12:00:39.479733",
       "hash_id": "48c27967fb8ce847"
     }
   },
-  "last_updated": "2026-03-11 11:35:20",
-  "count": 3
+  "last_updated": "2026-03-11 12:00:47",
+  "count": 2
 }

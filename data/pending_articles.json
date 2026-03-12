@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.mtn.co.kr/news-detail/2026031215230090452": {
-      "title": "포스코퓨처엠 \"전고체 양극재, 얼마나 싸게 만드냐가 핵심\" [인터배터리...",
-      "link": "https://news.mtn.co.kr/news-detail/2026031215230090452",
-      "date": "2026-03-12 16:12",
-      "press": "MTN",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-12T09:01:04.497858",
-      "hash_id": "14a971e2f76b795f"
-    },
     "https://news.mtn.co.kr/news-detail/2026031216412547806": {
       "title": "소재사들도 미래 먹거리 '정조준'…\"전고체 양극재·LFP 양산\"[인터배터...",
       "link": "https://news.mtn.co.kr/news-detail/2026031216412547806",
@@ -18,11 +7,22 @@
       "press": "MTN",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-12T09:01:19.972602",
+      "retry_count": 3,
+      "last_attempt": "2026-03-12T09:58:21.890287",
       "hash_id": "b1463f23d9e9aef1"
+    },
+    "https://www.g-enews.com/view.php?ud=20260312152006620424debea800_1": {
+      "title": "[르포] “현장 목소리 듣자”…배터리 잡페어에 취준생 발길",
+      "link": "https://www.g-enews.com/view.php?ud=20260312152006620424debea800_1",
+      "date": "2026-03-12 18:06",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-12T09:58:22.463589",
+      "hash_id": "9c5e0d5dc8c4347d"
     }
   },
-  "last_updated": "2026-03-12 09:01:22",
+  "last_updated": "2026-03-12 09:58:24",
   "count": 2
 }

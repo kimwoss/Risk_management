@@ -7,11 +7,22 @@
       "press": "MTN",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-12T08:05:50.584800",
+      "retry_count": 5,
+      "last_attempt": "2026-03-12T09:01:04.497858",
       "hash_id": "14a971e2f76b795f"
+    },
+    "https://news.mtn.co.kr/news-detail/2026031216412547806": {
+      "title": "소재사들도 미래 먹거리 '정조준'…\"전고체 양극재·LFP 양산\"[인터배터...",
+      "link": "https://news.mtn.co.kr/news-detail/2026031216412547806",
+      "date": "2026-03-12 17:54",
+      "press": "MTN",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-12T09:01:19.972602",
+      "hash_id": "b1463f23d9e9aef1"
     }
   },
-  "last_updated": "2026-03-12 08:06:10",
-  "count": 1
+  "last_updated": "2026-03-12 09:01:22",
+  "count": 2
 }

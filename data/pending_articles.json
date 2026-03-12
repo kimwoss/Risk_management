@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.mtn.co.kr/news-detail/2026031216412547806": {
-      "title": "소재사들도 미래 먹거리 '정조준'…\"전고체 양극재·LFP 양산\"[인터배터...",
-      "link": "https://news.mtn.co.kr/news-detail/2026031216412547806",
-      "date": "2026-03-12 17:54",
-      "press": "MTN",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-12T10:53:59.493304",
-      "hash_id": "b1463f23d9e9aef1"
-    },
     "https://www.g-enews.com/view.php?ud=20260312152006620424debea800_1": {
       "title": "[르포] “현장 목소리 듣자”…배터리 잡페어에 취준생 발길",
       "link": "https://www.g-enews.com/view.php?ud=20260312152006620424debea800_1",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-12T10:54:00.070363",
+      "retry_count": 5,
+      "last_attempt": "2026-03-12T11:33:31.917930",
       "hash_id": "9c5e0d5dc8c4347d"
     }
   },
-  "last_updated": "2026-03-12 10:54:07",
-  "count": 2
+  "last_updated": "2026-03-12 11:33:33",
+  "count": 1
 }

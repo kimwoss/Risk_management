@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12": {
-      "title": "진학사 캐치 조사, 한화·HD현대·포스코 이미지 키워드 '기술주도' 1위",
-      "link": "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12",
-      "date": "2026-03-13 14:44",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T08:04:57.999221",
-      "hash_id": "20c733a9ffc62eeb"
-    },
     "https://biz.sbs.co.kr/article_hub/20000297335?division=NAVER": {
       "title": "[애프터마켓 브리핑] 유가 급등에 코스피 5500선 반납",
       "link": "https://biz.sbs.co.kr/article_hub/20000297335?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T08:04:59.649990",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T08:58:21.310658",
       "hash_id": "e07eb9d34043676b"
     },
     "https://biz.sbs.co.kr/article_hub/20000297334?division=NAVER": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T08:04:59.166080",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T08:58:20.896757",
       "hash_id": "98247f267c07fd59"
     }
   },
-  "last_updated": "2026-03-13 08:05:06",
-  "count": 3
+  "last_updated": "2026-03-13 08:58:28",
+  "count": 2
 }

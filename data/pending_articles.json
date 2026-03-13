@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23": {
-      "title": "포스코청암재단, 제22회 한국유학장학 증서수여식 및 졸업 환송식 개최",
-      "link": "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23",
-      "date": "2026-03-13 14:10",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T07:31:20.120057",
-      "hash_id": "25ccd5a4e9a5c26e"
-    },
     "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12": {
       "title": "진학사 캐치 조사, 한화·HD현대·포스코 이미지 키워드 '기술주도' 1위",
       "link": "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T07:31:20.636667",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T08:04:57.999221",
       "hash_id": "20c733a9ffc62eeb"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000297335?division=NAVER": {
+      "title": "[애프터마켓 브리핑] 유가 급등에 코스피 5500선 반납",
+      "link": "https://biz.sbs.co.kr/article_hub/20000297335?division=NAVER",
+      "date": "2026-03-13 16:39",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-13T08:04:59.649990",
+      "hash_id": "e07eb9d34043676b"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000297334?division=NAVER": {
+      "title": "[증시 인사이트] 국제유가 급등세…코스피 5500선도 내주며 약세",
+      "link": "https://biz.sbs.co.kr/article_hub/20000297334?division=NAVER",
+      "date": "2026-03-13 16:36",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-13T08:04:59.166080",
+      "hash_id": "98247f267c07fd59"
     }
   },
-  "last_updated": "2026-03-13 07:31:30",
-  "count": 2
+  "last_updated": "2026-03-13 08:05:06",
+  "count": 3
 }

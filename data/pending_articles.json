@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6484353?utm_source=naver&utm_medium=article&utm_campaign=20260313104259": {
-      "title": "포스코퓨처엠, 美 실라와 첨단 배터리 소재 공동 개발 '맞손'",
-      "link": "https://www.nocutnews.co.kr/news/6484353?utm_source=naver&utm_medium=article&utm_campaign=20260313104259",
-      "date": "2026-03-13 10:43",
-      "press": "노컷뉴스",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T05:35:03.292564",
-      "hash_id": "89fcf72708ecf0d3"
-    },
-    "https://www.seoul.co.kr/news/economy/securities/2026/03/13/20260313500074?wlog_tag3=naver": {
-      "title": "[서울데이터랩]개장 직후 인기 검색 종목 20選",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/03/13/20260313500074?wlog_tag3=naver",
-      "date": "2026-03-13 10:30",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T05:35:02.889124",
-      "hash_id": "5d5c5d2947955c65"
-    },
-    "https://biz.sbs.co.kr/article_hub/20000297201?division=NAVER": {
-      "title": "포스코퓨처엠, 美실라와 첨단 배터리소재 공동 개발",
-      "link": "https://biz.sbs.co.kr/article_hub/20000297201?division=NAVER",
-      "date": "2026-03-13 09:52",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T05:35:02.467075",
-      "hash_id": "812853ff33baa346"
-    },
     "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER": {
       "title": "[단독] 포스코인터, 10년 키운 미얀마 쌀사업 접는다",
       "link": "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T05:35:03.695637",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T06:31:48.516193",
       "hash_id": "532c27ed5975144d"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23": {
@@ -51,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T05:35:06.355441",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T06:31:49.060284",
       "hash_id": "25ccd5a4e9a5c26e"
+    },
+    "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12": {
+      "title": "진학사 캐치 조사, 한화·HD현대·포스코 이미지 키워드 '기술주도' 1위",
+      "link": "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12",
+      "date": "2026-03-13 14:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-13T06:31:51.023673",
+      "hash_id": "20c733a9ffc62eeb"
     }
   },
-  "last_updated": "2026-03-13 05:35:16",
-  "count": 5
+  "last_updated": "2026-03-13 06:31:59",
+  "count": 3
 }

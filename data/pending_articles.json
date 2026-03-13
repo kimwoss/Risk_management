@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.thepowernews.co.kr/view.php?ud=202603130821003399de3f0aa1be_7": {
-      "title": "여기어때, 쏠비치 숙박 할인 행사 진행",
-      "link": "https://www.thepowernews.co.kr/view.php?ud=202603130821003399de3f0aa1be_7",
-      "date": "2026-03-13 08:22",
-      "press": "",
-      "keyword": "삼척블루파워",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T02:46:16.830245",
-      "hash_id": "edb0dc1a84ae9522"
-    },
     "https://www.nocutnews.co.kr/news/6484353?utm_source=naver&utm_medium=article&utm_campaign=20260313104259": {
       "title": "포스코퓨처엠, 美 실라와 첨단 배터리 소재 공동 개발 '맞손'",
       "link": "https://www.nocutnews.co.kr/news/6484353?utm_source=naver&utm_medium=article&utm_campaign=20260313104259",
@@ -18,20 +7,9 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T02:47:20.840741",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T04:27:06.540442",
       "hash_id": "89fcf72708ecf0d3"
-    },
-    "https://www.pressian.com/pages/articles/2026031310071872483?utm_source=naver&utm_medium=search": {
-      "title": "포스코퓨처엠, 美 실라와 차세대 배터리 소재 ‘맞손’",
-      "link": "https://www.pressian.com/pages/articles/2026031310071872483?utm_source=naver&utm_medium=search",
-      "date": "2026-03-13 10:30",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T02:47:16.762898",
-      "hash_id": "464507f487027ef6"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/13/20260313500074?wlog_tag3=naver": {
       "title": "[서울데이터랩]개장 직후 인기 검색 종목 20選",
@@ -40,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T02:47:18.077655",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T04:27:06.008538",
       "hash_id": "5d5c5d2947955c65"
     },
     "https://biz.sbs.co.kr/article_hub/20000297201?division=NAVER": {
@@ -51,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T02:46:34.120838",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T04:27:05.449978",
       "hash_id": "812853ff33baa346"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER": {
+      "title": "[단독] 포스코인터, 10년 키운 미얀마 쌀사업 접는다",
+      "link": "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER",
+      "date": "2026-03-13 11:59",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-13T04:27:08.502314",
+      "hash_id": "532c27ed5975144d"
     }
   },
-  "last_updated": "2026-03-13 02:47:39",
-  "count": 5
+  "last_updated": "2026-03-13 04:27:15",
+  "count": 4
 }

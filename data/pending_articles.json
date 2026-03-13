@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER": {
-      "title": "[단독] 포스코인터, 10년 키운 미얀마 쌀사업 접는다",
-      "link": "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER",
-      "date": "2026-03-13 11:59",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-13T06:31:48.516193",
-      "hash_id": "532c27ed5975144d"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23": {
       "title": "포스코청암재단, 제22회 한국유학장학 증서수여식 및 졸업 환송식 개최",
       "link": "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T06:31:49.060284",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T07:31:20.120057",
       "hash_id": "25ccd5a4e9a5c26e"
     },
     "http://www.lawissue.co.kr/view.php?ud=202603131442056003204ead0791_12": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T06:31:51.023673",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T07:31:20.636667",
       "hash_id": "20c733a9ffc62eeb"
     }
   },
-  "last_updated": "2026-03-13 06:31:59",
-  "count": 3
+  "last_updated": "2026-03-13 07:31:30",
+  "count": 2
 }

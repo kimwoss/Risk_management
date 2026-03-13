@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T04:27:06.540442",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T05:35:03.292564",
       "hash_id": "89fcf72708ecf0d3"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/03/13/20260313500074?wlog_tag3=naver": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T04:27:06.008538",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T05:35:02.889124",
       "hash_id": "5d5c5d2947955c65"
     },
     "https://biz.sbs.co.kr/article_hub/20000297201?division=NAVER": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-13T04:27:05.449978",
+      "retry_count": 5,
+      "last_attempt": "2026-03-13T05:35:02.467075",
       "hash_id": "812853ff33baa346"
     },
     "https://biz.sbs.co.kr/article_hub/20000297252?division=NAVER": {
@@ -40,11 +40,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-13T04:27:08.502314",
+      "retry_count": 3,
+      "last_attempt": "2026-03-13T05:35:03.695637",
       "hash_id": "532c27ed5975144d"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23": {
+      "title": "포스코청암재단, 제22회 한국유학장학 증서수여식 및 졸업 환송식 개최",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202603131340222185570d99e4c8_23",
+      "date": "2026-03-13 14:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-13T05:35:06.355441",
+      "hash_id": "25ccd5a4e9a5c26e"
     }
   },
-  "last_updated": "2026-03-13 04:27:15",
-  "count": 4
+  "last_updated": "2026-03-13 05:35:16",
+  "count": 5
 }

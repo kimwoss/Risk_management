@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=202603150929167673ea14faf6f5_1": {
-      "title": "에코프로, 인터배터리 2026 성료… 전고체 로드맵으로 글로벌 협력 가속",
-      "link": "https://www.g-enews.com/view.php?ud=202603150929167673ea14faf6f5_1",
-      "date": "2026-03-15 09:38",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-15T06:15:25.121461",
-      "hash_id": "61ff7f720fed076f"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=202603151147107275570d99e4c8_23": {
       "title": "2025년 포스코 최대 고객은 HD현대 “10년만”",
       "link": "http://www.thebigdata.co.kr/view.php?ud=202603151147107275570d99e4c8_23",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-15T06:15:26.860940",
+      "retry_count": 3,
+      "last_attempt": "2026-03-15T07:16:20.583622",
       "hash_id": "fcf30fbb17b7bd01"
     }
   },
-  "last_updated": "2026-03-15 06:15:27",
-  "count": 2
+  "last_updated": "2026-03-15 07:16:24",
+  "count": 1
 }

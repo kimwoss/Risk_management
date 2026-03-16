@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6485559?utm_source=naver&utm_medium=article&utm_campaign=20260316030943": {
-      "title": "포스코퓨처엠 1조원 인조흑연 음극재 수주",
-      "link": "https://www.nocutnews.co.kr/news/6485559?utm_source=naver&utm_medium=article&utm_campaign=20260316030943",
-      "date": "2026-03-16 15:10",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T08:46:02.286545",
-      "hash_id": "9c19b5eca9d2f404"
-    },
-    "https://www.newsis.com/view/NISX20260316_0003550033": {
-      "title": "고려아연, '인터배터리 2026' 개최…52년 제련 기술 총망라",
-      "link": "https://www.newsis.com/view/NISX20260316_0003550033",
-      "date": "2026-03-16 14:12",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T08:46:01.870918",
-      "hash_id": "50b43d94a1500d81"
-    },
     "https://biz.sbs.co.kr/article_hub/20000297769?division=NAVER": {
       "title": "[속보] S&P, 포스코 신용등급 'A-'에서 'BBB+'로 하향",
       "link": "https://biz.sbs.co.kr/article_hub/20000297769?division=NAVER",
@@ -29,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T08:46:16.003183",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T09:50:23.961368",
       "hash_id": "2fcfa794ce1a046a"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER": {
+      "title": "S&P, 포스코 신용등급 'A-'에서 'BBB+'로 하향 조정",
+      "link": "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER",
+      "date": "2026-03-16 17:51",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-16T09:50:24.339873",
+      "hash_id": "2d43a7c13f51ca90"
     }
   },
-  "last_updated": "2026-03-16 08:46:17",
-  "count": 3
+  "last_updated": "2026-03-16 09:50:32",
+  "count": 2
 }

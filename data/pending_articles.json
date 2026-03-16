@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER": {
-      "title": "S&P, 포스코 신용등급 'A-'에서 'BBB+'로 하향 조정",
-      "link": "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER",
-      "date": "2026-03-16 17:51",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T11:37:01.564719",
-      "hash_id": "2d43a7c13f51ca90"
-    },
     "https://biz.sbs.co.kr/article_hub/20000297804?division=NAVER": {
       "title": "포스코퓨처엠, 1조원대 음극재 계약…고객사 '테슬라' 유력",
       "link": "https://biz.sbs.co.kr/article_hub/20000297804?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-16T11:37:02.695695",
+      "retry_count": 5,
+      "last_attempt": "2026-03-16T12:36:12.728550",
       "hash_id": "1cb854c8b7fd3dde"
     },
     "https://www.g-enews.com/view.php?ud=20260316113337345ea14faf6f5_1": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-16T11:37:02.127137",
+      "retry_count": 5,
+      "last_attempt": "2026-03-16T12:36:12.148017",
       "hash_id": "b966e3dd24926660"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=200272&mode=view": {
+      "title": "포스코퓨처엠, 글로벌 車업체와 1조원 인조흑연",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=200272&mode=view",
+      "date": "2026-03-16 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-16T12:36:13.268660",
+      "hash_id": "c09bfc2577525888"
     }
   },
-  "last_updated": "2026-03-16 11:37:03",
+  "last_updated": "2026-03-16 12:36:21",
   "count": 3
 }

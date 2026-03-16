@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.smarttoday.co.kr/ko-kr/articles/105020": {
-      "title": "포스코퓨처엠 1조원 규모 인조흑연 음극재 수주",
-      "link": "https://www.smarttoday.co.kr/ko-kr/articles/105020",
-      "date": "2026-03-16 10:50",
-      "press": "스마트투데이",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T01:57:01.879963",
-      "hash_id": "1b06a3df1c929e74"
-    },
     "https://biz.chosun.com/industry/company/2026/03/16/OZJMBHJZL5FD7DWLDPCLH4FVKQ/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "포스코퓨처엠, 1조원 규모 인조흑연 음극재 공급계약 수주",
       "link": "https://biz.chosun.com/industry/company/2026/03/16/OZJMBHJZL5FD7DWLDPCLH4FVKQ/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T01:56:22.727119",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T04:45:38.355749",
       "hash_id": "296252e2b768765e"
     },
     "https://www.g-enews.com/view.php?ud=20260316101241542044093b5d4e_1": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T01:56:09.891931",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T04:45:37.214724",
       "hash_id": "a1d809a510b789c4"
     },
     "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005788783": {
@@ -40,11 +29,33 @@
       "press": "MBN",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T01:56:10.312646",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T04:45:37.786235",
       "hash_id": "562391d2e6acbc39"
+    },
+    "https://www.etoday.co.kr/news/view/2565735": {
+      "title": "고려아연, 인터배터리 성료…이차전지·전략광물 경쟁력 선봬",
+      "link": "https://www.etoday.co.kr/news/view/2565735",
+      "date": "2026-03-16 13:44",
+      "press": "이투데이",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-16T04:46:21.461161",
+      "hash_id": "2a152b8e3bb8ea17"
+    },
+    "https://www.chosun.com/economy/industry-company/2026/03/16/3FMRTVW3SNHT3P63UHQK6ZHXKU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "포스코퓨처엠, 글로벌 車기업과 1조 규모 음극재 계약",
+      "link": "https://www.chosun.com/economy/industry-company/2026/03/16/3FMRTVW3SNHT3P63UHQK6ZHXKU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-03-16 13:13",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-16T04:45:48.720682",
+      "hash_id": "1b5ae9882e79791b"
     }
   },
-  "last_updated": "2026-03-16 01:57:03",
-  "count": 4
+  "last_updated": "2026-03-16 04:46:21",
+  "count": 5
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000297769?division=NAVER": {
-      "title": "[속보] S&P, 포스코 신용등급 'A-'에서 'BBB+'로 하향",
-      "link": "https://biz.sbs.co.kr/article_hub/20000297769?division=NAVER",
-      "date": "2026-03-16 17:39",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T10:47:27.965856",
-      "hash_id": "2fcfa794ce1a046a"
-    },
     "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER": {
       "title": "S&P, 포스코 신용등급 'A-'에서 'BBB+'로 하향 조정",
       "link": "https://biz.sbs.co.kr/article_hub/20000297772?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-16T10:47:28.451145",
+      "retry_count": 5,
+      "last_attempt": "2026-03-16T11:37:01.564719",
       "hash_id": "2d43a7c13f51ca90"
     },
     "https://biz.sbs.co.kr/article_hub/20000297804?division=NAVER": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T10:47:30.715418",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T11:37:02.695695",
       "hash_id": "1cb854c8b7fd3dde"
     },
     "https://www.g-enews.com/view.php?ud=20260316113337345ea14faf6f5_1": {
@@ -40,11 +29,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T10:47:30.238040",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T11:37:02.127137",
       "hash_id": "b966e3dd24926660"
     }
   },
-  "last_updated": "2026-03-16 10:47:32",
-  "count": 4
+  "last_updated": "2026-03-16 11:37:03",
+  "count": 3
 }

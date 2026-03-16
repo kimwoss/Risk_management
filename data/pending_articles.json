@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://biz.chosun.com/industry/company/2026/03/16/OZJMBHJZL5FD7DWLDPCLH4FVKQ/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "포스코퓨처엠, 1조원 규모 인조흑연 음극재 공급계약 수주",
-      "link": "https://biz.chosun.com/industry/company/2026/03/16/OZJMBHJZL5FD7DWLDPCLH4FVKQ/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-03-16 10:42",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T06:12:07.744540",
-      "hash_id": "296252e2b768765e"
-    },
-    "https://www.g-enews.com/view.php?ud=20260316101241542044093b5d4e_1": {
-      "title": "[공시] 포스코퓨처엠, 1조원 이차전지용 인조흑연 음극재 공급 계약",
-      "link": "https://www.g-enews.com/view.php?ud=20260316101241542044093b5d4e_1",
-      "date": "2026-03-16 10:32",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T06:12:07.006311",
-      "hash_id": "a1d809a510b789c4"
-    },
-    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005788783": {
-      "title": "포스코퓨처엠, 1조원 규모 대형 계약 수주…역대 최대 규모",
-      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005788783",
-      "date": "2026-03-16 10:32",
-      "press": "MBN",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-16T06:12:07.367372",
-      "hash_id": "562391d2e6acbc39"
-    },
     "https://www.chosun.com/economy/industry-company/2026/03/16/3FMRTVW3SNHT3P63UHQK6ZHXKU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
       "title": "포스코퓨처엠, 글로벌 車기업과 1조 규모 음극재 계약",
       "link": "https://www.chosun.com/economy/industry-company/2026/03/16/3FMRTVW3SNHT3P63UHQK6ZHXKU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-16T06:12:08.107543",
+      "retry_count": 5,
+      "last_attempt": "2026-03-16T07:50:14.446280",
       "hash_id": "1b5ae9882e79791b"
     },
     "https://www.nocutnews.co.kr/news/6485559?utm_source=naver&utm_medium=article&utm_campaign=20260316030943": {
@@ -51,20 +18,9 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T06:12:51.170142",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T07:50:15.403949",
       "hash_id": "9c19b5eca9d2f404"
-    },
-    "https://www.viva100.com/article/20260316501058": {
-      "title": "강기정 시장, 포스코 광양제철소 방문",
-      "link": "https://www.viva100.com/article/20260316501058",
-      "date": "2026-03-16 15:02",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T06:12:50.266495",
-      "hash_id": "6ed950fb6e844ce0"
     },
     "https://www.newsis.com/view/NISX20260316_0003550033": {
       "title": "고려아연, '인터배터리 2026' 개최…52년 제련 기술 총망라",
@@ -73,11 +29,22 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-16T06:12:11.200933",
+      "retry_count": 3,
+      "last_attempt": "2026-03-16T07:50:14.921284",
       "hash_id": "50b43d94a1500d81"
+    },
+    "http://www.wikileaks-kr.org/news/articleView.html?idxno=184813": {
+      "title": "포스코퓨처엠, 글로벌 완성차 업체와 1조원대 '인조흑연 음극재' 대형 계...",
+      "link": "http://www.wikileaks-kr.org/news/articleView.html?idxno=184813",
+      "date": "2026-03-16 16:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-16T07:50:53.994515",
+      "hash_id": "54ac6a0cf7f1edfe"
     }
   },
-  "last_updated": "2026-03-16 06:12:51",
-  "count": 7
+  "last_updated": "2026-03-16 07:51:02",
+  "count": 4
 }

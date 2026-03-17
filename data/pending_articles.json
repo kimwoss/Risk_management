@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=433103": {
-      "title": "'포스코인터내셔널 참여' 알래스카 LNG 개발 중동전쟁에 부각, \"장기계약...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=433103",
-      "date": "2026-03-17 11:14",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-17T05:52:52.858794",
-      "hash_id": "93b9706b4c3117b8"
-    },
-    "https://www.nocutnews.co.kr/news/6486018?utm_source=naver&utm_medium=article&utm_campaign=20260317103051": {
-      "title": "'유남규 딸, 끝내 체육회 불승인' 유예린-박가현, 예산 지원 제외…세계...",
-      "link": "https://www.nocutnews.co.kr/news/6486018?utm_source=naver&utm_medium=article&utm_campaign=20260317103051",
-      "date": "2026-03-17 10:31",
-      "press": "노컷뉴스",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-17T05:52:52.382885",
-      "hash_id": "89ebe59a7ad78595"
-    },
-    "https://www.newsway.co.kr/news/view?ud=2026031709031268509": {
-      "title": "포스코인터내셔널, 모빌리티 날개 달고 '질주'…목표가 9만원[애널리스...",
-      "link": "https://www.newsway.co.kr/news/view?ud=2026031709031268509",
-      "date": "2026-03-17 09:06",
-      "press": "뉴스웨이",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-17T05:52:51.904367",
-      "hash_id": "a3283bfec87a28ef"
-    },
     "http://www.thebigdata.co.kr/view.php?ud=202603171204137717570d99e4c8_23": {
       "title": "포스코미술관 ‘물의 정령들’·‘자연의 기록자들’ 개최",
       "link": "http://www.thebigdata.co.kr/view.php?ud=202603171204137717570d99e4c8_23",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-17T05:52:53.341792",
+      "retry_count": 5,
+      "last_attempt": "2026-03-17T07:03:45.819705",
       "hash_id": "8869cbce0bcc9b18"
     },
     "https://realty.chosun.com/site/data/html_dir/2026/03/17/2026031702492.html": {
@@ -51,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T05:52:54.299659",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T07:03:46.759530",
       "hash_id": "a6a72581044b0047"
     },
     "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23989&Newsnumb=20260323989": {
@@ -62,11 +29,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T05:52:53.823328",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T07:03:46.292034",
       "hash_id": "1f35f328ba6de87d"
+    },
+    "https://www.newsis.com/view/NISX20260317_0003551777": {
+      "title": "유가 100달러·환율 1500원 시대…원전 '에너지 방공호'로 다시 주목",
+      "link": "https://www.newsis.com/view/NISX20260317_0003551777",
+      "date": "2026-03-17 15:59",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-17T07:03:54.728754",
+      "hash_id": "98bd599190702add"
+    },
+    "https://m.skyedaily.com/news_view.html?ID=300466": {
+      "title": "탁구 유예린·박가현 국대 제외... 4월 선발전서 재도전",
+      "link": "https://m.skyedaily.com/news_view.html?ID=300466",
+      "date": "2026-03-17 15:22",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-17T07:03:49.787289",
+      "hash_id": "835ba491f4b99893"
     }
   },
-  "last_updated": "2026-03-17 05:52:57",
-  "count": 6
+  "last_updated": "2026-03-17 07:03:55",
+  "count": 5
 }

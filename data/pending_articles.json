@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T02:52:42.206279",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T04:49:48.141162",
       "hash_id": "93b9706b4c3117b8"
     },
     "https://www.nocutnews.co.kr/news/6486018?utm_source=naver&utm_medium=article&utm_campaign=20260317103051": {
@@ -18,8 +18,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T02:52:29.543808",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T04:49:47.766150",
       "hash_id": "89ebe59a7ad78595"
     },
     "https://www.newsway.co.kr/news/view?ud=2026031709031268509": {
@@ -29,11 +29,22 @@
       "press": "뉴스웨이",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T02:52:26.417082",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T04:49:47.390802",
       "hash_id": "a3283bfec87a28ef"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202603171204137717570d99e4c8_23": {
+      "title": "포스코미술관 ‘물의 정령들’·‘자연의 기록자들’ 개최",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202603171204137717570d99e4c8_23",
+      "date": "2026-03-17 12:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-17T04:49:49.046265",
+      "hash_id": "8869cbce0bcc9b18"
     }
   },
-  "last_updated": "2026-03-17 02:52:47",
-  "count": 3
+  "last_updated": "2026-03-17 04:49:50",
+  "count": 4
 }

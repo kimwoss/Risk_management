@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-17T04:49:48.141162",
+      "retry_count": 5,
+      "last_attempt": "2026-03-17T05:52:52.858794",
       "hash_id": "93b9706b4c3117b8"
     },
     "https://www.nocutnews.co.kr/news/6486018?utm_source=naver&utm_medium=article&utm_campaign=20260317103051": {
@@ -18,8 +18,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-17T04:49:47.766150",
+      "retry_count": 5,
+      "last_attempt": "2026-03-17T05:52:52.382885",
       "hash_id": "89ebe59a7ad78595"
     },
     "https://www.newsway.co.kr/news/view?ud=2026031709031268509": {
@@ -29,8 +29,8 @@
       "press": "뉴스웨이",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-17T04:49:47.390802",
+      "retry_count": 5,
+      "last_attempt": "2026-03-17T05:52:51.904367",
       "hash_id": "a3283bfec87a28ef"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202603171204137717570d99e4c8_23": {
@@ -40,11 +40,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-17T04:49:49.046265",
+      "retry_count": 3,
+      "last_attempt": "2026-03-17T05:52:53.341792",
       "hash_id": "8869cbce0bcc9b18"
+    },
+    "https://realty.chosun.com/site/data/html_dir/2026/03/17/2026031702492.html": {
+      "title": "반포 자이타운서 독보적 존재감…'251가구' 포스코 첫 하이엔드 [르포]",
+      "link": "https://realty.chosun.com/site/data/html_dir/2026/03/17/2026031702492.html",
+      "date": "2026-03-17 13:56",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-17T05:52:54.299659",
+      "hash_id": "a6a72581044b0047"
+    },
+    "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23989&Newsnumb=20260323989": {
+      "title": "포스코미술관 《물의 정령들》·《자연의 기록자들》 개최 | ‘창의, 나...",
+      "link": "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=23989&Newsnumb=20260323989",
+      "date": "2026-03-17 13:54",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-17T05:52:53.823328",
+      "hash_id": "1f35f328ba6de87d"
     }
   },
-  "last_updated": "2026-03-17 04:49:50",
-  "count": 4
+  "last_updated": "2026-03-17 05:52:57",
+  "count": 6
 }

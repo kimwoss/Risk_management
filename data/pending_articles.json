@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-18T11:11:55.360923",
+      "retry_count": 5,
+      "last_attempt": "2026-03-18T12:01:19.816777",
       "hash_id": "560815c18a9d19b0"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=200318&mode=view": {
+      "title": "포스코그룹, 중소·중견 기업에 특허 112건 무상",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=200318&mode=view",
+      "date": "2026-03-18 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T12:01:21.368533",
+      "hash_id": "e39944474a1fc02e"
     }
   },
-  "last_updated": "2026-03-18 11:11:59",
-  "count": 1
+  "last_updated": "2026-03-18 12:01:21",
+  "count": 2
 }

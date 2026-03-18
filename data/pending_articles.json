@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.thebigdata.co.kr/view.php?ud=202603181610354686570d99e4c8_23": {
-      "title": "포스코그룹, 75개 中企에 특허기술 무상 이전",
-      "link": "http://www.thebigdata.co.kr/view.php?ud=202603181610354686570d99e4c8_23",
-      "date": "2026-03-18 16:14",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-18T09:08:13.726161",
-      "hash_id": "6c386a98baa95e49"
-    },
     "http://www.lawissue.co.kr/view.php?ud=20260318165747575167191f6c6e_12": {
       "title": "포스코그룹, 중소기업 혁신성장 돕는 ‘특허 112건’ 무상 이전",
       "link": "http://www.lawissue.co.kr/view.php?ud=20260318165747575167191f6c6e_12",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-18T09:08:14.474518",
+      "retry_count": 5,
+      "last_attempt": "2026-03-18T10:12:20.900831",
       "hash_id": "df3a91eca73dfa7b"
     },
     "https://biz.sbs.co.kr/article_hub/20000298306?division=NAVER": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코인터",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-18T09:08:14.100385",
+      "retry_count": 5,
+      "last_attempt": "2026-03-18T10:12:20.469945",
       "hash_id": "f32de1a49e117fe7"
+    },
+    "https://biz.chosun.com/industry/company/2026/03/18/IWCQMKXU4JBDLHPONGIDH4YD6Y/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코그룹, 산업부와 기술 나눔 행사 개최… 10년 간 특허 926건 무상 이...",
+      "link": "https://biz.chosun.com/industry/company/2026/03/18/IWCQMKXU4JBDLHPONGIDH4YD6Y/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-03-18 18:25",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T10:12:21.317635",
+      "hash_id": "560815c18a9d19b0"
     }
   },
-  "last_updated": "2026-03-18 09:08:28",
+  "last_updated": "2026-03-18 10:12:22",
   "count": 3
 }

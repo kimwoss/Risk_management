@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:16:54.690188",
+      "retry_count": 3,
+      "last_attempt": "2026-03-18T05:11:02.660138",
       "hash_id": "a1f8c1dcc98adffe"
     },
     "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005790806": {
@@ -18,20 +18,9 @@
       "press": "MBN",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:16:54.330325",
+      "retry_count": 3,
+      "last_attempt": "2026-03-18T05:11:02.143626",
       "hash_id": "5635980071fa09df"
-    },
-    "http://www.snmnews.com/news/articleView.html?idxno=566612": {
-      "title": "포스코스틸리온, 건국大 산학협력으로 '인피넬리' 디자인 고도화",
-      "link": "http://www.snmnews.com/news/articleView.html?idxno=566612",
-      "date": "2026-03-18 11:08",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:16:52.078201",
-      "hash_id": "ac6b1b673cb341b5"
     },
     "https://www.newsis.com/view/NISX20260318_0003552770": {
       "title": "산업부, 기술나눔 행사 개최…포스코 112건 무상이전",
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:16:10.523447",
+      "retry_count": 3,
+      "last_attempt": "2026-03-18T05:11:01.599257",
       "hash_id": "d7790d055af1843b"
     },
     "https://www.newsis.com/view/NISX20260318_0003553170": {
@@ -51,8 +40,8 @@
       "press": "",
       "keyword": "미얀마 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:16:04.868350",
+      "retry_count": 3,
+      "last_attempt": "2026-03-18T05:11:01.054025",
       "hash_id": "32e46737f2bb241a"
     },
     "https://www.nocutnews.co.kr/news/6486678?utm_source=naver&utm_medium=article&utm_campaign=20260318115103": {
@@ -62,11 +51,11 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-18T03:15:54.062590",
+      "retry_count": 3,
+      "last_attempt": "2026-03-18T05:11:00.507026",
       "hash_id": "83a78acc81b5ce99"
     }
   },
-  "last_updated": "2026-03-18 03:16:54",
-  "count": 6
+  "last_updated": "2026-03-18 05:11:12",
+  "count": 5
 }

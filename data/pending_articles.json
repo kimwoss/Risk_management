@@ -1,5 +1,72 @@
 {
-  "queue": {},
-  "last_updated": "2026-03-17 23:58:49",
-  "count": 0
+  "queue": {
+    "https://biz.sbs.co.kr/article_hub/20000298241?division=NAVER": {
+      "title": "포스코그룹, 기술 112건 중기 75곳 이전…배터리 최고 인기",
+      "link": "https://biz.sbs.co.kr/article_hub/20000298241?division=NAVER",
+      "date": "2026-03-18 11:56",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:16:54.690188",
+      "hash_id": "a1f8c1dcc98adffe"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005790806": {
+      "title": "포스코그룹, 기계·설비 등 기술 112건 75개 기업에 무상 제공",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005790806",
+      "date": "2026-03-18 11:40",
+      "press": "MBN",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:16:54.330325",
+      "hash_id": "5635980071fa09df"
+    },
+    "http://www.snmnews.com/news/articleView.html?idxno=566612": {
+      "title": "포스코스틸리온, 건국大 산학협력으로 '인피넬리' 디자인 고도화",
+      "link": "http://www.snmnews.com/news/articleView.html?idxno=566612",
+      "date": "2026-03-18 11:08",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:16:52.078201",
+      "hash_id": "ac6b1b673cb341b5"
+    },
+    "https://www.newsis.com/view/NISX20260318_0003552770": {
+      "title": "산업부, 기술나눔 행사 개최…포스코 112건 무상이전",
+      "link": "https://www.newsis.com/view/NISX20260318_0003552770",
+      "date": "2026-03-18 11:00",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:16:10.523447",
+      "hash_id": "d7790d055af1843b"
+    },
+    "https://www.newsis.com/view/NISX20260318_0003553170": {
+      "title": "재택·4일근무·차량2부제에 식사는 2끼만…아시아는 에너지 비상 돌입",
+      "link": "https://www.newsis.com/view/NISX20260318_0003553170",
+      "date": "2026-03-18 10:59",
+      "press": "",
+      "keyword": "미얀마 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:16:04.868350",
+      "hash_id": "32e46737f2bb241a"
+    },
+    "https://www.nocutnews.co.kr/news/6486678?utm_source=naver&utm_medium=article&utm_campaign=20260318115103": {
+      "title": "'탁구협회 임원 딸이라서 역차별?' 국가대표 자동 선발 번복에 공정성 ...",
+      "link": "https://www.nocutnews.co.kr/news/6486678?utm_source=naver&utm_medium=article&utm_campaign=20260318115103",
+      "date": "2026-03-18 09:46",
+      "press": "노컷뉴스",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-18T03:15:54.062590",
+      "hash_id": "83a78acc81b5ce99"
+    }
+  },
+  "last_updated": "2026-03-18 03:16:54",
+  "count": 6
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER": {
-      "title": "포스코·현대제철노조 \"철강 위기…산업용 전기요금 부담 완화\"",
-      "link": "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER",
-      "date": "2026-03-19 16:19",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-19T09:11:05.325205",
-      "hash_id": "502d433b84c20079"
-    },
     "https://www.g-enews.com/view.php?ud=202603191637297484ea14faf6f5_1": {
       "title": "포스코퓨처엠, 메탄가스로 '광산 없는' 천연흑연 음극재 만든다",
       "link": "https://www.g-enews.com/view.php?ud=202603191637297484ea14faf6f5_1",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-19T09:11:05.817994",
+      "retry_count": 5,
+      "last_attempt": "2026-03-19T10:03:00.156859",
       "hash_id": "81a4a7d9987a3c9f"
     }
   },
-  "last_updated": "2026-03-19 09:11:13",
-  "count": 2
+  "last_updated": "2026-03-19 10:03:03",
+  "count": 1
 }

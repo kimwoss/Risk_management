@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260319_0003555638": {
-      "title": "건국대-포스코스틸리온, '인피넬리' 가전 컬러강판 디자인 프로젝트 협...",
-      "link": "https://www.newsis.com/view/NISX20260319_0003555638",
-      "date": "2026-03-19 15:31",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-19T08:25:15.976274",
-      "hash_id": "451341ed83e52d99"
-    },
     "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER": {
       "title": "포스코·현대제철노조 \"철강 위기…산업용 전기요금 부담 완화\"",
       "link": "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-19T08:25:16.533531",
+      "retry_count": 5,
+      "last_attempt": "2026-03-19T09:11:05.325205",
       "hash_id": "502d433b84c20079"
     },
     "https://www.g-enews.com/view.php?ud=202603191637297484ea14faf6f5_1": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-19T08:25:17.829902",
+      "retry_count": 3,
+      "last_attempt": "2026-03-19T09:11:05.817994",
       "hash_id": "81a4a7d9987a3c9f"
     }
   },
-  "last_updated": "2026-03-19 08:25:27",
-  "count": 3
+  "last_updated": "2026-03-19 09:11:13",
+  "count": 2
 }

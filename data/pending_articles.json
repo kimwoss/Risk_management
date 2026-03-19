@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260319_0003554660": {
-      "title": "산업부, 희토류 공급망 안정화 나선다…통상 채널 가동",
-      "link": "https://www.newsis.com/view/NISX20260319_0003554660",
-      "date": "2026-03-19 11:00",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-19T06:38:50.943849",
-      "hash_id": "087d30fc0fd4a294"
-    },
     "https://www.g-enews.com/view.php?ud=202603191259454190df2f5bc1bc_1": {
       "title": "한국예탁결제원, '슈퍼 주총 위크' 개막...3월 넷째 주 1573개사",
       "link": "https://www.g-enews.com/view.php?ud=202603191259454190df2f5bc1bc_1",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-19T06:38:51.499972",
+      "retry_count": 5,
+      "last_attempt": "2026-03-19T07:37:18.729210",
       "hash_id": "28335f86908ff52a"
     },
     "https://www.newsis.com/view/NISX20260319_0003555638": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-19T06:39:01.034633",
+      "retry_count": 3,
+      "last_attempt": "2026-03-19T07:37:19.090951",
       "hash_id": "451341ed83e52d99"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER": {
+      "title": "포스코·현대제철노조 \"철강 위기…산업용 전기요금 부담 완화\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000298618?division=NAVER",
+      "date": "2026-03-19 16:19",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-19T07:37:27.969782",
+      "hash_id": "502d433b84c20079"
     }
   },
-  "last_updated": "2026-03-19 06:39:01",
+  "last_updated": "2026-03-19 07:37:31",
   "count": 3
 }

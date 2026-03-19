@@ -7,8 +7,8 @@
       "press": "MBN",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-19T01:22:11.418756",
+      "retry_count": 3,
+      "last_attempt": "2026-03-19T04:02:39.697141",
       "hash_id": "5be98211ab744ea8"
     },
     "https://www.g-enews.com/view.php?ud=20260319094227468324debea800_1": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-19T01:22:03.837097",
+      "retry_count": 3,
+      "last_attempt": "2026-03-19T04:02:39.214180",
       "hash_id": "f372e7f3ece40b42"
     },
     "https://www.munhwa.com/article/11575691?ref=naver": {
@@ -29,11 +29,33 @@
       "press": "문화일보",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-19T01:21:51.196076",
+      "retry_count": 3,
+      "last_attempt": "2026-03-19T04:02:38.733322",
       "hash_id": "ee671368b9715f5c"
+    },
+    "https://weekly.hankooki.com/news/articleView.html?idxno=7155499": {
+      "title": "포스코퓨처엠·몰튼, 메탄가스 기반 '천연흑연 음극재 원료 개발' 협력",
+      "link": "https://weekly.hankooki.com/news/articleView.html?idxno=7155499",
+      "date": "2026-03-19 12:18",
+      "press": "한국일보",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-19T04:03:40.984671",
+      "hash_id": "4d19198725a47d6b"
+    },
+    "https://www.newsis.com/view/NISX20260319_0003554660": {
+      "title": "산업부, 희토류 공급망 안정화 나선다…통상 채널 가동",
+      "link": "https://www.newsis.com/view/NISX20260319_0003554660",
+      "date": "2026-03-19 11:00",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-19T04:02:42.683582",
+      "hash_id": "087d30fc0fd4a294"
     }
   },
-  "last_updated": "2026-03-19 01:22:12",
-  "count": 3
+  "last_updated": "2026-03-19 04:03:44",
+  "count": 5
 }

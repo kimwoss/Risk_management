@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6488122?utm_source=naver&utm_medium=article&utm_campaign=20260320095426": {
-      "title": "\"지역인재 육성\" 삼척블루파워, 지역 중·고교 입학생 전원 장학금 20만...",
-      "link": "https://www.nocutnews.co.kr/news/6488122?utm_source=naver&utm_medium=article&utm_campaign=20260320095426",
-      "date": "2026-03-20 09:55",
-      "press": "노컷뉴스",
-      "keyword": "삼척블루파워",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-20T05:36:57.318589",
-      "hash_id": "54845326c0a2f69a"
-    },
     "https://realty.chosun.com/site/data/html_dir/2026/03/20/2026032001948.html": {
       "title": "신아종합건설, '수직 증축' 관련 포스코 특허 2건 양도받아",
       "link": "https://realty.chosun.com/site/data/html_dir/2026/03/20/2026032001948.html",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-20T05:36:57.690599",
+      "retry_count": 5,
+      "last_attempt": "2026-03-20T06:35:33.098275",
       "hash_id": "937d93efa5aeaa23"
     },
     "https://www.newsis.com/view/NISX20260320_0003556909": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-20T05:36:58.612388",
+      "retry_count": 3,
+      "last_attempt": "2026-03-20T06:35:33.458543",
       "hash_id": "d393439001736c9e"
     }
   },
-  "last_updated": "2026-03-20 05:37:00",
-  "count": 3
+  "last_updated": "2026-03-20 06:35:35",
+  "count": 2
 }

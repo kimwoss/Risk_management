@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://realty.chosun.com/site/data/html_dir/2026/03/20/2026032001948.html": {
-      "title": "신아종합건설, '수직 증축' 관련 포스코 특허 2건 양도받아",
-      "link": "https://realty.chosun.com/site/data/html_dir/2026/03/20/2026032001948.html",
-      "date": "2026-03-20 11:34",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-20T06:35:33.098275",
-      "hash_id": "937d93efa5aeaa23"
-    },
     "https://www.newsis.com/view/NISX20260320_0003556909": {
       "title": "정부, 희토류 공급망 '통상 카드'로…포스코인터 역할론 주목",
       "link": "https://www.newsis.com/view/NISX20260320_0003556909",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-20T06:35:33.458543",
+      "retry_count": 5,
+      "last_attempt": "2026-03-20T07:34:32.162865",
       "hash_id": "d393439001736c9e"
+    },
+    "https://www.newsis.com/view/NISX20260320_0003557056": {
+      "title": "중동 리스크에 농식품업계 '비상'…정부, 물류·비료·유가 대응 총력",
+      "link": "https://www.newsis.com/view/NISX20260320_0003557056",
+      "date": "2026-03-20 16:30",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-20T07:34:40.398871",
+      "hash_id": "22d36577b67ef789"
+    },
+    "https://www.nocutnews.co.kr/news/6488452?utm_source=naver&utm_medium=article&utm_campaign=20260320040429": {
+      "title": "포스코 포항제철소, 지역 '중소기업 QSS혁신리더' 교육 성료",
+      "link": "https://www.nocutnews.co.kr/news/6488452?utm_source=naver&utm_medium=article&utm_campaign=20260320040429",
+      "date": "2026-03-20 16:05",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-20T07:34:34.661836",
+      "hash_id": "80a89f6723c704fa"
     }
   },
-  "last_updated": "2026-03-20 06:35:35",
-  "count": 2
+  "last_updated": "2026-03-20 07:34:51",
+  "count": 3
 }

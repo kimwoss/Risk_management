@@ -7,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "삼척블루파워",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-20T04:26:24.595707",
+      "retry_count": 5,
+      "last_attempt": "2026-03-20T05:36:57.318589",
       "hash_id": "54845326c0a2f69a"
     },
     "https://realty.chosun.com/site/data/html_dir/2026/03/20/2026032001948.html": {
@@ -18,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-20T04:26:25.010519",
+      "retry_count": 3,
+      "last_attempt": "2026-03-20T05:36:57.690599",
       "hash_id": "937d93efa5aeaa23"
+    },
+    "https://www.newsis.com/view/NISX20260320_0003556909": {
+      "title": "정부, 희토류 공급망 '통상 카드'로…포스코인터 역할론 주목",
+      "link": "https://www.newsis.com/view/NISX20260320_0003556909",
+      "date": "2026-03-20 14:09",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-20T05:36:58.612388",
+      "hash_id": "d393439001736c9e"
     }
   },
-  "last_updated": "2026-03-20 04:26:27",
-  "count": 2
+  "last_updated": "2026-03-20 05:37:00",
+  "count": 3
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260320_0003556909": {
-      "title": "정부, 희토류 공급망 '통상 카드'로…포스코인터 역할론 주목",
-      "link": "https://www.newsis.com/view/NISX20260320_0003556909",
-      "date": "2026-03-20 14:09",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-20T07:34:32.162865",
-      "hash_id": "d393439001736c9e"
-    },
     "https://www.newsis.com/view/NISX20260320_0003557056": {
       "title": "중동 리스크에 농식품업계 '비상'…정부, 물류·비료·유가 대응 총력",
       "link": "https://www.newsis.com/view/NISX20260320_0003557056",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-20T07:34:40.398871",
+      "retry_count": 3,
+      "last_attempt": "2026-03-20T08:06:31.869213",
       "hash_id": "22d36577b67ef789"
     },
     "https://www.nocutnews.co.kr/news/6488452?utm_source=naver&utm_medium=article&utm_campaign=20260320040429": {
@@ -29,11 +18,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-20T07:34:34.661836",
+      "retry_count": 3,
+      "last_attempt": "2026-03-20T08:06:31.342721",
       "hash_id": "80a89f6723c704fa"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=433556": {
+      "title": "포스코그룹 장인화 지배구조 투명화 지속, 실적 개선으로 연임 가능성 ...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=433556",
+      "date": "2026-03-20 16:38",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-20T08:06:33.109924",
+      "hash_id": "c464de0df7f51854"
     }
   },
-  "last_updated": "2026-03-20 07:34:51",
+  "last_updated": "2026-03-20 08:06:42",
   "count": 3
 }

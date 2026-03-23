@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-23T09:54:45.032893",
+      "retry_count": 3,
+      "last_attempt": "2026-03-23T10:56:37.707546",
       "hash_id": "ce4ca01fae030ab9"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1250717.html": {
+      "title": "커지는 중동발 LNG 불안에 주목되는 민간터미널",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1250717.html",
+      "date": "2026-03-23 18:54",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-23T10:56:38.070303",
+      "hash_id": "73a3adff4b722c47"
     }
   },
-  "last_updated": "2026-03-23 09:54:46",
-  "count": 1
+  "last_updated": "2026-03-23 10:56:44",
+  "count": 2
 }

@@ -1,71 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=433683": {
-      "title": "포스코인터내셔널 250억 CVC 펀드 조성, 희토류 공급처 투자",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=433683",
-      "date": "2026-03-23 11:24",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:18.183418",
-      "hash_id": "3b7a0c89f1be3c65"
-    },
-    "https://www.seoul.co.kr/news/economy/industry/2026/03/23/20260323500064?wlog_tag3=naver": {
-      "title": "포스코인터내셔널, 희토류 공급망 투자…영구자석 밸류체인 만든다",
-      "link": "https://www.seoul.co.kr/news/economy/industry/2026/03/23/20260323500064?wlog_tag3=naver",
-      "date": "2026-03-23 10:38",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:17.633608",
-      "hash_id": "a84e8cd33fb8a9e7"
-    },
-    "https://www.nocutnews.co.kr/news/6489114?utm_source=naver&utm_medium=article&utm_campaign=20260323095603": {
-      "title": "전기차 핵심 광물 잡는다…포스코인터, 250억 규모 펀드 조성",
-      "link": "https://www.nocutnews.co.kr/news/6489114?utm_source=naver&utm_medium=article&utm_campaign=20260323095603",
-      "date": "2026-03-23 09:57",
-      "press": "노컷뉴스",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:17.064935",
-      "hash_id": "193f5102f4527f7c"
-    },
-    "https://biz.chosun.com/industry/company/2026/03/23/VUTN3SZXOFHLZN7TEYYEZMRSQM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "포스코인터내셔널, CVC 펀드 조성해 국내 희토류 기업 투자",
-      "link": "https://biz.chosun.com/industry/company/2026/03/23/VUTN3SZXOFHLZN7TEYYEZMRSQM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-03-23 09:52",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:16.517630",
-      "hash_id": "20ffc7fca7d39d0e"
-    },
-    "https://www.g-enews.com/view.php?ud=20260323090810895624debea800_1": {
-      "title": "포스코인터, 중희토류 공급망 구축 본격화…CVC 펀드로 첫 투자",
-      "link": "https://www.g-enews.com/view.php?ud=20260323090810895624debea800_1",
-      "date": "2026-03-23 09:24",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:15.981090",
-      "hash_id": "067c7c6a8d1f7e45"
-    },
-    "https://www.newsis.com/view/NISX20260323_0003559088": {
-      "title": "포스코인터, 250억 벤처펀드로 희토류 투자…동남아·북미 공급망 구축",
-      "link": "https://www.newsis.com/view/NISX20260323_0003559088",
-      "date": "2026-03-23 09:19",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-23T06:45:15.427951",
-      "hash_id": "95402f4de2999741"
-    },
     "https://www.newsis.com/view/NISX20260323_0003559981": {
       "title": "'포스코홀딩스 미술관', 물·자연 생태예술전 개최…\"생명존중 가치 전...",
       "link": "https://www.newsis.com/view/NISX20260323_0003559981",
@@ -73,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-23T06:45:34.259271",
+      "retry_count": 3,
+      "last_attempt": "2026-03-23T07:23:30.960571",
       "hash_id": "aa70b98bc565f88b"
+    },
+    "https://www.newsis.com/view/NISX20260323_0003559092": {
+      "title": "한경협, 대·중소 상생협력 '2026 경영닥터제 1기' 발대식 개최",
+      "link": "https://www.newsis.com/view/NISX20260323_0003559092",
+      "date": "2026-03-23 15:59",
+      "press": "",
+      "keyword": "포스코플로우",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-23T07:23:31.941550",
+      "hash_id": "bf473b34fe65b851"
     }
   },
-  "last_updated": "2026-03-23 06:45:35",
-  "count": 7
+  "last_updated": "2026-03-23 07:23:44",
+  "count": 2
 }

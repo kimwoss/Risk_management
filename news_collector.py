@@ -356,15 +356,10 @@ def get_article_sentiment(title: str, summary: str, url: str = "") -> str:
     if cache_key in _sentiment_cache:
         return _sentiment_cache[cache_key]
 
-    # 1차: 규칙 기반
+    # 1차: 규칙 기반 (unk = 중립으로 처리, LLM 호출 제거 - 성능 병목)
     sentiment = analyze_sentiment_rule_based(title, summary)
-
-    # 2차: unk인 경우만 LLM 호출
     if sentiment == "unk":
-        sentiment = analyze_sentiment_llm(title, summary)
-        # LLM도 실패하면 pos (중립) 처리
-        if sentiment == "unk":
-            sentiment = "pos"
+        sentiment = "pos"
 
     # 캐시 저장
     _sentiment_cache[cache_key] = sentiment
@@ -564,27 +559,9 @@ def crawl_google_news_rss(query: str = "POSCO International", max_items: int = 5
                         target_phrase = "posco international"
 
                         if target_phrase not in title_lower and target_phrase not in desc_lower:
-                            # 2차 필터: 본문 크롤링 시도
-                            try:
-                                article_response = requests.get(link, timeout=5, headers={
-                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                                })
-                                article_response.raise_for_status()
-                                soup = BeautifulSoup(article_response.content, 'html.parser')
-
-                                # 본문 텍스트 추출 (p 태그들)
-                                paragraphs = soup.find_all('p')
-                                body_text = ' '.join([p.get_text() for p in paragraphs]).lower()
-
-                                if target_phrase not in body_text:
-                                    print(f"[DEBUG] Filtered out (no match in body): {title[:50]}")
-                                    continue
-                                else:
-                                    print(f"[DEBUG] Matched in body: {title[:50]}")
-                            except Exception as crawl_err:
-                                # 크롤링 실패 시 제목/요약 필터만으로 판단 (이미 필터링됨)
-                                print(f"[DEBUG] Body crawl failed, filtered out: {title[:50]} ({crawl_err})")
-                                continue
+                            # 제목/요약에 없으면 skip (본문 크롤링 제거 - 성능 병목)
+                            print(f"[DEBUG] Filtered out (no match in title/desc): {title[:50]}")
+                            continue
 
                         # 날짜 파싱 (RFC 822 형식)
                         date_str = ""

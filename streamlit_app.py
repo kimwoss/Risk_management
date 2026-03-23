@@ -1212,7 +1212,7 @@ def crawl_naver_news(query: str, max_items: int = 200, sort: str = "date") -> pd
     return df
 
 
-@st.cache_data(ttl=1800, show_spinner=False)  # 30분 캐싱
+@st.cache_data(ttl=180, show_spinner=False)  # 3분 캐싱 (auto-refresh 주기와 동일)
 def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date") -> pd.DataFrame:
     """
     Naver + Google News RSS 통합 수집 (캐싱 적용)

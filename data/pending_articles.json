@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=433797": {
-      "title": "기후솔루션 \"삼척그린파워 혼소발전 위한 암모니아 조달 어려워져, 사업...",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=433797",
-      "date": "2026-03-24 10:54",
-      "press": "",
-      "keyword": "삼척블루파워",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-24T05:45:30.848531",
-      "hash_id": "298d5e9125c69fb0"
-    },
     "https://www.newsis.com/view/NISX20260324_0003561625": {
       "title": "장인화 포스코 회장 \"올해 성과 창출 변곡점\"…철강·이차전지 승부수",
       "link": "https://www.newsis.com/view/NISX20260324_0003561625",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-24T05:45:46.297713",
+      "retry_count": 3,
+      "last_attempt": "2026-03-24T06:45:53.790486",
       "hash_id": "a603af7bcc314fd4"
     },
     "http://www.lawissue.co.kr/view.php?ud=20260324142410625467191f6c6e_12": {
@@ -29,11 +18,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-24T05:45:45.802770",
+      "retry_count": 3,
+      "last_attempt": "2026-03-24T06:45:53.221293",
       "hash_id": "ad91569e29119871"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000299548?division=NAVER": {
+      "title": "포스코홀딩스 \"올해가 승부처\"…리튬·철강 '투트랙' 가속",
+      "link": "https://biz.sbs.co.kr/article_hub/20000299548?division=NAVER",
+      "date": "2026-03-24 15:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-24T06:46:11.789136",
+      "hash_id": "614e8947eb306ff6"
     }
   },
-  "last_updated": "2026-03-24 05:45:54",
+  "last_updated": "2026-03-24 06:46:11",
   "count": 3
 }

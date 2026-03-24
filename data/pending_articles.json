@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "삼척블루파워",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-24T02:12:21.707726",
+      "retry_count": 3,
+      "last_attempt": "2026-03-24T04:28:16.659370",
       "hash_id": "298d5e9125c69fb0"
+    },
+    "https://www.newspim.com/news/view/20260324000735": {
+      "title": "포스코홀딩스, 주주총회 개최...장인화 회장 \"철강·이차전지 '2 Core' 전...",
+      "link": "https://www.newspim.com/news/view/20260324000735",
+      "date": "2026-03-24 13:20",
+      "press": "뉴스핌",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-24T04:29:17.932503",
+      "hash_id": "c9c0e8749a303206"
     }
   },
-  "last_updated": "2026-03-24 02:12:23",
-  "count": 1
+  "last_updated": "2026-03-24 04:29:19",
+  "count": 2
 }

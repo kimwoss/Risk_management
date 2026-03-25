@@ -55995,3 +55995,14 @@
 {"timestamp": "2026-03-25T05:08:46.959725", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 15, "api_calls": 2}}
 {"timestamp": "2026-03-25T05:09:09.833223", "event_type": "telegram", "data": {"success": 18, "failed": 1, "total": 19, "success_rate": 0.9473684210526315}}
 {"timestamp": "2026-03-25T05:09:09.887464", "event_type": "run_summary", "data": {"total_articles": 306, "new_articles": 19, "telegram_sent": 18, "errors": 0}}
+{"timestamp": "2026-03-25T06:14:30.804000", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:32.373609", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 86, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:32.967555", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:33.743353", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:35.296221", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 25, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:35.865057", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:36.612606", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:37.311528", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 30, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:14:37.895993", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 12, "api_calls": 2}}
+{"timestamp": "2026-03-25T06:15:00.032915", "event_type": "telegram", "data": {"success": 18, "failed": 1, "total": 19, "success_rate": 0.9473684210526315}}
+{"timestamp": "2026-03-25T06:15:00.088437", "event_type": "run_summary", "data": {"total_articles": 303, "new_articles": 19, "telegram_sent": 18, "errors": 0}}

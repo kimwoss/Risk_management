@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6491109?utm_source=naver&utm_medium=article&utm_campaign=20260325062530": {
-      "title": "검찰, '미공개정보 이용 의혹' 최정우 전 포스코 회장 불기소",
-      "link": "https://www.nocutnews.co.kr/news/6491109?utm_source=naver&utm_medium=article&utm_campaign=20260325062530",
-      "date": "2026-03-25 18:26",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T11:26:10.158459",
-      "hash_id": "6e24907bb515e372"
-    },
-    "https://news.tvchosun.com/site/data/html_dir/2026/03/25/2026032590245.html": {
-      "title": "檢, '미공개 정보 이용 의혹' 최정우 前 포스코 회장 무혐의",
-      "link": "https://news.tvchosun.com/site/data/html_dir/2026/03/25/2026032590245.html",
-      "date": "2026-03-25 18:02",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T11:26:09.744117",
-      "hash_id": "53843f10aaadc499"
-    },
-    "http://www.lawissue.co.kr/view.php?ud=20260325172607133b50722e900_12": {
-      "title": "검찰, '포스코 미공개정보 이용 혐의' 최정우 前회장 등 무혐의",
-      "link": "http://www.lawissue.co.kr/view.php?ud=20260325172607133b50722e900_12",
-      "date": "2026-03-25 17:56",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T11:26:09.329288",
-      "hash_id": "3dbf4c97f405ed09"
-    },
     "https://www.hani.co.kr/arti/society/society_general/1251109.html": {
       "title": "검찰, ‘미공개 정보 이용 의혹’ 포스코 전 대표 등 임원 무혐의 처분",
       "link": "https://www.hani.co.kr/arti/society/society_general/1251109.html",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T11:26:10.986083",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T12:05:30.290347",
       "hash_id": "18c9b9da17da2dfe"
     },
     "https://www.nocutnews.co.kr/news/6491128?utm_source=naver&utm_medium=article&utm_campaign=20260325064130": {
@@ -51,11 +18,22 @@
       "press": "노컷뉴스",
       "keyword": "삼척블루파워",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T11:26:10.572440",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T12:05:29.765154",
       "hash_id": "6cdab65d1948c3ec"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=434050": {
+      "title": "검찰, 최정우 전 회장 포함 '포스코 미공개 정보 이용' 의혹 임직원 무...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434050",
+      "date": "2026-03-25 20:30",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T12:05:31.505872",
+      "hash_id": "1aca6b418de5245f"
     }
   },
-  "last_updated": "2026-03-25 11:26:12",
-  "count": 5
+  "last_updated": "2026-03-25 12:05:38",
+  "count": 3
 }

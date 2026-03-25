@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T22:55:51.758706",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T23:42:34.936273",
       "hash_id": "7df45cdb98fb72f0"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER": {
+      "title": "탁구 신유빈, 월드컵 참가 위해 모레 출국",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER",
+      "date": "2026-03-26 08:09",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T23:42:35.419793",
+      "hash_id": "5184ff0733b5300c"
     }
   },
-  "last_updated": "2026-03-25 22:56:00",
-  "count": 1
+  "last_updated": "2026-03-25 23:42:44",
+  "count": 2
 }

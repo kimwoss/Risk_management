@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T05:08:48.333770",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T06:14:39.080282",
       "hash_id": "e807069d868824ab"
     },
     "https://biz.chosun.com/industry/company/2026/03/25/72EEYCKFWFFVXC5A6N6QC7L35Q/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T05:08:47.848914",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T06:14:38.663718",
       "hash_id": "1787b89a84b01323"
     },
     "https://www.thepowernews.co.kr/view.php?ud=202603251010135135de3f0aa1be_7": {
@@ -29,8 +29,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T05:08:47.366747",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T06:14:38.259675",
       "hash_id": "891c67e65b12b483"
     },
     "https://www.g-enews.com/view.php?ud=202603251114534494ea14faf6f5_1": {
@@ -40,11 +40,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T05:09:04.614553",
+      "retry_count": 3,
+      "last_attempt": "2026-03-25T06:14:39.498384",
       "hash_id": "972abb0d27499dc0"
+    },
+    "https://www.newsis.com/view/NISX20260325_0003563387": {
+      "title": "삼척시·삼척블루파워, 데이터센터 투자유치 업무협약",
+      "link": "https://www.newsis.com/view/NISX20260325_0003563387",
+      "date": "2026-03-25 14:14",
+      "press": "",
+      "keyword": "삼척블루파워",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T06:14:41.068522",
+      "hash_id": "4a3d65b066c29e06"
     }
   },
-  "last_updated": "2026-03-25 05:09:09",
-  "count": 4
+  "last_updated": "2026-03-25 06:15:00",
+  "count": 5
 }

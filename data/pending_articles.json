@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.hani.co.kr/arti/society/society_general/1251109.html": {
-      "title": "검찰, ‘미공개 정보 이용 의혹’ 포스코 전 대표 등 임원 무혐의 처분",
-      "link": "https://www.hani.co.kr/arti/society/society_general/1251109.html",
-      "date": "2026-03-25 19:22",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T12:05:30.290347",
-      "hash_id": "18c9b9da17da2dfe"
-    },
-    "https://www.nocutnews.co.kr/news/6491128?utm_source=naver&utm_medium=article&utm_campaign=20260325064130": {
-      "title": "삼척시·삼척블루파워, 데이터센터 유치 '맞손'…업무협약 체결",
-      "link": "https://www.nocutnews.co.kr/news/6491128?utm_source=naver&utm_medium=article&utm_campaign=20260325064130",
-      "date": "2026-03-25 18:42",
-      "press": "노컷뉴스",
-      "keyword": "삼척블루파워",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T12:05:29.765154",
-      "hash_id": "6cdab65d1948c3ec"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434050": {
       "title": "검찰, 최정우 전 회장 포함 '포스코 미공개 정보 이용' 의혹 임직원 무...",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434050",
@@ -29,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T12:05:31.505872",
+      "retry_count": 3,
+      "last_attempt": "2026-03-25T13:48:57.594126",
       "hash_id": "1aca6b418de5245f"
     }
   },
-  "last_updated": "2026-03-25 12:05:38",
-  "count": 3
+  "last_updated": "2026-03-25 13:48:58",
+  "count": 1
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=202603251114534494ea14faf6f5_1": {
-      "title": "포스코퓨처엠-금호석유화학-BEI, 차세대 무음극 리튬메탈 배터리 개발 ...",
-      "link": "https://www.g-enews.com/view.php?ud=202603251114534494ea14faf6f5_1",
-      "date": "2026-03-25 14:04",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T07:32:28.405657",
-      "hash_id": "972abb0d27499dc0"
-    },
     "https://www.newsis.com/view/NISX20260325_0003563387": {
       "title": "삼척시·삼척블루파워, 데이터센터 투자유치 업무협약",
       "link": "https://www.newsis.com/view/NISX20260325_0003563387",
@@ -18,20 +7,9 @@
       "press": "",
       "keyword": "삼척블루파워",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T07:32:28.931252",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T08:27:13.709639",
       "hash_id": "4a3d65b066c29e06"
-    },
-    "https://www.pinpointnews.co.kr/news/articleView.html?idxno=439928": {
-      "title": "[거래소 기관] 반도체 다시 담았다… 자금 대이동의 신호탄",
-      "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=439928",
-      "date": "2026-03-25 16:24",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T07:33:29.301467",
-      "hash_id": "e5249868cc4357c2"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434011": {
       "title": "금호석유화학, 포스코퓨처엠·BEI와 차세대 무음극 배터리 개발 협력",
@@ -40,11 +18,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T07:32:39.462859",
+      "retry_count": 3,
+      "last_attempt": "2026-03-25T08:27:14.231903",
       "hash_id": "5d79fd6344cd582b"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=434023": {
+      "title": "포스코그룹 생산 자동화 키 잡은 뉴로메카 박종훈, 올해 '휴머노이드·부...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434023",
+      "date": "2026-03-25 17:22",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T08:27:25.410153",
+      "hash_id": "5b0ea53b830c04e2"
+    },
+    "https://imnews.imbc.com/news/2026/society/article/6810217_36918.html": {
+      "title": "검찰, '미공개 정보 이용 자사주 매입 의혹' 포스코 임직원 불기소",
+      "link": "https://imnews.imbc.com/news/2026/society/article/6810217_36918.html",
+      "date": "2026-03-25 17:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T08:27:17.417571",
+      "hash_id": "7120d51d285c2756"
     }
   },
-  "last_updated": "2026-03-25 07:33:29",
+  "last_updated": "2026-03-25 08:27:36",
   "count": 4
 }

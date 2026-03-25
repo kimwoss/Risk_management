@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260325_0003563387": {
-      "title": "삼척시·삼척블루파워, 데이터센터 투자유치 업무협약",
-      "link": "https://www.newsis.com/view/NISX20260325_0003563387",
-      "date": "2026-03-25 14:14",
-      "press": "",
-      "keyword": "삼척블루파워",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T08:27:13.709639",
-      "hash_id": "4a3d65b066c29e06"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434011": {
       "title": "금호석유화학, 포스코퓨처엠·BEI와 차세대 무음극 배터리 개발 협력",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434011",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-25T08:27:14.231903",
+      "retry_count": 5,
+      "last_attempt": "2026-03-25T09:31:20.270192",
       "hash_id": "5d79fd6344cd582b"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434023": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T08:27:25.410153",
+      "retry_count": 3,
+      "last_attempt": "2026-03-25T09:31:21.336083",
       "hash_id": "5b0ea53b830c04e2"
     },
     "https://imnews.imbc.com/news/2026/society/article/6810217_36918.html": {
@@ -40,11 +29,44 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T08:27:17.417571",
+      "retry_count": 3,
+      "last_attempt": "2026-03-25T09:31:20.816094",
       "hash_id": "7120d51d285c2756"
+    },
+    "https://www.nocutnews.co.kr/news/6491109?utm_source=naver&utm_medium=article&utm_campaign=20260325062530": {
+      "title": "검찰, '미공개정보 이용 의혹' 최정우 전 포스코 회장 불기소",
+      "link": "https://www.nocutnews.co.kr/news/6491109?utm_source=naver&utm_medium=article&utm_campaign=20260325062530",
+      "date": "2026-03-25 18:26",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T09:31:38.269126",
+      "hash_id": "6e24907bb515e372"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/03/25/2026032590245.html": {
+      "title": "檢, '미공개 정보 이용 의혹' 최정우 前 포스코 회장 무혐의",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/03/25/2026032590245.html",
+      "date": "2026-03-25 18:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T09:31:25.837351",
+      "hash_id": "53843f10aaadc499"
+    },
+    "http://www.lawissue.co.kr/view.php?ud=20260325172607133b50722e900_12": {
+      "title": "검찰, '포스코 미공개정보 이용 혐의' 최정우 前회장 등 무혐의",
+      "link": "http://www.lawissue.co.kr/view.php?ud=20260325172607133b50722e900_12",
+      "date": "2026-03-25 17:56",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-25T09:31:23.930294",
+      "hash_id": "3dbf4c97f405ed09"
     }
   },
-  "last_updated": "2026-03-25 08:27:36",
-  "count": 4
+  "last_updated": "2026-03-25 09:31:38",
+  "count": 6
 }

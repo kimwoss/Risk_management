@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.joseilbo.com/news/news_read.php?uid=565324&class=7&grp=": {
-      "title": "[단독]포스코인터내셔널 법인세 53.2% 감소... 세금 줄여 세후 이익 방어",
-      "link": "http://www.joseilbo.com/news/news_read.php?uid=565324&class=7&grp=",
-      "date": "2026-03-26 07:03",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-25T23:42:34.936273",
-      "hash_id": "7df45cdb98fb72f0"
-    },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER": {
       "title": "탁구 신유빈, 월드컵 참가 위해 모레 출국",
       "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-25T23:42:35.419793",
+      "retry_count": 3,
+      "last_attempt": "2026-03-26T01:01:56.649109",
       "hash_id": "5184ff0733b5300c"
+    },
+    "https://www.g-enews.com/view.php?ud=20260326090407264844093b5d4e_1": {
+      "title": "한화투자증권 \"POSCO홀딩스, 철강 역성장 속 인프라 부문 선전\"",
+      "link": "https://www.g-enews.com/view.php?ud=20260326090407264844093b5d4e_1",
+      "date": "2026-03-26 09:36",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-26T01:02:06.922455",
+      "hash_id": "4fc7bb0282ae33ad"
+    },
+    "https://www.g-enews.com/view.php?ud=2026032609164850560c8c1c064d_1": {
+      "title": "포스코인터내셔널의 ‘팜유 캐시카우’ PT BIA, 인도네시아 메라우케를...",
+      "link": "https://www.g-enews.com/view.php?ud=2026032609164850560c8c1c064d_1",
+      "date": "2026-03-26 09:20",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-26T01:02:05.050864",
+      "hash_id": "1ac06a8985eca7e4"
     }
   },
-  "last_updated": "2026-03-25 23:42:44",
-  "count": 2
+  "last_updated": "2026-03-26 01:02:13",
+  "count": 3
 }

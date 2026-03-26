@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-26T01:01:56.649109",
+      "retry_count": 5,
+      "last_attempt": "2026-03-26T04:04:17.040874",
       "hash_id": "5184ff0733b5300c"
     },
     "https://www.g-enews.com/view.php?ud=20260326090407264844093b5d4e_1": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-26T01:02:06.922455",
+      "retry_count": 3,
+      "last_attempt": "2026-03-26T04:04:18.212860",
       "hash_id": "4fc7bb0282ae33ad"
     },
     "https://www.g-enews.com/view.php?ud=2026032609164850560c8c1c064d_1": {
@@ -29,11 +29,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-26T01:02:05.050864",
+      "retry_count": 3,
+      "last_attempt": "2026-03-26T04:04:17.627463",
       "hash_id": "1ac06a8985eca7e4"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1251193.html": {
+      "title": "김종원 인제고려병원장, 포스코청암재단 첫 ‘청암히어로즈’ 선정",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1251193.html",
+      "date": "2026-03-26 11:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-26T04:04:34.540002",
+      "hash_id": "0ae73f554ff702de"
+    },
+    "https://www.newsis.com/view/NISX20260326_0003564366": {
+      "title": "탁구 신유빈, 월드컵서 세계 최강 중국에 도전장…28일 출국",
+      "link": "https://www.newsis.com/view/NISX20260326_0003564366",
+      "date": "2026-03-26 10:10",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-26T04:04:19.506004",
+      "hash_id": "e99c7e54e7ba16f7"
     }
   },
-  "last_updated": "2026-03-26 01:02:13",
-  "count": 3
+  "last_updated": "2026-03-26 04:04:42",
+  "count": 5
 }

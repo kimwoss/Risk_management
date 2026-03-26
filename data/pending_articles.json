@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER": {
-      "title": "탁구 신유빈, 월드컵 참가 위해 모레 출국",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008492553&plink=ORI&cooper=NAVER",
-      "date": "2026-03-26 08:09",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-26T04:04:17.040874",
-      "hash_id": "5184ff0733b5300c"
-    },
     "https://www.g-enews.com/view.php?ud=20260326090407264844093b5d4e_1": {
       "title": "한화투자증권 \"POSCO홀딩스, 철강 역성장 속 인프라 부문 선전\"",
       "link": "https://www.g-enews.com/view.php?ud=20260326090407264844093b5d4e_1",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-26T04:04:18.212860",
+      "retry_count": 5,
+      "last_attempt": "2026-03-26T05:48:30.311150",
       "hash_id": "4fc7bb0282ae33ad"
     },
     "https://www.g-enews.com/view.php?ud=2026032609164850560c8c1c064d_1": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-26T04:04:17.627463",
+      "retry_count": 5,
+      "last_attempt": "2026-03-26T05:48:29.729940",
       "hash_id": "1ac06a8985eca7e4"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1251193.html": {
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-26T04:04:34.540002",
+      "retry_count": 3,
+      "last_attempt": "2026-03-26T05:48:31.466941",
       "hash_id": "0ae73f554ff702de"
     },
     "https://www.newsis.com/view/NISX20260326_0003564366": {
@@ -51,11 +40,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-26T04:04:19.506004",
+      "retry_count": 3,
+      "last_attempt": "2026-03-26T05:48:30.886952",
       "hash_id": "e99c7e54e7ba16f7"
+    },
+    "https://www.newsis.com/view/NISX20260326_0003565348": {
+      "title": "포스코 포항제철소, '참여형 건강 특강' 개최",
+      "link": "https://www.newsis.com/view/NISX20260326_0003565348",
+      "date": "2026-03-26 14:39",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-26T05:48:39.620892",
+      "hash_id": "4e50551897b04395"
     }
   },
-  "last_updated": "2026-03-26 04:04:42",
+  "last_updated": "2026-03-26 05:48:39",
   "count": 5
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260327_0003567138": {
-      "title": "포스코 수소환원제철소 용지조성 정부승인…사업 본격화",
-      "link": "https://www.newsis.com/view/NISX20260327_0003567138",
-      "date": "2026-03-27 15:11",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-27T08:30:08.572349",
-      "hash_id": "371f7dd1bf78dce3"
-    },
     "https://www.newsis.com/view/NISX20260327_0003567127": {
       "title": "탁구 조대성·최효주, 새 팀 이적 후 전국종별선수권 나란히 우승",
       "link": "https://www.newsis.com/view/NISX20260327_0003567127",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-27T08:30:08.987003",
+      "retry_count": 5,
+      "last_attempt": "2026-03-27T09:32:50.123928",
       "hash_id": "0bf6916269e7ef59"
+    },
+    "https://biz.chosun.com/industry/car/2026/03/27/EOBVBG2JGBFZJI4OTRDVWHJNRQ/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코그룹, 전 계열사 AI 전환 집중… 초격차 기술 경쟁력 강화 ‘가속...",
+      "link": "https://biz.chosun.com/industry/car/2026/03/27/EOBVBG2JGBFZJI4OTRDVWHJNRQ/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-03-27 17:57",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-27T09:32:51.138067",
+      "hash_id": "6975d95d113983d0"
     }
   },
-  "last_updated": "2026-03-27 08:30:10",
+  "last_updated": "2026-03-27 09:32:51",
   "count": 2
 }

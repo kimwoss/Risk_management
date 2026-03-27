@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/economy/industry/2026/03/27/20260327500157?wlog_tag3=naver": {
-      "title": "포스코 포항제철소, 수소환원제철 사업 본궤도…“국토부 승인”",
-      "link": "https://www.seoul.co.kr/news/economy/industry/2026/03/27/20260327500157?wlog_tag3=naver",
-      "date": "2026-03-27 13:26",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-27T07:37:58.953852",
-      "hash_id": "af7ddbcf29f92916"
-    },
     "https://www.newsis.com/view/NISX20260327_0003567138": {
       "title": "포스코 수소환원제철소 용지조성 정부승인…사업 본격화",
       "link": "https://www.newsis.com/view/NISX20260327_0003567138",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-27T07:37:59.491054",
+      "retry_count": 5,
+      "last_attempt": "2026-03-27T08:30:08.572349",
       "hash_id": "371f7dd1bf78dce3"
     },
     "https://www.newsis.com/view/NISX20260327_0003567127": {
@@ -29,11 +18,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-27T07:38:03.563592",
+      "retry_count": 3,
+      "last_attempt": "2026-03-27T08:30:08.987003",
       "hash_id": "0bf6916269e7ef59"
     }
   },
-  "last_updated": "2026-03-27 07:38:10",
-  "count": 3
+  "last_updated": "2026-03-27 08:30:10",
+  "count": 2
 }

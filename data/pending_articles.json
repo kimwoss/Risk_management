@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260330_0003568695": {
-      "title": "포스코그룹, 'S.A.V.E 챌린지' 전개…\"전사적 에너지 절약 캠페인\"",
-      "link": "https://www.newsis.com/view/NISX20260330_0003568695",
-      "date": "2026-03-30 08:41",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-30T05:51:46.856075",
-      "hash_id": "5775f400aaa7a328"
-    },
     "http://www.globalepic.co.kr/view.php?ud=20260330114933104148439a4874_29": {
       "title": "포스코이앤씨, 전 구성원 참여 ‘AI 챌린지’ 경진대회 개최",
       "link": "http://www.globalepic.co.kr/view.php?ud=20260330114933104148439a4874_29",
@@ -18,11 +7,22 @@
       "press": "글로벌이코노믹",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-30T05:51:47.259597",
+      "retry_count": 5,
+      "last_attempt": "2026-03-30T07:20:24.641212",
       "hash_id": "efc30bd956d67e78"
+    },
+    "https://m.skyedaily.com/news_view.html?ID=301372": {
+      "title": "포스코그룹, ‘에너지 절약 챌린지’ 전사 확대… 임직원 참여 독려",
+      "link": "https://m.skyedaily.com/news_view.html?ID=301372",
+      "date": "2026-03-30 16:16",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-30T07:21:12.429871",
+      "hash_id": "6d2c4264c0a2f62a"
     }
   },
-  "last_updated": "2026-03-30 05:51:56",
+  "last_updated": "2026-03-30 07:21:13",
   "count": 2
 }

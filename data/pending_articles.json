@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://m.skyedaily.com/news_view.html?ID=301372": {
-      "title": "포스코그룹, ‘에너지 절약 챌린지’ 전사 확대… 임직원 참여 독려",
-      "link": "https://m.skyedaily.com/news_view.html?ID=301372",
-      "date": "2026-03-30 16:16",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-30T10:17:07.064171",
-      "hash_id": "6d2c4264c0a2f62a"
-    },
     "https://www.g-enews.com/view.php?ud=20260330151734518324debea800_1": {
       "title": "포스코그룹, ‘S.A.V.E. 챌린지’ 추진…에너지 절약 문화 확산 나서",
       "link": "https://www.g-enews.com/view.php?ud=20260330151734518324debea800_1",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-30T10:17:11.278166",
+      "retry_count": 3,
+      "last_attempt": "2026-03-30T11:30:22.190977",
       "hash_id": "7f389599c2ff8056"
+    },
+    "https://www.newsis.com/view/NISX20260330_0003570233": {
+      "title": "탁구 신유빈, 스웨덴 베리스트룀 꺾고 ITTF 월드컵 첫 승",
+      "link": "https://www.newsis.com/view/NISX20260330_0003570233",
+      "date": "2026-03-30 19:21",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-30T11:30:22.560182",
+      "hash_id": "7e844e7f43305966"
     }
   },
-  "last_updated": "2026-03-30 10:17:22",
+  "last_updated": "2026-03-30 11:30:25",
   "count": 2
 }

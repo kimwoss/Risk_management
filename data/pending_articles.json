@@ -1,17 +1,39 @@
 {
   "queue": {
-    "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063": {
-      "title": "창립일 맞아 '영일만 정신' 소환한 포스코 | 'Next Core 산업 육성' 주문",
-      "link": "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063",
-      "date": "2026-03-31 17:36",
+    "https://www.g-enews.com/view.php?ud=202603312124478565112616b072_1": {
+      "title": "포스코 장인화, 창립 58주년 메시지…“글로벌 공급망 핵심축 도약” 강...",
+      "link": "https://www.g-enews.com/view.php?ud=202603312124478565112616b072_1",
+      "date": "2026-03-31 21:26",
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-03-31T11:36:26.790446",
-      "hash_id": "825434dd24d1969e"
+      "retry_count": 1,
+      "last_attempt": "2026-03-31T12:40:14.827032",
+      "hash_id": "6bc9c82881d52f46"
+    },
+    "https://www.g-enews.com/view.php?ud=202603312119262702112616b072_1": {
+      "title": "포스코 수소환원제철소 매립 승인…포항 환경단체 반발",
+      "link": "https://www.g-enews.com/view.php?ud=202603312119262702112616b072_1",
+      "date": "2026-03-31 21:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-03-31T12:40:14.398986",
+      "hash_id": "e270f0e9220564d1"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=201522&mode=view": {
+      "title": "민주당 경북도당, 포스코 수소환원제철 산단 변경 승인 \"환영\"",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201522&mode=view",
+      "date": "2026-03-31 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-31T12:40:13.976111",
+      "hash_id": "75a8acbd94294999"
     }
   },
-  "last_updated": "2026-03-31 11:36:27",
-  "count": 1
+  "last_updated": "2026-03-31 12:40:15",
+  "count": 3
 }

@@ -7,11 +7,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-03-31T08:35:42.379021",
+      "retry_count": 5,
+      "last_attempt": "2026-03-31T09:44:51.927428",
       "hash_id": "ed73b7a980ced3ed"
+    },
+    "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063": {
+      "title": "창립일 맞아 '영일만 정신' 소환한 포스코 | 'Next Core 산업 육성' 주문",
+      "link": "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063",
+      "date": "2026-03-31 17:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-03-31T09:44:52.485690",
+      "hash_id": "825434dd24d1969e"
     }
   },
-  "last_updated": "2026-03-31 08:35:57",
-  "count": 1
+  "last_updated": "2026-03-31 09:45:02",
+  "count": 2
 }

@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.sbs.co.kr/article_hub/20000300905?division=NAVER": {
-      "title": "'자원 부국' 캐나다-'제조 강국' 한국, 에너지 안보 맞손",
-      "link": "https://biz.sbs.co.kr/article_hub/20000300905?division=NAVER",
-      "date": "2026-03-31 15:00",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-03-31T09:44:51.927428",
-      "hash_id": "ed73b7a980ced3ed"
-    },
     "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063": {
       "title": "창립일 맞아 '영일만 정신' 소환한 포스코 | 'Next Core 산업 육성' 주문",
       "link": "http://monthly.chosun.com/client/mdaily/daily_view.asp?idx=24063&Newsnumb=20260324063",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-03-31T09:44:52.485690",
+      "retry_count": 2,
+      "last_attempt": "2026-03-31T10:40:15.630994",
       "hash_id": "825434dd24d1969e"
     }
   },
-  "last_updated": "2026-03-31 09:45:02",
-  "count": 2
+  "last_updated": "2026-03-31 10:40:25",
+  "count": 1
 }

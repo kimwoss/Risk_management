@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://biz.chosun.com/industry/car/2026/04/01/AS2SFLH4TZBW5CBST2XN76ZPKM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
-      "title": "볼보, 준대형 전기 SUV ‘EX90′ 출시… 가격 1억620만원부터",
-      "link": "https://biz.chosun.com/industry/car/2026/04/01/AS2SFLH4TZBW5CBST2XN76ZPKM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "date": "2026-04-01 16:13",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T10:41:38.003502",
-      "hash_id": "cde689014c42af5c"
-    },
     "https://www.newsis.com/view/NISX20260401_0003574071": {
       "title": "[현장] \"에너지·배터리·바이오 협력하자\"…한-인니 기업인 300여명 한...",
       "link": "https://www.newsis.com/view/NISX20260401_0003574071",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T10:41:38.765911",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T11:39:08.948922",
       "hash_id": "d001b9ff0a645662"
     },
     "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T10:41:38.388702",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T11:39:08.521350",
       "hash_id": "a42cabe2a99e4acc"
     },
     "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html": {
@@ -40,11 +29,11 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T10:41:39.128073",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T11:39:09.366263",
       "hash_id": "0db6d2d446fbd3a7"
     }
   },
-  "last_updated": "2026-04-01 10:41:39",
-  "count": 4
+  "last_updated": "2026-04-01 11:39:11",
+  "count": 3
 }

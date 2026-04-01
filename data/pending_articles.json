@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view": {
-      "title": "포스코·현대제철, '탈탄소 전환' 전 세계 최하",
-      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view",
-      "date": "2026-04-01 20:40",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T15:49:31.023221",
-      "hash_id": "076b8bee900763da"
-    },
     "https://www.chosun.com/economy/industry-company/2026/04/02/FQAR7FM7R5B5ZIK7A2MW3YY3R4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
       "title": "희토류 품은 ‘도시 광산’… 데이터센터 재활용 경쟁",
       "link": "https://www.chosun.com/economy/industry-company/2026/04/02/FQAR7FM7R5B5ZIK7A2MW3YY3R4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T15:49:31.965430",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T16:43:40.186152",
       "hash_id": "bf3a74678618d503"
     }
   },
-  "last_updated": "2026-04-01 15:49:32",
-  "count": 2
+  "last_updated": "2026-04-01 16:43:41",
+  "count": 1
 }

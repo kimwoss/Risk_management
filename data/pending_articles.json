@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html": {
-      "title": "볼보자동차, 전기 SUV ‘EX90’ 출시… \"연간 2000대 판매 목표\"",
-      "link": "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html",
-      "date": "2026-04-01 18:42",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T12:42:58.102328",
-      "hash_id": "0db6d2d446fbd3a7"
-    },
     "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view": {
       "title": "포스코·현대제철, '탈탄소 전환' 전 세계 최하",
       "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view",
@@ -18,11 +7,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T12:42:58.481357",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T14:20:00.483254",
       "hash_id": "076b8bee900763da"
     }
   },
-  "last_updated": "2026-04-01 12:42:59",
-  "count": 2
+  "last_updated": "2026-04-01 14:20:01",
+  "count": 1
 }

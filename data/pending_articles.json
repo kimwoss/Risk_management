@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=20260401114948973178e43e3ead_1": {
-      "title": "볼보, 전기 플래그십 SUV ‘EX90’ 국내 출시…“타면 탈수록 진화하는...",
-      "link": "https://www.g-enews.com/view.php?ud=20260401114948973178e43e3ead_1",
-      "date": "2026-04-01 12:02",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T08:19:48.201519",
-      "hash_id": "73d8b9213ea678a3"
-    },
     "https://biz.chosun.com/industry/car/2026/04/01/AS2SFLH4TZBW5CBST2XN76ZPKM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "볼보, 준대형 전기 SUV ‘EX90′ 출시… 가격 1억620만원부터",
       "link": "https://biz.chosun.com/industry/car/2026/04/01/AS2SFLH4TZBW5CBST2XN76ZPKM/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -18,11 +7,33 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T08:19:49.159262",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T09:42:21.733034",
       "hash_id": "cde689014c42af5c"
+    },
+    "https://www.newsis.com/view/NISX20260401_0003574071": {
+      "title": "[현장] \"에너지·배터리·바이오 협력하자\"…한-인니 기업인 300여명 한...",
+      "link": "https://www.newsis.com/view/NISX20260401_0003574071",
+      "date": "2026-04-01 18:39",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-01T09:42:35.480587",
+      "hash_id": "d001b9ff0a645662"
+    },
+    "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver": {
+      "title": "볼보, 전기 SUV EX90 출시…“가장 안전한 전기차” 강조",
+      "link": "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver",
+      "date": "2026-04-01 17:21",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-01T09:42:22.116106",
+      "hash_id": "a42cabe2a99e4acc"
     }
   },
-  "last_updated": "2026-04-01 08:19:50",
-  "count": 2
+  "last_updated": "2026-04-01 09:42:35",
+  "count": 3
 }

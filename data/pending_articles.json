@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.g-enews.com/view.php?ud=2026040108265777120c8c1c064d_1": {
-      "title": "포스코홀딩스, 美 클리블랜드-클리프스와 MOU 체결… 북미 철강 시장 공...",
-      "link": "https://www.g-enews.com/view.php?ud=2026040108265777120c8c1c064d_1",
-      "date": "2026-04-01 08:34",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T05:13:56.890701",
-      "hash_id": "36a17a35f218d1f7"
-    },
     "https://www.nocutnews.co.kr/news/6494629?utm_source=naver&utm_medium=article&utm_campaign=20260401110527": {
       "title": "철강업종 탈탄소전환 '거북이'…포스코·현대제철 세계 최하위권",
       "link": "https://www.nocutnews.co.kr/news/6494629?utm_source=naver&utm_medium=article&utm_campaign=20260401110527",
@@ -18,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T05:13:58.353844",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T06:56:48.751243",
       "hash_id": "8c3c00b9b3bec7f8"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434660": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T05:13:57.987268",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T06:56:48.182117",
       "hash_id": "dd9cebafed535c32"
     },
     "https://www.newsis.com/view/NISX20260401_0003572970": {
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T05:13:57.624792",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T06:56:47.628738",
       "hash_id": "258b0eaf97e1f497"
     },
     "https://biz.chosun.com/industry/car/2026/04/01/4RY6Q4LG7RBEHMKF323RRD4ENA/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -51,8 +40,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T05:13:57.256543",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T06:56:47.059532",
       "hash_id": "df3abee48d97dc1c"
     },
     "https://www.g-enews.com/view.php?ud=20260401114948973178e43e3ead_1": {
@@ -62,11 +51,22 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T05:13:59.254968",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T06:56:49.304829",
       "hash_id": "73d8b9213ea678a3"
+    },
+    "https://news.bizwatch.co.kr/article/industry/2026/04/01/0016": {
+      "title": "볼보차 순수 전기 SUV 'EX90' 국내 선뵌다",
+      "link": "https://news.bizwatch.co.kr/article/industry/2026/04/01/0016",
+      "date": "2026-04-01 15:34",
+      "press": "비즈워치",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-01T06:57:49.369538",
+      "hash_id": "c1a76395614f1114"
     }
   },
-  "last_updated": "2026-04-01 05:14:16",
+  "last_updated": "2026-04-01 06:58:00",
   "count": 6
 }

@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T09:42:21.733034",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T10:41:38.003502",
       "hash_id": "cde689014c42af5c"
     },
     "https://www.newsis.com/view/NISX20260401_0003574071": {
@@ -18,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T09:42:35.480587",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T10:41:38.765911",
       "hash_id": "d001b9ff0a645662"
     },
     "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver": {
@@ -29,11 +29,22 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-01T09:42:22.116106",
+      "retry_count": 3,
+      "last_attempt": "2026-04-01T10:41:38.388702",
       "hash_id": "a42cabe2a99e4acc"
+    },
+    "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html": {
+      "title": "볼보자동차, 전기 SUV ‘EX90’ 출시… \"연간 2000대 판매 목표\"",
+      "link": "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html",
+      "date": "2026-04-01 18:42",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-01T10:41:39.128073",
+      "hash_id": "0db6d2d446fbd3a7"
     }
   },
-  "last_updated": "2026-04-01 09:42:35",
-  "count": 3
+  "last_updated": "2026-04-01 10:41:39",
+  "count": 4
 }

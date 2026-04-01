@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260401_0003574071": {
-      "title": "[현장] \"에너지·배터리·바이오 협력하자\"…한-인니 기업인 300여명 한...",
-      "link": "https://www.newsis.com/view/NISX20260401_0003574071",
-      "date": "2026-04-01 18:39",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T11:39:08.948922",
-      "hash_id": "d001b9ff0a645662"
-    },
-    "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver": {
-      "title": "볼보, 전기 SUV EX90 출시…“가장 안전한 전기차” 강조",
-      "link": "https://www.seoul.co.kr/news/economy/car/2026/04/01/20260401500277?wlog_tag3=naver",
-      "date": "2026-04-01 17:21",
-      "press": "",
-      "keyword": "구동모터코어",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-01T11:39:08.521350",
-      "hash_id": "a42cabe2a99e4acc"
-    },
     "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html": {
       "title": "볼보자동차, 전기 SUV ‘EX90’ 출시… \"연간 2000대 판매 목표\"",
       "link": "http://digitalchosun.dizzo.com/site/data/html_dir/2026/04/01/2026040180201.html",
@@ -29,11 +7,22 @@
       "press": "",
       "keyword": "구동모터코어",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-01T11:39:09.366263",
+      "retry_count": 5,
+      "last_attempt": "2026-04-01T12:42:58.102328",
       "hash_id": "0db6d2d446fbd3a7"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view": {
+      "title": "포스코·현대제철, '탈탄소 전환' 전 세계 최하",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201548&mode=view",
+      "date": "2026-04-01 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-01T12:42:58.481357",
+      "hash_id": "076b8bee900763da"
     }
   },
-  "last_updated": "2026-04-01 11:39:11",
-  "count": 3
+  "last_updated": "2026-04-01 12:42:59",
+  "count": 2
 }

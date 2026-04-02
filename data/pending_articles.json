@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.newsis.com/view/NISX20260402_0003575214": {
-      "title": "포스코이앤씨 \"신안산선 붕괴사고 사과…안전관리 혁신할 것\"",
-      "link": "https://www.newsis.com/view/NISX20260402_0003575214",
-      "date": "2026-04-02 13:57",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T08:05:21.992874",
-      "hash_id": "a8b1ca089452440c"
-    },
     "https://www.seoul.co.kr/news/economy/securities/2026/04/02/20260402500221?wlog_tag3=naver": {
       "title": "[서울데이터랩]계양전기우 29.93% 상한가 금일 증시 상승률 1위로 마감",
       "link": "https://www.seoul.co.kr/news/economy/securities/2026/04/02/20260402500221?wlog_tag3=naver",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T08:05:23.107852",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T08:55:12.311451",
       "hash_id": "24dea7d8d40eb863"
     },
     "https://www.newsis.com/view/NISX20260402_0003575578": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T08:05:22.719848",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T08:55:11.943936",
       "hash_id": "977a9169c03e5731"
     },
     "https://www.nocutnews.co.kr/news/6495619?utm_source=naver&utm_medium=article&utm_campaign=20260402032042": {
@@ -40,8 +29,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T08:05:22.356924",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T08:55:11.583994",
       "hash_id": "8512192d1ad5351e"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434840": {
@@ -51,8 +40,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T08:05:41.771569",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T08:55:13.042969",
       "hash_id": "dbd646ee083234c2"
     },
     "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7": {
@@ -62,11 +51,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T08:05:37.695730",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T08:55:12.674059",
       "hash_id": "e0e9df4e907a6f68"
+    },
+    "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343": {
+      "title": "포스코, 초등학교 특수학급 교육환경 개선 지원",
+      "link": "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343",
+      "date": "2026-04-02 17:54",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T08:55:25.851102",
+      "hash_id": "17ee3813cd95fb06"
+    },
+    "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18": {
+      "title": "신안산선 붕괴, 설계·시공 부실 확인…포스코이앤씨 “안전체계 전면 ...",
+      "link": "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18",
+      "date": "2026-04-02 17:08",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T08:55:13.403116",
+      "hash_id": "4c6ffdd554039906"
     }
   },
-  "last_updated": "2026-04-02 08:05:41",
-  "count": 6
+  "last_updated": "2026-04-02 08:55:26",
+  "count": 7
 }

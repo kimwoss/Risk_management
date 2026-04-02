@@ -1,38 +1,5 @@
 {
   "queue": {
-    "https://www.seoul.co.kr/news/economy/securities/2026/04/02/20260402500221?wlog_tag3=naver": {
-      "title": "[서울데이터랩]계양전기우 29.93% 상한가 금일 증시 상승률 1위로 마감",
-      "link": "https://www.seoul.co.kr/news/economy/securities/2026/04/02/20260402500221?wlog_tag3=naver",
-      "date": "2026-04-02 15:48",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T08:55:12.311451",
-      "hash_id": "24dea7d8d40eb863"
-    },
-    "https://www.newsis.com/view/NISX20260402_0003575578": {
-      "title": "포스코DX, '모빌린트'가 만든 국산 NPU 제조 현장에 투입",
-      "link": "https://www.newsis.com/view/NISX20260402_0003575578",
-      "date": "2026-04-02 15:23",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T08:55:11.943936",
-      "hash_id": "977a9169c03e5731"
-    },
-    "https://www.nocutnews.co.kr/news/6495619?utm_source=naver&utm_medium=article&utm_campaign=20260402032042": {
-      "title": "포스코 이앤씨 \"신안산선 터널 붕괴 사과…혁신하겠다\"",
-      "link": "https://www.nocutnews.co.kr/news/6495619?utm_source=naver&utm_medium=article&utm_campaign=20260402032042",
-      "date": "2026-04-02 15:20",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T08:55:11.583994",
-      "hash_id": "8512192d1ad5351e"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=434840": {
       "title": "포스코이앤씨 신안산선 사고 조사 결과에 사과, \"안전관리 전반 혁신\"",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434840",
@@ -40,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T08:55:13.042969",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T09:13:47.428221",
       "hash_id": "dbd646ee083234c2"
     },
     "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7": {
@@ -51,8 +18,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T08:55:12.674059",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T09:13:47.066302",
       "hash_id": "e0e9df4e907a6f68"
     },
     "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343": {
@@ -62,8 +29,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T08:55:25.851102",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T09:13:48.201744",
       "hash_id": "17ee3813cd95fb06"
     },
     "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18": {
@@ -73,11 +40,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T08:55:13.403116",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T09:13:47.808267",
       "hash_id": "4c6ffdd554039906"
     }
   },
-  "last_updated": "2026-04-02 08:55:26",
-  "count": 7
+  "last_updated": "2026-04-02 09:13:50",
+  "count": 4
 }

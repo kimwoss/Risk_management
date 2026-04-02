@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.businesspost.co.kr/BP?command=article_view&num=434840": {
-      "title": "포스코이앤씨 신안산선 사고 조사 결과에 사과, \"안전관리 전반 혁신\"",
-      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434840",
-      "date": "2026-04-02 16:52",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T09:13:47.428221",
-      "hash_id": "dbd646ee083234c2"
-    },
-    "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7": {
-      "title": "송도 IBD 마지막 주거단지 나온다…포스코이앤씨, 더샵 송도그란테르 4...",
-      "link": "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7",
-      "date": "2026-04-02 16:46",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T09:13:47.066302",
-      "hash_id": "e0e9df4e907a6f68"
-    },
     "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343": {
       "title": "포스코, 초등학교 특수학급 교육환경 개선 지원",
       "link": "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343",
@@ -29,8 +7,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T09:13:48.201744",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T10:14:11.318934",
       "hash_id": "17ee3813cd95fb06"
     },
     "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18": {
@@ -40,11 +18,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T09:13:47.808267",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T10:14:10.746987",
       "hash_id": "4c6ffdd554039906"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000301747?division=NAVER": {
+      "title": "\"안전 없으면 존립 없어\"…포스코이앤씨, 전사 안전체계 전면 재정비",
+      "link": "https://biz.sbs.co.kr/article_hub/20000301747?division=NAVER",
+      "date": "2026-04-02 18:25",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T10:14:15.424529",
+      "hash_id": "98a6f04e5b0bc4bd"
+    },
+    "https://www.dizzotv.com/site/data/html_dir/2026/03/30/2026033080187.html": {
+      "title": "포스코홀딩스, 호주-한국 비즈니스 어워즈 ‘올해의 기업’ 선정",
+      "link": "https://www.dizzotv.com/site/data/html_dir/2026/03/30/2026033080187.html",
+      "date": "2026-04-02 18:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T10:14:13.401325",
+      "hash_id": "bdf179c16070f520"
     }
   },
-  "last_updated": "2026-04-02 09:13:50",
+  "last_updated": "2026-04-02 10:14:29",
   "count": 4
 }

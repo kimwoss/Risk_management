@@ -1,27 +1,5 @@
 {
   "queue": {
-    "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343": {
-      "title": "포스코, 초등학교 특수학급 교육환경 개선 지원",
-      "link": "https://www.nocutnews.co.kr/news/6495824?utm_source=naver&utm_medium=article&utm_campaign=20260402055343",
-      "date": "2026-04-02 17:54",
-      "press": "노컷뉴스",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T10:14:11.318934",
-      "hash_id": "17ee3813cd95fb06"
-    },
-    "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18": {
-      "title": "신안산선 붕괴, 설계·시공 부실 확인…포스코이앤씨 “안전체계 전면 ...",
-      "link": "http://www.fntimes.com/html/view.php?ud=202604021649358240b372994c95_18",
-      "date": "2026-04-02 17:08",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "neg",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T10:14:10.746987",
-      "hash_id": "4c6ffdd554039906"
-    },
     "https://biz.sbs.co.kr/article_hub/20000301747?division=NAVER": {
       "title": "\"안전 없으면 존립 없어\"…포스코이앤씨, 전사 안전체계 전면 재정비",
       "link": "https://biz.sbs.co.kr/article_hub/20000301747?division=NAVER",
@@ -29,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T10:14:15.424529",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T11:12:34.895319",
       "hash_id": "98a6f04e5b0bc4bd"
     },
     "https://www.dizzotv.com/site/data/html_dir/2026/03/30/2026033080187.html": {
@@ -40,11 +18,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T10:14:13.401325",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T11:12:34.504344",
       "hash_id": "bdf179c16070f520"
     }
   },
-  "last_updated": "2026-04-02 10:14:29",
-  "count": 4
+  "last_updated": "2026-04-02 11:12:35",
+  "count": 2
 }

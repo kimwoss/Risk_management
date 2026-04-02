@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.thebigdata.co.kr/view.php?ud=20260402042426107407d270612f_23": {
-      "title": "포스코홀딩스, 철강 상장기업 브랜드평판 4월 빅데이터 분석 1위...현대...",
-      "link": "http://www.thebigdata.co.kr/view.php?ud=20260402042426107407d270612f_23",
-      "date": "2026-04-02 07:34",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T01:00:50.151048",
-      "hash_id": "e572b62730871179"
-    },
     "https://biz.chosun.com/it-science/ict/2026/04/02/UCHYFEOFUVE7NJGMASUBOYXCBU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "포스코DX “국산 NPU로 제조 AI 혁신 가속”",
       "link": "https://biz.chosun.com/it-science/ict/2026/04/02/UCHYFEOFUVE7NJGMASUBOYXCBU/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T01:00:58.583311",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T03:51:12.457006",
       "hash_id": "fb92e56d971b1707"
+    },
+    "http://www.fntimes.com/html/view.php?ud=2026040208254999857fd637f543_18": {
+      "title": "포스코홀딩스 새 돈줄, 에너지로 흐르지만…빚의 그늘 짙어진다",
+      "link": "http://www.fntimes.com/html/view.php?ud=2026040208254999857fd637f543_18",
+      "date": "2026-04-02 11:22",
+      "press": "",
+      "keyword": "포스코인터",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T03:51:13.365327",
+      "hash_id": "9fa3b16ecd33a027"
     }
   },
-  "last_updated": "2026-04-02 01:01:00",
+  "last_updated": "2026-04-02 03:51:26",
   "count": 2
 }

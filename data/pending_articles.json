@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T11:12:34.895319",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T12:00:49.621083",
       "hash_id": "98a6f04e5b0bc4bd"
     },
     "https://www.dizzotv.com/site/data/html_dir/2026/03/30/2026033080187.html": {
@@ -18,11 +18,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T11:12:34.504344",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T12:00:49.099421",
       "hash_id": "bdf179c16070f520"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=201567&mode=view": {
+      "title": "포스코1%나눔재단, 초교 특수학급 교육환경 개선사업 지원·접수",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201567&mode=view",
+      "date": "2026-04-02 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T12:00:52.158712",
+      "hash_id": "63a27b3a1110d88e"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=201571&mode=view": {
+      "title": "포스코 영일만 매립 승인..환경영향평가는 '비공개'",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=201571&mode=view",
+      "date": "2026-04-02 20:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T12:00:52.684724",
+      "hash_id": "75bbd80642229b5d"
     }
   },
-  "last_updated": "2026-04-02 11:12:35",
-  "count": 2
+  "last_updated": "2026-04-02 12:00:54",
+  "count": 4
 }

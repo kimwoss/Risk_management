@@ -101,7 +101,7 @@ iframe[title] {
 """, unsafe_allow_html=True)
 
 # ----------------------------- 인증 설정 -----------------------------
-ACCESS_CODE = "pointl"  # 비밀코드
+ACCESS_CODE = os.environ.get("ACCESS_CODE", "")  # 환경 변수에서 로드 (.env 파일 또는 배포 환경 설정)
 import hashlib
 
 def get_auth_token():

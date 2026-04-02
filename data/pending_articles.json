@@ -1,16 +1,5 @@
 {
   "queue": {
-    "http://www.fntimes.com/html/view.php?ud=2026040208254999857fd637f543_18": {
-      "title": "포스코홀딩스 새 돈줄, 에너지로 흐르지만…빚의 그늘 짙어진다",
-      "link": "http://www.fntimes.com/html/view.php?ud=2026040208254999857fd637f543_18",
-      "date": "2026-04-02 11:22",
-      "press": "",
-      "keyword": "포스코인터",
-      "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-04-02T06:51:58.476265",
-      "hash_id": "9fa3b16ecd33a027"
-    },
     "https://www.newsis.com/view/NISX20260402_0003575214": {
       "title": "포스코이앤씨 \"신안산선 붕괴사고 사과…안전관리 혁신할 것\"",
       "link": "https://www.newsis.com/view/NISX20260402_0003575214",
@@ -18,8 +7,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-02T06:51:59.044063",
+      "retry_count": 5,
+      "last_attempt": "2026-04-02T08:05:21.992874",
       "hash_id": "a8b1ca089452440c"
     },
     "https://www.seoul.co.kr/news/economy/securities/2026/04/02/20260402500221?wlog_tag3=naver": {
@@ -29,8 +18,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T06:52:17.343590",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T08:05:23.107852",
       "hash_id": "24dea7d8d40eb863"
     },
     "https://www.newsis.com/view/NISX20260402_0003575578": {
@@ -40,8 +29,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T06:52:07.712034",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T08:05:22.719848",
       "hash_id": "977a9169c03e5731"
     },
     "https://www.nocutnews.co.kr/news/6495619?utm_source=naver&utm_medium=article&utm_campaign=20260402032042": {
@@ -51,11 +40,33 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-02T06:52:07.141057",
+      "retry_count": 3,
+      "last_attempt": "2026-04-02T08:05:22.356924",
       "hash_id": "8512192d1ad5351e"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=434840": {
+      "title": "포스코이앤씨 신안산선 사고 조사 결과에 사과, \"안전관리 전반 혁신\"",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=434840",
+      "date": "2026-04-02 16:52",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T08:05:41.771569",
+      "hash_id": "dbd646ee083234c2"
+    },
+    "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7": {
+      "title": "송도 IBD 마지막 주거단지 나온다…포스코이앤씨, 더샵 송도그란테르 4...",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=20260402164503122de3f0aa1be_7",
+      "date": "2026-04-02 16:46",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-02T08:05:37.695730",
+      "hash_id": "e0e9df4e907a6f68"
     }
   },
-  "last_updated": "2026-04-02 06:52:18",
-  "count": 5
+  "last_updated": "2026-04-02 08:05:41",
+  "count": 6
 }

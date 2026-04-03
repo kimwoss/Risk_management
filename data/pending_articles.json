@@ -7,8 +7,8 @@
       "press": "",
       "keyword": "POSCO INTERNATIONAL",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-04-03T05:20:00.971546",
+      "retry_count": 5,
+      "last_attempt": "2026-04-03T06:43:13.929444",
       "hash_id": "8d94bb98182af060"
     },
     "https://www.thepowernews.co.kr/view.php?ud=202604031246497507de3f0aa1be_7": {
@@ -18,11 +18,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-03T05:20:09.951975",
+      "retry_count": 3,
+      "last_attempt": "2026-04-03T06:43:14.308101",
       "hash_id": "7259e4dea5daa047"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000301956?division=NAVER": {
+      "title": "포스코 하청 '교섭단위 분리' 판단 미뤄져…8일 2차 심문",
+      "link": "https://biz.sbs.co.kr/article_hub/20000301956?division=NAVER",
+      "date": "2026-04-03 15:39",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-03T06:43:23.070244",
+      "hash_id": "7e245a8db853cecf"
+    },
+    "https://www.seoul.co.kr/news/society/2026/04/03/20260403500221?wlog_tag3=naver": {
+      "title": "‘포스코’ 둘러싼 하청노조 교섭단위 분리…‘첨예한 대립’에 추가 심...",
+      "link": "https://www.seoul.co.kr/news/society/2026/04/03/20260403500221?wlog_tag3=naver",
+      "date": "2026-04-03 15:31",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-03T06:43:22.692044",
+      "hash_id": "01240b576a6fa479"
     }
   },
-  "last_updated": "2026-04-03 05:20:10",
-  "count": 2
+  "last_updated": "2026-04-03 06:43:23",
+  "count": 4
 }

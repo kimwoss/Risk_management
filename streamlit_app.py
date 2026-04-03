@@ -1839,9 +1839,12 @@ def background_news_monitor():
             save_news_db(merged)
             print(f"[BACKGROUND] ✅ DB 저장 완료: 총 {len(merged)}건")
 
-            # 텔레그램 발송은 GitHub Actions(standalone_monitor.py)에서만 담당 - 중복 방지
-            if new_articles:
-                print(f"[BACKGROUND] ℹ️ 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
+            # 기존 DB가 비어있지 않을 때만 알림 전송 (첫 실행 스팸 방지)
+            if new_articles and not existing_db.empty:
+                print(f"[BACKGROUND] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
+                send_telegram_notification(new_articles)
+            elif new_articles:
+                print(f"[BACKGROUND] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
 
             print(f"[BACKGROUND] ✅ 뉴스 수집 완료")
         else:
@@ -3243,8 +3246,10 @@ def page_news_monitor():
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
-    # APScheduler 비활성화: 뉴스 수집 및 텔레그램 발송은 GitHub Actions에서만 처리
-    # (Streamlit 다중 워커 환경에서 중복 발송 방지)
+    # 백그라운드 스케줄러 시작 (3분마다 뉴스 수집 + 텔레그램 발송)
+    if "background_scheduler_started" not in st.session_state:
+        start_background_scheduler()
+        st.session_state["background_scheduler_started"] = True
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():

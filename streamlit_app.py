@@ -24,6 +24,7 @@ from news_collector import (
     _naver_headers,
     load_sent_cache,
     save_sent_cache,
+    get_article_sentiment,
 )
 
 # APScheduler import with error handling
@@ -1457,12 +1458,15 @@ def send_telegram_notification(new_articles: list):
             press = article.get("press", "")
             keyword = article.get("keyword", "")
 
-            # 단문 메시지 구성
-            message = f"🚨 *새 뉴스*\n\n"
+            # 감성 분석으로 이모지 결정 (🟢 긍정/중립, 🔴 부정)
+            summary = article.get("summary", "")
+            sentiment = article.get("sentiment") or get_article_sentiment(title, summary, link)
+            emoji = "🔴" if sentiment == "neg" else "🟢"
+
+            message = f"{emoji} *새 뉴스*\n\n"
 
             # 검색 키워드 해시태그 추가
             if keyword:
-                # 공백을 제거하여 해시태그로 변환
                 hashtag = keyword.replace(" ", "")
                 message += f"#{hashtag}\n"
 
@@ -1632,12 +1636,17 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
                 # 검색 키워드 추출
                 keyword = str(row.get("검색키워드", "")).strip()
 
+                # sentiment 필드 포함 (있으면 재사용, 없으면 빈값으로 send_telegram에서 분석)
+                sentiment = str(row.get("sentiment", "")).strip()
+
                 new_articles.append({
                     "title": title if title and title != "nan" else "제목 없음",
                     "link": url,
                     "date": article_date_str,
                     "press": press,
-                    "keyword": keyword
+                    "keyword": keyword,
+                    "summary": str(row.get("주요기사 요약", "")).strip(),
+                    "sentiment": sentiment,
                 })
 
         print(f"[DEBUG] 총 {len(new_articles)}건의 신규 기사 감지 (최근 6시간 이내)")

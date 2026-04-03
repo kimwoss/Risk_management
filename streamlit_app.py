@@ -3243,10 +3243,8 @@ def page_news_monitor():
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
-    # 백그라운드 스케줄러 시작 (cron-job.org가 앱을 깨우면 APScheduler가 뉴스 수집 + 텔레그램 발송)
-    if "background_scheduler_started" not in st.session_state:
-        start_background_scheduler()
-        st.session_state["background_scheduler_started"] = True
+    # APScheduler 비활성화: 뉴스 수집 및 텔레그램 발송은 GitHub Actions에서만 처리
+    # (Streamlit 다중 워커 환경에서 중복 발송 방지)
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():

@@ -1839,12 +1839,9 @@ def background_news_monitor():
             save_news_db(merged)
             print(f"[BACKGROUND] ✅ DB 저장 완료: 총 {len(merged)}건")
 
-            # 기존 DB가 비어있지 않을 때만 알림 전송 (첫 실행 스팸 방지)
-            if new_articles and not existing_db.empty:
-                print(f"[BACKGROUND] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
-                send_telegram_notification(new_articles)
-            elif new_articles:
-                print(f"[BACKGROUND] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
+            # 텔레그램 발송은 GitHub Actions(standalone_monitor.py)에서만 담당 - 중복 방지
+            if new_articles:
+                print(f"[BACKGROUND] ℹ️ 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
 
             print(f"[BACKGROUND] ✅ 뉴스 수집 완료")
         else:

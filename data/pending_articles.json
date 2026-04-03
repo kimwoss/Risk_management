@@ -1,16 +1,5 @@
 {
   "queue": {
-    "https://www.munhwa.com/article/11579706?ref=naver": {
-      "title": "‘노봉법’ 첫 사례 등장에… 포스코 ‘교섭단위 분리신청’ 촉각",
-      "link": "https://www.munhwa.com/article/11579706?ref=naver",
-      "date": "2026-04-03 12:07",
-      "press": "문화일보",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-03T03:23:34.044512",
-      "hash_id": "ab8d2ac153a946da"
-    },
     "http://www.fntimes.com/html/view.php?ud=202604030746352934141825007d_18": {
       "title": "POSCO Holdings Finds New Revenue Engine in Energy, but Debt Shadow Deepen...",
       "link": "http://www.fntimes.com/html/view.php?ud=202604030746352934141825007d_18",
@@ -18,11 +7,22 @@
       "press": "",
       "keyword": "POSCO INTERNATIONAL",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-04-03T03:22:41.161145",
+      "retry_count": 3,
+      "last_attempt": "2026-04-03T05:20:00.971546",
       "hash_id": "8d94bb98182af060"
+    },
+    "https://www.thepowernews.co.kr/view.php?ud=202604031246497507de3f0aa1be_7": {
+      "title": "POSCO홀딩스, 1분기 바닥 찍고 반등 시동…2분기엔 영업익 8000억대 전망",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=202604031246497507de3f0aa1be_7",
+      "date": "2026-04-03 14:16",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-03T05:20:09.951975",
+      "hash_id": "7259e4dea5daa047"
     }
   },
-  "last_updated": "2026-04-03 03:23:34",
+  "last_updated": "2026-04-03 05:20:10",
   "count": 2
 }

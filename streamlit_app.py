@@ -22,12 +22,18 @@ from news_collector import (
     _publisher_from_link,
     _clean_text,
     _naver_headers,
+    load_sent_cache,
+    save_sent_cache,
 )
 
 # APScheduler import with error handling
-# 🚨 DISABLED: GitHub Actions로 대체 - 중복 알림 방지
-SCHEDULER_AVAILABLE = False
-print("[INFO] 백그라운드 스케줄러 비활성화 (GitHub Actions 사용)")
+try:
+    from apscheduler.schedulers.background import BackgroundScheduler
+    SCHEDULER_AVAILABLE = True
+    print("[INFO] 백그라운드 스케줄러 활성화 (cron-job.org + APScheduler 모드)")
+except ImportError:
+    SCHEDULER_AVAILABLE = False
+    print("[WARNING] APScheduler 미설치 - 백그라운드 스케줄러 비활성화")
 
 import pandas as pd
 import streamlit as st
@@ -1533,6 +1539,14 @@ def send_telegram_notification(new_articles: list):
         print(f"[DEBUG] ✅ 총 {success_count}/{len(articles_to_notify)}건 전송 완료 (성공률: {success_count/len(articles_to_notify)*100:.1f}%)")
         print(f"[DEBUG] 전송 캐시 크기: {len(_sent_articles_cache)}건")
 
+        # 전송 결과를 파일에 저장 (GitHub Actions와 중복 발송 방지)
+        if success_count > 0:
+            try:
+                save_sent_cache(_sent_articles_cache)
+                print(f"[DEBUG] 💾 전송 캐시 파일 저장 완료")
+            except Exception as save_err:
+                print(f"[DEBUG] ⚠️ 캐시 파일 저장 실패 (무시): {save_err}")
+
     except Exception as e:
         print(f"[DEBUG] ❌ 텔레그램 알림 예외 발생: {str(e)}")
         import traceback
@@ -1836,8 +1850,8 @@ def background_news_monitor():
 _scheduler = None
 _scheduler_lock = threading.Lock()
 
-# 전송된 기사 URL 추적 (메모리 기반, 최근 1000개)
-_sent_articles_cache = set()
+# 전송된 기사 URL 추적 (파일 기반 초기화 + 메모리 캐시, 최근 1000개)
+_sent_articles_cache = load_sent_cache()  # GitHub Actions가 저장한 캐시 파일에서 로드
 _sent_articles_lock = threading.Lock()
 _MAX_SENT_CACHE = 1000
 
@@ -2916,8 +2930,8 @@ def page_news_monitor():
                         # 세션 상태에만 저장 (UI 표시용)
                         st.session_state.news_display_data = merged
 
-                        # 🔒 텔레그램 알림 비활성화 - GitHub Actions 전용
-                        # send_telegram_notification(new_articles)  # 비활성화
+                        # 텔레그램 알림 발송 (APScheduler + cron-job.org 모드)
+                        send_telegram_notification(new_articles)
 
                         if new_articles:
                             print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
@@ -3225,10 +3239,10 @@ def page_news_monitor():
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
-    # 백그라운드 스케줄러 비활성화 (GitHub Actions에서 자동 알림 처리)
-    # if "background_scheduler_started" not in st.session_state:
-    #     start_background_scheduler()
-    #     st.session_state["background_scheduler_started"] = True
+    # 백그라운드 스케줄러 시작 (cron-job.org가 앱을 깨우면 APScheduler가 뉴스 수집 + 텔레그램 발송)
+    if "background_scheduler_started" not in st.session_state:
+        start_background_scheduler()
+        st.session_state["background_scheduler_started"] = True
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():

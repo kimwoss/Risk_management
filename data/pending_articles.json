@@ -1,5 +1,28 @@
 {
-  "queue": {},
-  "last_updated": "2026-04-02 23:59:07",
-  "count": 0
+  "queue": {
+    "https://www.munhwa.com/article/11579706?ref=naver": {
+      "title": "‘노봉법’ 첫 사례 등장에… 포스코 ‘교섭단위 분리신청’ 촉각",
+      "link": "https://www.munhwa.com/article/11579706?ref=naver",
+      "date": "2026-04-03 12:07",
+      "press": "문화일보",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-03T03:23:34.044512",
+      "hash_id": "ab8d2ac153a946da"
+    },
+    "http://www.fntimes.com/html/view.php?ud=202604030746352934141825007d_18": {
+      "title": "POSCO Holdings Finds New Revenue Engine in Energy, but Debt Shadow Deepen...",
+      "link": "http://www.fntimes.com/html/view.php?ud=202604030746352934141825007d_18",
+      "date": "2026-04-03 10:12",
+      "press": "",
+      "keyword": "POSCO INTERNATIONAL",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-04-03T03:22:41.161145",
+      "hash_id": "8d94bb98182af060"
+    }
+  },
+  "last_updated": "2026-04-03 03:23:34",
+  "count": 2
 }

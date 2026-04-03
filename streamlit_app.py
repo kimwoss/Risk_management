@@ -2939,11 +2939,9 @@ def page_news_monitor():
                         # 세션 상태에만 저장 (UI 표시용)
                         st.session_state.news_display_data = merged
 
-                        # 텔레그램 알림 발송 (APScheduler + cron-job.org 모드)
-                        send_telegram_notification(new_articles)
-
+                        # 텔레그램 발송은 APScheduler(background_news_monitor)에서만 담당 - 중복 방지
                         if new_articles:
-                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
+                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 APScheduler에서 발송)")
                         st.session_state.last_news_fetch = now
 
                         # 상태 메시지에 신규 기사 수 표시

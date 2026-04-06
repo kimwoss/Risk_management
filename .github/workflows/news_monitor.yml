@@ -8,6 +8,10 @@ on:
   # 수동 실행 허용 (테스트용)
   workflow_dispatch:
 
+concurrency:
+  group: news-monitor
+  cancel-in-progress: false  # 실행 중인 run은 완료 대기 (취소하면 캐시 유실 위험)
+
 permissions:
   contents: write  # 리포지토리에 쓰기 권한 부여 (DB 업데이트 커밋용)
 

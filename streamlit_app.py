@@ -3242,12 +3242,110 @@ def page_news_monitor():
             }
         )
 
+# ----------------------------- 자동 모니터 (cron-job.org 트리거) -----------------------------
+
+def auto_monitor_on_load():
+    """
+    앱 로드 시 자동으로 뉴스 수집 + 텔레그램 발송 실행.
+    cron-job.org가 2분마다 앱 URL을 호출할 때 트리거됨.
+
+    동시 실행 방지:
+    - 세션 내 재진입 방지 (session_state 플래그)
+    - 파일 기반 실행 간격 체크 (100초)
+    - fcntl 파일 락 (Linux/Streamlit Cloud 환경)
+    """
+    # 이번 세션에서 이미 실행했으면 스킵 (Streamlit rerun 시 중복 방지)
+    if st.session_state.get("_monitor_ran_this_session"):
+        return
+    st.session_state["_monitor_ran_this_session"] = True  # 재진입 방지용 선행 마킹
+
+    MIN_INTERVAL_SEC = 100  # 2분 cron 기준, 100초 미만이면 스킵
+    run_status_path = os.path.join("data", "run_status.json")
+    lock_path = os.path.join("data", "monitor.lock")
+
+    # 1단계: 마지막 실행 시간 체크 (빠른 early-exit)
+    try:
+        if os.path.exists(run_status_path):
+            with open(run_status_path, 'r', encoding='utf-8') as f:
+                status = json.load(f)
+            last_run_str = status.get("last_run_time", "")
+            if last_run_str:
+                elapsed = (datetime.now() - datetime.fromisoformat(last_run_str)).total_seconds()
+                if elapsed < MIN_INTERVAL_SEC:
+                    print(f"[AUTO_MONITOR] 최근 {elapsed:.0f}초 전 실행됨 - 스킵")
+                    return
+    except Exception as e:
+        print(f"[AUTO_MONITOR] 상태 파일 읽기 실패 (무시): {e}")
+
+    # 2단계: 파일 락 획득 (동시 세션/프로세스 중복 실행 방지)
+    os.makedirs("data", exist_ok=True)
+    lock_fd = None
+    lock_acquired = False
+    try:
+        lock_fd = open(lock_path, 'w')
+        try:
+            import fcntl
+            fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            lock_acquired = True
+        except (ImportError, IOError, OSError):
+            # Windows 환경이거나 다른 프로세스가 이미 락 보유 중
+            print("[AUTO_MONITOR] 파일 락 획득 실패 (다른 인스턴스 실행 중) - 스킵")
+            return
+
+        # 3단계: 락 획득 후 재확인 (락 대기 중 다른 프로세스가 실행했을 수 있음)
+        try:
+            if os.path.exists(run_status_path):
+                with open(run_status_path, 'r', encoding='utf-8') as f:
+                    status = json.load(f)
+                last_run_str = status.get("last_run_time", "")
+                if last_run_str:
+                    elapsed = (datetime.now() - datetime.fromisoformat(last_run_str)).total_seconds()
+                    if elapsed < MIN_INTERVAL_SEC:
+                        print(f"[AUTO_MONITOR] 락 획득 후 재확인: {elapsed:.0f}초 전 실행됨 - 스킵")
+                        return
+        except Exception:
+            pass
+
+        # 4단계: 실행 시작 시각 선행 기록 (다른 세션이 중복 진입 못하도록)
+        try:
+            status_update = {}
+            if os.path.exists(run_status_path):
+                with open(run_status_path, 'r', encoding='utf-8') as f:
+                    status_update = json.load(f)
+            status_update["last_run_time"] = datetime.now().isoformat()
+            with open(run_status_path, 'w', encoding='utf-8') as f:
+                json.dump(status_update, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+        # 5단계: standalone_monitor.main() 실행 (전체 파이프라인)
+        print(f"[AUTO_MONITOR] 자동 모니터 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        try:
+            import standalone_monitor
+            standalone_monitor.main()
+            print(f"[AUTO_MONITOR] 자동 모니터 완료: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        except Exception as e:
+            import traceback
+            print(f"[AUTO_MONITOR] 실행 오류: {e}\n{traceback.format_exc()}")
+
+    finally:
+        if lock_fd:
+            if lock_acquired:
+                try:
+                    import fcntl
+                    fcntl.flock(lock_fd, fcntl.LOCK_UN)
+                except Exception:
+                    pass
+            try:
+                lock_fd.close()
+            except Exception:
+                pass
+
+
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
-    # 백그라운드 스케줄러는 비활성화 - GitHub Actions cron이 전담 (중복 발송 방지)
-    if "background_scheduler_started" not in st.session_state:
-        print("[BACKGROUND] APScheduler 비활성화 - GitHub Actions(*/3 * * * *)가 뉴스 수집/텔레그램 발송 전담")
-        st.session_state["background_scheduler_started"] = True
+    # cron-job.org 트리거: 인증 체크 전에 실행 (cron-job.org는 로그인하지 않음)
+    auto_monitor_on_load()
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():

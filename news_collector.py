@@ -1302,6 +1302,13 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 max_retry_exceeded_count += 1
                 continue
 
+            # 이미 전송된 기사 체크 (동시 실행 race condition 방지)
+            url_normalized = _normalize_url(link)
+            if link in sent_cache or url_normalized in sent_cache:
+                print(f"[DEBUG] ⏭️ 이미 전송된 기사 - 스킵: {title[:50]}...")
+                urls_to_remove.append(url)
+                continue
+
             # 메시지 구성 (sentiment에 따라 이모지 변경)
             emoji = "🔴" if sentiment == "neg" else "🟢"
             message = f"{emoji} *새 뉴스*\n\n"

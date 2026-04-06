@@ -3246,9 +3246,9 @@ def page_news_monitor():
 
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
-    # 백그라운드 스케줄러 시작 (3분마다 뉴스 수집 + 텔레그램 발송)
+    # 백그라운드 스케줄러는 비활성화 - GitHub Actions cron이 전담 (중복 발송 방지)
     if "background_scheduler_started" not in st.session_state:
-        start_background_scheduler()
+        print("[BACKGROUND] APScheduler 비활성화 - GitHub Actions(*/3 * * * *)가 뉴스 수집/텔레그램 발송 전담")
         st.session_state["background_scheduler_started"] = True
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시

@@ -1835,16 +1835,14 @@ def background_news_monitor():
             # 신규 기사 감지
             new_articles = detect_new_articles(existing_db, df_new)
 
-            # DB 먼저 저장 (race condition 방지)
-            save_news_db(merged)
-            print(f"[BACKGROUND] ✅ DB 저장 완료: 총 {len(merged)}건")
+            # DB 저장 비활성화: GitHub Actions(standalone_monitor.py)에서만 DB 쓰기 담당
+            # Streamlit이 DB에 쓰면 GitHub Actions가 해당 기사를 "이미 DB에 있음"으로 판단해
+            # detect_new_articles에서 신규 감지 실패 → 텔레그램 전송 누락 발생
+            # save_news_db(merged)  # 비활성화
+            print(f"[BACKGROUND] ℹ️ DB 저장 스킵 - GitHub Actions 전담 (중복 감지 방지)")
 
-            # 기존 DB가 비어있지 않을 때만 알림 전송 (첫 실행 스팸 방지)
-            if new_articles and not existing_db.empty:
-                print(f"[BACKGROUND] ✅ 신규 기사 {len(new_articles)}건 감지 - 텔레그램 알림 전송")
-                send_telegram_notification(new_articles)
-            elif new_articles:
-                print(f"[BACKGROUND] ⏭️ 신규 기사 {len(new_articles)}건 감지 - 첫 실행이므로 알림 스킵")
+            if new_articles:
+                print(f"[BACKGROUND] ℹ️ 신규 기사 {len(new_articles)}건 감지 - 텔레그램은 GitHub Actions에서 발송")
 
             print(f"[BACKGROUND] ✅ 뉴스 수집 완료")
         else:

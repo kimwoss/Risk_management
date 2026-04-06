@@ -331,14 +331,9 @@ def main():
             # DB 저장 (텔레그램 발송 후)
             save_news_db(merged)
             safe_print(f"[MONITOR] ✅ DB 저장 완료: 총 {len(merged)}건")
-
-            # DB에 저장된 모든 기사를 캐시에 추가 (동기화 보장)
-            for _, row in merged.iterrows():
-                url = str(row.get("URL", "")).strip()
-                if url and url != "nan" and url != "":
-                    sent_cache.add(url)
-                    sent_cache.add(_normalize_url(url))
-            safe_print(f"[MONITOR] ✅ 캐시 동기화 완료: DB의 모든 기사 URL을 캐시에 추가 ({len(sent_cache)}건)")
+            # NOTE: DB 전체를 sent_cache에 동기화하지 않음
+            # 이유: 전송 실패 기사까지 캐시에 올라가면 pending_queue retry가 영구 차단됨
+            # sent_cache는 실제 전송 성공한 URL만 포함 (process_pending_queue_and_send 내부에서만 추가)
 
             safe_print(f"[MONITOR] ✅ 뉴스 수집 완료")
         else:

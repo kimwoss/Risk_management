@@ -1156,7 +1156,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 48  # 최근 48시간 이내 기사만 알림 (캐시 리셋 시 폭발 방지)
+        MAX_ARTICLE_AGE_HOURS = 6  # 최근 6시간 이내 기사만 알림 (캐시 리셋 시 당일 기사만 재발송)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1313,6 +1313,21 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 print(f"[DEBUG] ⏭️ 이미 전송된 기사 - 스킵: {title[:50]}...")
                 urls_to_remove.append(url)
                 continue
+
+            # 오래된 pending 기사 폐기 (캐시 리셋 시 stale 백로그 방지)
+            MAX_PENDING_ARTICLE_AGE_HOURS = 3
+            try:
+                article_dt = pd.to_datetime(date, errors="coerce")
+                if pd.notna(article_dt):
+                    age_hours = (datetime.now() - article_dt).total_seconds() / 3600
+                    if age_hours > MAX_PENDING_ARTICLE_AGE_HOURS:
+                        print(f"[DEBUG] ⏭️ 오래된 pending 기사 폐기 ({age_hours:.1f}시간) - 캐시만 등록: {title[:40]}...")
+                        sent_cache.add(link)
+                        sent_cache.add(url_normalized)
+                        urls_to_remove.append(url)
+                        continue
+            except Exception:
+                pass
 
             # 메시지 구성 (sentiment에 따라 이모지 변경)
             emoji = "🔴" if sentiment == "neg" else "🟢"

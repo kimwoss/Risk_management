@@ -1275,7 +1275,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         success_count = 0
         failed_count = 0
         max_retry_exceeded_count = 0
-        MAX_MESSAGES_PER_RUN = 5  # 1회 실행당 최대 발송 건수 (3분 간격 자연 분산 목적)
+        MAX_MESSAGES_PER_RUN = 10  # 1회 실행당 최대 발송 건수 (보도자료 배포 시 다수 기사 대응)
 
         # Pending 큐를 날짜 순으로 정렬 (과거 → 최신 순서로 전송)
         urls_to_remove = []

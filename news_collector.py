@@ -1156,7 +1156,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 168  # 최근 7일(168시간) 이내 기사만 알림 (이전: 48시간)
+        MAX_ARTICLE_AGE_HOURS = 48  # 최근 48시간 이내 기사만 알림 (캐시 리셋 시 폭발 방지)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1275,6 +1275,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         success_count = 0
         failed_count = 0
         max_retry_exceeded_count = 0
+        MAX_MESSAGES_PER_RUN = 20  # 1회 실행당 최대 발송 건수 (캐시 리셋 시 폭발 방지)
 
         # Pending 큐를 날짜 순으로 정렬 (과거 → 최신 순서로 전송)
         urls_to_remove = []
@@ -1287,6 +1288,10 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         )
 
         for url, article in sorted_items:
+            # 1회 실행 최대 발송 건수 초과 시 중단 (캐시 리셋 등 이상 상황 대비)
+            if success_count >= MAX_MESSAGES_PER_RUN:
+                print(f"[DEBUG] ⚠️ 1회 실행 최대 발송 건수({MAX_MESSAGES_PER_RUN}건) 도달 - 나머지는 다음 실행에 전송")
+                break
             title = article.get("title", "제목 없음")
             link = article.get("link", url)
             date = article.get("date", "")

@@ -74,18 +74,17 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
-            # 커밋 후 남은 변경사항 다시 추가 (monitor_state.json 등)
-            git add data/ 2>/dev/null || true
-            git commit --amend --no-edit --allow-empty 2>/dev/null || true
-
-            # 최대 3회 재시도 (충돌 방지)
+            # 최대 3회 재시도 (rebase 충돌 방지: 실패 시 abort 후 재시도)
             for i in 1 2 3; do
               echo "Push attempt $i..."
-              if git pull --rebase origin main && git push; then
+              # 이전 rebase 상태가 남아있으면 정리
+              git rebase --abort 2>/dev/null || true
+              if git pull --rebase --autostash origin main && git push; then
                 echo "Push successful!"
                 break
               else
                 echo "Push failed, retrying in 5 seconds..."
+                git rebase --abort 2>/dev/null || true
                 sleep 5
               fi
             done

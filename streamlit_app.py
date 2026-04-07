@@ -3250,14 +3250,12 @@ def auto_monitor_on_load():
     cron-job.org가 2분마다 앱 URL을 호출할 때 트리거됨.
 
     동시 실행 방지:
-    - 세션 내 재진입 방지 (session_state 플래그)
-    - 파일 기반 실행 간격 체크 (100초)
+    - 파일 기반 실행 간격 체크 (100초) - 세션과 무관하게 동작
     - fcntl 파일 락 (Linux/Streamlit Cloud 환경)
     """
-    # 이번 세션에서 이미 실행했으면 스킵 (Streamlit rerun 시 중복 방지)
-    if st.session_state.get("_monitor_ran_this_session"):
-        return
-    st.session_state["_monitor_ran_this_session"] = True  # 재진입 방지용 선행 마킹
+    # 주의: session_state 게이트 제거됨.
+    # cron-job.org가 같은 세션을 재사용할 경우 session_state 플래그가 재실행을 막아버림.
+    # 파일 기반 rate limiting(100초 간격 + fcntl 락)으로만 중복 방지.
 
     MIN_INTERVAL_SEC = 100  # 2분 cron 기준, 100초 미만이면 스킵
     run_status_path = os.path.join("data", "run_status.json")

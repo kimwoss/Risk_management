@@ -22,6 +22,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Pull latest data before run
+        run: |
+          # 런 시작 전 최신 data/ 파일을 원격에서 가져옴
+          # 이전 런의 sent_cache, pending_queue, CSV가 stale하지 않도록 보장
+          git fetch origin main
+          git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped (first run or conflict)"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -74,17 +81,17 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
-            # 최대 3회 재시도 (rebase 충돌 방지: 실패 시 abort 후 재시도)
+            # 최대 3회 재시도 (merge -X ours 전략: JSON 충돌 시 현재 런의 데이터 우선)
             for i in 1 2 3; do
               echo "Push attempt $i..."
-              # 이전 rebase 상태가 남아있으면 정리
-              git rebase --abort 2>/dev/null || true
-              if git pull --rebase --autostash origin main && git push; then
+              git fetch origin main
+              # rebase 대신 merge 사용: JSON 파일 충돌 시 우리 데이터(현재 런) 우선
+              if git merge origin/main -X ours --no-edit -m "Merge remote (keep local data)" 2>/dev/null && git push; then
                 echo "Push successful!"
                 break
               else
                 echo "Push failed, retrying in 5 seconds..."
-                git rebase --abort 2>/dev/null || true
+                git merge --abort 2>/dev/null || true
                 sleep 5
               fi
             done

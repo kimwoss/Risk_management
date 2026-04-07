@@ -1156,7 +1156,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 6  # 최근 6시간 이내 기사만 알림 (캐시 리셋 시 당일 기사만 재발송)
+        MAX_ARTICLE_AGE_HOURS = 3  # 최근 3시간 이내 기사만 알림 (캐시 리셋 시 최소 범위로 재발송 제한)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1275,7 +1275,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         success_count = 0
         failed_count = 0
         max_retry_exceeded_count = 0
-        MAX_MESSAGES_PER_RUN = 20  # 1회 실행당 최대 발송 건수 (캐시 리셋 시 폭발 방지)
+        MAX_MESSAGES_PER_RUN = 5  # 1회 실행당 최대 발송 건수 (3분 간격 자연 분산 목적)
 
         # Pending 큐를 날짜 순으로 정렬 (과거 → 최신 순서로 전송)
         urls_to_remove = []
@@ -1423,12 +1423,12 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 if response is not None:
                     response.close()
 
-            # Rate Limit 방지: 메시지당 최소 100ms 대기
-            # (텔레그램 그룹: 초당 20개, 개인: 초당 30개 제한)
+            # 메시지 간 딜레이: 성공 시 2초 대기 (5분 간격 분산 효과)
+            # 실패 시 짧게 대기 (재시도 목적)
             if not send_success:
-                time.sleep(0.1)  # 실패 시 짧게 대기
+                time.sleep(0.5)  # 실패 시 500ms 대기
             else:
-                time.sleep(0.05)  # 성공 시 50ms 대기
+                time.sleep(2.0)  # 성공 시 2초 대기 (자연스러운 간격)
 
         # Pending 큐에서 제거
         for url in urls_to_remove:

@@ -1,11 +1,11 @@
 name: News Monitor
 
 on:
-  schedule:
-    # 3분마다 실행 (빠른 뉴스 업데이트)
-    - cron: '*/3 * * * *'   # 3분마다 (00, 03, 06, 09, ...)
+  # 스케줄 비활성화: cron-job.org + Streamlit 경로로 단독 운영
+  # schedule:
+  #   - cron: '*/3 * * * *'
 
-  # 수동 실행 허용 (테스트용)
+  # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:
 
 concurrency:

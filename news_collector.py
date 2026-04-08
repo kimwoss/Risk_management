@@ -296,13 +296,20 @@ def analyze_sentiment_llm(title: str, summary: str) -> str:
         if not api_key:
             return "unk"
 
-        # 간단한 프롬프트
-        prompt = f"""다음 뉴스 기사가 기업에게 긍정적인지 부정적인지 판단해주세요.
+        # 포스코인터내셔널 관점의 감성 분석 프롬프트
+        prompt = f"""당신은 포스코인터내셔널의 홍보/IR 담당자입니다.
+아래 뉴스 기사가 포스코인터내셔널 또는 포스코그룹의 기업 이미지, 평판, 주가에
+긍정적인지 부정적인지 판단해주세요.
+
+판단 기준:
+- 긍정: 실적 호조, 수주/계약, 신사업 진출, 수상/인정, 협력 체결, 성장 소식
+- 부정: 사고/재해, 수사/고발/제재, 실적 악화, 환경/노동 이슈, 소송, 논란/의혹
+- 중립적인 인사이동, 단순 행사 보도 등은 긍정으로 분류
 
 제목: {title}
 요약: {summary}
 
-답변은 "긍정" 또는 "부정" 중 하나만 출력하세요."""
+답변은 반드시 "긍정" 또는 "부정" 중 하나만 출력하세요."""
 
         import requests
         headers = {
@@ -356,8 +363,14 @@ def get_article_sentiment(title: str, summary: str, url: str = "") -> str:
     if cache_key in _sentiment_cache:
         return _sentiment_cache[cache_key]
 
-    # 1차: 규칙 기반 (unk = 중립으로 처리, LLM 호출 제거 - 성능 병목)
+    # 1차: 규칙 기반 (명확한 경우 즉시 반환)
     sentiment = analyze_sentiment_rule_based(title, summary)
+
+    # 2차: 애매한 경우(unk) → OpenAI LLM 호출
+    if sentiment == "unk":
+        sentiment = analyze_sentiment_llm(title, summary)
+
+    # LLM도 판단 못하면 기본값 pos
     if sentiment == "unk":
         sentiment = "pos"
 

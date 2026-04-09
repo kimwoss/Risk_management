@@ -2065,7 +2065,7 @@ def load_main_background_uri():
     return ""
 
 # ----------------------------- 네비게이션 -----------------------------
-MENU_ITEMS = ["뉴스 모니터링", "키워드 인사이트", "이슈발생보고 생성", "언론사 정보", "담당자 정보", "대응이력 검색"]
+MENU_ITEMS = ["뉴스 모니터링", "키워드 인사이트", "이슈보고 생성", "언론사 정보", "담당자 정보", "대응이력 검색"]
 
 def set_active_menu_from_url(default_label="메인"):
     try:
@@ -3380,7 +3380,7 @@ def main():
 
     if active == "메인":
         render_main_page()
-    elif active == "이슈발생보고 생성":
+    elif active == "이슈보고 생성":
         page_issue_report()
     elif active == "언론사 정보":
         page_media_search()

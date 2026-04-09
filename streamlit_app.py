@@ -2065,7 +2065,7 @@ def load_main_background_uri():
     return ""
 
 # ----------------------------- 네비게이션 -----------------------------
-MENU_ITEMS = ["뉴스 모니터링", "이슈발생보고 생성", "언론사 정보 검색", "담당자 정보 검색", "기존대응이력 검색"]
+MENU_ITEMS = ["뉴스 모니터링", "키워드 인사이트", "이슈발생보고 생성", "언론사 정보 검색", "담당자 정보 검색", "기존대응이력 검색"]
 
 def set_active_menu_from_url(default_label="메인"):
     try:
@@ -3390,6 +3390,9 @@ def main():
         page_history_search()
     elif active == "뉴스 모니터링":
         page_news_monitor()
+    elif active == "키워드 인사이트":
+        from pages.keyword_insight import render_keyword_insight_page
+        render_keyword_insight_page()
     else:
         # 잘못된 파라미터면 메인으로 보냄
         st.query_params["menu"] = "메인"

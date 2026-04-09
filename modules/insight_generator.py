@@ -7,9 +7,11 @@ import os
 import openai
 import streamlit as st
 from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+# .env 파일 명시적 경로 로드 (모듈 위치 기준 상위 디렉토리)
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=False)
 
 SYSTEM_PROMPT = """당신은 포스코인터내셔널 커뮤니케이션실 소속 미디어 분석 전문가입니다.
 임원급 의사결정자에게 보고하는 1페이지 브리핑 보고서를 작성합니다.

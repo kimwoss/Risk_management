@@ -150,9 +150,9 @@ def generate_insight(
     max_retries: int = 2,
 ) -> dict:
     """GPT-4.1로 인사이트 브리핑 생성"""
-    api_key = st.secrets.get("OPENAI_API_KEY", "")
+    api_key = st.secrets.get("OPEN_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", "")
     if not api_key:
-        st.error("❌ OpenAI API 키가 없습니다. secrets를 확인해주세요.")
+        st.error("❌ OpenAI API 키가 없습니다. secrets에 OPEN_API_KEY를 확인해주세요.")
         st.stop()
 
     client = openai.OpenAI(api_key=api_key)

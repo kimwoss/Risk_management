@@ -3,9 +3,13 @@ insight_generator.py
 GPT-4.1 기반 키워드 인사이트 브리핑 생성
 """
 import json
+import os
 import openai
 import streamlit as st
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SYSTEM_PROMPT = """당신은 포스코인터내셔널 커뮤니케이션실 소속 미디어 분석 전문가입니다.
 임원급 의사결정자에게 보고하는 1페이지 브리핑 보고서를 작성합니다.
@@ -150,9 +154,14 @@ def generate_insight(
     max_retries: int = 2,
 ) -> dict:
     """GPT-4.1로 인사이트 브리핑 생성"""
-    api_key = st.secrets.get("OPEN_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", "")
+    api_key = (
+        os.getenv("OPEN_API_KEY") or
+        os.getenv("OPENAI_API_KEY") or
+        st.secrets.get("OPEN_API_KEY", "") or
+        st.secrets.get("OPENAI_API_KEY", "")
+    )
     if not api_key:
-        st.error("❌ OpenAI API 키가 없습니다. secrets에 OPEN_API_KEY를 확인해주세요.")
+        st.error("❌ OpenAI API 키가 없습니다. .env 또는 secrets에 OPEN_API_KEY를 확인해주세요.")
         st.stop()
 
     client = openai.OpenAI(api_key=api_key)

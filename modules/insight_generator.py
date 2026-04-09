@@ -144,6 +144,22 @@ USER_PROMPT_TEMPLATE = """
 """
 
 
+def _resolve_api_key() -> str:
+    """환경변수 → st.secrets 순서로 OpenAI API 키 조회"""
+    # 1. os.environ (로컬 .env 또는 시스템 환경변수)
+    key = os.environ.get("OPEN_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    if key:
+        return key
+    # 2. st.secrets (Streamlit Cloud 대시보드 secrets)
+    try:
+        key = st.secrets.get("OPEN_API_KEY") or st.secrets.get("OPENAI_API_KEY")
+        if key:
+            return key
+    except Exception:
+        pass
+    return ""
+
+
 def generate_insight(
     keyword: str,
     news_items: list[dict],
@@ -154,14 +170,14 @@ def generate_insight(
     max_retries: int = 2,
 ) -> dict:
     """GPT-4.1로 인사이트 브리핑 생성"""
-    api_key = (
-        os.getenv("OPEN_API_KEY") or
-        os.getenv("OPENAI_API_KEY") or
-        st.secrets.get("OPEN_API_KEY", "") or
-        st.secrets.get("OPENAI_API_KEY", "")
-    )
+    api_key = _resolve_api_key()
     if not api_key:
-        st.error("❌ OpenAI API 키가 없습니다. .env 또는 secrets에 OPEN_API_KEY를 확인해주세요.")
+        env_keys = [k for k in os.environ if "OPEN" in k or "API" in k]
+        st.error(
+            f"❌ OpenAI API 키를 찾을 수 없습니다.\n\n"
+            f"현재 환경변수 중 관련 키: {env_keys or '없음'}\n\n"
+            f".env 파일의 `OPEN_API_KEY` 또는 Streamlit secrets를 확인해주세요."
+        )
         st.stop()
 
     client = openai.OpenAI(api_key=api_key)

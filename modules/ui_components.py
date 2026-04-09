@@ -353,7 +353,8 @@ def render_top_media_chart(top_media: list[str]):
         marker_color=CHART_COLORS["bar_accent"],
         hovertemplate="%{y}<extra></extra>",
     ))
-    fig.update_layout(**PLOTLY_THEME, height=220, title_text="TOP 5 보도 매체", title_font_color="#94a3b8", title_font_size=13,
+    theme = {k: v for k, v in PLOTLY_THEME.items() if k not in ("xaxis", "yaxis")}
+    fig.update_layout(**theme, height=220, title_text="TOP 5 보도 매체", title_font_color="#94a3b8", title_font_size=13,
                       xaxis=dict(visible=False), yaxis=dict(tickfont=dict(size=11, color="#cbd5e1")))
     _st().plotly_chart(fig, use_container_width=True)
 

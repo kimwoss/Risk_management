@@ -2,17 +2,21 @@
 naver_news.py
 네이버 검색 API (뉴스) 래퍼
 """
+import os
 import requests
 import streamlit as st
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 from .media_utils import clean_html, extract_media_name, parse_pub_datetime
+
+load_dotenv()
 
 
 def _get_headers() -> dict:
-    cid = st.secrets.get("NAVER_CLIENT_ID", "")
-    csec = st.secrets.get("NAVER_CLIENT_SECRET", "")
+    cid  = os.getenv("NAVER_CLIENT_ID")  or st.secrets.get("NAVER_CLIENT_ID", "")
+    csec = os.getenv("NAVER_CLIENT_SECRET") or st.secrets.get("NAVER_CLIENT_SECRET", "")
     if not cid or not csec:
-        st.error("❌ 네이버 API 키가 없습니다. secrets를 확인해주세요.")
+        st.error("❌ 네이버 API 키가 없습니다. .env 또는 secrets를 확인해주세요.")
         st.stop()
     return {"X-Naver-Client-Id": cid, "X-Naver-Client-Secret": csec}
 

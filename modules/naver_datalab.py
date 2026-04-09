@@ -3,14 +3,18 @@ naver_datalab.py
 네이버 데이터랩 - 검색어 트렌드 API 래퍼
 """
 import json
+import os
 import requests
 import streamlit as st
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def _get_headers() -> dict:
-    cid = st.secrets.get("NAVER_CLIENT_ID", "")
-    csec = st.secrets.get("NAVER_CLIENT_SECRET", "")
+    cid  = os.getenv("NAVER_CLIENT_ID")  or st.secrets.get("NAVER_CLIENT_ID", "")
+    csec = os.getenv("NAVER_CLIENT_SECRET") or st.secrets.get("NAVER_CLIENT_SECRET", "")
     return {
         "X-Naver-Client-Id": cid,
         "X-Naver-Client-Secret": csec,

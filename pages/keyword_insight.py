@@ -24,7 +24,6 @@ from modules.ui_components import (
     render_issue_clusters,
     render_company_exposure,
     render_competitor_table,
-    render_journalist_matches,
     render_past_responses,
     render_risk_opportunity,
     render_action_cards,
@@ -163,11 +162,7 @@ def render_keyword_insight_page():
 
     # ─── 섹션 D: 내부 자산 연결 ───
     st.markdown("---")
-    col_d1, col_d2 = st.columns(2, gap="medium")
-    with col_d1:
-        render_journalist_matches(insight.get("journalist_matches", []))
-    with col_d2:
-        render_past_responses(insight.get("past_responses", []))
+    render_past_responses(insight.get("past_responses", []))
 
     # ─── 섹션 E: 판단 보조 ───
     st.markdown("---")

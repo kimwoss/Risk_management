@@ -454,24 +454,45 @@ def render_journalist_matches(matches: list[dict]):
 
 
 def render_past_responses(responses: list[dict]):
-    render_section_header("📁", "과거 대응이력", "유사 이슈 사례")
+    render_section_header("📁", "과거 대응이력", "유사 이슈 사례 — 최신순")
     if not responses:
         _st().markdown('<div class="insight-card"><div style="color:#64748b; font-size:13px">유사 대응이력이 없습니다.</div></div>', unsafe_allow_html=True)
         return
-    for r in responses:
-        _st().markdown(f"""
-        <div class="insight-card-accent" style="margin-bottom:8px">
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px">
-                <span style="font-size:12px; font-weight:600; color:#cbd5e1">{r.get('issue_summary', '')}</span>
-                <span style="font-size:11px; color:#64748b">{r.get('date', '')}</span>
+
+    # 최신순 정렬
+    sorted_responses = sorted(responses, key=lambda x: x.get("date", ""), reverse=True)
+
+    for i, r in enumerate(sorted_responses):
+        date          = r.get("date", "날짜 미상")
+        issue_summary = r.get("issue_summary", "")
+        response_type = r.get("response_type", "")
+        result        = r.get("result", "")
+        lesson        = r.get("lesson", "")
+
+        label = f"📅 {date}　|　{issue_summary}"
+        with _st().expander(label, expanded=(i == 0)):
+            col_left, col_right = _st().columns([1, 2], gap="medium")
+            with col_left:
+                _st().markdown(f"""
+                <div style="background:#1e293b; border-radius:8px; padding:14px 16px; height:100%">
+                    <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 유형</div>
+                    <div style="font-size:14px; font-weight:700; color:#cbd5e1">{response_type or "—"}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with col_right:
+                _st().markdown(f"""
+                <div style="background:#1e293b; border-radius:8px; padding:14px 16px">
+                    <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 결과</div>
+                    <div style="font-size:13px; color:#e2e8f0; line-height:1.7">{result or "—"}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            _st().markdown(f"""
+            <div style="background:#0f172a; border-radius:8px; padding:14px 16px; margin-top:10px;
+                        border-left:3px solid #3b82f6">
+                <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">💡 시사점</div>
+                <div style="font-size:13px; color:#60a5fa; line-height:1.7">{lesson or "—"}</div>
             </div>
-            <div style="font-size:12px; color:#94a3b8">
-                <span class="badge badge-gray">{r.get('response_type', '')}</span>
-                &nbsp; {r.get('result', '')}
-            </div>
-            <div style="font-size:12px; color:#60a5fa; margin-top:6px">💡 {r.get('lesson', '')}</div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 
 def render_risk_opportunity(ro: dict):

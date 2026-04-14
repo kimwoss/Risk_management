@@ -30,28 +30,25 @@ def fetch_naver_news(keyword: str, display: int = 100, sort: str = "date") -> li
     headers = _get_headers()
     raw_items = []
 
-    for start in range(1, 301, 100):
-        try:
-            params = {"query": keyword, "display": display, "start": start, "sort": sort}
-            resp = requests.get(url, headers=headers, params=params, timeout=10)
-            resp.raise_for_status()
-            data = resp.json()
-            items = data.get("items", [])
-            if not items:
-                break
-            raw_items.extend(items)
-        except requests.exceptions.HTTPError as e:
-            code = e.response.status_code if e.response else 0
-            if code == 429:
-                st.error("⚠️ 네이버 뉴스 API 호출 한도 초과. 잠시 후 다시 시도해주세요.")
-            elif code == 401:
-                st.error("❌ 네이버 API 인증 실패. API 키를 확인해주세요.")
-            else:
-                st.error(f"❌ 네이버 뉴스 API 오류: HTTP {code}")
-            st.stop()
-        except requests.exceptions.RequestException as e:
-            st.error(f"❌ 네이버 뉴스 API 연결 실패: {e}")
-            st.stop()
+    # API 호출 원칙: 검색 1회당 뉴스검색 1회 (최대 100건)
+    try:
+        params = {"query": keyword, "display": min(display, 100), "start": 1, "sort": sort}
+        resp = requests.get(url, headers=headers, params=params, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+        raw_items = data.get("items", [])
+    except requests.exceptions.HTTPError as e:
+        code = e.response.status_code if e.response else 0
+        if code == 429:
+            st.error("⚠️ 네이버 뉴스 API 호출 한도 초과. 잠시 후 다시 시도해주세요.")
+        elif code == 401:
+            st.error("❌ 네이버 API 인증 실패. API 키를 확인해주세요.")
+        else:
+            st.error(f"❌ 네이버 뉴스 API 오류: HTTP {code}")
+        st.stop()
+    except requests.exceptions.RequestException as e:
+        st.error(f"❌ 네이버 뉴스 API 연결 실패: {e}")
+        st.stop()
 
     if not raw_items:
         return []

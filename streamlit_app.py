@@ -1309,10 +1309,14 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
 
     # force_refresh: GitHub 강제 로드 후 로컬 저장
     if force_refresh:
-        df = _read_github() or _read_local()
+        df = _read_github()
+        if df is None:
+            df = _read_local()
     else:
         # 로컬 우선 → GitHub 폴백
-        df = _read_local() or _read_github()
+        df = _read_local()
+        if df is None:
+            df = _read_github()
 
     if df is not None:
         return df

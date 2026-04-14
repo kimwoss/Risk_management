@@ -1260,60 +1260,65 @@ def crawl_all_news_sources(query: str, max_items: int = 200, sort: str = "date")
 
 
 def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
-    """뉴스 DB 로드 (GitHub 직접 로드 - Streamlit Cloud 캐시 우회)
+    """뉴스 DB 로드
+
+    로드 우선순위:
+      1. 로컬 파일 (save_news_db로 저장된 최신 수집 결과)
+      2. GitHub raw URL (로컬 파일 없거나 실패 시 폴백)
 
     Args:
-        force_refresh: True면 즉시 최신 데이터 로드 (캐시 무시)
+        force_refresh: True면 로컬 파일 캐시를 무시하고 GitHub에서 강제 로드
     """
-    # GitHub raw URL에서 직접 로드 (Streamlit Cloud 캐시 문제 해결)
     GITHUB_RAW_URL = "https://raw.githubusercontent.com/kimwoss/Risk_management/main/data/news_monitor.csv"
 
-    try:
-        # 1차 시도: GitHub에서 직접 로드 (캐시 우회)
-        # 캐시 버스팅을 위해 타임스탬프 추가
-        import time
-        if force_refresh:
-            # 강제 새로고침: 초 단위 타임스탬프 (즉시 최신 데이터)
-            cache_buster = int(time.time())
-        else:
-            # 일반 로드: 30초 단위로 갱신 (빠른 업데이트)
-            cache_buster = int(time.time() // 30)
-        url_with_cache_buster = f"{GITHUB_RAW_URL}?t={cache_buster}"
-
-        print(f"[DEBUG] GitHub에서 직접 로드 시도: {url_with_cache_buster}")
-        response = requests.get(url_with_cache_buster, timeout=10)
-        response.raise_for_status()
-
-        from io import StringIO
-        df = pd.read_csv(StringIO(response.text), encoding="utf-8")
-        response.close()
-
-        # sentiment 컬럼이 없으면 추가
-        if "sentiment" not in df.columns:
-            df["sentiment"] = "pos"
-
-        # 디버그: 최신 기사 시간 출력
-        if not df.empty and "날짜" in df.columns:
-            latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
-            print(f"[DEBUG] ✅ GitHub에서 로드 완료: {len(df)}건, 최신 기사: {latest_date}")
-        return df
-
-    except Exception as e:
-        print(f"[WARNING] GitHub 로드 실패, 로컬 파일 시도: {e}")
-
-        # 2차 시도: 로컬 파일에서 로드
+    def _read_local() -> pd.DataFrame | None:
+        """로컬 파일 읽기. 없거나 실패 시 None 반환."""
         try:
+            if not os.path.exists(NEWS_DB_FILE):
+                return None
             df = pd.read_csv(NEWS_DB_FILE, encoding="utf-8")
-            # sentiment 컬럼이 없으면 추가
             if "sentiment" not in df.columns:
                 df["sentiment"] = "pos"
             if not df.empty and "날짜" in df.columns:
-                latest_date = df["날짜"].iloc[0] if len(df) > 0 else "N/A"
-                print(f"[DEBUG] ⚠️ 로컬 파일에서 로드: {len(df)}건, 최신 기사: {latest_date}")
+                latest_date = df["날짜"].iloc[0]
+                print(f"[DEBUG] ✅ 로컬 파일 로드: {len(df)}건, 최신: {latest_date}")
             return df
-        except Exception as e2:
-            print(f"[ERROR] 모든 로드 시도 실패: {e2}")
-            return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
+        except Exception as e:
+            print(f"[WARNING] 로컬 파일 로드 실패: {e}")
+            return None
+
+    def _read_github() -> pd.DataFrame | None:
+        """GitHub raw URL에서 읽기. 실패 시 None 반환."""
+        try:
+            cache_buster = int(time.time()) if force_refresh else int(time.time() // 30)
+            url = f"{GITHUB_RAW_URL}?t={cache_buster}"
+            print(f"[DEBUG] GitHub 폴백 로드: {url}")
+            resp = requests.get(url, timeout=10)
+            resp.raise_for_status()
+            from io import StringIO
+            df = pd.read_csv(StringIO(resp.text), encoding="utf-8")
+            resp.close()
+            if "sentiment" not in df.columns:
+                df["sentiment"] = "pos"
+            if not df.empty and "날짜" in df.columns:
+                print(f"[DEBUG] ✅ GitHub 로드: {len(df)}건, 최신: {df['날짜'].iloc[0]}")
+            return df
+        except Exception as e:
+            print(f"[WARNING] GitHub 로드 실패: {e}")
+            return None
+
+    # force_refresh: GitHub 강제 로드 후 로컬 저장
+    if force_refresh:
+        df = _read_github() or _read_local()
+    else:
+        # 로컬 우선 → GitHub 폴백
+        df = _read_local() or _read_github()
+
+    if df is not None:
+        return df
+
+    print("[ERROR] 모든 로드 시도 실패")
+    return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
 
 def save_news_db(df: pd.DataFrame):
     if df.empty:
@@ -2744,7 +2749,8 @@ def page_news_monitor():
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
     # 자동 새로고침/초기 로드: Naver API 호출 (최신 데이터)
     if manual_refresh:
-        # 수동 새로고침: Naver API 직접 호출하여 실시간 뉴스 수집
+        # 수동 새로고침: API 캐시 초기화 후 실시간 수집
+        crawl_all_news_sources.clear()  # 3분 캐시 강제 초기화
         should_fetch = True
         st.session_state.trigger_news_update = True
 
@@ -2930,11 +2936,10 @@ def page_news_monitor():
                         # 신규 기사 감지 (참고용)
                         new_articles = detect_new_articles(existing_db, df_new)
 
-                        # 🔒 Streamlit은 읽기 전용 모드 - DB 저장 비활성화
-                        # DB 저장과 텔레그램 알림은 GitHub Actions에서만 담당
-                        # save_news_db(merged)  # 비활성화
+                        # 로컬 파일에 저장 (다음 세션에서도 최신 기사 유지)
+                        save_news_db(merged)
 
-                        # 세션 상태에만 저장 (UI 표시용)
+                        # 세션 상태에도 저장 (즉시 UI 반영)
                         st.session_state.news_display_data = merged
 
                         # 텔레그램 발송은 APScheduler(background_news_monitor)에서만 담당 - 중복 방지

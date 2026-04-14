@@ -359,24 +359,38 @@ def render_top_media_chart(top_media: list[str]):
     _st().plotly_chart(fig, use_container_width=True)
 
 
+def render_summary_box(summary: str):
+    """AI 요약 강조 박스 (상단 배치용)"""
+    render_section_header("🤖", "AI 요약")
+    _st().markdown(f"""
+    <div style="background: linear-gradient(135deg, rgba(30,58,95,0.6), rgba(16,185,129,0.08));
+                border: 1px solid rgba(96,165,250,0.4); border-left: 4px solid #3b82f6;
+                border-radius: 12px; padding: 18px 22px; margin-bottom: 16px;
+                box-shadow: 0 2px 12px rgba(59,130,246,0.1);">
+        <div style="font-size:14px; color:#e2e8f0; line-height:1.8; font-weight:400">
+            {summary}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
 def render_issue_clusters(clusters: list[dict]):
     render_section_header("🗂️", "이슈 클러스터", "주요 논점 그룹")
     if not clusters:
         return
-    cols = _st().columns(min(len(clusters), 2))
-    for i, cluster in enumerate(clusters):
-        with cols[i % 2]:
-            link = cluster.get("representative_article_link", "#")
-            title = cluster.get("representative_article_title", "")
+    num_cols = min(len(clusters), 3)
+    cols = _st().columns(num_cols)
+    for i, cluster in enumerate(clusters[:3]):
+        # 신형 구조(title/description) 또는 구형 구조(cluster_name/summary) 모두 처리
+        title = cluster.get("title") or cluster.get("cluster_name", "")
+        desc  = cluster.get("description") or cluster.get("summary", "")
+        with cols[i % num_cols]:
             _st().markdown(f"""
             <div class="insight-card-accent">
                 <div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:6px">
-                    {cluster.get('cluster_name', '')}
+                    {title}
                 </div>
-                <div style="font-size:12px; color:#94a3b8; margin-bottom:6px">
-                    <a href="{link}" target="_blank" style="color:#60a5fa; text-decoration:none">{title[:60]}{'...' if len(title)>60 else ''}</a>
-                </div>
-                <div style="font-size:12px; color:#94a3b8; line-height:1.5">{cluster.get('summary', '')}</div>
+                <div style="font-size:12px; color:#94a3b8; line-height:1.5">{desc}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -412,15 +426,19 @@ def render_competitor_table(competitors: list[dict]):
     render_section_header("⚔️", "경쟁사·기관 동향")
     rows_html = ""
     for c in competitors:
+        # 신형(name/count/trend) 또는 구형(entity_name/mention_count/context_summary) 처리
+        name  = c.get("name") or c.get("entity_name", "")
+        count = c.get("count") or c.get("mention_count", 0)
+        trend = c.get("trend") or c.get("context_summary", "")
         rows_html += f"""<tr>
-            <td>{c.get('entity_name', '')}</td>
-            <td style="text-align:center">{c.get('mention_count', 0)}</td>
-            <td>{c.get('context_summary', '')}</td>
+            <td>{name}</td>
+            <td style="text-align:center">{count}</td>
+            <td>{trend}</td>
         </tr>"""
     _st().markdown(f"""
     <div class="insight-card" style="padding:0; overflow:hidden">
         <table class="custom-table">
-            <thead><tr><th>기관/기업</th><th style="text-align:center">언급</th><th>맥락</th></tr></thead>
+            <thead><tr><th>매체/기관</th><th style="text-align:center">건수</th><th>한줄 동향</th></tr></thead>
             <tbody>{rows_html}</tbody>
         </table>
     </div>
@@ -470,7 +488,7 @@ def render_past_responses(responses: list[dict]):
         lesson        = r.get("lesson", "")
 
         label = f"📅 {date}　|　{issue_summary}"
-        with _st().expander(label, expanded=(i == 0)):
+        with _st().expander(label, expanded=False):  # 기본값 collapsed
             col_left, col_right = _st().columns([1, 2], gap="medium")
             with col_left:
                 _st().markdown(f"""
@@ -496,6 +514,7 @@ def render_past_responses(responses: list[dict]):
 
 
 def render_risk_opportunity(ro: dict):
+    """구형 GPT 결과 구조(risk_opportunity dict) 렌더링"""
     render_section_header("⚡", "리스크 · 기회 시그널")
     risks_html = "".join(f'<div class="signal-risk">{s}</div>' for s in ro.get("risk_signals", []))
     opps_html  = "".join(f'<div class="signal-opp">{s}</div>'  for s in ro.get("opportunity_signals", []))
@@ -511,6 +530,37 @@ def render_risk_opportunity(ro: dict):
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+
+def render_risk_signals(risks: list[str], opportunities: list[str]):
+    """신형 GPT 결과 구조(flat list) 렌더링 — 섹션 헤더 없음 (2열 배치용)"""
+    risks_html = "".join(f'<div class="signal-risk">{s}</div>' for s in risks)
+    opps_html  = "".join(f'<div class="signal-opp">{s}</div>'  for s in opportunities)
+    _st().markdown(f"""
+    <div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:10px">⚡ 리스크 · 기회 시그널</div>
+    <div class="insight-card">
+        <div style="font-size:12px; font-weight:600; color:#f87171; margin-bottom:6px">🔻 리스크</div>
+        {risks_html or '<div style="color:#64748b; font-size:12px">리스크 시그널 없음</div>'}
+        <div style="font-size:12px; font-weight:600; color:#34d399; margin:12px 0 6px">🔺 기회</div>
+        {opps_html or '<div style="color:#64748b; font-size:12px">기회 시그널 없음</div>'}
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_action_list(actions: list[str]):
+    """신형 GPT 결과 구조(flat list) 렌더링 — 섹션 헤더 없음 (2열 배치용)"""
+    color_map = {0: "#3b82f6", 1: "#8b5cf6", 2: "#64748b"}
+    _st().markdown('<div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:10px">🚀 커뮤니케이션 액션 제안</div>', unsafe_allow_html=True)
+    for i, action in enumerate(actions):
+        card_class = "action-card action-card-primary" if i == 0 else "action-card"
+        _st().markdown(f"""
+        <div class="{card_class}">
+            <div style="display:flex; align-items:flex-start">
+                <span class="action-number" style="background:{color_map.get(i, '#64748b')}">{i+1}</span>
+                <div style="font-size:13px; font-weight:500; color:#f1f5f9; line-height:1.6">{action}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def render_action_cards(actions: list[dict]):

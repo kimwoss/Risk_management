@@ -133,11 +133,18 @@ def call_gpt_once(keyword: str, news_items: list[dict]) -> dict:
     except openai.APIConnectionError:
         st.error("⚠️ OpenAI API 연결 실패. 네트워크를 확인해주세요.")
         st.stop()
-    except openai.RateLimitError:
-        st.error("⚠️ OpenAI API 호출 한도 초과. 잠시 후 다시 시도해주세요.")
+    except openai.RateLimitError as e:
+        err_body = str(e).lower()
+        if "insufficient_quota" in err_body or "exceeded your current quota" in err_body:
+            st.error("⚠️ OpenAI API 크레딧이 소진되었습니다. platform.openai.com/account/billing 에서 잔액을 확인해주세요.")
+        else:
+            st.error("⚠️ OpenAI API 분당 요청 한도 초과. 잠시 후 다시 시도해주세요.")
+        st.stop()
+    except openai.AuthenticationError:
+        st.error("⚠️ OpenAI API 키가 유효하지 않습니다. .env 또는 Streamlit secrets를 확인해주세요.")
         st.stop()
     except openai.APIStatusError as e:
-        st.error(f"⚠️ OpenAI API 오류: {e.status_code}")
+        st.error(f"⚠️ OpenAI API 오류 (HTTP {e.status_code}): {getattr(e, 'code', '')} — {str(e)[:120]}")
         st.stop()
     except json.JSONDecodeError:
         st.error("⚠️ AI 응답 파싱 실패. 다시 시도해주세요.")

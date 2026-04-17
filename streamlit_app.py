@@ -2200,6 +2200,78 @@ def load_base_css():
           padding-right: 1rem !important;
         }
       }
+
+      /* ── type="primary" 버튼 → gold 통일 ──────────────────── */
+      [data-testid="stBaseButton-primary"],
+      .stButton>button[kind="primary"] {
+        background: linear-gradient(135deg, #b09530, #8e771a) !important;
+        border: 1px solid rgba(175,148,40,.45) !important;
+        color: #f0e8c8 !important;
+        font-weight: 700 !important;
+      }
+      [data-testid="stBaseButton-primary"]:hover,
+      .stButton>button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #c4a52e, #b09530) !important;
+        border-color: rgba(212,175,55,.7) !important;
+        box-shadow: 0 4px 20px rgba(212,175,55,.18) !important;
+        color: #fff8e0 !important;
+      }
+
+      /* ── 섹션 헤더 h3 (st.markdown "###") ───────────────── */
+      [data-testid="stMarkdownContainer"] h3 {
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: var(--c-text-dim, rgba(255,255,255,0.55)) !important;
+        letter-spacing: 0.06em !important;
+        text-transform: uppercase !important;
+        margin: 28px 0 14px !important;
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+      }
+
+      /* ── 구분선 hr (st.markdown "---") ──────────────────── */
+      hr {
+        border: none !important;
+        border-top: 1px solid rgba(255,255,255,0.07) !important;
+        margin: 24px 0 !important;
+      }
+
+      /* ── 빈 상태 플레이스홀더 ──────────────────────────────── */
+      .empty-state {
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        min-height: 220px; text-align: center;
+        color: var(--c-text-mute, rgba(255,255,255,0.35));
+        padding: 32px 24px;
+        border: 1px dashed rgba(255,255,255,0.1);
+        border-radius: var(--r-md, 12px);
+      }
+      .empty-state .es-icon { font-size: 2.4rem; margin-bottom: 12px; opacity: 0.5; }
+      .empty-state .es-title { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+      .empty-state .es-desc  { font-size: 0.8rem; line-height: 1.55; }
+
+      /* ── CTA 바로가기 카드 (메인 페이지) ─────────────────── */
+      .cta-card {
+        background: var(--c-surface, rgba(255,255,255,0.04));
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: var(--r-md, 12px);
+        padding: 20px 16px;
+        text-align: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        text-decoration: none !important;
+        display: block;
+      }
+      .cta-card:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(212,175,55,0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        text-decoration: none !important;
+      }
+      .cta-card .cta-icon  { font-size: 1.8rem; margin-bottom: 8px; }
+      .cta-card .cta-title { font-size: 0.9rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; }
+      .cta-card .cta-desc  { font-size: 0.72rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -2383,6 +2455,30 @@ def render_main_page():
     </section>
     """, unsafe_allow_html=True)
 
+    # ── 바로가기 CTA 카드 그리드 ──
+    st.markdown('<div style="margin-top:28px;">', unsafe_allow_html=True)
+    cta_items = [
+        ("📰", "뉴스 모니터링", "실시간 기사 수집·감성 분석"),
+        ("🔍", "키워드 인사이트", "AI 기반 트렌드·리스크 분석"),
+        ("📋", "이슈보고 생성", "AI 이슈 발생 보고서 자동 작성"),
+        ("🏢", "언론사 정보", "출입매체·기자 연락처 조회"),
+        ("👥", "담당자 정보", "내부 부서·담당자 검색"),
+        ("📂", "대응이력 검색", "과거 언론대응 이력 검색"),
+    ]
+    cols = st.columns(6, gap="small")
+    for col, (icon, label, desc) in zip(cols, cta_items):
+        with col:
+            st.markdown(
+                f'<a href="?menu={label}" style="text-decoration:none;">'
+                f'<div class="cta-card">'
+                f'<div class="cta-icon">{icon}</div>'
+                f'<div class="cta-title">{label}</div>'
+                f'<div class="cta-desc">{desc}</div>'
+                f'</div></a>',
+                unsafe_allow_html=True,
+            )
+    st.markdown('</div>', unsafe_allow_html=True)
+
 # ----------------------------- 페이지들 -----------------------------
 def page_issue_report():
     # GPT봇 버튼만 표시
@@ -2415,13 +2511,10 @@ def page_issue_report():
             else:
                 with st.spinner("AI가 분석하고 있습니다..."):
                     report = generate_issue_report(media, reporter, issue)
-                    st.markdown("### 생성된 이슈 발생 보고서")
-                    edited = st.text_area("보고서 내용(수정 가능)", value=report, height=300, key="issue_report_edit")
-                    if st.button("저장하기", use_container_width=True):
-                        with open("temp_issue_report.txt", "w", encoding="utf-8") as f:
-                            f.write(edited)
-                        st.success("보고서가 저장되었습니다. (temp_issue_report.txt)")
-                    payload = f"""포스코인터내셔널 언론대응 이슈 발생 보고서
+                st.markdown('<div class="card result-card">', unsafe_allow_html=True)
+                st.markdown("### 생성된 이슈 발생 보고서")
+                edited = st.text_area("보고서 내용(수정 가능)", value=report, height=300, key="issue_report_edit")
+                payload = f"""포스코인터내셔널 언론대응 이슈 발생 보고서
 ================================
 
 생성일시: {datetime.now(timezone(timedelta(hours=9))).strftime('%Y-%m-%d %H:%M:%S')}
@@ -2432,11 +2525,18 @@ def page_issue_report():
 보고서 내용:
 {edited}
 """
-                    st.download_button("보고서 다운로드", data=payload,
-                                       file_name=f"이슈발생보고서_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M%S')}.txt",
-                                       mime="text/plain", use_container_width=True)
+                st.download_button("⬇ 보고서 다운로드", data=payload,
+                                   file_name=f"이슈발생보고서_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M%S')}.txt",
+                                   mime="text/plain", use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
         else:
-            st.markdown('<p style="color: white;">좌측에서 정보를 입력하고 버튼을 눌러주세요.</p>', unsafe_allow_html=True)
+            st.markdown("""
+            <div class="empty-state">
+                <div class="es-icon">📝</div>
+                <div class="es-title">보고서가 여기에 표시됩니다</div>
+                <div class="es-desc">좌측에 언론사, 기자명, 발생 이슈를 입력하고<br>생성 버튼을 눌러주세요.</div>
+            </div>
+            """, unsafe_allow_html=True)
 
 def page_media_search():
     # 출입매체 현황 대시보드
@@ -2516,8 +2616,6 @@ def page_media_search():
                                 show_table(df_reporters, "👥 출입기자 상세정보")
                         else:
                             st.info("등록된 출입기자 정보가 없습니다.")
-                    with st.expander("🔍 상세 데이터 (개발자용)"):
-                        st.json(info.get("raw_data", {}))
                 else:
                     st.warning(f"❌ '{q}' 언론사 정보를 찾을 수 없습니다.")
                     with st.expander("📋 등록된 언론사 목록 확인"):
@@ -2887,15 +2985,17 @@ def page_news_monitor():
     </style>
     """, unsafe_allow_html=True)
 
-    # 5컬럼: [알림(5)] [타이머(2)] [새로고침(2)] [표시방식(3)] [CSV(2)]
-    # c_view · c_download 는 df_show 준비 후 채워짐
-    c_status, c_timer, c_refresh, c_view, c_download = st.columns([5, 2, 2, 3, 2])
+    # ── 1행: 상태 알림 + 새로고침 + 타이머 (액션/상태 컨트롤) ──
+    c_status, c_refresh, c_timer = st.columns([7, 2, 2])
     with c_status:
         status = st.empty()
-    with c_timer:
-        countdown_fragment(refresh_interval)
     with c_refresh:
         manual_refresh = st.button("🔄 새로고침", use_container_width=True)
+    with c_timer:
+        countdown_fragment(refresh_interval)
+
+    # ── 2행: 뷰 선택 + CSV (표시/내보내기 컨트롤) — df_show 준비 후 채워짐 ──
+    c_view, c_view_spacer, c_download = st.columns([3, 6, 2])
 
     # ===== 새로고침 방식 결정 =====
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
@@ -3148,7 +3248,7 @@ def page_news_monitor():
             lambda row: _publisher_from_link(row["URL"]) if pd.notna(row["URL"]) else row["매체명"], axis=1
         )
 
-    # ===== 컨트롤 Row 나머지 컬럼 채우기 (df_show 준비 완료 후) =====
+    # ── 2행 채우기: 뷰 선택 + CSV ──
     with c_view:
         view = st.radio(
             "표시 방식", ["카드형 뷰", "테이블 뷰"],
@@ -3157,7 +3257,7 @@ def page_news_monitor():
         )
     with c_download:
         st.download_button(
-            "⬇ CSV 다운로드",
+            "⬇ CSV",
             df_show.to_csv(index=False).encode("utf-8"),
             file_name=f"posco_news_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M')}.csv",
             mime="text/csv",
@@ -3557,9 +3657,7 @@ def main():
 
     # 버전 정보 표시 (하단, 작게)
     st.markdown(
-        f'<div style="text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; margin-top: 40px; padding-bottom: 20px;">'
-        f'v2.0.1 | 2025-11-28 | 로그인/타이머 수정'
-        f'</div>',
+        '<div style="text-align:center; color:rgba(255,255,255,0.2); font-size:11px; margin-top:40px; padding-bottom:20px;">P-IRIS v2.1</div>',
         unsafe_allow_html=True
     )
 

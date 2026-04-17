@@ -982,58 +982,114 @@ def make_kakao_report_from_url(url: str, fallback_media="", fallback_title="", f
     evidence = _build_evidence_pack(body or fallback_summary or "", max_sentences=20)
 
     # ✅ 개선된 프롬프트 (순수 텍스트 출력 강화)
-    sys_prompt = """너는 포스코인터내셔널 홍보그룹 전용 '뉴스 보고 메시지 생성 봇'이야.
-사용자가 입력한 뉴스 링크의 기사를 요약해 보고 메시지로 작성하는 것이 목적이야.
+    sys_prompt = """너는 포스코인터내셔널 홍보그룹 전용 '뉴스 보고 메시지 생성 봇'이다.
+사용자가 제공한 기사 링크 또는 기사 본문을 기반으로, 임원 보고용 카카오톡 메시지를 작성하라.
 
-[보고 메시지 작성 규칙]
-1. **형식**:
-   - 기사링크 제공
-   - 한줄 띠우고(enter)
-   - "매체명 : 기사 제목"
-   - 하단에 핵심 요약 5~8줄 (각 문장은 100~200자 이내, 단문 중심)
-2. **톤앤매너**:
-   - 비즈니스 톤
-   - 간결, 명확, 빠른 정보 전달
-   - 카카오톡 보고용으로 한눈에 보이도록 구성
-3. **포함 요소**:
-   - 기사 출처(매체명)
-   - 기사 핵심 주제(제목 변형하지 말 것)
-   - 주요 내용은 각 문단별로 요약을 하고, 이를 포괄하는 주요 내용 5~8블릿으로 정리할 것
-   - 포스코인터내셔널 및 포스코그룹 관련 내용 강조
-4. **제외 요소**:
-   - 불필요한 기자명, 작성일시 등 본문 외 정보
+[최우선 목표]
+- "빠르게 읽히는 보고 메시지"
+- "포스코그룹 관점에서 핵심만 정리"
+- "형식 100% 준수 (절대 깨지면 안 됨)"
 
+-----------------------------------
 
-사용자 프롬프트 예시
-https://www.newsis.com/view/NISX20260219_0003519127
+[출력 형식 - 반드시 그대로 따를 것]
 
-출력 예시:
-https://www.newsis.com/view/NISX20260219_0003519127
+1. 첫 줄 → 기사 링크 그대로 출력
+2. 한 줄 공백 (엔터 1번)
+3. 다음 줄 → "매체명 : 기사 제목" (제목 절대 수정 금지)
+4. 다음 줄부터 핵심 요약 작성 (반드시 '-'로 시작하는 bullet)
 
-뉴시스 : 포스코홀딩스, 이사회 후보 확정…자사주 2% 소각 (홀딩스 보도자료 게재)
-- 포스코홀딩스, 2월 19일 정기 이사회를 열고 사내·사외·기타비상무이사 후보 추천 및 자사주 소각 안건을 정기주총에 상정하기로 의결
-- 사외이사 후보로 김주연 전 한국P&G 부회장 추천, 임기 만료 김준기 사외이사는 감사위원회 위원 후보로 재추천
-- 사내이사 후보로 정석모 사업시너지본부장 신규 추천, 이주태 미래전략본부장·김기수 미래기술연구원장(그룹 CTO)은 사내이사로 재추천
-- 철강 핵심사업 전문성 강화를 위해 이희근 포스코 대표이사 사장을 기타비상무이사 후보로 추천해 지주사-사업회사 협업 및 의사결정 전문성을 제고
-- 후보들은 3월 24일 정기주주총회에서 선임 예정
-- 이사회는 자사주 2% 소각도 의결했으며, 소각 규모는 6,351억원 규모
-- 또한 2025년도 재무제표 승인, 정관 일부 변경, 이사 보수한도 승인 안건도 정기주총에 함께 상정하기로 결정"""
+-----------------------------------
+
+[요약 작성 규칙]
+
+- 총 6~10줄 작성 (무조건 이 범위 지킬 것)
+- 각 문장은 100~200자 이내
+- 각 줄은 서로 다른 핵심 내용을 담을 것 (중복 금지)
+- 기사 문단 흐름 순서대로 정리 (위→아래)
+- 한 줄 = 하나의 핵심 메시지
+
+-----------------------------------
+
+[내용 구성 기준]
+
+다음 요소를 반드시 포함하여 요약할 것:
+
+1. 기사의 핵심 이슈 (첫 1~2줄)
+2. 산업 또는 시장 영향
+3. 포스코 / 포스코인터내셔널 관련 내용 (가장 중요)
+4. 사업/투자/재무 영향 (수치 있으면 반드시 포함)
+5. 향후 전망 또는 의미
+
+-----------------------------------
+
+[포스코 관련 강조 규칙 - 매우 중요]
+
+- 포스코 / 포스코인터내셔널 / 포스코그룹 관련 내용은 최소 2줄 이상 반드시 포함
+- 다른 기업보다 더 구체적으로 작성
+- "왜 중요한지" 드러나게 작성 (단, 해석은 금지하고 기사 기반으로만)
+
+-----------------------------------
+
+[문장 스타일 규칙]
+
+- 무조건 "비즈니스 보고 문장"으로 작성
+- 불필요한 수식어 제거
+- 짧고 명확하게 (핵심만 전달)
+- "~함", "~추진", "~전망", "~논의" 형태로 끝맺음
+
+-----------------------------------
+
+[금지 사항]
+
+- 제목 변형 금지
+- 이모지 사용 금지
+- 의견 / 해석 / 추측 절대 금지
+- 기자명, 날짜 등 불필요 정보 제거
+- 번호 리스트 사용 금지 (오직 '-'만 사용)
+- 문장 길이 과도하게 길어지지 않도록 할 것
+
+-----------------------------------
+
+[출력 예시]
+
+https://example.com
+
+매체명 : 기사 제목
+- 핵심 내용 1
+- 핵심 내용 2
+- 핵심 내용 3
+- 핵심 내용 4
+- 핵심 내용 5
+- 핵심 내용 6
+
+-----------------------------------
+
+[품질 체크 - 내부적으로 반드시 검증 후 출력]
+
+출력 전에 아래 조건을 스스로 점검하라:
+
+- bullet 개수 6~10개인가?
+- 모든 줄이 '-'로 시작하는가?
+- 포스코 관련 내용이 포함되어 있는가?
+- 문장이 100~200자 사이인가?
+- 제목이 변형되지 않았는가?
+
+조건 하나라도 위반 시 다시 작성 후 출력"""
 
     user_prompt = f"""링크: {url}
 매체명: {media}
 제목: {title}
 
-[핵심 내용]
+[기사 본문]
 {evidence}
 
-위 내용을 바탕으로 카카오톡 보고 메시지를 작성해줘.
-- 블릿은 5~8개로 구성
-- 각 블릿은 100~200자 이내로 작성"""
+위 내용을 바탕으로 임원 보고용 카카오톡 메시지를 작성하라."""
 
     out, err = _openai_chat(
         [{"role":"system","content":sys_prompt},{"role":"user","content":user_prompt}],
         temperature=0.0,  # 정확성 최대화
-        max_tokens=950
+        max_tokens=1200
     )
     if out:
         return out
@@ -1922,7 +1978,107 @@ def start_background_scheduler():
 def load_base_css():
     st.markdown("""
     <style>
-      /* 컨테이너 폭 + 상단 여백 (Streamlit 정책 준수) */
+      /* ── 글로벌 디자인 토큰 ────────────────────────────── */
+      :root {
+        --c-bg:        #0a0b0d;
+        --c-surface:   rgba(255,255,255,0.04);
+        --c-surface-h: rgba(255,255,255,0.07);
+        --c-border:    rgba(255,255,255,0.08);
+        --c-gold:      #D4AF37;
+        --c-gold-dim:  rgba(212,175,55,0.12);
+        --c-gold-glow: rgba(212,175,55,0.20);
+        --c-pos:       #22c55e;
+        --c-neg:       #ef4444;
+        --c-warn:      #f59e0b;
+        --c-info:      #6366f1;
+        --c-blue:      #3b82f6;
+        --c-teal:      #06b6d4;
+        --c-pink:      #ec4899;
+        --c-purple:    #8b5cf6;
+        --c-orange:    #f97316;
+        --c-emerald:   #10b981;
+        --c-amber:     #c8920a;
+        --c-text:      #e8e8e8;
+        --c-text-dim:  rgba(255,255,255,0.55);
+        --c-text-mute: rgba(255,255,255,0.35);
+        --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;
+        --shadow-card: 0 4px 20px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.05) inset;
+        --shadow-card-h: 0 8px 28px rgba(0,0,0,0.35);
+      }
+
+      /* ── 통합 대시보드 컨테이너 ─────────────────────────── */
+      .iris-dash {
+        background: linear-gradient(145deg, rgba(26,26,46,0.88) 0%, rgba(22,33,62,0.82) 100%);
+        border: 1px solid var(--c-border);
+        border-radius: var(--r-lg);
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+        backdrop-filter: blur(8px);
+      }
+      .iris-dash * { text-align: center; }
+      .iris-dash div[data-testid="column"] { padding: 0 6px !important; }
+      @media (max-width: 768px) {
+        .iris-dash div[data-testid="column"] { flex: 1 1 calc(33.333% - 12px) !important; min-width: 96px !important; }
+      }
+      @media (max-width: 480px) {
+        .iris-dash div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; }
+      }
+
+      /* ── 통합 스탯 카드 ──────────────────────────────────── */
+      .iris-card {
+        background: var(--c-surface);
+        border-radius: var(--r-md);
+        padding: 16px 12px;
+        border-left: 3px solid var(--c-border);
+        transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        min-height: 120px;
+        display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+        text-align: center;
+      }
+      .iris-card:hover {
+        background: var(--c-surface-h);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-card-h);
+      }
+      /* 카드 색상 변형 */
+      .iris-card.ic-total   { border-left-color: var(--c-info);    background: rgba(99,102,241,0.05); }
+      .iris-card.ic-pos     { border-left-color: var(--c-pos); }
+      .iris-card.ic-neg     { border-left-color: var(--c-neg); }
+      .iris-card.ic-warn    { border-left-color: var(--c-warn); }
+      .iris-card.ic-orange  { border-left-color: var(--c-orange); }
+      .iris-card.ic-blue    { border-left-color: var(--c-blue); }
+      .iris-card.ic-teal    { border-left-color: var(--c-teal); }
+      .iris-card.ic-pink    { border-left-color: var(--c-pink); }
+      .iris-card.ic-purple  { border-left-color: var(--c-purple); }
+      .iris-card.ic-emerald { border-left-color: var(--c-emerald); }
+      .iris-card.ic-amber   { border-left-color: var(--c-amber); }
+      /* 카드 내부 라벨 */
+      .ic-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; color: var(--c-text-dim); }
+      .iris-card.ic-total   .ic-label { color: var(--c-info); }
+      .iris-card.ic-pos     .ic-label { color: var(--c-pos); }
+      .iris-card.ic-neg     .ic-label { color: var(--c-neg); }
+      .iris-card.ic-warn    .ic-label { color: var(--c-warn); }
+      .iris-card.ic-orange  .ic-label { color: var(--c-orange); }
+      .iris-card.ic-blue    .ic-label { color: var(--c-blue); }
+      .iris-card.ic-teal    .ic-label { color: var(--c-teal); }
+      .iris-card.ic-pink    .ic-label { color: var(--c-pink); }
+      .iris-card.ic-purple  .ic-label { color: var(--c-purple); }
+      .iris-card.ic-emerald .ic-label { color: var(--c-emerald); }
+      .iris-card.ic-amber   .ic-label { color: var(--c-amber); }
+      /* 카드 내부 숫자 */
+      .ic-value { color: var(--c-text); font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
+      .iris-card.ic-total .ic-value { font-size: 2.4rem; color: #fff; }
+      /* 퍼센트 */
+      .ic-pct { color: var(--c-text-mute); font-size: 0.7rem; margin-top: 4px; }
+      /* 감성 필 뱃지 */
+      .ic-pill-row { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 6px; }
+      .ic-pill { font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 99px; letter-spacing: 0.02em; }
+      .ic-pill.pos { background: rgba(34,197,94,0.14); color: var(--c-pos); border: 1px solid rgba(34,197,94,0.25); }
+      .ic-pill.neg { background: rgba(239,68,68,0.12); color: var(--c-neg); border: 1px solid rgba(239,68,68,0.22); }
+
+      /* ── 컨테이너 폭 + 상단 여백 ─────────────────────────── */
       .block-container {max-width:1360px !important; padding: 24px 20px 0 !important; margin-top: 16px !important;}
 
       /* 배경/폰트 */
@@ -2089,82 +2245,74 @@ def render_top_nav(active_label: str):
     logo_uri = load_logo_data_uri()
     st.markdown("""
     <style>
-      /* 네비게이션 컨테이너 */
+      /* ── 네비게이션 컨테이너 ─────────────────────────────── */
       .nav-container {
-        background: linear-gradient(135deg, rgba(16,18,24,.4), rgba(12,14,20,.6));
-        border: 1px solid rgba(255,255,255,.06);
-        border-radius: 16px;
-        padding: 16px 20px;
+        background: rgba(10,11,13,0.55);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 18px;
+        padding: 12px 18px;
         margin: 8px 0 20px 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,.2);
-        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
       }
 
-      /* 네비게이션 버튼 전용 스타일 - 제네시스 톤 */
+      /* ── 탭 버튼 (비활성) ─────────────────────────────────── */
       .nav-container .stButton>button {
-        border-radius: 10px !important;
-        font-weight: 600 !important;
-        border: 1px solid rgba(255,255,255,.12) !important;
-        background: linear-gradient(135deg, rgba(28,30,36,.8), rgba(20,22,28,.9)) !important;
-        color: #e8e8e8 !important;
-        padding: 12px 20px !important;
-        letter-spacing: 0.02em !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        height: 48px !important;
-        min-height: 48px !important;
-        font-size: 0.95rem !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+        border-radius: 99px !important;
+        font-weight: 500 !important;
+        border: 1px solid transparent !important;
+        background: transparent !important;
+        color: rgba(255,255,255,0.42) !important;
+        padding: 10px 16px !important;
+        letter-spacing: 0.01em !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        font-size: 0.9rem !important;
+        box-shadow: none !important;
       }
       .nav-container .stButton>button:hover {
-        border-color: rgba(212,175,55,.6) !important;
-        background: linear-gradient(135deg, rgba(32,34,40,.9), rgba(24,26,32,.95)) !important;
-        box-shadow: 0 4px 20px rgba(212,175,55,.12), 0 2px 8px rgba(0,0,0,0.2) !important;
-        transform: translateY(-1px) !important;
-        color: #fff !important;
-      }
-      .nav-container .stButton>button:disabled {
-        color: #D4AF37 !important;
-        border-color: rgba(212,175,55,.8) !important;
-        background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.08)) !important;
-        box-shadow: 0 0 0 1px rgba(212,175,55,.3) inset, 0 4px 16px rgba(212,175,55,.08) !important;
+        background: rgba(255,255,255,0.06) !important;
+        color: rgba(255,255,255,0.80) !important;
+        border-color: rgba(255,255,255,0.08) !important;
         transform: none !important;
-        font-weight: 700 !important;
+        box-shadow: none !important;
       }
 
-      /* 모바일 최적화 (768px 이하) */
+      /* ── 탭 버튼 (활성 = disabled) ───────────────────────── */
+      .nav-container .stButton>button:disabled {
+        background: var(--c-gold-dim, rgba(212,175,55,0.12)) !important;
+        color: var(--c-gold, #D4AF37) !important;
+        border: 1px solid rgba(212,175,55,0.28) !important;
+        box-shadow: 0 0 14px rgba(212,175,55,0.08) !important;
+        font-weight: 700 !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      /* ── 모바일 최적화 ───────────────────────────────────── */
       @media (max-width: 768px) {
         .nav-container .stButton>button {
-          font-size: 0.75rem !important;
-          padding: 8px 6px !important;
+          font-size: 0.72rem !important;
+          padding: 8px 8px !important;
           height: auto !important;
-          min-height: 42px !important;
+          min-height: 40px !important;
           line-height: 1.3 !important;
           white-space: normal !important;
           word-break: keep-all !important;
         }
-        .nav-container {
-          padding: 12px 10px !important;
-          margin: 6px 0 16px 0 !important;
-        }
-        .nav-container img {
-          height: 36px !important;
-        }
+        .nav-container { padding: 10px 10px !important; margin: 6px 0 16px 0 !important; }
+        .nav-container img { height: 34px !important; }
       }
-
-      /* 더 작은 화면 (480px 이하) */
       @media (max-width: 480px) {
         .nav-container .stButton>button {
-          font-size: 0.7rem !important;
-          padding: 6px 4px !important;
-          min-height: 38px !important;
+          font-size: 0.67rem !important;
+          padding: 6px 6px !important;
+          min-height: 36px !important;
         }
-        .nav-container {
-          padding: 10px 8px !important;
-          border-radius: 12px !important;
-        }
-        .nav-container img {
-          height: 32px !important;
-        }
+        .nav-container { padding: 8px 8px !important; border-radius: 14px !important; }
+        .nav-container img { height: 30px !important; }
       }
     </style>
     """, unsafe_allow_html=True)

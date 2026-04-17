@@ -55,83 +55,37 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일
-    st.markdown("""
-    <style>
-    .pub-dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    .pub-dash-container * { text-align: center; }
-    .pub-dash-container div[data-testid="column"] { padding: 0 4px !important; }
-
-    .pub-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 12px; border-top: 3px solid; transition: all 0.2s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
-    .pub-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-
-    .pub-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
-    .pub-card.general { border-top-color: #3b82f6; }
-    .pub-card.economic { border-top-color: #10b981; }
-    .pub-card.agency { border-top-color: #f59e0b; }
-    .pub-card.evening { border-top-color: #8b5cf6; }
-    .pub-card.english { border-top-color: #ec4899; }
-    .pub-card.tv { border-top-color: #ef4444; }
-    .pub-card.online { border-top-color: #06b6d4; }
-
-    .pub-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
-    .pub-card.total .pub-label { color: #6366f1; }
-    .pub-card.general .pub-label { color: #3b82f6; }
-    .pub-card.economic .pub-label { color: #10b981; }
-    .pub-card.agency .pub-label { color: #f59e0b; }
-    .pub-card.evening .pub-label { color: #8b5cf6; }
-    .pub-card.english .pub-label { color: #ec4899; }
-    .pub-card.tv .pub-label { color: #ef4444; }
-    .pub-card.online .pub-label { color: #06b6d4; }
-
-    .pub-value { color: #e0e0e0; font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
-    .pub-card.total .pub-value { font-size: 2.4rem; color: #fff; }
-
-    .pub-pct { color: #888; font-size: 0.7rem; margin-top: 4px; }
-
-    @media (max-width: 1200px) {
-        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(25% - 8px) !important; min-width: 120px !important; }
-    }
-    @media (max-width: 768px) {
-        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 8px) !important; min-width: 100px !important; }
-    }
-    @media (max-width: 480px) {
-        .pub-dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 8px) !important; }
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     # 헤더 없이 바로 컨테이너 시작
-    st.markdown('<div class="pub-dash-container">', unsafe_allow_html=True)
+    st.markdown('<div class="iris-dash">', unsafe_allow_html=True)
 
     # 총 출입매체 수 (첫 번째 행에 단독 배치)
     col_total = st.columns([1])[0]
     with col_total:
-        st.markdown(f'<div class="pub-card total"><div class="pub-label">총 출입매체</div><div class="pub-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-total"><div class="ic-label">총 출입매체</div><div class="ic-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
 
     # 구분별 통계 (두 번째 행에 7개 배치)
     col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
     with col1:
-        st.markdown(f'<div class="pub-card general"><div class="pub-label">종합지</div><div class="pub-value" id="general-{unique_id}" data-target="{category_counts["종합지"]}">0</div><div class="pub-pct">{category_pcts["종합지"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-blue"><div class="ic-label">종합지</div><div class="ic-value" id="general-{unique_id}" data-target="{category_counts["종합지"]}">0</div><div class="ic-pct">{category_pcts["종합지"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f'<div class="pub-card economic"><div class="pub-label">경제지</div><div class="pub-value" id="economic-{unique_id}" data-target="{category_counts["경제지"]}">0</div><div class="pub-pct">{category_pcts["경제지"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-emerald"><div class="ic-label">경제지</div><div class="ic-value" id="economic-{unique_id}" data-target="{category_counts["경제지"]}">0</div><div class="ic-pct">{category_pcts["경제지"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f'<div class="pub-card agency"><div class="pub-label">통신사</div><div class="pub-value" id="agency-{unique_id}" data-target="{category_counts["통신사"]}">0</div><div class="pub-pct">{category_pcts["통신사"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-warn"><div class="ic-label">통신사</div><div class="ic-value" id="agency-{unique_id}" data-target="{category_counts["통신사"]}">0</div><div class="ic-pct">{category_pcts["통신사"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f'<div class="pub-card evening"><div class="pub-label">석간지</div><div class="pub-value" id="evening-{unique_id}" data-target="{category_counts["석간지"]}">0</div><div class="pub-pct">{category_pcts["석간지"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-purple"><div class="ic-label">석간지</div><div class="ic-value" id="evening-{unique_id}" data-target="{category_counts["석간지"]}">0</div><div class="ic-pct">{category_pcts["석간지"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col5:
-        st.markdown(f'<div class="pub-card english"><div class="pub-label">영자지</div><div class="pub-value" id="english-{unique_id}" data-target="{category_counts["영자지"]}">0</div><div class="pub-pct">{category_pcts["영자지"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-pink"><div class="ic-label">영자지</div><div class="ic-value" id="english-{unique_id}" data-target="{category_counts["영자지"]}">0</div><div class="ic-pct">{category_pcts["영자지"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col6:
-        st.markdown(f'<div class="pub-card tv"><div class="pub-label">경제TV</div><div class="pub-value" id="tv-{unique_id}" data-target="{category_counts["경제TV"]}">0</div><div class="pub-pct">{category_pcts["경제TV"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-neg"><div class="ic-label">경제TV</div><div class="ic-value" id="tv-{unique_id}" data-target="{category_counts["경제TV"]}">0</div><div class="ic-pct">{category_pcts["경제TV"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col7:
-        st.markdown(f'<div class="pub-card online"><div class="pub-label">온라인지</div><div class="pub-value" id="online-{unique_id}" data-target="{category_counts["온라인지"]}">0</div><div class="pub-pct">{category_pcts["온라인지"]:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-teal"><div class="ic-label">온라인지</div><div class="ic-value" id="online-{unique_id}" data-target="{category_counts["온라인지"]}">0</div><div class="ic-pct">{category_pcts["온라인지"]:.1f}%</div></div>', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
     animation_script = f'''

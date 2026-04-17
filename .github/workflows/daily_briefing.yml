@@ -1,0 +1,42 @@
+name: Daily News Briefing
+
+on:
+  schedule:
+    # 매일 23:00 UTC = 다음날 08:00 KST
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  briefing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests pandas python-dotenv
+
+      - name: Pull latest data
+        run: |
+          git fetch origin main
+          git checkout origin/main -- data/
+          echo "Data refreshed at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+
+      - name: Send daily briefing
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python daily_briefing.py

@@ -106,132 +106,71 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # CSS 스타일 (대시보드 전용)
-    st.markdown("""
-    <style>
-    /* 대시보드 요약 카드 (variant 클래스가 있는 것만 중앙 정렬 적용) */
-    .news-card.total,
-    .news-card.posco-intl,
-    .news-card.posco,
-    .news-card.mobility,
-    .news-card.samcheok,
-    .news-card.others {
-        background: rgba(255,255,255,0.03);
-        border-radius: 12px;
-        padding: 16px 12px;
-        border-top: 3px solid;
-        transition: all 0.2s ease;
-        min-height: 120px;
-        display: flex; flex-direction: column;
-        justify-content: center; align-items: center;
-        text-align: center;
-    }
-    .news-card.total:hover,
-    .news-card.posco-intl:hover,
-    .news-card.posco:hover,
-    .news-card.mobility:hover,
-    .news-card.samcheok:hover,
-    .news-card.others:hover {
-        background: rgba(255,255,255,0.06);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .news-card.total    { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
-    .news-card.posco-intl { border-top-color: #22c55e; }
-    .news-card.posco    { border-top-color: #c8920a; }
-    .news-card.mobility { border-top-color: #3b82f6; }
-    .news-card.samcheok { border-top-color: #ec4899; }
-    .news-card.others   { border-top-color: #8b5cf6; }
-
-    .news-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
-    .news-card.total     .news-label { color: #6366f1; }
-    .news-card.posco-intl .news-label { color: #22c55e; }
-    .news-card.posco     .news-label { color: #c8920a; }
-    .news-card.mobility  .news-label { color: #3b82f6; }
-    .news-card.samcheok  .news-label { color: #ec4899; }
-    .news-card.others    .news-label { color: #8b5cf6; }
-
-    .news-value { color: #e0e0e0; font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
-    .news-card.total .news-value { font-size: 2.4rem; color: #fff; }
-
-    .news-pct { color: #888; font-size: 0.7rem; margin-top: 4px; }
-
-    /* Sentiment 표시 스타일 */
-    .news-sentiment { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.65rem; margin-top: 4px; opacity: 0.8; }
-    .news-sentiment-item { display: flex; align-items: center; gap: 3px; }
-    .news-sentiment-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-    .news-sentiment-dot.pos { background: #22c55e; }
-    .news-sentiment-dot.neg { background: #ef4444; }
-    .news-sentiment-count { color: #bbb; font-weight: 600; }
-    </style>
-    """, unsafe_allow_html=True)
-
     # 6개 카드를 한 줄에 배치
     col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
-        st.markdown(f'''<div class="news-card total">
-            <div class="news-label">당일 기사</div>
-            <div class="news-value" id="total-{unique_id}" data-target="{total_today}">0</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{total_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{total_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-total">
+            <div class="ic-label">당일 기사</div>
+            <div class="ic-value" id="total-{unique_id}" data-target="{total_today}">0</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{total_pos}</span>
+                <span class="ic-pill neg">{total_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f'''<div class="news-card posco-intl">
-            <div class="news-label">#포스코인터내셔널</div>
-            <div class="news-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
-            <div class="news-pct">{posco_intl_pct:.1f}%</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_intl_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_intl_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-pos">
+            <div class="ic-label">#포스코인터내셔널</div>
+            <div class="ic-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
+            <div class="ic-pct">{posco_intl_pct:.1f}%</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{posco_intl_pos}</span>
+                <span class="ic-pill neg">{posco_intl_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f'''<div class="news-card posco">
-            <div class="news-label">#포스코</div>
-            <div class="news-value" id="posco-{unique_id}" data-target="{posco_count}">0</div>
-            <div class="news-pct">{posco_pct:.1f}%</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-amber">
+            <div class="ic-label">#포스코</div>
+            <div class="ic-value" id="posco-{unique_id}" data-target="{posco_count}">0</div>
+            <div class="ic-pct">{posco_pct:.1f}%</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{posco_pos}</span>
+                <span class="ic-pill neg">{posco_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f'''<div class="news-card mobility">
-            <div class="news-label">#포스코모빌리티솔루션</div>
-            <div class="news-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
-            <div class="news-pct">{posco_mobility_pct:.1f}%</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{posco_mobility_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{posco_mobility_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-blue">
+            <div class="ic-label">#포스코모빌리티솔루션</div>
+            <div class="ic-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
+            <div class="ic-pct">{posco_mobility_pct:.1f}%</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{posco_mobility_pos}</span>
+                <span class="ic-pill neg">{posco_mobility_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
     with col5:
-        st.markdown(f'''<div class="news-card samcheok">
-            <div class="news-label">#삼척블루파워</div>
-            <div class="news-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
-            <div class="news-pct">{samcheok_pct:.1f}%</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{samcheok_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{samcheok_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-pink">
+            <div class="ic-label">#삼척블루파워</div>
+            <div class="ic-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
+            <div class="ic-pct">{samcheok_pct:.1f}%</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{samcheok_pos}</span>
+                <span class="ic-pill neg">{samcheok_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
     with col6:
-        st.markdown(f'''<div class="news-card others">
-            <div class="news-label">#기타</div>
-            <div class="news-value" id="others-{unique_id}" data-target="{others_count}">0</div>
-            <div class="news-pct">{others_pct:.1f}%</div>
-            <div class="news-sentiment">
-                <div class="news-sentiment-item"><span class="news-sentiment-dot pos"></span><span class="news-sentiment-count">{others_pos}</span></div>
-                <div class="news-sentiment-item"><span class="news-sentiment-dot neg"></span><span class="news-sentiment-count">{others_neg}</span></div>
+        st.markdown(f'''<div class="iris-card ic-purple">
+            <div class="ic-label">#기타</div>
+            <div class="ic-value" id="others-{unique_id}" data-target="{others_count}">0</div>
+            <div class="ic-pct">{others_pct:.1f}%</div>
+            <div class="ic-pill-row">
+                <span class="ic-pill pos">{others_pos}</span>
+                <span class="ic-pill neg">{others_neg}</span>
             </div>
         </div>''', unsafe_allow_html=True)
 

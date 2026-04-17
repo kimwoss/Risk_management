@@ -21,13 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Pull latest data before run
-        run: |
-          # 런 시작 전 최신 data/ 파일을 원격에서 가져옴
-          # 이전 런의 sent_cache, pending_queue, CSV가 stale하지 않도록 보장
-          git fetch origin main
-          git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped (first run or conflict)"
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -39,10 +32,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Check open file descriptors (before)
+      - name: Pull latest data (just before run)
         run: |
-          echo "Open files before run:"
-          lsof -p $$ 2>/dev/null | wc -l || echo "lsof not available - skipping check"
+          # 스크립트 실행 직전에 최신 data/ 파일을 가져옴
+          # setup-python + pip install 이후에 실행하여 stale 데이터 최소화
+          git fetch origin main
+          git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped (first run or conflict)"
+          echo "Data files refreshed at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 
       - name: Run news monitor
         env:
@@ -53,12 +49,6 @@ jobs:
         run: |
           python standalone_monitor.py
 
-      - name: Check open file descriptors (after)
-        if: always()
-        run: |
-          echo "Open files after run:"
-          lsof -p $$ 2>/dev/null | wc -l || echo "lsof not available - skipping check"
-
       - name: Upload news database (artifact)
         if: always()
         uses: actions/upload-artifact@v4
@@ -68,7 +58,7 @@ jobs:
           retention-days: 7
 
       - name: Commit and push updated database
-        if: success()
+        if: always()
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -80,17 +70,16 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
-            # 최대 3회 재시도 (merge -X ours 전략: JSON 충돌 시 현재 런의 데이터 우선)
+            # 최대 3회 재시도 (rebase 전략: 원격 변경사항 위에 현재 커밋을 올림)
+            # -X ours 대신 rebase 사용: 원격 sent_cache 데이터를 유지하면서 현재 변경사항 추가
             for i in 1 2 3; do
               echo "Push attempt $i..."
-              git fetch origin main
-              # rebase 대신 merge 사용: JSON 파일 충돌 시 우리 데이터(현재 런) 우선
-              if git merge origin/main -X ours --no-edit -m "Merge remote (keep local data)" 2>/dev/null && git push; then
+              if git pull --rebase origin main && git push; then
                 echo "Push successful!"
                 break
               else
                 echo "Push failed, retrying in 5 seconds..."
-                git merge --abort 2>/dev/null || true
+                git rebase --abort 2>/dev/null || true
                 sleep 5
               fi
             done

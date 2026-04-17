@@ -1169,7 +1169,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 3  # 최근 3시간 이내 기사만 알림 (캐시 리셋 시 최소 범위로 재발송 제한)
+        MAX_ARTICLE_AGE_HOURS = 12  # 최근 12시간 이내 기사만 알림 (GitHub Actions 지연 대응: 기존 3시간에서 확대)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1328,7 +1328,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 continue
 
             # 오래된 pending 기사 폐기 (캐시 리셋 시 stale 백로그 방지)
-            MAX_PENDING_ARTICLE_AGE_HOURS = 3
+            MAX_PENDING_ARTICLE_AGE_HOURS = 12  # GitHub Actions 지연 대응: 기존 3시간에서 12시간으로 확대
             try:
                 article_dt = pd.to_datetime(date, errors="coerce")
                 if pd.notna(article_dt):

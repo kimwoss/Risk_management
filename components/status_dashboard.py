@@ -30,62 +30,26 @@ def render_status_dashboard(total: int, status_counts: dict, year: int = None, s
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    st.markdown("""
-    <style>
-    .dash-container { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    .dash-container * { text-align: center; }
-    .dash-container div[data-testid="column"] { padding: 0 6px !important; }
-
-    .status-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px; border-top: 3px solid; transition: all 0.2s ease; min-height: 140px; display: flex; flex-direction: column; justify-content: center; }
-    .status-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    
-    .status-card.total { border-top-color: #6366f1; background: rgba(99,102,241,0.05); }
-    .status-card.interest { border-top-color: #22c55e; }
-    .status-card.caution { border-top-color: #f59e0b; }
-    .status-card.crisis { border-top-color: #f97316; }
-    .status-card.emergency { border-top-color: #ef4444; }
-    
-    .status-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
-    .status-card.total .status-label { color: #6366f1; }
-    .status-card.interest .status-label { color: #22c55e; }
-    .status-card.caution .status-label { color: #f59e0b; }
-    .status-card.crisis .status-label { color: #f97316; }
-    .status-card.emergency .status-label { color: #ef4444; }
-    
-    .status-value { color: #e0e0e0; font-size: 2.2rem; font-weight: 700; margin: 8px 0; }
-    .status-card.total .status-value { font-size: 2.8rem; color: #fff; }
-    
-    .status-pct { color: #888; font-size: 0.75rem; margin-top: 4px; }
-    
-    @media (max-width: 768px) {
-        .dash-container div[data-testid="column"] { flex: 1 1 calc(33.333% - 12px) !important; min-width: 100px !important; }
-    }
-    @media (max-width: 480px) {
-        .dash-container div[data-testid="column"] { flex: 1 1 calc(50% - 12px) !important; }
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     # 헤더 없이 바로 컨테이너 시작
-    st.markdown('<div class="dash-container">', unsafe_allow_html=True)
-    
+    st.markdown('<div class="iris-dash">', unsafe_allow_html=True)
+
     # 한 줄에 5개 카드 배치
     col1, col2, col3, col4, col5 = st.columns(5)
-    
+
     with col1:
-        st.markdown(f'<div class="status-card total"><div class="status-label">총 건수</div><div class="status-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-total"><div class="ic-label">총 건수</div><div class="ic-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f'<div class="status-card interest"><div class="status-label">관심</div><div class="status-value" id="interest-{unique_id}" data-target="{관심_count}">0</div><div class="status-pct">{관심_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-pos"><div class="ic-label">관심</div><div class="ic-value" id="interest-{unique_id}" data-target="{관심_count}">0</div><div class="ic-pct">{관심_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f'<div class="status-card caution"><div class="status-label">주의</div><div class="status-value" id="caution-{unique_id}" data-target="{주의_count}">0</div><div class="status-pct">{주의_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-warn"><div class="ic-label">주의</div><div class="ic-value" id="caution-{unique_id}" data-target="{주의_count}">0</div><div class="ic-pct">{주의_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f'<div class="status-card crisis"><div class="status-label">위기</div><div class="status-value" id="crisis-{unique_id}" data-target="{위기_count}">0</div><div class="status-pct">{위기_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-orange"><div class="ic-label">위기</div><div class="ic-value" id="crisis-{unique_id}" data-target="{위기_count}">0</div><div class="ic-pct">{위기_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     with col5:
-        st.markdown(f'<div class="status-card emergency"><div class="status-label">비상</div><div class="status-value" id="emergency-{unique_id}" data-target="{비상_count}">0</div><div class="status-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="iris-card ic-neg"><div class="ic-label">비상</div><div class="ic-value" id="emergency-{unique_id}" data-target="{비상_count}">0</div><div class="ic-pct">{비상_pct:.1f}%</div></div>', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
     animation_script = f'''

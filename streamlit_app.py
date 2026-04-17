@@ -166,207 +166,231 @@ def check_authentication():
     return False
 
 def show_login_page():
-    """로그인 페이지 표시 - Genesis 스타일"""
-    # 베이스 CSS 로드
-    st.markdown("""
+    """로그인 페이지 — 스플릿 스크린 디자인"""
+    # 배경 이미지 로드
+    _bg_path = os.path.join(os.path.abspath("data"), "Image_login.jpg")
+    _bg_uri = ""
+    if os.path.exists(_bg_path):
+        with open(_bg_path, "rb") as _f:
+            _bg_uri = f"data:image/jpeg;base64,{base64.b64encode(_f.read()).decode()}"
+
+    # 로고 URI (상단 로고 이미지 재사용)
+    _logo_uri = load_logo_data_uri()
+    _logo_html = (
+        f'<img src="{_logo_uri}" alt="POSCO International" '
+        f'style="height:36px; max-width:200px; object-fit:contain; margin-bottom:48px; opacity:0.92;">'
+        if _logo_uri else
+        '<div style="font-size:13px; font-weight:700; letter-spacing:.18em; color:rgba(255,255,255,.5); margin-bottom:48px;">POSCO INTERNATIONAL</div>'
+    )
+
+    st.markdown(f"""
     <style>
-      /* 배경/폰트 */
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap');
-      [data-testid="stAppViewContainer"]{
-        background: linear-gradient(180deg,#0c0d10 0%, #0a0b0d 100%) !important;
-        color:#eee; font-family:'Inter','Noto Sans KR',system-ui,Segoe UI,Roboto,Apple SD Gothic Neo,Pretendard,sans-serif;
-      }
-      [data-testid="stHeader"]{background:transparent; height:0;}
-      section[data-testid="stSidebar"] {display:none !important;}
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
 
-      /* 중앙 고정 오버레이 */
-      .login-overlay {
-        position: fixed;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        z-index: 1;
-        pointer-events: none;
-      }
-      .login-box {
-        background: linear-gradient(135deg, rgba(24,24,28,.75), rgba(16,16,20,.9));
-        border: 1px solid rgba(212,175,55,.25);
-        border-radius: 16px;
-        padding: 48px 40px;
-        max-width: 520px;
-        width: 100%;
-        box-shadow: 0 12px 48px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.06) inset;
-        backdrop-filter: blur(12px);
-        text-align: center;
-        pointer-events: auto;
-        position: relative;
-        z-index: 2;
-      }
+      /* ── 전체 리셋 ─────────────────────────────── */
+      [data-testid="stAppViewContainer"] {{
+        background: #05060a !important;
+        font-family: 'Inter','Noto Sans KR',system-ui,sans-serif;
+      }}
+      [data-testid="stHeader"]  {{ background:transparent !important; height:0 !important; }}
+      section[data-testid="stSidebar"] {{ display:none !important; }}
+      .block-container {{ padding:0 !important; max-width:100% !important; }}
 
-      /* 입력/버튼 폭 제한 컨테이너 */
-      .login-form-wrapper {
-        max-width: 420px;
-        margin: 0 auto;
-      }
-      .login-logo {
-        font-size: 56px;
-        margin-bottom: 16px;
-        filter: drop-shadow(0 4px 12px rgba(212,175,55,.2));
-      }
-      .login-title {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        color: #fff;
-        letter-spacing: -0.02em;
-      }
-      .login-subtitle {
-        font-size: 15px;
-        color: rgba(255,255,255,.6);
-        margin-bottom: 36px;
-        font-weight: 400;
-      }
+      /* ── 배경 이미지 — 왼쪽 60% 영역 ─────────────── */
+      .lp-bg {{
+        position:fixed; inset:0; z-index:0;
+        background: url('{_bg_uri}') left center / cover no-repeat;
+      }}
+      .lp-bg::after {{
+        content:'';
+        position:absolute; inset:0;
+        background: linear-gradient(
+          105deg,
+          rgba(5,6,10,.18)  0%,
+          rgba(5,6,10,.30) 42%,
+          rgba(5,6,10,.88) 60%,
+          rgba(5,6,10,.98) 100%
+        );
+      }}
 
-      /* 입력 필드 스타일 */
-      .stTextInput>div>div>input {
-        background: rgba(0,0,0,.4) !important;
-        border: 1px solid rgba(255,255,255,.2) !important;
-        border-radius: 10px !important;
-        color: #ffffff !important;
-        padding: 14px 16px !important;
-        font-size: 15px !important;
-        transition: all 0.25s ease !important;
-        position: relative !important;
-        z-index: 3 !important;
-        caret-color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
-      }
-      .stTextInput>div>div>input:focus {
-        border-color: rgba(212,175,55,.6) !important;
-        box-shadow: 0 0 0 2px rgba(212,175,55,.15) !important;
-        background: rgba(0,0,0,.5) !important;
-        color: #ffffff !important;
-      }
-      .stTextInput>div>div>input::placeholder {
-        color: rgba(255,255,255,.4) !important;
-      }
+      /* ── 좌측 브랜드 카피 ─────────────────────────── */
+      .lp-brand {{
+        position:fixed; left:0; top:0; bottom:0; width:58%;
+        display:flex; flex-direction:column; justify-content:flex-end;
+        padding:0 0 72px 72px;
+        z-index:1; pointer-events:none;
+      }}
+      .lp-brand-badge {{
+        display:inline-flex; align-items:center; gap:7px;
+        background:rgba(212,175,55,.12); border:1px solid rgba(212,175,55,.28);
+        border-radius:99px; padding:5px 14px 5px 10px;
+        color:#D4AF37; font-size:.72rem; font-weight:700;
+        letter-spacing:.08em; text-transform:uppercase;
+        margin-bottom:20px; width:fit-content;
+      }}
+      .lp-brand-badge span {{ width:7px; height:7px; border-radius:50%; background:#D4AF37;
+        box-shadow:0 0 8px rgba(212,175,55,.6); display:inline-block; }}
+      .lp-brand-title {{
+        font-size:3.6rem; font-weight:300; color:#fff; line-height:1.1;
+        letter-spacing:-.03em; margin-bottom:16px;
+        text-shadow:0 4px 24px rgba(0,0,0,.5);
+      }}
+      .lp-brand-title b {{ font-weight:700; color:#D4AF37; }}
+      .lp-brand-sub {{
+        font-size:1.05rem; color:rgba(255,255,255,.65); font-weight:400;
+        line-height:1.6; max-width:400px; margin-bottom:36px;
+      }}
+      .lp-brand-footer {{
+        font-size:.72rem; color:rgba(255,255,255,.28); letter-spacing:.04em;
+      }}
+
+      /* ── 우측 로그인 패널 ─────────────────────────── */
+      .lp-panel {{
+        position:fixed; right:0; top:0; bottom:0; width:42%;
+        background:rgba(6,7,11,.96);
+        border-left:1px solid rgba(255,255,255,.06);
+        backdrop-filter:blur(32px); -webkit-backdrop-filter:blur(32px);
+        display:flex; flex-direction:column; justify-content:center;
+        padding:0 64px;
+        z-index:2; pointer-events:none;
+      }}
+
+      /* ── 오버레이 (Streamlit 요소 포지셔닝) ─────── */
+      .lp-overlay {{
+        position:fixed; right:0; top:0; bottom:0; width:42%;
+        display:flex; flex-direction:column; justify-content:center;
+        padding:0 64px;
+        z-index:3; pointer-events:none;
+      }}
+      .lp-form {{
+        pointer-events:auto; width:100%; max-width:340px;
+      }}
+      .lp-form-logo {{ margin-bottom:40px; }}
+      .lp-form-title {{
+        font-size:1.85rem; font-weight:700; color:#fff;
+        letter-spacing:-.03em; margin-bottom:6px;
+      }}
+      .lp-form-desc {{
+        font-size:.85rem; color:rgba(255,255,255,.42);
+        font-weight:400; margin-bottom:40px; line-height:1.55;
+      }}
+      .lp-label {{
+        font-size:.75rem; font-weight:600; color:rgba(255,255,255,.5);
+        letter-spacing:.08em; text-transform:uppercase;
+        margin-bottom:8px;
+      }}
+
+      /* ── 입력 필드 ─────────────────────────────── */
+      .stTextInput>div>div>input {{
+        background:rgba(255,255,255,.05) !important;
+        border:1px solid rgba(255,255,255,.12) !important;
+        border-radius:10px !important;
+        color:#fff !important; caret-color:#fff !important;
+        -webkit-text-fill-color:#fff !important;
+        padding:13px 16px !important; font-size:15px !important;
+        transition:all .22s ease !important;
+        z-index:4; position:relative !important;
+      }}
+      .stTextInput>div>div>input:focus {{
+        border-color:rgba(212,175,55,.55) !important;
+        background:rgba(255,255,255,.08) !important;
+        box-shadow:0 0 0 3px rgba(212,175,55,.10) !important;
+      }}
+      .stTextInput>div>div>input::placeholder {{ color:rgba(255,255,255,.28) !important; }}
       .stTextInput>div>div>input:-webkit-autofill,
-      .stTextInput>div>div>input:-webkit-autofill:hover,
-      .stTextInput>div>div>input:-webkit-autofill:focus {
-        -webkit-text-fill-color: #ffffff !important;
-        -webkit-box-shadow: 0 0 0px 1000px rgba(0,0,0,.5) inset !important;
-        transition: background-color 5000s ease-in-out 0s !important;
-      }
-      .stTextInput {
-        position: relative !important;
-        z-index: 3 !important;
-      }
+      .stTextInput>div>div>input:-webkit-autofill:focus {{
+        -webkit-text-fill-color:#fff !important;
+        -webkit-box-shadow:0 0 0 1000px rgba(6,7,11,.98) inset !important;
+      }}
+      .stTextInput {{ position:relative !important; z-index:4 !important; }}
 
-      /* 로그인 버튼 */
-      .stButton>button {
-        background: linear-gradient(135deg, #D4AF37, #B8941F) !important;
-        border: 1px solid rgba(212,175,55,.4) !important;
-        border-radius: 10px !important;
-        color: #000 !important;
-        font-weight: 700 !important;
-        padding: 14px 24px !important;
-        font-size: 16px !important;
-        letter-spacing: 0.02em !important;
-        transition: all 0.25s ease !important;
-        box-shadow: 0 4px 16px rgba(212,175,55,.2) !important;
-        position: relative !important;
-        z-index: 3 !important;
-        cursor: pointer !important;
-      }
-      .stButton>button:hover {
-        background: linear-gradient(135deg, #E6C55A, #D4AF37) !important;
-        border-color: rgba(212,175,55,.8) !important;
-        box-shadow: 0 6px 24px rgba(212,175,55,.35) !important;
-        transform: translateY(-1px) !important;
-      }
-      .stButton {
-        position: relative !important;
-        z-index: 3 !important;
-      }
+      /* ── 로그인 버튼 ─────────────────────────────── */
+      .stButton>button {{
+        background:linear-gradient(135deg,#c8a227,#a8841a) !important;
+        border:none !important; border-radius:10px !important;
+        color:#0a0800 !important; font-weight:700 !important;
+        padding:13px 24px !important; font-size:.95rem !important;
+        letter-spacing:.02em !important;
+        transition:all .22s ease !important;
+        box-shadow:0 4px 20px rgba(200,162,39,.22) !important;
+        position:relative !important; z-index:4 !important;
+        margin-top:8px !important;
+      }}
+      .stButton>button:hover {{
+        background:linear-gradient(135deg,#dbb83a,#c8a227) !important;
+        box-shadow:0 6px 28px rgba(212,175,55,.38) !important;
+        transform:translateY(-1px) !important;
+      }}
+      .stButton {{ position:relative !important; z-index:4 !important; }}
 
-      /* 에러 메시지 */
-      .stAlert {
-        background: rgba(220,38,38,.15) !important;
-        border: 1px solid rgba(220,38,38,.3) !important;
-        border-radius: 8px !important;
-        color: #fca5a5 !important;
-      }
+      /* ── 에러 메시지 ─────────────────────────────── */
+      .stAlert {{
+        background:rgba(220,38,38,.12) !important;
+        border:1px solid rgba(220,38,38,.25) !important;
+        border-radius:8px !important; color:#fca5a5 !important;
+        font-size:.85rem !important; margin-top:12px !important;
+      }}
 
-      /* 모바일 최적화 (로그인 페이지) */
-      @media (max-width: 768px) {
-        .login-box {
-          padding: 32px 24px !important;
-          max-width: 90% !important;
-        }
-        .login-logo {
-          font-size: 48px !important;
-        }
-        .login-title {
-          font-size: 24px !important;
-        }
-        .login-subtitle {
-          font-size: 14px !important;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .login-box {
-          padding: 24px 20px !important;
-        }
-        .login-logo {
-          font-size: 40px !important;
-        }
-        .login-title {
-          font-size: 20px !important;
-        }
-        .login-subtitle {
-          font-size: 13px !important;
-          margin-bottom: 24px !important;
-        }
-      }
+      /* ── 모바일: 패널 전체폭 ─────────────────────── */
+      @media (max-width:900px) {{
+        .lp-bg::after {{
+          background:rgba(5,6,10,.82) !important;
+        }}
+        .lp-brand {{ display:none !important; }}
+        .lp-panel, .lp-overlay {{
+          width:100% !important; padding:0 32px !important;
+          border-left:none !important;
+        }}
+        .lp-form {{ max-width:100% !important; }}
+      }}
+      @media (max-width:480px) {{
+        .lp-panel, .lp-overlay {{ padding:0 24px !important; }}
+      }}
     </style>
+
+    <!-- 배경 이미지 레이어 -->
+    <div class="lp-bg"></div>
+
+    <!-- 좌측 브랜드 카피 -->
+    <div class="lp-brand">
+      <div class="lp-brand-badge"><span></span>Real-time Monitoring</div>
+      <div class="lp-brand-title">리스크를<br><b>먼저</b> 봅니다.</div>
+      <div class="lp-brand-sub">24시간 365일 포스코인터내셔널의<br>언론·미디어 리스크를 자동으로 탐지합니다.</div>
+      <div class="lp-brand-footer">© 2026 POSCO International · P-IRIS v2.1</div>
+    </div>
+
+    <!-- 우측 반투명 패널 (배경역할) -->
+    <div class="lp-panel"></div>
+
+    <!-- 우측 오버레이 (Streamlit 요소 포함) -->
+    <div class="lp-overlay">
+      <div class="lp-form">
+        <div class="lp-form-logo">{_logo_html}</div>
+        <div class="lp-form-title">로그인</div>
+        <div class="lp-form-desc">P-IRIS에 오신 것을 환영합니다.<br>접근 코드를 입력해주세요.</div>
+        <div class="lp-label">Access Code</div>
     """, unsafe_allow_html=True)
 
-    # 중앙 고정 오버레이로 감싸기
-    st.markdown('<div class="login-overlay">', unsafe_allow_html=True)
-
-    # 컬럼 없이 바로 박스 렌더링
-    st.markdown('<div class="login-box">', unsafe_allow_html=True)
-    st.markdown('<div class="login-logo">🛡️</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-title">P-IRIS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-subtitle">POSCO International Risk Intelligence Solution</div>', unsafe_allow_html=True)
-
-    # 폼 래퍼로 입력/버튼 폭 제한
-    st.markdown('<div class="login-form-wrapper">', unsafe_allow_html=True)
-
-    # st.form을 사용하여 엔터 키로 제출 가능하도록 개선
+    # Streamlit 폼
     with st.form(key="login_form", clear_on_submit=False):
-        st.markdown('<div style="margin-bottom: 12px; text-align: left; color: rgba(255,255,255,.7); font-size: 13px; font-weight: 600;">비밀코드</div>', unsafe_allow_html=True)
         code_input = st.text_input(
-            "비밀코드",
+            "access_code",
             type="password",
-            placeholder="비밀코드를 입력하세요",
+            placeholder="••••••••",
             label_visibility="collapsed",
             key="login_code_input"
         )
+        st.markdown('<div style="height:4px;"></div>', unsafe_allow_html=True)
+        submit_button = st.form_submit_button("로그인 →", use_container_width=True)
 
-        st.markdown('<div style="margin-top: 24px;"></div>', unsafe_allow_html=True)
-        submit_button = st.form_submit_button("로그인", use_container_width=True)
+    # 폼 닫기 + 오버레이 닫기
+    st.markdown('</div></div></div>', unsafe_allow_html=True)
 
-    # 폼 제출 처리 (엔터 키 또는 버튼 클릭)
+    # 폼 제출 처리
     if submit_button:
         if code_input == ACCESS_CODE:
-            # 1단계: 세션 상태 즉시 설정 (우선순위 최상위)
             st.session_state.authenticated = True
             st.session_state.login_pending_cookie = True
-
-            # 2단계: 쿠키 설정 (백그라운드, 비동기)
             auth_token = get_auth_token()
             set_cookie_script = f"""
             <script>
@@ -380,15 +404,9 @@ def show_login_page():
             </script>
             """
             st.components.v1.html(set_cookie_script, height=0)
-
-            # 3단계: 즉시 리런 (세션 상태 기반으로 메인 화면 표시)
             st.rerun()
         else:
-            st.error("잘못된 비밀코드입니다. 다시 시도해주세요.")
-
-    st.markdown('</div>', unsafe_allow_html=True)  # </div class="login-form-wrapper">
-    st.markdown('</div>', unsafe_allow_html=True)  # </div class="login-box">
-    st.markdown('</div>', unsafe_allow_html=True)  # </div class="login-overlay">
+            st.error("잘못된 접근 코드입니다. 다시 시도해주세요.")
 
 DATA_FOLDER = os.path.abspath("data")
 MASTER_DATA_FILE = os.path.join(DATA_FOLDER, "master_data.json")

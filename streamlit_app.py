@@ -432,10 +432,7 @@ def show_login_page():
   <div class="mark"></div>
   <span>POSCO INTERNATIONAL &nbsp;·&nbsp; Communications</span>
 </div>
-<div class="overlay-caption">
-  <div class="rule"></div>
-  <div class="title">The first light of <em>clarity</em>,<br>before the story breaks.</div>
-</div>
+
 <div class="overlay-meta">
   Songdo HQ<br>{_time_str} KST
 </div>

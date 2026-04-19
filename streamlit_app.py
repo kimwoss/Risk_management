@@ -208,18 +208,18 @@ def show_login_page():
   [data-testid="stDecoration"] {{ display: none; }}
   section[data-testid="stSidebar"] {{ display: none !important; }}
 
-  /* Full-viewport background image */
+  /* Full-viewport background image — 좌측 폼 영역 어둡게 강화 */
   .stApp {{
     background:
+      linear-gradient(90deg, rgba(10,22,40,0.55) 0%, rgba(10,22,40,0.15) 35%,
+                              rgba(10,22,40,0) 60%,  rgba(10,22,40,0.15) 100%),
       linear-gradient(180deg, rgba(10,22,40,0.35) 0%, rgba(10,22,40,0) 24%,
-                              rgba(10,22,40,0) 58%,  rgba(10,22,40,0.62) 100%),
-      linear-gradient(90deg,  rgba(10,22,40,0.22) 0%, rgba(10,22,40,0) 32%,
-                              rgba(10,22,40,0) 68%,  rgba(10,22,40,0.18) 100%),
+                               rgba(10,22,40,0) 58%,  rgba(10,22,40,0.62) 100%),
       url("data:image/jpeg;base64,{_img_b64}") center/cover no-repeat fixed;
     font-family: var(--body);
   }}
 
-  /* 구 Streamlit (.main) + 신 Streamlit (stMain) 모두 타깃 */
+  /* 구/신 Streamlit 통합 타깃 — 다크 글래스 패널 */
   .main .block-container,
   section.main > div.block-container,
   [data-testid="stMain"] .block-container,
@@ -231,15 +231,19 @@ def show_login_page():
     margin-left: 80px !important;
     margin-right: auto !important;
     margin-top: 10vh !important;
-    padding: 0 !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-top: none !important;
-    box-shadow: none !important;
+    padding: 48px 44px !important;
+    background: rgba(10, 22, 40, 0.55) !important;
+    backdrop-filter: blur(24px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(1.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top: 1px solid rgba(232, 149, 71, 0.5) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 30px 80px rgba(0,0,0,0.35) !important;
+    border-radius: 0 !important;
   }}
 
-  /* st.form 래퍼 폭 제한 */
+  /* st.form 래퍼 */
   [data-testid="stForm"],
   div[data-testid="stForm"] {{
     width: 100% !important;
@@ -248,13 +252,13 @@ def show_login_page():
     padding: 0 !important;
   }}
 
-  /* 입력·버튼·체크박스 부모 폭 초과 방지 */
+  /* 위젯 폭 초과 방지 */
   .stTextInput, .stButton, .stFormSubmitButton, .stCheckbox {{
     width: 100% !important;
     max-width: 440px !important;
   }}
 
-  /* Fixed overlays over background image */
+  /* Fixed overlays */
   .overlay-brand, .overlay-lang, .overlay-caption, .overlay-meta {{
     position: fixed; z-index: 10;
     color: #fff;
@@ -273,16 +277,9 @@ def show_login_page():
   .overlay-brand .mark::after {{
     content: ""; width: 6px; height: 6px; background: var(--amber); border-radius: 50%;
   }}
-  .overlay-lang {{
-    top: 40px; right: 44px;
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  }}
-  .overlay-lang a {{
-    color: #fff; text-decoration: none;
-    border-bottom: 1px solid #fff; padding-bottom: 2px;
-  }}
   .overlay-caption {{
     left: 44px; bottom: 44px; max-width: 440px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4) !important;
   }}
   .overlay-caption .rule {{
     width: 48px; height: 1px; background: rgba(255,255,255,0.7); margin-bottom: 18px;
@@ -296,110 +293,99 @@ def show_login_page():
     right: 44px; bottom: 46px;
     font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
     text-align: right; opacity: 0.82; line-height: 1.7;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4) !important;
   }}
 
-  /* Card top status row */
-  .status-row {{
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 32px;
-  }}
-  .status-row .dot {{
-    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-    background: #2ECC71; margin-right: 8px;
-    box-shadow: 0 0 0 3px rgba(46,204,113,0.18);
-  }}
-  .status-row b {{ color: var(--ink); font-weight: 600; letter-spacing: 0.2em; }}
-
-  /* Eyebrow + wordmark + tagline */
-  .eyebrow {{
-    font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: var(--amber-deep); font-weight: 600;
-    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-  }}
-  .eyebrow::before {{ content: ""; width: 22px; height: 1px; background: var(--amber-deep); }}
+  /* Wordmark */
   .wordmark {{
     font-family: var(--display); font-weight: 400;
     font-size: 58px; line-height: 0.95; letter-spacing: -0.02em;
-    color: #fff; margin: 0 0 12px 0;
+    color: #fff !important; margin: 0 0 32px 0;
     text-shadow: 0 2px 16px rgba(0,0,0,0.3);
   }}
-  .wordmark em {{ font-style: italic; color: #F6C08A; }}
-  .tagline {{
-    font-size: 13.5px; color: rgba(255,255,255,0.72);
-    line-height: 1.55; margin-bottom: 28px;
-  }}
-  .tagline b {{ font-weight: 600; color: #fff; }}
+  .wordmark em {{ font-style: italic; color: #F6C08A !important; }}
 
-  /* Style st.text_input */
-  .stTextInput > label {{
+  /* Input label */
+  .stTextInput > label,
+  .stTextInput label p {{
     font-size: 11px !important; letter-spacing: 0.16em !important;
-    text-transform: uppercase !important;
-    color: var(--muted) !important; font-weight: 600 !important;
+    text-transform: uppercase !important; font-weight: 600 !important;
     margin-bottom: 4px !important;
-  }}
-  /* Input — white-on-dark */
-  .stTextInput > label {{
-    color: rgba(255,255,255,0.55) !important;
+    color: rgba(255,255,255,0.6) !important;
   }}
   .stTextInput > div > div {{
     background: transparent !important;
     border: none !important;
-    border-bottom: 1px solid rgba(255,255,255,0.35) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.25) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     transition: border-color 0.2s ease;
   }}
   .stTextInput > div > div:focus-within {{
-    border-bottom-color: rgba(255,255,255,0.85) !important;
+    border-bottom-color: #F6C08A !important;
   }}
   .stTextInput input {{
     font-family: var(--body) !important;
     font-size: 15px !important;
     color: #fff !important;
+    background: transparent !important;
     padding: 10px 0 12px !important;
     letter-spacing: 0.08em;
-    caret-color: #fff !important;
+    caret-color: #F6C08A !important;
     -webkit-text-fill-color: #fff !important;
   }}
-  .stTextInput input::placeholder {{ color: rgba(255,255,255,0.3) !important; letter-spacing: 0.3em; }}
+  .stTextInput input::placeholder {{ color: rgba(255,255,255,0.35) !important; letter-spacing: 0.3em; }}
   .stTextInput input:-webkit-autofill,
   .stTextInput input:-webkit-autofill:focus {{
     -webkit-text-fill-color: #fff !important;
-    -webkit-box-shadow: 0 0 0 1000px rgba(10,22,40,0.0) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10,22,40,0.01) inset !important;
+  }}
+  .stTextInput button svg {{
+    color: rgba(255,255,255,0.6) !important;
+    fill: rgba(255,255,255,0.6) !important;
   }}
 
   /* Checkbox */
-  .stCheckbox label {{
-    font-size: 12.5px !important; color: rgba(255,255,255,0.65) !important;
+  .stCheckbox label, .stCheckbox label p {{
+    font-size: 12.5px !important;
+    color: rgba(255,255,255,0.82) !important;
     font-family: var(--body) !important;
   }}
-  .stCheckbox label p {{ font-size: 12.5px !important; }}
   .stCheckbox [data-testid="stCheckbox"] > label > div:first-child {{
     border: 1px solid rgba(255,255,255,0.4) !important;
     border-radius: 0 !important;
     background: transparent !important;
   }}
+  .stCheckbox input:checked + div,
+  .stCheckbox [aria-checked="true"] {{
+    background-color: #E89547 !important;
+    border-color: #E89547 !important;
+  }}
 
-  /* Submit button */
-  .stButton > button, .stFormSubmitButton > button {{
-    width: 100%;
-    background: rgba(255,255,255,0.12) !important;
-    color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.45) !important;
+  /* Submit button — 앰버 솔리드 */
+  .stButton > button,
+  .stFormSubmitButton > button,
+  [data-testid="stBaseButton-secondaryFormSubmit"],
+  [data-testid="stFormSubmitButton"] button {{
+    width: 100% !important;
+    background: #E89547 !important;
+    color: #0A1628 !important;
+    border: none !important;
     border-radius: 0 !important;
-    padding: 14px 22px !important;
+    padding: 17px 22px !important;
     font-family: var(--body) !important;
-    font-size: 12px !important; font-weight: 600 !important;
+    font-size: 12.5px !important; font-weight: 700 !important;
     letter-spacing: 0.22em !important; text-transform: uppercase !important;
-    backdrop-filter: blur(6px);
-    transition: background 0.2s, border-color 0.2s;
+    box-shadow: 0 8px 24px rgba(232,149,71,0.25) !important;
+    transition: all 0.2s;
     margin-top: 12px;
   }}
-  .stButton > button:hover, .stFormSubmitButton > button:hover {{
-    background: rgba(255,255,255,0.22) !important;
-    border-color: rgba(255,255,255,0.75) !important;
-    color: #fff !important;
+  .stButton > button:hover,
+  .stFormSubmitButton > button:hover {{
+    background: #F6C08A !important;
+    color: #0A1628 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px rgba(232,149,71,0.35) !important;
   }}
 
   /* Error alert */
@@ -413,15 +399,17 @@ def show_login_page():
   /* Footer */
   .card-foot {{
     margin-top: 28px; padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,0.18);
+    border-top: 1px solid rgba(255,255,255,0.12) !important;
     display: flex; justify-content: space-between;
     font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.5) !important;
   }}
 
   /* Mobile */
   @media (max-width: 768px) {{
-    .main .block-container {{
+    .main .block-container,
+    [data-testid="stMainBlockContainer"],
+    div[class*="block-container"] {{
       margin-left: 24px !important; margin-right: 24px !important;
       margin-top: 18vh !important; width: auto !important; max-width: calc(100% - 48px) !important;
     }}
@@ -459,10 +447,6 @@ def show_login_page():
     st.markdown(
         """
 <h1 class="wordmark">P<em>·</em>IRIS</h1>
-<p class="tagline">
-  <b>14개 부서 커뮤니케이션 협의체</b>를 위한<br>
-  AI 기반 위기관리 커뮤니케이션 플랫폼.
-</p>
 """,
         unsafe_allow_html=True,
     )

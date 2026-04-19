@@ -219,20 +219,19 @@ def show_login_page():
     font-family: var(--body);
   }}
 
-  /* Form card (.block-container) */
+  /* Form area — left-anchored, no card background */
   .main .block-container {{
-    max-width: 460px !important;
-    padding: 52px 48px 40px !important;
-    margin-top: 8vh !important;
-    background: rgba(248, 245, 240, 0.97);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-top: 2px solid var(--amber);
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.8) inset,
-      0 30px 80px rgba(0,0,0,0.22),
-      0 10px 30px rgba(0,0,0,0.12);
-    border-radius: 0;
+    max-width: 440px !important;
+    width: 440px !important;
+    margin-left: 80px !important;
+    margin-right: auto !important;
+    margin-top: 10vh !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
   }}
 
   /* Fixed overlays over background image */
@@ -302,14 +301,15 @@ def show_login_page():
   .wordmark {{
     font-family: var(--display); font-weight: 400;
     font-size: 58px; line-height: 0.95; letter-spacing: -0.02em;
-    color: var(--ink); margin: 0 0 12px 0;
+    color: #fff; margin: 0 0 12px 0;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
   }}
-  .wordmark em {{ font-style: italic; color: var(--amber-deep); }}
+  .wordmark em {{ font-style: italic; color: #F6C08A; }}
   .tagline {{
-    font-size: 13.5px; color: var(--ink-soft);
+    font-size: 13.5px; color: rgba(255,255,255,0.72);
     line-height: 1.55; margin-bottom: 28px;
   }}
-  .tagline b {{ font-weight: 600; color: var(--ink); }}
+  .tagline b {{ font-weight: 600; color: #fff; }}
 
   /* Style st.text_input */
   .stTextInput > label {{
@@ -318,93 +318,94 @@ def show_login_page():
     color: var(--muted) !important; font-weight: 600 !important;
     margin-bottom: 4px !important;
   }}
+  /* Input — white-on-dark */
+  .stTextInput > label {{
+    color: rgba(255,255,255,0.55) !important;
+  }}
   .stTextInput > div > div {{
     background: transparent !important;
     border: none !important;
-    border-bottom: 1px solid var(--line) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.35) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     transition: border-color 0.2s ease;
   }}
   .stTextInput > div > div:focus-within {{
-    border-bottom-color: var(--ink) !important;
+    border-bottom-color: rgba(255,255,255,0.85) !important;
   }}
   .stTextInput input {{
     font-family: var(--body) !important;
     font-size: 15px !important;
-    color: var(--ink) !important;
+    color: #fff !important;
     padding: 10px 0 12px !important;
     letter-spacing: 0.08em;
-    caret-color: var(--ink) !important;
-    -webkit-text-fill-color: var(--ink) !important;
+    caret-color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
   }}
-  .stTextInput input::placeholder {{ color: #B9B2A3 !important; letter-spacing: 0.3em; }}
+  .stTextInput input::placeholder {{ color: rgba(255,255,255,0.3) !important; letter-spacing: 0.3em; }}
   .stTextInput input:-webkit-autofill,
   .stTextInput input:-webkit-autofill:focus {{
-    -webkit-text-fill-color: var(--ink) !important;
-    -webkit-box-shadow: 0 0 0 1000px rgba(248,245,240,0.99) inset !important;
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10,22,40,0.0) inset !important;
   }}
 
-  /* Style st.checkbox */
+  /* Checkbox */
   .stCheckbox label {{
-    font-size: 12.5px !important; color: var(--ink-soft) !important;
+    font-size: 12.5px !important; color: rgba(255,255,255,0.65) !important;
     font-family: var(--body) !important;
   }}
   .stCheckbox label p {{ font-size: 12.5px !important; }}
   .stCheckbox [data-testid="stCheckbox"] > label > div:first-child {{
-    border: 1px solid var(--muted) !important;
+    border: 1px solid rgba(255,255,255,0.4) !important;
     border-radius: 0 !important;
     background: transparent !important;
   }}
 
-  /* Forgot password link */
-  .forgot-link {{
-    font-size: 12.5px; color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid transparent; transition: border-color 0.2s;
-    display: inline-block; padding-top: 2px; float: right;
-  }}
-  .forgot-link:hover {{ border-bottom-color: var(--ink); color: var(--ink); }}
-
-  /* Style st.form_submit_button */
+  /* Submit button */
   .stButton > button, .stFormSubmitButton > button {{
     width: 100%;
-    background: var(--ink) !important;
+    background: rgba(255,255,255,0.12) !important;
     color: #fff !important;
-    border: none !important;
+    border: 1px solid rgba(255,255,255,0.45) !important;
     border-radius: 0 !important;
-    padding: 17px 22px !important;
+    padding: 14px 22px !important;
     font-family: var(--body) !important;
-    font-size: 12.5px !important; font-weight: 600 !important;
-    letter-spacing: 0.2em !important; text-transform: uppercase !important;
-    transition: background 0.2s;
-    margin-top: 8px;
+    font-size: 12px !important; font-weight: 600 !important;
+    letter-spacing: 0.22em !important; text-transform: uppercase !important;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, border-color 0.2s;
+    margin-top: 12px;
   }}
   .stButton > button:hover, .stFormSubmitButton > button:hover {{
-    background: var(--ink-soft) !important;
+    background: rgba(255,255,255,0.22) !important;
+    border-color: rgba(255,255,255,0.75) !important;
     color: #fff !important;
   }}
 
   /* Error alert */
   .stAlert {{
-    background: rgba(184,107,46,0.08) !important;
-    border: 1px solid rgba(184,107,46,0.28) !important;
-    border-radius: 0 !important; color: var(--amber-deep) !important;
+    background: rgba(0,0,0,0.35) !important;
+    border: 1px solid rgba(255,100,80,0.5) !important;
+    border-radius: 0 !important; color: #ffb3a7 !important;
     font-size: 13px !important; margin-top: 12px !important;
   }}
 
-  /* Card footer */
+  /* Footer */
   .card-foot {{
-    margin-top: 28px; padding-top: 18px;
-    border-top: 1px solid var(--line);
+    margin-top: 28px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.18);
     display: flex; justify-content: space-between;
     font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(255,255,255,0.35);
   }}
 
   /* Mobile */
   @media (max-width: 768px) {{
-    .main .block-container {{ margin-top: 20vh !important; max-width: 92% !important; padding: 40px 28px !important; }}
-    .overlay-meta, .overlay-lang {{ display: none; }}
+    .main .block-container {{
+      margin-left: 24px !important; margin-right: 24px !important;
+      margin-top: 18vh !important; width: auto !important; max-width: calc(100% - 48px) !important;
+    }}
+    .overlay-meta {{ display: none; }}
     .overlay-caption {{ bottom: auto; top: 72px; max-width: 80%; }}
     .overlay-caption .title {{ font-size: 22px; }}
   }}

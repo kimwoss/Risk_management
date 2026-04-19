@@ -7,6 +7,8 @@
 """
 import os, json, re, time, base64, mimetypes, urllib.parse, requests
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
+from zoneinfo import ZoneInfo
 import threading
 import atexit
 
@@ -166,247 +168,338 @@ def check_authentication():
     return False
 
 def show_login_page():
-    """로그인 페이지 — 스플릿 스크린 디자인"""
-    # 배경 이미지 로드
-    _bg_path = os.path.join(os.path.abspath("data"), "Image_login.jpg")
-    _bg_uri = ""
-    if os.path.exists(_bg_path):
-        with open(_bg_path, "rb") as _f:
-            _bg_uri = f"data:image/jpeg;base64,{base64.b64encode(_f.read()).decode()}"
+    """로그인 페이지 — 에디토리얼 센터 카드 디자인"""
+    # ── 배경 이미지 로드 (data/ 또는 스크립트 옆 폴더 모두 탐색) ──
+    _candidates = [
+        Path(os.path.abspath("data")) / "Image_login.jpg",
+        Path(__file__).parent / "Image_login.jpg",
+        Path(__file__).parent / "data" / "Image_login.jpg",
+    ]
+    _img_b64 = ""
+    for _p in _candidates:
+        if _p.exists():
+            _img_b64 = base64.b64encode(_p.read_bytes()).decode()
+            break
 
-    # 로고 URI (상단 로고 이미지 재사용)
-    _logo_uri = load_logo_data_uri()
-    _logo_html = (
-        f'<img src="{_logo_uri}" alt="POSCO International" '
-        f'style="height:36px; max-width:200px; object-fit:contain; margin-bottom:48px; opacity:0.92;">'
-        if _logo_uri else
-        '<div style="font-size:13px; font-weight:700; letter-spacing:.18em; color:rgba(255,255,255,.5); margin-bottom:48px;">POSCO INTERNATIONAL</div>'
+    # ── CSS 주입 ──────────────────────────────────────────────────
+    st.markdown(
+        f"""
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+
+<style>
+  :root {{
+    --ink:        #0A1628;
+    --ink-soft:   #1f2a3d;
+    --ivory:      #F8F5F0;
+    --amber:      #E89547;
+    --amber-deep: #B86B2E;
+    --line:       #E2DCD2;
+    --muted:      #7A7366;
+    --body:       "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --display:    "Instrument Serif", "Pretendard Variable", serif;
+  }}
+
+  /* Hide Streamlit chrome */
+  #MainMenu, footer, header[data-testid="stHeader"] {{ visibility: hidden; height: 0; }}
+  .stDeployButton, [data-testid="stToolbar"] {{ display: none !important; }}
+  [data-testid="stDecoration"] {{ display: none; }}
+  section[data-testid="stSidebar"] {{ display: none !important; }}
+
+  /* Full-viewport background image */
+  .stApp {{
+    background:
+      linear-gradient(180deg, rgba(10,22,40,0.35) 0%, rgba(10,22,40,0) 24%,
+                              rgba(10,22,40,0) 58%,  rgba(10,22,40,0.62) 100%),
+      linear-gradient(90deg,  rgba(10,22,40,0.22) 0%, rgba(10,22,40,0) 32%,
+                              rgba(10,22,40,0) 68%,  rgba(10,22,40,0.18) 100%),
+      url("data:image/jpeg;base64,{_img_b64}") center/cover no-repeat fixed;
+    font-family: var(--body);
+  }}
+
+  /* Form card (.block-container) */
+  .main .block-container {{
+    max-width: 460px !important;
+    padding: 52px 48px 40px !important;
+    margin-top: 8vh !important;
+    background: rgba(248, 245, 240, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 2px solid var(--amber);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.8) inset,
+      0 30px 80px rgba(0,0,0,0.22),
+      0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 0;
+  }}
+
+  /* Fixed overlays over background image */
+  .overlay-brand, .overlay-lang, .overlay-caption, .overlay-meta {{
+    position: fixed; z-index: 10;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }}
+  .overlay-brand {{
+    top: 36px; left: 44px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }}
+  .overlay-brand .mark {{
+    width: 22px; height: 22px;
+    border: 1px solid rgba(255,255,255,0.8);
+    display: grid; place-items: center;
+  }}
+  .overlay-brand .mark::after {{
+    content: ""; width: 6px; height: 6px; background: var(--amber); border-radius: 50%;
+  }}
+  .overlay-lang {{
+    top: 40px; right: 44px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  }}
+  .overlay-lang a {{
+    color: #fff; text-decoration: none;
+    border-bottom: 1px solid #fff; padding-bottom: 2px;
+  }}
+  .overlay-caption {{
+    left: 44px; bottom: 44px; max-width: 440px;
+  }}
+  .overlay-caption .rule {{
+    width: 48px; height: 1px; background: rgba(255,255,255,0.7); margin-bottom: 18px;
+  }}
+  .overlay-caption .title {{
+    font-family: var(--display); font-weight: 400;
+    font-size: 32px; line-height: 1.1; letter-spacing: -0.01em;
+  }}
+  .overlay-caption .title em {{ font-style: italic; color: #F6C08A; }}
+  .overlay-meta {{
+    right: 44px; bottom: 46px;
+    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    text-align: right; opacity: 0.82; line-height: 1.7;
+  }}
+
+  /* Card top status row */
+  .status-row {{
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 32px;
+  }}
+  .status-row .dot {{
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #2ECC71; margin-right: 8px;
+    box-shadow: 0 0 0 3px rgba(46,204,113,0.18);
+  }}
+  .status-row b {{ color: var(--ink); font-weight: 600; letter-spacing: 0.2em; }}
+
+  /* Eyebrow + wordmark + tagline */
+  .eyebrow {{
+    font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--amber-deep); font-weight: 600;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }}
+  .eyebrow::before {{ content: ""; width: 22px; height: 1px; background: var(--amber-deep); }}
+  .wordmark {{
+    font-family: var(--display); font-weight: 400;
+    font-size: 58px; line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 12px 0;
+  }}
+  .wordmark em {{ font-style: italic; color: var(--amber-deep); }}
+  .tagline {{
+    font-size: 13.5px; color: var(--ink-soft);
+    line-height: 1.55; margin-bottom: 28px;
+  }}
+  .tagline b {{ font-weight: 600; color: var(--ink); }}
+
+  /* Style st.text_input */
+  .stTextInput > label {{
+    font-size: 11px !important; letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
+    color: var(--muted) !important; font-weight: 600 !important;
+    margin-bottom: 4px !important;
+  }}
+  .stTextInput > div > div {{
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: border-color 0.2s ease;
+  }}
+  .stTextInput > div > div:focus-within {{
+    border-bottom-color: var(--ink) !important;
+  }}
+  .stTextInput input {{
+    font-family: var(--body) !important;
+    font-size: 15px !important;
+    color: var(--ink) !important;
+    padding: 10px 0 12px !important;
+    letter-spacing: 0.08em;
+    caret-color: var(--ink) !important;
+    -webkit-text-fill-color: var(--ink) !important;
+  }}
+  .stTextInput input::placeholder {{ color: #B9B2A3 !important; letter-spacing: 0.3em; }}
+  .stTextInput input:-webkit-autofill,
+  .stTextInput input:-webkit-autofill:focus {{
+    -webkit-text-fill-color: var(--ink) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(248,245,240,0.99) inset !important;
+  }}
+
+  /* Style st.checkbox */
+  .stCheckbox label {{
+    font-size: 12.5px !important; color: var(--ink-soft) !important;
+    font-family: var(--body) !important;
+  }}
+  .stCheckbox label p {{ font-size: 12.5px !important; }}
+  .stCheckbox [data-testid="stCheckbox"] > label > div:first-child {{
+    border: 1px solid var(--muted) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }}
+
+  /* Forgot password link */
+  .forgot-link {{
+    font-size: 12.5px; color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid transparent; transition: border-color 0.2s;
+    display: inline-block; padding-top: 2px; float: right;
+  }}
+  .forgot-link:hover {{ border-bottom-color: var(--ink); color: var(--ink); }}
+
+  /* Style st.form_submit_button */
+  .stButton > button, .stFormSubmitButton > button {{
+    width: 100%;
+    background: var(--ink) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 17px 22px !important;
+    font-family: var(--body) !important;
+    font-size: 12.5px !important; font-weight: 600 !important;
+    letter-spacing: 0.2em !important; text-transform: uppercase !important;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }}
+  .stButton > button:hover, .stFormSubmitButton > button:hover {{
+    background: var(--ink-soft) !important;
+    color: #fff !important;
+  }}
+
+  /* Error alert */
+  .stAlert {{
+    background: rgba(184,107,46,0.08) !important;
+    border: 1px solid rgba(184,107,46,0.28) !important;
+    border-radius: 0 !important; color: var(--amber-deep) !important;
+    font-size: 13px !important; margin-top: 12px !important;
+  }}
+
+  /* Card footer */
+  .card-foot {{
+    margin-top: 28px; padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }}
+
+  /* Mobile */
+  @media (max-width: 768px) {{
+    .main .block-container {{ margin-top: 20vh !important; max-width: 92% !important; padding: 40px 28px !important; }}
+    .overlay-meta, .overlay-lang {{ display: none; }}
+    .overlay-caption {{ bottom: auto; top: 72px; max-width: 80%; }}
+    .overlay-caption .title {{ font-size: 22px; }}
+  }}
+</style>
+""",
+        unsafe_allow_html=True,
     )
 
-    st.markdown(f"""
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+    # ── 배경 위 오버레이 (고정 레이어) ───────────────────────────
+    _now_kst  = datetime.now(ZoneInfo("Asia/Seoul"))
+    _time_str = _now_kst.strftime("%I : %M %p").lstrip("0")
 
-      /* ── 전체 리셋 ─────────────────────────────── */
-      [data-testid="stAppViewContainer"] {{
-        background: #05060a !important;
-        font-family: 'Inter','Noto Sans KR',system-ui,sans-serif;
-      }}
-      [data-testid="stHeader"]  {{ background:transparent !important; height:0 !important; }}
-      section[data-testid="stSidebar"] {{ display:none !important; }}
-      .block-container {{ padding:0 !important; max-width:100% !important; }}
+    st.markdown(
+        f"""
+<div class="overlay-brand">
+  <div class="mark"></div>
+  <span>POSCO INTERNATIONAL &nbsp;·&nbsp; Communications</span>
+</div>
+<div class="overlay-lang"><a href="#">ko / en</a></div>
 
-      /* ── 배경 이미지 — 왼쪽 60% 영역 ─────────────── */
-      .lp-bg {{
-        position:fixed; inset:0; z-index:0;
-        background: url('{_bg_uri}') left center / cover no-repeat;
-      }}
-      .lp-bg::after {{
-        content:'';
-        position:absolute; inset:0;
-        background: linear-gradient(
-          105deg,
-          rgba(5,6,10,.18)  0%,
-          rgba(5,6,10,.30) 42%,
-          rgba(5,6,10,.88) 60%,
-          rgba(5,6,10,.98) 100%
-        );
-      }}
+<div class="overlay-caption">
+  <div class="rule"></div>
+  <div class="title">The first light of <em>clarity</em>,<br>before the story breaks.</div>
+</div>
+<div class="overlay-meta">
+  Songdo HQ<br>{_time_str} KST
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
-      /* ── 좌측 브랜드 카피 ─────────────────────────── */
-      .lp-brand {{
-        position:fixed; left:0; top:0; bottom:0; width:58%;
-        display:flex; flex-direction:column; justify-content:flex-end;
-        padding:0 0 72px 72px;
-        z-index:1; pointer-events:none;
-      }}
-      .lp-brand-badge {{
-        display:inline-flex; align-items:center; gap:7px;
-        background:rgba(212,175,55,.12); border:1px solid rgba(212,175,55,.28);
-        border-radius:99px; padding:5px 14px 5px 10px;
-        color:#D4AF37; font-size:.72rem; font-weight:700;
-        letter-spacing:.08em; text-transform:uppercase;
-        margin-bottom:20px; width:fit-content;
-      }}
-      .lp-brand-badge span {{ width:7px; height:7px; border-radius:50%; background:#D4AF37;
-        box-shadow:0 0 8px rgba(212,175,55,.6); display:inline-block; }}
-      .lp-brand-title {{
-        font-size:3.6rem; font-weight:300; color:#fff; line-height:1.1;
-        letter-spacing:-.03em; margin-bottom:16px;
-        text-shadow:0 4px 24px rgba(0,0,0,.5);
-      }}
-      .lp-brand-title b {{ font-weight:700; color:#D4AF37; }}
-      .lp-brand-sub {{
-        font-size:1.05rem; color:rgba(255,255,255,.65); font-weight:400;
-        line-height:1.6; max-width:400px; margin-bottom:36px;
-      }}
-      .lp-brand-footer {{
-        font-size:.72rem; color:rgba(255,255,255,.28); letter-spacing:.04em;
-      }}
+    # ── 카드 콘텐츠 (폼 위 텍스트) ──────────────────────────────
+    st.markdown(
+        """
+<div class="status-row">
+  <span><span class="dot"></span>All systems operational</span>
+  <span>v<b>2.6.1</b></span>
+</div>
+<div class="eyebrow">Risk Intelligence Solution</div>
+<h1 class="wordmark">P<em>·</em>IRIS</h1>
+<p class="tagline">
+  <b>14개 부서 커뮤니케이션 협의체</b>를 위한<br>
+  AI 기반 위기관리 커뮤니케이션 플랫폼.
+</p>
+""",
+        unsafe_allow_html=True,
+    )
 
-      /* ── 우측 로그인 패널 ─────────────────────────── */
-      .lp-panel {{
-        position:fixed; right:0; top:0; bottom:0; width:42%;
-        background:rgba(6,7,11,.96);
-        border-left:1px solid rgba(255,255,255,.06);
-        backdrop-filter:blur(32px); -webkit-backdrop-filter:blur(32px);
-        display:flex; flex-direction:column; justify-content:center;
-        padding:0 64px;
-        z-index:2; pointer-events:none;
-      }}
-
-      /* ── 오버레이 (Streamlit 요소 포지셔닝) ─────── */
-      .lp-overlay {{
-        position:fixed; right:0; top:0; bottom:0; width:42%;
-        display:flex; flex-direction:column; justify-content:center;
-        padding:0 64px;
-        z-index:3; pointer-events:none;
-      }}
-      .lp-form {{
-        pointer-events:auto; width:100%; max-width:340px;
-      }}
-      .lp-form-logo {{ margin-bottom:40px; }}
-      .lp-form-title {{
-        font-size:1.85rem; font-weight:700; color:#fff;
-        letter-spacing:-.03em; margin-bottom:6px;
-      }}
-      .lp-form-desc {{
-        font-size:.85rem; color:rgba(255,255,255,.42);
-        font-weight:400; margin-bottom:40px; line-height:1.55;
-      }}
-      .lp-label {{
-        font-size:.75rem; font-weight:600; color:rgba(255,255,255,.5);
-        letter-spacing:.08em; text-transform:uppercase;
-        margin-bottom:8px;
-      }}
-
-      /* ── 입력 필드 ─────────────────────────────── */
-      .stTextInput>div>div>input {{
-        background:rgba(255,255,255,.05) !important;
-        border:1px solid rgba(255,255,255,.12) !important;
-        border-radius:10px !important;
-        color:#fff !important; caret-color:#fff !important;
-        -webkit-text-fill-color:#fff !important;
-        padding:13px 16px !important; font-size:15px !important;
-        transition:all .22s ease !important;
-        z-index:4; position:relative !important;
-      }}
-      .stTextInput>div>div>input:focus {{
-        border-color:rgba(212,175,55,.55) !important;
-        background:rgba(255,255,255,.08) !important;
-        box-shadow:0 0 0 3px rgba(212,175,55,.10) !important;
-      }}
-      .stTextInput>div>div>input::placeholder {{ color:rgba(255,255,255,.28) !important; }}
-      .stTextInput>div>div>input:-webkit-autofill,
-      .stTextInput>div>div>input:-webkit-autofill:focus {{
-        -webkit-text-fill-color:#fff !important;
-        -webkit-box-shadow:0 0 0 1000px rgba(6,7,11,.98) inset !important;
-      }}
-      .stTextInput {{ position:relative !important; z-index:4 !important; }}
-
-      /* ── 로그인 버튼 ─────────────────────────────── */
-      .stButton>button {{
-        background:linear-gradient(135deg,#c8a227,#a8841a) !important;
-        border:none !important; border-radius:10px !important;
-        color:#0a0800 !important; font-weight:700 !important;
-        padding:13px 24px !important; font-size:.95rem !important;
-        letter-spacing:.02em !important;
-        transition:all .22s ease !important;
-        box-shadow:0 4px 20px rgba(200,162,39,.22) !important;
-        position:relative !important; z-index:4 !important;
-        margin-top:8px !important;
-      }}
-      .stButton>button:hover {{
-        background:linear-gradient(135deg,#dbb83a,#c8a227) !important;
-        box-shadow:0 6px 28px rgba(212,175,55,.38) !important;
-        transform:translateY(-1px) !important;
-      }}
-      .stButton {{ position:relative !important; z-index:4 !important; }}
-
-      /* ── 에러 메시지 ─────────────────────────────── */
-      .stAlert {{
-        background:rgba(220,38,38,.12) !important;
-        border:1px solid rgba(220,38,38,.25) !important;
-        border-radius:8px !important; color:#fca5a5 !important;
-        font-size:.85rem !important; margin-top:12px !important;
-      }}
-
-      /* ── 모바일: 패널 전체폭 ─────────────────────── */
-      @media (max-width:900px) {{
-        .lp-bg::after {{
-          background:rgba(5,6,10,.82) !important;
-        }}
-        .lp-brand {{ display:none !important; }}
-        .lp-panel, .lp-overlay {{
-          width:100% !important; padding:0 32px !important;
-          border-left:none !important;
-        }}
-        .lp-form {{ max-width:100% !important; }}
-      }}
-      @media (max-width:480px) {{
-        .lp-panel, .lp-overlay {{ padding:0 24px !important; }}
-      }}
-    </style>
-
-    <!-- 배경 이미지 레이어 -->
-    <div class="lp-bg"></div>
-
-    <!-- 좌측 브랜드 카피 -->
-    <div class="lp-brand">
-      <div class="lp-brand-badge"><span></span>Real-time Monitoring</div>
-      <div class="lp-brand-title">리스크를<br><b>먼저</b> 봅니다.</div>
-      <div class="lp-brand-sub">24시간 365일 포스코인터내셔널의<br>언론·미디어 리스크를 자동으로 탐지합니다.</div>
-      <div class="lp-brand-footer">© 2026 POSCO International · P-IRIS v2.1</div>
-    </div>
-
-    <!-- 우측 반투명 패널 (배경역할) -->
-    <div class="lp-panel"></div>
-
-    <!-- 우측 오버레이 (Streamlit 요소 포함) -->
-    <div class="lp-overlay">
-      <div class="lp-form">
-        <div class="lp-form-logo">{_logo_html}</div>
-        <div class="lp-form-title">로그인</div>
-        <div class="lp-form-desc">P-IRIS에 오신 것을 환영합니다.<br>접근 코드를 입력해주세요.</div>
-        <div class="lp-label">Access Code</div>
-    """, unsafe_allow_html=True)
-
-    # Streamlit 폼
-    with st.form(key="login_form", clear_on_submit=False):
+    # ── 로그인 폼 ────────────────────────────────────────────────
+    with st.form("piris_login", clear_on_submit=False, border=False):
         code_input = st.text_input(
-            "access_code",
+            "비밀번호 / Password",
             type="password",
-            placeholder="••••••••",
-            label_visibility="collapsed",
-            key="login_code_input"
+            placeholder="••••••••••",
+            label_visibility="visible",
         )
-        st.markdown('<div style="height:4px;"></div>', unsafe_allow_html=True)
-        submit_button = st.form_submit_button("로그인 →", use_container_width=True)
+        col_a, col_b = st.columns([1, 1])
+        with col_a:
+            remember = st.checkbox("이 기기 기억하기", value=True)
+        with col_b:
+            st.markdown(
+                '<a href="#" class="forgot-link">비밀번호를 잊으셨나요?</a>',
+                unsafe_allow_html=True,
+            )
+        submitted = st.form_submit_button("Sign in to P-IRIS", use_container_width=True)
 
-    # 폼 닫기 + 오버레이 닫기
-    st.markdown('</div></div></div>', unsafe_allow_html=True)
+    # ── 카드 하단 ────────────────────────────────────────────────
+    st.markdown(
+        """
+<div class="card-foot">
+  <span>Feb 2026 Release</span>
+  <span>© POSCO International</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
-    # 폼 제출 처리
-    if submit_button:
+    # ── 인증 처리 ────────────────────────────────────────────────
+    if submitted:
         if code_input == ACCESS_CODE:
             st.session_state.authenticated = True
             st.session_state.login_pending_cookie = True
             auth_token = get_auth_token()
-            set_cookie_script = f"""
-            <script>
-                (function() {{
-                    const days = 30;
-                    const date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    const expires = "expires=" + date.toUTCString();
-                    document.cookie = "posco_auth_token={auth_token}; " + expires + "; path=/; SameSite=Lax";
-                }})();
-            </script>
-            """
-            st.components.v1.html(set_cookie_script, height=0)
+            if remember:
+                st.components.v1.html(
+                    f"""<script>(function(){{
+                        const d=new Date();
+                        d.setTime(d.getTime()+(30*24*60*60*1000));
+                        document.cookie="posco_auth_token={auth_token};expires="+d.toUTCString()+";path=/;SameSite=Lax";
+                    }})();</script>""",
+                    height=0,
+                )
             st.rerun()
         else:
-            st.error("잘못된 접근 코드입니다. 다시 시도해주세요.")
+            st.error("비밀번호가 올바르지 않습니다.")
 
 DATA_FOLDER = os.path.abspath("data")
 MASTER_DATA_FILE = os.path.join(DATA_FOLDER, "master_data.json")

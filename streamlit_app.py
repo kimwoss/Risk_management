@@ -423,8 +423,6 @@ def show_login_page():
   <div class="mark"></div>
   <span>POSCO INTERNATIONAL &nbsp;·&nbsp; Communications</span>
 </div>
-<div class="overlay-lang"><a href="#">ko / en</a></div>
-
 <div class="overlay-caption">
   <div class="rule"></div>
   <div class="title">The first light of <em>clarity</em>,<br>before the story breaks.</div>
@@ -439,11 +437,6 @@ def show_login_page():
     # ── 카드 콘텐츠 (폼 위 텍스트) ──────────────────────────────
     st.markdown(
         """
-<div class="status-row">
-  <span><span class="dot"></span>All systems operational</span>
-  <span>v<b>2.6.1</b></span>
-</div>
-<div class="eyebrow">Risk Intelligence Solution</div>
 <h1 class="wordmark">P<em>·</em>IRIS</h1>
 <p class="tagline">
   <b>14개 부서 커뮤니케이션 협의체</b>를 위한<br>
@@ -461,14 +454,7 @@ def show_login_page():
             placeholder="••••••••••",
             label_visibility="visible",
         )
-        col_a, col_b = st.columns([1, 1])
-        with col_a:
-            remember = st.checkbox("이 기기 기억하기", value=True)
-        with col_b:
-            st.markdown(
-                '<a href="#" class="forgot-link">비밀번호를 잊으셨나요?</a>',
-                unsafe_allow_html=True,
-            )
+        remember = st.checkbox("이 기기 기억하기", value=True)
         submitted = st.form_submit_button("Sign in to P-IRIS", use_container_width=True)
 
     # ── 카드 하단 ────────────────────────────────────────────────

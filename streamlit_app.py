@@ -82,7 +82,7 @@ except Exception as e:
 st.set_page_config(
     page_title="P-IRIS",
     page_icon="🛡️",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
@@ -219,8 +219,13 @@ def show_login_page():
     font-family: var(--body);
   }}
 
-  /* Form area — left-anchored, no card background */
-  .main .block-container {{
+  /* 구 Streamlit (.main) + 신 Streamlit (stMain) 모두 타깃 */
+  .main .block-container,
+  section.main > div.block-container,
+  [data-testid="stMain"] .block-container,
+  [data-testid="stMainBlockContainer"],
+  .stMainBlockContainer,
+  div[class*="block-container"] {{
     max-width: 440px !important;
     width: 440px !important;
     margin-left: 80px !important;
@@ -232,6 +237,21 @@ def show_login_page():
     -webkit-backdrop-filter: none !important;
     border-top: none !important;
     box-shadow: none !important;
+  }}
+
+  /* st.form 래퍼 폭 제한 */
+  [data-testid="stForm"],
+  div[data-testid="stForm"] {{
+    width: 100% !important;
+    max-width: 440px !important;
+    border: none !important;
+    padding: 0 !important;
+  }}
+
+  /* 입력·버튼·체크박스 부모 폭 초과 방지 */
+  .stTextInput, .stButton, .stFormSubmitButton, .stCheckbox {{
+    width: 100% !important;
+    max-width: 440px !important;
   }}
 
   /* Fixed overlays over background image */

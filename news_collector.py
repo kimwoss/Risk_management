@@ -71,6 +71,7 @@ KEYWORDS = [
     "구동모터코아",
     "구동모터코어",
     "미얀마 LNG",
+    "알래스카 LNG",
     "포스코모빌리티솔루션",
     "포스코플로우",  # 추가
     "포스코"
@@ -1119,7 +1120,7 @@ def mark_initialized():
 
 # ======================== 신규 기사 감지 ========================
 
-def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: set) -> list:
+def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: set, pending_queue: dict = None) -> list:
     """
     기존 DB와 새로운 데이터를 비교하여 신규 기사 감지
     - URL을 우선 식별자로 사용
@@ -1169,7 +1170,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 12  # 최근 12시간 이내 기사만 알림 (GitHub Actions 지연 대응: 기존 3시간에서 확대)
+        MAX_ARTICLE_AGE_HOURS = 2  # 발행 2시간 초과 기사 스킵 (cache 리셋 후 과거 기사 재발송 방지)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1186,14 +1187,17 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
             # 해시 ID 생성 (보조 식별자)
             hash_id = _generate_article_hash(title, article_date_str)
 
-            # 4단계 중복 체크: URL + 정규화 URL + 캐시 + 해시 ID
+            # 5단계 중복 체크: URL + 정규화 URL + 캐시 + 해시 ID + pending 큐
             is_in_db_url = url in old_urls or url_normalized in old_urls_normalized
             is_in_cache = url in sent_cache or url_normalized in sent_cache
             is_in_db_hash = hash_id in old_hash_ids if hash_id else False
+            is_in_pending = bool(pending_queue) and (url in pending_queue or url_normalized in pending_queue)
 
-            if is_in_db_url or is_in_cache or is_in_db_hash:
+            if is_in_db_url or is_in_cache or is_in_db_hash or is_in_pending:
                 if is_in_db_hash and not is_in_db_url:
                     print(f"[DEBUG] 🔍 해시 ID 중복 감지 (다른 URL): {title[:50]}...")
+                if is_in_pending:
+                    print(f"[DEBUG] ⏭️ Pending 큐 중복 스킵: {title[:50]}...")
                 continue
 
             # 신규 기사 - 날짜 필터링 (개선됨)
@@ -1209,10 +1213,10 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
                     # 시간 기반 필터링: 최근 7일 이내만 알림
                     if hours_diff <= MAX_ARTICLE_AGE_HOURS:
-                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
+                        print(f"[DEBUG] ✅ 신규 기사 감지: {title[:50]}... ({hours_diff:.1f}시간 전)")
                     else:
-                        print(f"[DEBUG] ⏭️ 오래된 기사 스킵: {title[:50]}... ({hours_diff:.1f}시간 전, {hours_diff/24:.1f}일 전)")
-                        continue  # 7일 이상 오래된 기사는 알림 스킵
+                        print(f"[DEBUG] ⏭️ 오래된 기사 스킵 ({hours_diff:.1f}시간 경과): {title[:50]}...")
+                        continue  # 발행 2시간 초과 기사는 발송 스킵
                 else:
                     # 날짜 파싱 실패 시에도 신규 기사로 처리 (개선!)
                     print(f"[DEBUG] ⚠️ 날짜 파싱 실패, 하지만 신규 기사로 알림: {title[:50]}... (날짜: {article_date_str})")
@@ -1328,11 +1332,14 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 continue
 
             # 오래된 pending 기사 폐기 (캐시 리셋 시 stale 백로그 방지)
-            MAX_PENDING_ARTICLE_AGE_HOURS = 12  # GitHub Actions 지연 대응: 기존 3시간에서 12시간으로 확대
+            MAX_PENDING_ARTICLE_AGE_HOURS = 2  # detect_new_articles와 동일한 2시간 기준 통일
             try:
                 article_dt = pd.to_datetime(date, errors="coerce")
                 if pd.notna(article_dt):
-                    age_hours = (datetime.now() - article_dt).total_seconds() / 3600
+                    # KST 기준으로 비교 (GitHub Actions는 UTC이므로 datetime.now()가 UTC 반환)
+                    _KST = timezone(timedelta(hours=9))
+                    now_kst = datetime.now(_KST).replace(tzinfo=None)
+                    age_hours = (now_kst - article_dt).total_seconds() / 3600
                     if age_hours > MAX_PENDING_ARTICLE_AGE_HOURS:
                         print(f"[DEBUG] ⏭️ 오래된 pending 기사 폐기 ({age_hours:.1f}시간) - 캐시만 등록: {title[:40]}...")
                         sent_cache.add(link)
@@ -1525,6 +1532,17 @@ def update_run_status(success: bool, articles_collected: int, new_articles: int,
         now = datetime.now()
         status_data["total_runs"] = status_data.get("total_runs", 0) + 1
         status_data["last_run_time"] = now.isoformat()
+
+        # 일별 스캔 횟수 추적 (모닝 브리핑에서 "실제 0건 vs 시스템 다운" 구분용)
+        today = now.strftime("%Y-%m-%d")
+        if status_data.get("today_date") != today:
+            # 날짜가 바뀌었으면 어제 기록 보존 후 오늘 카운터 초기화
+            status_data["yesterday_date"] = status_data.get("today_date", "")
+            status_data["yesterday_runs"] = status_data.get("today_runs", 0)
+            status_data["today_date"] = today
+            status_data["today_runs"] = 1
+        else:
+            status_data["today_runs"] = status_data.get("today_runs", 0) + 1
 
         if success:
             status_data["consecutive_failures"] = 0

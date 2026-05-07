@@ -47,6 +47,7 @@ KEYWORD_PRIORITY = {
     "구동모터코아": 3,
     "구동모터코어": 3,
     "미얀마 LNG": 3,
+    "알래스카 LNG": 3,
     "포스코": 4,  # 가장 낮은 우선순위
 }
 
@@ -173,6 +174,43 @@ def main():
         pending_queue = load_pending_queue()
         safe_print(f"[MONITOR] Pending 큐 로드 완료: {len(pending_queue)}건")
 
+        # ── 전송 직전 캐시 갱신 ──────────────────────────────────────────────
+        # 동시 실행(race condition) 방지: git remote에서 최신 sent_cache를 가져와
+        # 로컬과 union 병합한 뒤 저장한다. 이렇게 하면 다른 job이 직전에 커밋한
+        # 발송 이력이 반영되어 동일 기사가 중복 전송되는 것을 막는다.
+        try:
+            import subprocess
+            fetch_result = subprocess.run(
+                ["git", "fetch", "origin", "main"],
+                capture_output=True, text=True, timeout=30
+            )
+            if fetch_result.returncode == 0:
+                subprocess.run(
+                    ["git", "checkout", "origin/main", "--",
+                     "data/sent_articles_cache.json",
+                     "data/pending_articles.json"],
+                    capture_output=True, text=True, timeout=15
+                )
+                remote_sent = load_sent_cache()
+                remote_pending = load_pending_queue()
+
+                # sent_cache: union (양쪽 모두 보존)
+                merged_sent = sent_cache | remote_sent
+
+                # pending_queue: remote 기본에 로컬 신규 항목 추가
+                # (이미 전송된 항목은 remote에서 제거되어 있을 것)
+                merged_pending = {**remote_pending, **pending_queue}
+
+                sent_cache = merged_sent
+                pending_queue = merged_pending
+
+                save_sent_cache(sent_cache)
+                save_pending_queue(pending_queue)
+                safe_print(f"[MONITOR] 🔄 캐시 갱신 완료: sent={len(sent_cache)}, pending={len(pending_queue)}")
+        except Exception as _e:
+            safe_print(f"[MONITOR] ⚠️ 캐시 갱신 실패 (계속 진행): {_e}")
+        # ────────────────────────────────────────────────────────────────────
+
         # 기존 Pending 큐 먼저 처리 (재시도)
         if pending_queue:
             safe_print(f"[MONITOR] 📤 기존 Pending 큐 처리 시작...")
@@ -296,8 +334,8 @@ def main():
                 merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
                 merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
 
-            # 신규 기사 감지
-            new_articles = detect_new_articles(existing_db, df_new, sent_cache)
+            # 신규 기사 감지 (pending_queue도 함께 전달 → 이미 대기 중인 기사 재추가 방지)
+            new_articles = detect_new_articles(existing_db, df_new, sent_cache, pending_queue)
 
             # 신규 기사를 Pending 큐에 추가 (누락 방지)
             if new_articles:

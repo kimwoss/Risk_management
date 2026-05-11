@@ -2,7 +2,7 @@ name: News Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 5분마다 실행 (Streamlit 슬립과 무관하게 독립 운영)
+    - cron: '*/30 * * * *'  # 30분마다 실행 (GitHub Actions 신뢰성 확보)
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:
@@ -39,6 +39,11 @@ jobs:
           git fetch origin main
           git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped (first run or conflict)"
           echo "Data files refreshed at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          # sent_cache 크기 확인 (디버그)
+          if [ -f data/sent_articles_cache.json ]; then
+            COUNT=$(python3 -c "import json; d=json.load(open('data/sent_articles_cache.json')); print(len(d.get('url_timestamps',{})))" 2>/dev/null || echo "?")
+            echo "sent_cache entries: $COUNT"
+          fi
 
       - name: Run news monitor
         env:
@@ -63,23 +68,71 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # data 폴더의 모든 변경사항 추가
           git add data/
 
-          # 변경사항이 있을 때만 커밋 및 푸시
           if ! git diff --staged --quiet; then
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
-            # 최대 3회 재시도 (rebase 전략: 원격 변경사항 위에 현재 커밋을 올림)
-            # -X ours 대신 rebase 사용: 원격 sent_cache 데이터를 유지하면서 현재 변경사항 추가
+            # 최대 3회 재시도
+            # 매 시도마다: (1) remote JSON 파일과 Union 병합 → (2) push
+            # JSON 병합을 먼저 하면 rebase 시 충돌이 발생하지 않음
             for i in 1 2 3; do
               echo "Push attempt $i..."
-              if git pull --rebase origin main && git push; then
+
+              git fetch origin main
+
+              # sent_cache / pending_queue JSON을 remote와 Union 병합
+              # → 두 Job이 동시에 수정해도 발송 이력이 유실되지 않음
+              python3 - <<'PYEOF'
+import json, subprocess, os, sys
+
+DATA = "data"
+
+def git_show(path):
+    r = subprocess.run(["git", "show", f"origin/main:{path}"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    try:
+        return json.loads(r.stdout)
+    except Exception:
+        return None
+
+def merge_dict_key(local_path, top_key):
+    if not os.path.exists(local_path):
+        return
+    remote = git_show(local_path)
+    if not remote:
+        return
+    try:
+        with open(local_path, "r", encoding="utf-8") as f:
+            local = json.load(f)
+        remote_items = remote.get(top_key, {})
+        local_items  = local.get(top_key, {})
+        # local 우선 union: 이번 Job에서 새로 발송/추가한 항목 보존
+        merged = {**remote_items, **local_items}
+        local[top_key] = merged
+        if top_key == "url_timestamps":
+            local["urls"] = list(merged.keys())
+        local["count"] = len(merged)
+        with open(local_path, "w", encoding="utf-8") as f:
+            json.dump(local, f, ensure_ascii=False, indent=2)
+        print(f"Merged {local_path}: remote={len(remote_items)}, local={len(local_items)}, total={len(merged)}")
+    except Exception as e:
+        print(f"Merge skipped ({local_path}): {e}", file=sys.stderr)
+
+merge_dict_key(f"{DATA}/sent_articles_cache.json", "url_timestamps")
+merge_dict_key(f"{DATA}/pending_articles.json",    "queue")
+PYEOF
+
+              git add data/sent_articles_cache.json data/pending_articles.json 2>/dev/null || true
+              git diff --staged --quiet || git commit --amend --no-edit
+
+              if git push; then
                 echo "Push successful!"
                 break
               else
-                echo "Push failed, retrying in 5 seconds..."
-                git rebase --abort 2>/dev/null || true
+                echo "Push failed (attempt $i), retrying in 5 seconds..."
                 sleep 5
               fi
             done

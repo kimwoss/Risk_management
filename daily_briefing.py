@@ -9,6 +9,7 @@ P-IRIS 일간 뉴스 브리핑 전송 스크립트
 """
 
 import os
+import json
 import time
 import requests
 import pandas as pd
@@ -25,6 +26,7 @@ except ImportError:
 KST = timezone(timedelta(hours=9))
 DATA_FOLDER = os.path.abspath("data")
 NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
+RUN_STATUS_FILE = os.path.join(DATA_FOLDER, "run_status.json")
 
 WEEKDAYS_KO = ["월", "화", "수", "목", "금", "토", "일"]
 
@@ -62,6 +64,44 @@ DIVIDER = "━━━━━━━━━━━━━━━━━━━━"
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────
+
+def get_yesterday_scan_count() -> int:
+    """어제 스캔 횟수 반환 — 브리핑에서 '실제 0건' vs '시스템 다운' 구분용"""
+    try:
+        if not os.path.exists(RUN_STATUS_FILE):
+            return 0
+        with open(RUN_STATUS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        yesterday = (datetime.now(KST) - timedelta(days=1)).strftime("%Y-%m-%d")
+        if data.get("yesterday_date") == yesterday:
+            return int(data.get("yesterday_runs", 0))
+        if data.get("today_date") == yesterday:
+            return int(data.get("today_runs", 0))
+    except Exception:
+        pass
+    return 0
+
+
+def get_monitor_status() -> dict:
+    """
+    모니터 상태 반환.
+    Returns: {last_success: datetime|None, days_since: int, scan_count: int}
+    """
+    result = {"last_success": None, "days_since": None, "total_runs": 0}
+    try:
+        if not os.path.exists(RUN_STATUS_FILE):
+            return result
+        with open(RUN_STATUS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        result["total_runs"] = int(data.get("total_runs", 0))
+        last_str = data.get("last_success_time") or data.get("last_run_time")
+        if last_str:
+            dt = datetime.fromisoformat(last_str)
+            result["last_success"] = dt
+            result["days_since"] = (datetime.now() - dt).days
+    except Exception:
+        pass
+    return result
 
 def _trunc(text: str, n: int = MAX_TITLE_LEN) -> str:
     text = text.strip()
@@ -128,9 +168,39 @@ def get_yesterday_articles(df: pd.DataFrame) -> tuple[pd.DataFrame, str]:
     return result, yesterday_kst
 
 
+def get_recent_articles(df: pd.DataFrame, days: int = 7) -> tuple[pd.DataFrame, int]:
+    """
+    최근 N일 기사 필터링 (어제 기사 0건일 때 폴백).
+    Returns: (filtered_df, actual_days_covered)
+    """
+    if df.empty:
+        return pd.DataFrame(), 0
+
+    df = df.copy()
+    df["_dt"] = pd.to_datetime(df["날짜"], errors="coerce")
+    cutoff = datetime.now(KST) - timedelta(days=days)
+    # timezone-naive 비교를 위해 cutoff를 naive datetime으로
+    cutoff_naive = cutoff.replace(tzinfo=None)
+    mask = df["_dt"] >= cutoff_naive
+    result = df[mask].drop(columns=["_dt"]).copy()
+
+    # 실제 커버 기간 계산
+    if not result.empty:
+        oldest = pd.to_datetime(result["날짜"], errors="coerce").min()
+        if pd.notna(oldest):
+            days_covered = (datetime.now() - oldest).days + 1
+        else:
+            days_covered = days
+    else:
+        days_covered = 0
+
+    return result, days_covered
+
+
 # ── 메시지 빌더 ───────────────────────────────────────────────────────
 
-def _header(date_str: str, total: int, neg: int, pos: int) -> str:
+def _header(date_str: str, total: int, neg: int, pos: int,
+            fallback_days: int = 0) -> str:
     """공통 헤더 블록 생성"""
     try:
         dt = datetime.strptime(date_str, "%Y-%m-%d")
@@ -138,14 +208,29 @@ def _header(date_str: str, total: int, neg: int, pos: int) -> str:
     except Exception:
         display_date = date_str
 
+    scan_count = get_yesterday_scan_count()
+    scan_info = f" · 스캔 {scan_count}회" if scan_count > 0 else ""
+
+    if fallback_days > 0:
+        period_label = f"최근 {fallback_days}일 기사 {total}건"
+    else:
+        period_label = f"어제 기사 {total}건{scan_info}"
+
     lines = [
         f"<b>📋 P-IRIS 모닝 브리핑</b>",
-        f"<i>{display_date} · 어제 기사 {total}건</i>",
+        f"<i>{display_date} · {period_label}</i>",
         DIVIDER,
     ]
 
     if total == 0:
-        lines.append("수집된 기사가 없습니다.")
+        monitor = get_monitor_status()
+        if monitor["days_since"] is not None and monitor["days_since"] > 1:
+            last_dt = monitor["last_success"]
+            last_str = last_dt.strftime("%m-%d %H:%M") if last_dt else "알 수 없음"
+            lines.append(f"⚠️ <b>뉴스 수집 시스템 점검 필요</b>")
+            lines.append(f"마지막 수집: <code>{last_str}</code> ({monitor['days_since']}일 전)")
+        else:
+            lines.append("어제 수집된 기사가 없습니다.")
         return "\n".join(lines)
 
     # 감성 분포 바 (10칸)
@@ -186,10 +271,12 @@ def _article_block(idx: int, row: pd.Series, show_sentiment_tag: bool = False) -
     return "\n".join(lines)
 
 
-def build_message_risk(df: pd.DataFrame, date_str: str) -> str:
+def build_message_risk(df: pd.DataFrame, date_str: str,
+                       fallback_days: int = 0) -> str:
     """
     메시지 1: 헤더 + 리스크(부정) 기사
     부정 기사가 없으면 안심 메시지 출력.
+    fallback_days > 0 이면 폴백 모드(최근 N일)로 헤더 표시.
     """
     total = len(df)
     neg_df = df[df["sentiment"] == "neg"].copy() if not df.empty else pd.DataFrame()
@@ -197,7 +284,7 @@ def build_message_risk(df: pd.DataFrame, date_str: str) -> str:
     neg_count = len(neg_df)
     pos_count = len(pos_df)
 
-    blocks = [_header(date_str, total, neg_count, pos_count)]
+    blocks = [_header(date_str, total, neg_count, pos_count, fallback_days)]
 
     if total == 0:
         blocks.append("\n🛡️ <i>P-IRIS · 포스코인터내셔널 언론대응 시스템</i>")
@@ -331,8 +418,19 @@ def main():
 
     print(f"[INFO] 브리핑 대상: {yesterday_str} · {len(df_yesterday)}건")
 
-    msg1 = build_message_risk(df_yesterday, yesterday_str)
-    msg2 = build_message_summary(df_yesterday)
+    fallback_days = 0
+    df_target = df_yesterday
+
+    # 어제 기사가 없으면 최근 7일 기사로 폴백
+    if df_yesterday.empty and not df_all.empty:
+        df_recent, days_covered = get_recent_articles(df_all, days=7)
+        if not df_recent.empty:
+            df_target = df_recent
+            fallback_days = days_covered
+            print(f"[INFO] 어제 기사 없음 → 최근 {days_covered}일 폴백: {len(df_recent)}건")
+
+    msg1 = build_message_risk(df_target, yesterday_str, fallback_days)
+    msg2 = build_message_summary(df_target)
 
     ok1 = send_telegram(msg1, bot_token, chat_id)
     if ok1 and msg2:

@@ -2,7 +2,7 @@ name: News Monitor
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 30분마다 실행 (GitHub Actions 신뢰성 확보)
+    - cron: '*/10 * * * *'  # 10분마다 실행
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

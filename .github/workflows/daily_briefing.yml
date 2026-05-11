@@ -1,9 +1,6 @@
 name: Daily News Briefing
 
 on:
-  schedule:
-    # 매일 23:00 UTC = 다음날 08:00 KST
-    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:

@@ -1170,7 +1170,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 2  # 발행 2시간 초과 기사 스킵 (cache 리셋 후 과거 기사 재발송 방지)
+        MAX_ARTICLE_AGE_HOURS = 24  # 발행 24시간 초과 기사 스킵
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()
@@ -1331,19 +1331,16 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 urls_to_remove.append(url)
                 continue
 
-            # 오래된 pending 기사 폐기 (캐시 리셋 시 stale 백로그 방지)
-            MAX_PENDING_ARTICLE_AGE_HOURS = 2  # detect_new_articles와 동일한 2시간 기준 통일
+            # 오래된 pending 기사 폐기 (24시간 초과 시 조용히 제거)
+            MAX_PENDING_ARTICLE_AGE_HOURS = 24
             try:
                 article_dt = pd.to_datetime(date, errors="coerce")
                 if pd.notna(article_dt):
-                    # KST 기준으로 비교 (GitHub Actions는 UTC이므로 datetime.now()가 UTC 반환)
                     _KST = timezone(timedelta(hours=9))
                     now_kst = datetime.now(_KST).replace(tzinfo=None)
                     age_hours = (now_kst - article_dt).total_seconds() / 3600
                     if age_hours > MAX_PENDING_ARTICLE_AGE_HOURS:
-                        print(f"[DEBUG] ⏭️ 오래된 pending 기사 폐기 ({age_hours:.1f}시간) - 캐시만 등록: {title[:40]}...")
-                        sent_cache.add(link)
-                        sent_cache.add(url_normalized)
+                        print(f"[DEBUG] ⏭️ 오래된 pending 기사 폐기 ({age_hours:.1f}시간): {title[:40]}...")
                         urls_to_remove.append(url)
                         continue
             except Exception:

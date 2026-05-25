@@ -1172,7 +1172,7 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
         # 신규 기사 감지 (시간 필터링 추가)
         new_articles = []
-        MAX_ARTICLE_AGE_HOURS = 24  # 발행 24시간 초과 기사 스킵
+        MAX_ARTICLE_AGE_HOURS = 2  # 발행 2시간 초과 기사 스킵 (캐시 유실 시 반복 발송 방지)
 
         for _, row in new_df.iterrows():
             url = str(row.get("URL", "")).strip()

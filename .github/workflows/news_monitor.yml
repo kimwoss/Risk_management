@@ -74,12 +74,20 @@ jobs:
             git commit -m "Update news database and cache - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
 
             # 최대 3회 재시도
-            # 매 시도마다: (1) remote JSON 파일과 Union 병합 → (2) push
-            # JSON 병합을 먼저 하면 rebase 시 충돌이 발생하지 않음
+            # 매 시도마다: (1) remote rebase → (2) JSON 병합 → (3) push
+            # git rebase로 health_check 등 다른 워크플로우와의 push 충돌 방지
             for i in 1 2 3; do
               echo "Push attempt $i..."
 
               git fetch origin main
+
+              # remote/main을 로컬에 rebase → push 충돌 방지
+              if ! git rebase origin/main; then
+                echo "Rebase failed (attempt $i), aborting and retrying..."
+                git rebase --abort 2>/dev/null || true
+                sleep $((i * 5))
+                continue
+              fi
 
               # sent_cache / pending_queue JSON을 remote와 Union 병합
               # → 두 Job이 동시에 수정해도 발송 이력이 유실되지 않음

@@ -550,7 +550,12 @@ def clear_data_cache():
 @st.cache_data
 def _load_csv_with_key(path: str, _cache_key: float) -> pd.DataFrame:
     try:
-        return pd.read_csv(path, encoding="utf-8")
+        return pd.read_csv(path, encoding="utf-8-sig")
+    except UnicodeDecodeError:
+        try:
+            return pd.read_csv(path, encoding="utf-8")
+        except Exception:
+            return pd.DataFrame()
     except Exception:
         return pd.DataFrame()
 

@@ -303,11 +303,11 @@ def render_latest_articles(latest_articles: list[dict]):
 
 
 def render_news_volume_chart(news_items: list[dict], keyword: str):
-    """날짜별 보도 건수 막대차트"""
+    """날짜별 보도 건수 막대차트 (최근 7일 기준)"""
     from collections import Counter
-    dates = [item["pub_date_str"] for item in news_items if item.get("is_within_30d")]
+    dates = [item["pub_date_str"] for item in news_items if item.get("is_within_7d")]
     if not dates:
-        _st().info("최근 30일 내 기사 데이터가 없습니다.")
+        _st().info("최근 7일 내 기사 데이터가 없습니다.")
         return
     counts = Counter(dates)
     sorted_dates = sorted(counts.keys())
@@ -318,7 +318,7 @@ def render_news_volume_chart(news_items: list[dict], keyword: str):
         marker_color=[CHART_COLORS["bar_accent"] if v == max(values) else CHART_COLORS["bar_default"] for v in values],
         hovertemplate="%{x}: %{y}건<extra></extra>",
     ))
-    fig.update_layout(**PLOTLY_THEME, height=250, title_text="뉴스 보도량 추이 (최근 30일)", title_font_color="#94a3b8", title_font_size=13)
+    fig.update_layout(**PLOTLY_THEME, height=250, title_text="뉴스 보도량 추이 (최근 7일)", title_font_color="#94a3b8", title_font_size=13)
     _st().plotly_chart(fig, use_container_width=True)
 
 

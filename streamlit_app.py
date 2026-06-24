@@ -2549,76 +2549,33 @@ def render_main_page():
     </section>
     """, unsafe_allow_html=True)
 
-    # ── 바로가기 CTA 카드 그리드 (CSS+HTML 단일 블록 — 외부 캐시 CSS 의존 제거) ──
-    st.markdown("""
-    <style>
-    .cta-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 10px;
-        margin-top: 28px;
-    }
-    .cta-card {
-        display: block;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 12px;
-        padding: 20px 16px;
-        text-align: center;
-        text-decoration: none !important;
-        transition: all 0.2s ease;
-        cursor: pointer;
-    }
-    .cta-card:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(212,175,55,0.3);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        text-decoration: none !important;
-    }
-    .cta-icon  { font-size: 1.8rem; margin-bottom: 8px; display: block; }
-    .cta-title { font-size: 0.9rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; display: block; }
-    .cta-desc  { font-size: 0.72rem; color: rgba(255,255,255,0.45); line-height: 1.4; display: block; }
-    @media (max-width: 900px) {
-        .cta-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 540px) {
-        .cta-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    </style>
-    <div class="cta-grid">
-        <a href="?menu=뉴스 모니터링" class="cta-card">
-            <span class="cta-icon">📰</span>
-            <span class="cta-title">뉴스 모니터링</span>
-            <span class="cta-desc">실시간 기사 수집·감성 분석</span>
-        </a>
-        <a href="?menu=키워드 인사이트" class="cta-card">
-            <span class="cta-icon">🔍</span>
-            <span class="cta-title">키워드 인사이트</span>
-            <span class="cta-desc">AI 기반 트렌드·리스크 분석</span>
-        </a>
-        <a href="?menu=이슈보고 생성" class="cta-card">
-            <span class="cta-icon">📋</span>
-            <span class="cta-title">이슈보고 생성</span>
-            <span class="cta-desc">AI 이슈 발생 보고서 자동 작성</span>
-        </a>
-        <a href="?menu=언론사 정보" class="cta-card">
-            <span class="cta-icon">🏢</span>
-            <span class="cta-title">언론사 정보</span>
-            <span class="cta-desc">출입매체·기자 연락처 조회</span>
-        </a>
-        <a href="?menu=담당자 정보" class="cta-card">
-            <span class="cta-icon">👥</span>
-            <span class="cta-title">담당자 정보</span>
-            <span class="cta-desc">내부 부서·담당자 검색</span>
-        </a>
-        <a href="?menu=대응이력 검색" class="cta-card">
-            <span class="cta-icon">📂</span>
-            <span class="cta-title">대응이력 검색</span>
-            <span class="cta-desc">과거 언론대응 이력 검색</span>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+    # ── 바로가기 CTA 카드 그리드 (순수 인라인 스타일 — <style> 태그 미사용) ──
+    _card = (
+        "display:block; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);"
+        "border-radius:12px; padding:20px 16px; text-align:center; text-decoration:none; cursor:pointer;"
+    )
+    _icon  = "font-size:1.8rem; display:block; margin-bottom:8px;"
+    _title = "font-size:0.9rem; font-weight:700; color:#e8e8e8; display:block; margin-bottom:4px;"
+    _desc  = "font-size:0.72rem; color:rgba(255,255,255,0.45); line-height:1.4; display:block;"
+    _grid  = "display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:28px;"
+
+    cta_items = [
+        ("📰", "뉴스 모니터링",  "실시간 기사 수집·감성 분석"),
+        ("🔍", "키워드 인사이트", "AI 기반 트렌드·리스크 분석"),
+        ("📋", "이슈보고 생성",   "AI 이슈 발생 보고서 자동 작성"),
+        ("🏢", "언론사 정보",    "출입매체·기자 연락처 조회"),
+        ("👥", "담당자 정보",    "내부 부서·담당자 검색"),
+        ("📂", "대응이력 검색",  "과거 언론대응 이력 검색"),
+    ]
+    cards_html = "".join(
+        f'<a href="?menu={label}" style="{_card}">'
+        f'<span style="{_icon}">{icon}</span>'
+        f'<span style="{_title}">{label}</span>'
+        f'<span style="{_desc}">{desc}</span>'
+        f'</a>'
+        for icon, label, desc in cta_items
+    )
+    st.markdown(f'<div style="{_grid}">{cards_html}</div>', unsafe_allow_html=True)
 
 # ----------------------------- 페이지들 -----------------------------
 def page_issue_report():

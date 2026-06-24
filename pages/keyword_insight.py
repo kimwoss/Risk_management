@@ -67,9 +67,9 @@ def _save_raw(keyword: str, news_items: list, trend_data: list):
 # ─────────────────────────────────────────────────────────────
 
 def render_kpi_bar(news_items: list[dict], trend_data: list[dict], gpt: dict):
-    """② 핵심 지표 바: 7일 기사 수 / 30일 기사 수 / 보도 추세 / 검색 관심도 / 위기 등급"""
-    count_7d  = sum(1 for a in news_items if a.get("is_within_7d"))
-    count_30d = sum(1 for a in news_items if a.get("is_within_30d"))
+    """② 핵심 지표 바: 당일 기사 수 / 7일 기사 수 / 보도 추세 / 검색 관심도 / 위기 등급"""
+    count_today = sum(1 for a in news_items if a.get("is_today"))
+    count_7d    = sum(1 for a in news_items if a.get("is_within_7d"))
 
     trend_label = gpt.get("trend", "보합")
     TREND_ICONS = {"급증": "🔺", "증가": "↑", "보합": "→", "감소": "↓", "급감": "🔻"}
@@ -79,8 +79,8 @@ def render_kpi_bar(news_items: list[dict], trend_data: list[dict], gpt: dict):
     crisis   = gpt.get("crisis_level", "관심")
 
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("7일 기사 수",  f"{count_7d:,}건")
-    c2.metric("30일 기사 수", f"{count_30d:,}건")
+    c1.metric("당일 기사 수", f"{count_today:,}건")
+    c2.metric("7일 기사 수",  f"{count_7d:,}건")
     c3.metric("보도 추세",    f"{trend_icon} {trend_label}")
     c4.metric("검색 관심도",  f"{int(interest)}/100",
               help="네이버 데이터랩 기준 상대값 (최대=100, 절대 검색량 아님)")

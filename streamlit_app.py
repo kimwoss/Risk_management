@@ -2549,33 +2549,67 @@ def render_main_page():
     </section>
     """, unsafe_allow_html=True)
 
-    # ── 바로가기 CTA 카드 그리드 (순수 인라인 스타일 — <style> 태그 미사용) ──
-    _card = (
-        "display:block; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);"
-        "border-radius:12px; padding:20px 16px; text-align:center; text-decoration:none; cursor:pointer;"
-    )
-    _icon  = "font-size:1.8rem; display:block; margin-bottom:8px;"
-    _title = "font-size:0.9rem; font-weight:700; color:#e8e8e8; display:block; margin-bottom:4px;"
-    _desc  = "font-size:0.72rem; color:rgba(255,255,255,0.45); line-height:1.4; display:block;"
-    _grid  = "display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:28px;"
-
-    cta_items = [
-        ("📰", "뉴스 모니터링",  "실시간 기사 수집·감성 분석"),
-        ("🔍", "키워드 인사이트", "AI 기반 트렌드·리스크 분석"),
-        ("📋", "이슈보고 생성",   "AI 이슈 발생 보고서 자동 작성"),
-        ("🏢", "언론사 정보",    "출입매체·기자 연락처 조회"),
-        ("👥", "담당자 정보",    "내부 부서·담당자 검색"),
-        ("📂", "대응이력 검색",  "과거 언론대응 이력 검색"),
-    ]
-    cards_html = "".join(
-        f'<a href="?menu={label}" style="{_card}">'
-        f'<span style="{_icon}">{icon}</span>'
-        f'<span style="{_title}">{label}</span>'
-        f'<span style="{_desc}">{desc}</span>'
-        f'</a>'
-        for icon, label, desc in cta_items
-    )
-    st.markdown(f'<div style="{_grid}">{cards_html}</div>', unsafe_allow_html=True)
+    # ── 바로가기 CTA 카드 그리드 ──
+    # st.markdown은 Streamlit 1.39+에서 style= 속성을 sanitize하여 레이아웃 붕괴.
+    # components.html()은 iframe 내 렌더링으로 sanitize 없이 완전한 CSS 지원.
+    # target="_parent" 로 부모 페이지 네비게이션 처리.
+    st.components.v1.html("""
+<style>
+html, body {
+    margin: 0; padding: 0;
+    background: transparent;
+    font-family: 'Inter', 'Noto Sans KR', system-ui, sans-serif;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    padding: 4px 2px;
+    margin-top: 8px;
+}
+.card {
+    display: block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+.icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+.ttl  { font-size: 0.9rem; font-weight: 700; color: #e8e8e8; display: block; margin-bottom: 4px; }
+.dsc  { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; display: block; }
+</style>
+<div class="grid">
+  <a href="?menu=뉴스 모니터링" target="_parent" class="card">
+    <span class="icon">📰</span><span class="ttl">뉴스 모니터링</span><span class="dsc">실시간 기사 수집·감성 분석</span>
+  </a>
+  <a href="?menu=키워드 인사이트" target="_parent" class="card">
+    <span class="icon">🔍</span><span class="ttl">키워드 인사이트</span><span class="dsc">AI 기반 트렌드·리스크 분석</span>
+  </a>
+  <a href="?menu=이슈보고 생성" target="_parent" class="card">
+    <span class="icon">📋</span><span class="ttl">이슈보고 생성</span><span class="dsc">AI 이슈 발생 보고서 자동 작성</span>
+  </a>
+  <a href="?menu=언론사 정보" target="_parent" class="card">
+    <span class="icon">🏢</span><span class="ttl">언론사 정보</span><span class="dsc">출입매체·기자 연락처 조회</span>
+  </a>
+  <a href="?menu=담당자 정보" target="_parent" class="card">
+    <span class="icon">👥</span><span class="ttl">담당자 정보</span><span class="dsc">내부 부서·담당자 검색</span>
+  </a>
+  <a href="?menu=대응이력 검색" target="_parent" class="card">
+    <span class="icon">📂</span><span class="ttl">대응이력 검색</span><span class="dsc">과거 언론대응 이력 검색</span>
+  </a>
+</div>
+""", height=155, scrolling=False)
 
 # ----------------------------- 페이지들 -----------------------------
 def page_issue_report():

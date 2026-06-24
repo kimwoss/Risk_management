@@ -53,10 +53,12 @@ def fetch_naver_news(keyword: str, display: int = 100, sort: str = "date") -> li
     if not raw_items:
         return []
 
-    # 전처리
-    now = datetime.now()
-    cutoff_30d = now - timedelta(days=30)
-    cutoff_7d = now - timedelta(days=7)
+    # 전처리 (KST 기준)
+    from zoneinfo import ZoneInfo
+    kst = ZoneInfo("Asia/Seoul")
+    now_kst     = datetime.now(kst)
+    today_kst   = now_kst.date()
+    cutoff_7d   = now_kst - timedelta(days=7)
 
     seen_links = set()
     processed = []
@@ -67,6 +69,7 @@ def fetch_naver_news(keyword: str, display: int = 100, sort: str = "date") -> li
         seen_links.add(link)
 
         dt, date_str, time_str = parse_pub_datetime(item.get("pubDate", ""))
+        dt_kst = dt.astimezone(kst) if dt.tzinfo else dt
         processed.append({
             "title_clean":    clean_html(item.get("title", "")),
             "desc_clean":     clean_html(item.get("description", "")),
@@ -76,8 +79,8 @@ def fetch_naver_news(keyword: str, display: int = 100, sort: str = "date") -> li
             "pub_time_str":   time_str,
             "originallink":   link,
             "link":           item.get("link", link),
-            "is_within_7d":   dt.replace(tzinfo=None) >= cutoff_7d.replace(tzinfo=None) if dt.tzinfo else dt >= cutoff_7d,
-            "is_within_30d":  dt.replace(tzinfo=None) >= cutoff_30d.replace(tzinfo=None) if dt.tzinfo else dt >= cutoff_30d,
+            "is_today":       dt_kst.date() == today_kst,
+            "is_within_7d":   dt_kst >= cutoff_7d,
         })
 
     return processed

@@ -111,46 +111,33 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     # ── 상단 행: 총합 카드 단독 배치 ──────────────────────────────
     st.markdown(f'''
-    <div class="iris-card ic-total ic-total-hero">
-        <div class="ic-total-date">{display_date}</div>
-        <div class="ic-value ic-total-value" id="total-{unique_id}" data-target="{total_today}">0</div>
-        <div class="ic-total-sublabel">5개 키워드 총합</div>
-        <div class="ic-pill-row">
-            <span class="ic-pill pos">{total_pos}</span>
-            <span class="ic-pill neg">{total_neg}</span>
-        </div>
+    <div class="ic-total-hero">
+        <span class="ic-total-date">{display_date}</span>
+        <span class="ic-total-value" id="total-{unique_id}" data-target="{total_today}">0</span>
     </div>
     <style>
     .ic-total-hero {{
-        border-left: none !important;
-        border-top: 3px solid #6366f1 !important;
-        background: linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(59,130,246,0.10) 100%) !important;
-        padding: 24px 32px !important;
-        min-height: 0 !important;
-        margin-bottom: 8px !important;
-        flex-direction: column;
-        gap: 4px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: rgba(99,102,241,0.10);
+        border-left: 3px solid #6366f1;
+        border-radius: 8px;
+        padding: 8px 16px;
+        margin-bottom: 10px;
     }}
     .ic-total-date {{
-        font-size: 1.1rem;
+        font-size: 0.85rem;
         font-weight: 700;
         color: #a5b4fc;
         letter-spacing: 0.04em;
-        margin-bottom: 2px;
+        white-space: nowrap;
     }}
     .ic-total-value {{
-        font-size: 3.2rem !important;
-        color: #fff !important;
-        line-height: 1.1;
-    }}
-    .ic-total-sublabel {{
-        font-size: 0.72rem;
-        color: #818cf8;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        margin-top: 2px;
-        margin-bottom: 4px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
     }}
     .ic-keyword-section-label {{
         font-size: 0.7rem;
@@ -158,7 +145,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
         color: rgba(255,255,255,0.35);
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        margin: 12px 0 6px 2px;
+        margin: 0 0 6px 2px;
     }}
     </style>
     ''', unsafe_allow_html=True)

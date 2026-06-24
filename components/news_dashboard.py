@@ -150,65 +150,96 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     </style>
     ''', unsafe_allow_html=True)
 
-    # ── 하단 행: 키워드별 분류 캡션 + 5개 카드 ──────────────────
-    st.markdown('<div class="ic-keyword-section-label">키워드별 분류</div>', unsafe_allow_html=True)
+    # ── 하단 행: 키워드 카드 5개 (단일 HTML 블록) ────────────────
+    st.markdown(f'''
+    <div class="ic-kw-grid">
+      <div class="ic-kw-card ic-kw-1">
+        <div class="ic-kw-label">#포스코인터내셔널</div>
+        <div class="ic-kw-num" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
+        <div class="ic-kw-pct">{posco_intl_pct:.1f}%</div>
+      </div>
+      <div class="ic-kw-card ic-kw-2">
+        <div class="ic-kw-label">#포스코</div>
+        <div class="ic-kw-num" id="posco-{unique_id}" data-target="{posco_count}">0</div>
+        <div class="ic-kw-pct">{posco_pct:.1f}%</div>
+      </div>
+      <div class="ic-kw-card ic-kw-3">
+        <div class="ic-kw-label">#포스코모빌리티솔루션</div>
+        <div class="ic-kw-num" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
+        <div class="ic-kw-pct">{posco_mobility_pct:.1f}%</div>
+      </div>
+      <div class="ic-kw-card ic-kw-4">
+        <div class="ic-kw-label">#삼척블루파워</div>
+        <div class="ic-kw-num" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
+        <div class="ic-kw-pct">{samcheok_pct:.1f}%</div>
+      </div>
+      <div class="ic-kw-card ic-kw-5">
+        <div class="ic-kw-label">#기타</div>
+        <div class="ic-kw-num" id="others-{unique_id}" data-target="{others_count}">0</div>
+        <div class="ic-kw-pct">{others_pct:.1f}%</div>
+      </div>
+    </div>
+    <style>
+    .ic-kw-grid {{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 6px;
+    }}
+    .ic-kw-card {{
+      border-radius: 6px;
+      padding: 8px 10px 6px;
+      border-left: 2px solid;
+      text-align: center;
+      transition: background 0.2s;
+    }}
+    .ic-kw-card:hover {{ background: rgba(255,255,255,0.06) !important; }}
+    .ic-kw-label {{
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }}
+    .ic-kw-num {{
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 3px;
+    }}
+    .ic-kw-pct {{ color: rgba(255,255,255,0.38); }}
 
-    col1, col2, col3, col4, col5 = st.columns(5)
+    /* 중요도 1: 포스코인터내셔널 — 가장 주목 */
+    .ic-kw-1 {{ border-left-color: #22c55e; background: rgba(34,197,94,0.07); }}
+    .ic-kw-1 .ic-kw-label {{ font-size: 0.72rem; color: #4ade80; }}
+    .ic-kw-1 .ic-kw-num   {{ font-size: 1.45rem; }}
+    .ic-kw-1 .ic-kw-pct   {{ font-size: 0.68rem; }}
 
-    with col1:
-        st.markdown(f'''<div class="iris-card ic-pos">
-            <div class="ic-label">#포스코인터내셔널</div>
-            <div class="ic-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
-            <div class="ic-pct">{posco_intl_pct:.1f}%</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{posco_intl_pos}</span>
-                <span class="ic-pill neg">{posco_intl_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
+    /* 중요도 2: 포스코 */
+    .ic-kw-2 {{ border-left-color: #f59e0b; background: rgba(245,158,11,0.07); }}
+    .ic-kw-2 .ic-kw-label {{ font-size: 0.72rem; color: #fbbf24; }}
+    .ic-kw-2 .ic-kw-num   {{ font-size: 1.3rem; }}
+    .ic-kw-2 .ic-kw-pct   {{ font-size: 0.66rem; }}
 
-    with col2:
-        st.markdown(f'''<div class="iris-card ic-amber">
-            <div class="ic-label">#포스코</div>
-            <div class="ic-value" id="posco-{unique_id}" data-target="{posco_count}">0</div>
-            <div class="ic-pct">{posco_pct:.1f}%</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{posco_pos}</span>
-                <span class="ic-pill neg">{posco_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
+    /* 중요도 3: 포스코모빌리티솔루션 */
+    .ic-kw-3 {{ border-left-color: #3b82f6; background: rgba(59,130,246,0.06); }}
+    .ic-kw-3 .ic-kw-label {{ font-size: 0.68rem; color: #60a5fa; }}
+    .ic-kw-3 .ic-kw-num   {{ font-size: 1.15rem; }}
+    .ic-kw-3 .ic-kw-pct   {{ font-size: 0.64rem; }}
 
-    with col3:
-        st.markdown(f'''<div class="iris-card ic-blue">
-            <div class="ic-label">#포스코모빌리티솔루션</div>
-            <div class="ic-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
-            <div class="ic-pct">{posco_mobility_pct:.1f}%</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{posco_mobility_pos}</span>
-                <span class="ic-pill neg">{posco_mobility_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
+    /* 중요도 4: 삼척블루파워 */
+    .ic-kw-4 {{ border-left-color: #ec4899; background: rgba(236,72,153,0.05); }}
+    .ic-kw-4 .ic-kw-label {{ font-size: 0.68rem; color: #f472b6; opacity: 0.85; }}
+    .ic-kw-4 .ic-kw-num   {{ font-size: 1.05rem; opacity: 0.88; }}
+    .ic-kw-4 .ic-kw-pct   {{ font-size: 0.63rem; }}
 
-    with col4:
-        st.markdown(f'''<div class="iris-card ic-pink">
-            <div class="ic-label">#삼척블루파워</div>
-            <div class="ic-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
-            <div class="ic-pct">{samcheok_pct:.1f}%</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{samcheok_pos}</span>
-                <span class="ic-pill neg">{samcheok_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
-
-    with col5:
-        st.markdown(f'''<div class="iris-card ic-purple">
-            <div class="ic-label">#기타</div>
-            <div class="ic-value" id="others-{unique_id}" data-target="{others_count}">0</div>
-            <div class="ic-pct">{others_pct:.1f}%</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{others_pos}</span>
-                <span class="ic-pill neg">{others_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
+    /* 중요도 5: 기타 — 가장 낮음 */
+    .ic-kw-5 {{ border-left-color: #a855f7; background: rgba(168,85,247,0.04); }}
+    .ic-kw-5 .ic-kw-label {{ font-size: 0.67rem; color: #c084fc; opacity: 0.72; }}
+    .ic-kw-5 .ic-kw-num   {{ font-size: 0.95rem; opacity: 0.72; }}
+    .ic-kw-5 .ic-kw-pct   {{ font-size: 0.62rem; }}
+    </style>
+    ''', unsafe_allow_html=True)
 
     # 카운트 애니메이션 JavaScript
     animation_script = f'''

@@ -101,25 +101,74 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 
     last_updated = now_kst.strftime('%Y-%m-%d %H:%M KST')
 
+    # 카드 표시용 날짜 (집계 기준과 동일한 KST today_str 사용)
+    display_date = now_kst.strftime('%Y.%m.%d')
+
     # 애니메이션을 위한 고유 ID
     import random
     import string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # 6개 카드를 한 줄에 배치
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    # ── 상단 행: 총합 카드 단독 배치 ──────────────────────────────
+    st.markdown(f'''
+    <div class="iris-card ic-total ic-total-hero">
+        <div class="ic-total-date">{display_date}</div>
+        <div class="ic-value ic-total-value" id="total-{unique_id}" data-target="{total_today}">0</div>
+        <div class="ic-total-sublabel">5개 키워드 총합</div>
+        <div class="ic-pill-row">
+            <span class="ic-pill pos">{total_pos}</span>
+            <span class="ic-pill neg">{total_neg}</span>
+        </div>
+    </div>
+    <style>
+    .ic-total-hero {{
+        border-left: none !important;
+        border-top: 3px solid #6366f1 !important;
+        background: linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(59,130,246,0.10) 100%) !important;
+        padding: 24px 32px !important;
+        min-height: 0 !important;
+        margin-bottom: 8px !important;
+        flex-direction: column;
+        gap: 4px;
+    }}
+    .ic-total-date {{
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #a5b4fc;
+        letter-spacing: 0.04em;
+        margin-bottom: 2px;
+    }}
+    .ic-total-value {{
+        font-size: 3.2rem !important;
+        color: #fff !important;
+        line-height: 1.1;
+    }}
+    .ic-total-sublabel {{
+        font-size: 0.72rem;
+        color: #818cf8;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-top: 2px;
+        margin-bottom: 4px;
+    }}
+    .ic-keyword-section-label {{
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 12px 0 6px 2px;
+    }}
+    </style>
+    ''', unsafe_allow_html=True)
+
+    # ── 하단 행: 키워드별 분류 캡션 + 5개 카드 ──────────────────
+    st.markdown('<div class="ic-keyword-section-label">키워드별 분류</div>', unsafe_allow_html=True)
+
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
-        st.markdown(f'''<div class="iris-card ic-total">
-            <div class="ic-label">당일 기사</div>
-            <div class="ic-value" id="total-{unique_id}" data-target="{total_today}">0</div>
-            <div class="ic-pill-row">
-                <span class="ic-pill pos">{total_pos}</span>
-                <span class="ic-pill neg">{total_neg}</span>
-            </div>
-        </div>''', unsafe_allow_html=True)
-
-    with col2:
         st.markdown(f'''<div class="iris-card ic-pos">
             <div class="ic-label">#포스코인터내셔널</div>
             <div class="ic-value" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
@@ -130,7 +179,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
             </div>
         </div>''', unsafe_allow_html=True)
 
-    with col3:
+    with col2:
         st.markdown(f'''<div class="iris-card ic-amber">
             <div class="ic-label">#포스코</div>
             <div class="ic-value" id="posco-{unique_id}" data-target="{posco_count}">0</div>
@@ -141,7 +190,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
             </div>
         </div>''', unsafe_allow_html=True)
 
-    with col4:
+    with col3:
         st.markdown(f'''<div class="iris-card ic-blue">
             <div class="ic-label">#포스코모빌리티솔루션</div>
             <div class="ic-value" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
@@ -152,7 +201,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
             </div>
         </div>''', unsafe_allow_html=True)
 
-    with col5:
+    with col4:
         st.markdown(f'''<div class="iris-card ic-pink">
             <div class="ic-label">#삼척블루파워</div>
             <div class="ic-value" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
@@ -163,7 +212,7 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
             </div>
         </div>''', unsafe_allow_html=True)
 
-    with col6:
+    with col5:
         st.markdown(f'''<div class="iris-card ic-purple">
             <div class="ic-label">#기타</div>
             <div class="ic-value" id="others-{unique_id}" data-target="{others_count}">0</div>

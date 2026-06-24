@@ -1837,20 +1837,9 @@ def background_news_monitor():
     try:
         print(f"[BACKGROUND] 뉴스 수집 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-        # 키워드 설정
-        keywords = [
-            "포스코인터내셔널",
-            "POSCO INTERNATIONAL",
-            "포스코인터",
-            "삼척블루파워",
-            "구동모터코아",
-            "구동모터코어",
-            "미얀마 LNG",
-            "포스코모빌리티솔루션",
-            "포스코"
-        ]
-        exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
-                           "삼척블루파워", "포스코모빌리티솔루션"]
+        # 키워드 설정 (news_collector.KEYWORDS를 단일 진실 공급원으로 사용)
+        keywords = KEYWORDS
+        exclude_keywords = EXCLUDE_KEYWORDS
         max_items = 30  # API 사용량 최적화
 
         # API 키 체크
@@ -3010,21 +2999,10 @@ def page_history_search():
             st.warning("❌ 검색 조건에 맞는 내역이 없습니다.")
 
 def page_news_monitor():
-    # ===== 기본 파라미터 =====
-    keywords = [
-        "포스코인터내셔널",
-        "POSCO INTERNATIONAL",
-        "포스코인터",
-        "삼척블루파워",
-        "구동모터코아",
-        "구동모터코어",
-        "미얀마 LNG",
-        "포스코모빌리티솔루션",
-        "포스코"  # 일반 포스코 기사 (기존 키워드 제외 필터링 적용)
-    ]
+    # ===== 기본 파라미터 (news_collector.KEYWORDS를 단일 진실 공급원으로 사용) =====
+    keywords = KEYWORDS
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
-    exclude_keywords = ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터",
-                       "삼척블루파워", "포스코모빌리티솔루션"]
+    exclude_keywords = EXCLUDE_KEYWORDS
 
     refresh_interval = 180  # 180초 카운트다운 (3분) - 빠른 업데이트
     max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)

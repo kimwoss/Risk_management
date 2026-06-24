@@ -8,6 +8,102 @@ from datetime import datetime
 import pytz
 
 
+_CSS = """
+<style>
+.pub-hero {
+    background: linear-gradient(120deg, rgba(59,130,246,0.18) 0%, rgba(16,185,129,0.10) 100%);
+    border: 1px solid rgba(59,130,246,0.35);
+    border-radius: 10px;
+    padding: 14px 28px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.pub-hero-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #93c5fd;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+.pub-hero-sep {
+    width: 1px;
+    height: 32px;
+    background: rgba(59,130,246,0.45);
+    flex-shrink: 0;
+}
+.pub-hero-count {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+.pub-hero-num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+.pub-hero-unit {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #60a5fa;
+}
+.pub-kw-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 0;
+}
+.pub-kw-card {
+    border-radius: 6px;
+    padding: 8px 10px 6px;
+    border-left: 2px solid;
+    text-align: center;
+    transition: background 0.2s;
+}
+.pub-kw-card:hover { background: rgba(255,255,255,0.06) !important; }
+.pub-kw-label {
+    font-size: 0.70rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-bottom: 3px;
+}
+.pub-kw-num {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 3px;
+}
+.pub-kw-pct { font-size: 0.65rem; color: rgba(255,255,255,0.38); }
+
+.pub-kw-1 { border-left-color: #3b82f6; background: rgba(59,130,246,0.07); }
+.pub-kw-1 .pub-kw-label { color: #60a5fa; }
+
+.pub-kw-2 { border-left-color: #10b981; background: rgba(16,185,129,0.07); }
+.pub-kw-2 .pub-kw-label { color: #34d399; }
+
+.pub-kw-3 { border-left-color: #f59e0b; background: rgba(245,158,11,0.07); }
+.pub-kw-3 .pub-kw-label { color: #fbbf24; }
+
+.pub-kw-4 { border-left-color: #a855f7; background: rgba(168,85,247,0.06); }
+.pub-kw-4 .pub-kw-label { color: #c084fc; }
+
+.pub-kw-5 { border-left-color: #ec4899; background: rgba(236,72,153,0.06); }
+.pub-kw-5 .pub-kw-label { color: #f472b6; }
+
+.pub-kw-6 { border-left-color: #ef4444; background: rgba(239,68,68,0.06); }
+.pub-kw-6 .pub-kw-label { color: #f87171; }
+
+.pub-kw-7 { border-left-color: #14b8a6; background: rgba(20,184,166,0.06); }
+.pub-kw-7 .pub-kw-label { color: #2dd4bf; }
+</style>
+"""
+
+
 def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     """
     출입매체 현황 대시보드 렌더링
@@ -16,10 +112,8 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
         media_contacts: 언론사 정보 딕셔너리 {언론사명: {구분: "종합지", ...}}
         show_live: LIVE 뱃지 표시 여부
     """
-    # 통계 계산
     total = len(media_contacts)
 
-    # 구분별 카운트 (고정값 사용)
     category_counts = {
         '종합지': 11,
         '경제지': 10,
@@ -28,115 +122,97 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
         '석간지': 4,
     }
 
-    # 통신사는 실제 카운트
     통신사_count = 0
     for media_name, media_info in media_contacts.items():
-        category = media_info.get('구분', '기타')
-        if category == '통신사':
+        if media_info.get('구분', '') == '통신사':
             통신사_count += 1
-
     category_counts['통신사'] = 통신사_count
 
-    # 온라인지는 전체에서 나머지를 뺀 값
     fixed_sum = sum(category_counts.values())
     category_counts['온라인지'] = max(0, total - fixed_sum)
 
-    # 퍼센트 계산
-    category_pcts = {}
-    for cat, count in category_counts.items():
-        category_pcts[cat] = (count / total * 100) if total > 0 else 0
+    def pct(count):
+        return (count / total * 100) if total > 0 else 0
 
-    kst = pytz.timezone('Asia/Seoul')
-    now_kst = datetime.now(kst)
-    last_updated = now_kst.strftime('%Y-%m-%d %H:%M KST')
+    import random, string
+    uid = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # 애니메이션을 위한 고유 ID
-    import random
-    import string
-    unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
+    # CSS 주입 (항상 HTML과 함께 — 캐시 의존 없음)
+    st.markdown(_CSS, unsafe_allow_html=True)
 
-    # 헤더 없이 바로 컨테이너 시작
-    st.markdown('<div class="iris-dash">', unsafe_allow_html=True)
+    # ── 상단: 총합 히어로 바 ──────────────────────────────────
+    st.markdown(f'''
+<div class="pub-hero">
+    <div class="pub-hero-label">총 출입매체</div>
+    <div class="pub-hero-sep"></div>
+    <div class="pub-hero-count">
+        <span class="pub-hero-num" id="pub-total-{uid}" data-target="{total}">0</span>
+        <span class="pub-hero-unit">개</span>
+    </div>
+</div>
+''', unsafe_allow_html=True)
 
-    # 총 출입매체 수 (첫 번째 행에 단독 배치)
-    col_total = st.columns([1])[0]
-    with col_total:
-        st.markdown(f'<div class="iris-card ic-total"><div class="ic-label">총 출입매체</div><div class="ic-value" id="total-{unique_id}" data-target="{total}">0</div></div>', unsafe_allow_html=True)
+    # ── 하단: 구분별 카드 7개 ────────────────────────────────
+    c = category_counts
+    st.markdown(f'''
+<div class="pub-kw-grid">
+  <div class="pub-kw-card pub-kw-1">
+    <div class="pub-kw-label">종합지</div>
+    <div class="pub-kw-num" id="pub-gen-{uid}" data-target="{c['종합지']}">0</div>
+    <div class="pub-kw-pct">{pct(c['종합지']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-2">
+    <div class="pub-kw-label">경제지</div>
+    <div class="pub-kw-num" id="pub-eco-{uid}" data-target="{c['경제지']}">0</div>
+    <div class="pub-kw-pct">{pct(c['경제지']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-3">
+    <div class="pub-kw-label">통신사</div>
+    <div class="pub-kw-num" id="pub-age-{uid}" data-target="{c['통신사']}">0</div>
+    <div class="pub-kw-pct">{pct(c['통신사']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-4">
+    <div class="pub-kw-label">석간지</div>
+    <div class="pub-kw-num" id="pub-eve-{uid}" data-target="{c['석간지']}">0</div>
+    <div class="pub-kw-pct">{pct(c['석간지']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-5">
+    <div class="pub-kw-label">영자지</div>
+    <div class="pub-kw-num" id="pub-eng-{uid}" data-target="{c['영자지']}">0</div>
+    <div class="pub-kw-pct">{pct(c['영자지']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-6">
+    <div class="pub-kw-label">경제TV</div>
+    <div class="pub-kw-num" id="pub-tv-{uid}" data-target="{c['경제TV']}">0</div>
+    <div class="pub-kw-pct">{pct(c['경제TV']):.1f}%</div>
+  </div>
+  <div class="pub-kw-card pub-kw-7">
+    <div class="pub-kw-label">온라인지</div>
+    <div class="pub-kw-num" id="pub-onl-{uid}" data-target="{c['온라인지']}">0</div>
+    <div class="pub-kw-pct">{pct(c['온라인지']):.1f}%</div>
+  </div>
+</div>
+''', unsafe_allow_html=True)
 
-    # 구분별 통계 (두 번째 행에 7개 배치)
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-
-    with col1:
-        st.markdown(f'<div class="iris-card ic-blue"><div class="ic-label">종합지</div><div class="ic-value" id="general-{unique_id}" data-target="{category_counts["종합지"]}">0</div><div class="ic-pct">{category_pcts["종합지"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col2:
-        st.markdown(f'<div class="iris-card ic-emerald"><div class="ic-label">경제지</div><div class="ic-value" id="economic-{unique_id}" data-target="{category_counts["경제지"]}">0</div><div class="ic-pct">{category_pcts["경제지"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col3:
-        st.markdown(f'<div class="iris-card ic-warn"><div class="ic-label">통신사</div><div class="ic-value" id="agency-{unique_id}" data-target="{category_counts["통신사"]}">0</div><div class="ic-pct">{category_pcts["통신사"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col4:
-        st.markdown(f'<div class="iris-card ic-purple"><div class="ic-label">석간지</div><div class="ic-value" id="evening-{unique_id}" data-target="{category_counts["석간지"]}">0</div><div class="ic-pct">{category_pcts["석간지"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col5:
-        st.markdown(f'<div class="iris-card ic-pink"><div class="ic-label">영자지</div><div class="ic-value" id="english-{unique_id}" data-target="{category_counts["영자지"]}">0</div><div class="ic-pct">{category_pcts["영자지"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col6:
-        st.markdown(f'<div class="iris-card ic-neg"><div class="ic-label">경제TV</div><div class="ic-value" id="tv-{unique_id}" data-target="{category_counts["경제TV"]}">0</div><div class="ic-pct">{category_pcts["경제TV"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    with col7:
-        st.markdown(f'<div class="iris-card ic-teal"><div class="ic-label">온라인지</div><div class="ic-value" id="online-{unique_id}" data-target="{category_counts["온라인지"]}">0</div><div class="ic-pct">{category_pcts["온라인지"]:.1f}%</div></div>', unsafe_allow_html=True)
-
-    # 카운트 애니메이션 JavaScript
-    animation_script = f'''
-    <script>
-    (function() {{
-        function animateCount() {{
-            const ids = ['total-{unique_id}', 'general-{unique_id}', 'economic-{unique_id}', 'agency-{unique_id}', 'evening-{unique_id}', 'english-{unique_id}', 'tv-{unique_id}', 'online-{unique_id}'];
-
-            function easeOutQuart(t) {{
-                return 1 - Math.pow(1 - t, 4);
-            }}
-
-            function formatNumber(num) {{
-                return num.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, ",");
-            }}
-
-            ids.forEach((id, index) => {{
-                const elem = window.parent.document.getElementById(id);
-                if (!elem) return;
-
-                const target = parseInt(elem.getAttribute('data-target'));
-                const duration = 700 + Math.random() * 400; // 700-1100ms
-                const startTime = performance.now();
-
-                function animate(currentTime) {{
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easedProgress = easeOutQuart(progress);
-                    const current = Math.floor(easedProgress * target);
-
-                    elem.textContent = formatNumber(current);
-
-                    if (progress < 1) {{
-                        requestAnimationFrame(animate);
-                    }}
-                }}
-
-                requestAnimationFrame(animate);
-            }});
+    components.html(f'''
+<script>
+(function() {{
+    var ids = ['pub-total-{uid}','pub-gen-{uid}','pub-eco-{uid}','pub-age-{uid}',
+               'pub-eve-{uid}','pub-eng-{uid}','pub-tv-{uid}','pub-onl-{uid}'];
+    function easeOutQuart(t) {{ return 1 - Math.pow(1 - t, 4); }}
+    ids.forEach(function(id) {{
+        var elem = window.parent.document.getElementById(id);
+        if (!elem) return;
+        var target = parseInt(elem.getAttribute('data-target'));
+        var duration = 700 + Math.random() * 400;
+        var startTime = performance.now();
+        function animate(now) {{
+            var p = Math.min((now - startTime) / duration, 1);
+            elem.textContent = Math.floor(easeOutQuart(p) * target);
+            if (p < 1) requestAnimationFrame(animate);
         }}
-
-        // DOM이 로드된 후 실행
-        if (document.readyState === 'loading') {{
-            document.addEventListener('DOMContentLoaded', animateCount);
-        }} else {{
-            animateCount();
-        }}
-    }})();
-    </script>
-    '''
-
-    components.html(animation_script, height=0)
-
-    st.markdown('</div>', unsafe_allow_html=True)
+        requestAnimationFrame(animate);
+    }});
+}})();
+</script>
+''', height=0)

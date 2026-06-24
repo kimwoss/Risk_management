@@ -32,7 +32,7 @@ from modules.ui_components import (
 )
 
 # ── 캐시 키 상수 ──
-_CACHE_PREFIX = "ki_raw_"
+_CACHE_PREFIX = "ki_raw_v2_"   # v2: is_today / is_within_7d 필드 추가 버전
 _CACHE_TTL    = 3600  # 1시간
 
 
@@ -49,6 +49,11 @@ def _load_raw(keyword: str) -> dict | None:
     if not entry:
         return None
     if time.time() - entry.get("ts", 0) > _CACHE_TTL:
+        del st.session_state[_raw_cache_key(keyword)]
+        return None
+    # 구버전 캐시(is_today 필드 없음) 무효화
+    items = entry.get("news_items", [])
+    if items and "is_today" not in items[0]:
         del st.session_state[_raw_cache_key(keyword)]
         return None
     return entry

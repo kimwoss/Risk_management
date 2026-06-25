@@ -113,15 +113,20 @@ iframe[title] {
 ACCESS_CODE = os.environ.get("ACCESS_CODE", "")  # 환경 변수에서 로드 (.env 파일 또는 배포 환경 설정)
 import hashlib
 
-def get_auth_token():
+def get_auth_token(role="pr"):
     """인증 토큰 생성 (보안을 위해 해시 사용)"""
-    return hashlib.sha256(f"{ACCESS_CODE}_secret_salt".encode()).hexdigest()
+    if role == "general":
+        pw = st.secrets.get("PASSWORD_GENERAL", "")
+    else:
+        pw = st.secrets.get("PASSWORD_PR", os.environ.get("ACCESS_CODE", ""))
+    return hashlib.sha256(f"{pw}_secret_salt".encode()).hexdigest()
 
 def check_cookie_auth():
-    """쿠키에서 인증 정보 확인"""
-    auth_token = get_auth_token()
+    """쿠키에서 인증 정보 확인 (역할별 쿠키 분리)"""
+    auth_token_pr = get_auth_token("pr")
+    auth_token_general = get_auth_token("general")
 
-    # JavaScript로 쿠키 확인
+    # JavaScript로 쿠키 확인 (PR/general 쿠키 각각 검사)
     cookie_script = f"""
     <script>
         function getCookie(name) {{
@@ -131,14 +136,19 @@ def check_cookie_auth():
             return null;
         }}
 
-        const authToken = getCookie('posco_auth_token');
-        const authTokenValue = '{auth_token}';
+        const prToken = getCookie('posco_auth_token');
+        const generalToken = getCookie('posco_auth_token_general');
 
-        if (authToken === authTokenValue) {{
-            // 인증 성공 - URL 파라미터로 전달
-            if (!window.location.search.includes('auto_login=1')) {{
+        if (prToken === '{auth_token_pr}') {{
+            if (!window.location.search.includes('auto_login=pr')) {{
                 const url = new URL(window.location);
-                url.searchParams.set('auto_login', '1');
+                url.searchParams.set('auto_login', 'pr');
+                window.location.href = url.toString();
+            }}
+        }} else if (generalToken === '{auth_token_general}') {{
+            if (!window.location.search.includes('auto_login=general')) {{
+                const url = new URL(window.location);
+                url.searchParams.set('auto_login', 'general');
                 window.location.href = url.toString();
             }}
         }}
@@ -147,9 +157,10 @@ def check_cookie_auth():
     st.components.v1.html(cookie_script, height=0)
 
     # URL 파라미터 확인
-    if st.query_params.get("auto_login") == "1":
+    auto_login = st.query_params.get("auto_login")
+    if auto_login in ("pr", "general", "1"):
         st.session_state.authenticated = True
-        # 파라미터 제거 (깔끔한 URL 유지)
+        st.session_state["role"] = "general" if auto_login == "general" else "pr"
         st.query_params.clear()
         return True
 
@@ -473,16 +484,34 @@ def show_login_page():
 
     # ── 인증 처리 ────────────────────────────────────────────────
     if submitted:
-        if code_input == ACCESS_CODE:
+        _pw_pr = st.secrets.get("PASSWORD_PR", "")
+        _pw_general = st.secrets.get("PASSWORD_GENERAL", "")
+        if _pw_pr and code_input == _pw_pr:
             st.session_state.authenticated = True
+            st.session_state["role"] = "pr"
             st.session_state.login_pending_cookie = True
-            auth_token = get_auth_token()
+            auth_token = get_auth_token("pr")
             if remember:
                 st.components.v1.html(
                     f"""<script>(function(){{
                         const d=new Date();
                         d.setTime(d.getTime()+(30*24*60*60*1000));
                         document.cookie="posco_auth_token={auth_token};expires="+d.toUTCString()+";path=/;SameSite=Lax";
+                    }})();</script>""",
+                    height=0,
+                )
+            st.rerun()
+        elif _pw_general and code_input == _pw_general:
+            st.session_state.authenticated = True
+            st.session_state["role"] = "general"
+            st.session_state.login_pending_cookie = True
+            auth_token = get_auth_token("general")
+            if remember:
+                st.components.v1.html(
+                    f"""<script>(function(){{
+                        const d=new Date();
+                        d.setTime(d.getTime()+(30*24*60*60*1000));
+                        document.cookie="posco_auth_token_general={auth_token};expires="+d.toUTCString()+";path=/;SameSite=Lax";
                     }})();</script>""",
                     height=0,
                 )
@@ -2398,6 +2427,12 @@ def load_main_background_uri():
 # ----------------------------- 네비게이션 -----------------------------
 MENU_ITEMS = ["뉴스 모니터링", "키워드 인사이트", "이슈보고 생성", "언론사 정보", "담당자 정보", "대응이력 검색"]
 
+def get_visible_menu():
+    """역할에 따라 노출할 메뉴 목록 반환"""
+    if st.session_state.get("role") == "general":
+        return [m for m in MENU_ITEMS if m != "뉴스 모니터링"]
+    return MENU_ITEMS
+
 def set_active_menu_from_url(default_label="메인"):
     try:
         raw = st.query_params.get("menu") or default_label
@@ -2506,8 +2541,9 @@ def render_top_nav(active_label: str):
                     st.query_params.clear()
                     st.rerun()
         with c2:
-            cols = st.columns(len(MENU_ITEMS))
-            for i, label in enumerate(MENU_ITEMS):
+            visible_items = get_visible_menu()
+            cols = st.columns(len(visible_items))
+            for i, label in enumerate(visible_items):
                 with cols[i]:
                     clicked = st.button(label, key=f"nav_{label}", use_container_width=True, disabled=(label==active_label))
                     if clicked:
@@ -2553,21 +2589,29 @@ def render_main_page():
     # st.markdown은 Streamlit 1.39+에서 style= 속성을 sanitize하여 레이아웃 붕괴.
     # components.html()은 iframe 내 렌더링으로 sanitize 없이 완전한 CSS 지원.
     # target="_parent" 로 부모 페이지 네비게이션 처리.
-    st.components.v1.html("""
+    _role = st.session_state.get("role", "pr")
+    _news_card = (
+        """  <a href="?menu=뉴스 모니터링" target="_parent" class="card">
+    <span class="icon">📰</span><span class="ttl">뉴스 모니터링</span><span class="dsc">실시간 기사 수집·감성 분석</span>
+  </a>"""
+        if _role == "pr" else ""
+    )
+    _col_count = 6 if _role == "pr" else 5
+    st.components.v1.html(f"""
 <style>
-html, body {
+html, body {{
     margin: 0; padding: 0;
     background: transparent;
     font-family: 'Inter', 'Noto Sans KR', system-ui, sans-serif;
-}
-.grid {
+}}
+.grid {{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat({_col_count}, 1fr);
     gap: 10px;
     padding: 4px 2px;
     margin-top: 8px;
-}
-.card {
+}}
+.card {{
     display: block;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.10);
@@ -2578,21 +2622,19 @@ html, body {
     cursor: pointer;
     box-sizing: border-box;
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
-}
-.card:hover {
+}}
+.card:hover {{
     background: rgba(255,255,255,0.10);
     border-color: rgba(212,175,55,0.4);
     transform: translateY(-3px);
     text-decoration: none;
-}
-.icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
-.ttl  { font-size: 0.9rem; font-weight: 700; color: #e8e8e8; display: block; margin-bottom: 4px; }
-.dsc  { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; display: block; }
+}}
+.icon {{ font-size: 1.8rem; display: block; margin-bottom: 8px; }}
+.ttl  {{ font-size: 0.9rem; font-weight: 700; color: #e8e8e8; display: block; margin-bottom: 4px; }}
+.dsc  {{ font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; display: block; }}
 </style>
 <div class="grid">
-  <a href="?menu=뉴스 모니터링" target="_parent" class="card">
-    <span class="icon">📰</span><span class="ttl">뉴스 모니터링</span><span class="dsc">실시간 기사 수집·감성 분석</span>
-  </a>
+{_news_card}
   <a href="?menu=키워드 인사이트" target="_parent" class="card">
     <span class="icon">🔍</span><span class="ttl">키워드 인사이트</span><span class="dsc">AI 기반 트렌드·리스크 분석</span>
   </a>
@@ -3733,6 +3775,15 @@ def main():
         st.session_state["data_loaded"] = True
 
     active = set_active_menu_from_url()
+
+    # general 역할 사용자가 접근 불가 메뉴에 진입하면 첫 번째 허용 메뉴로 보정
+    _visible = get_visible_menu()
+    if active not in _visible and active != "메인":
+        active = _visible[0] if _visible else "메인"
+        st.query_params["menu"] = active
+        st.session_state["top_menu"] = active
+        st.rerun()
+
     # 메뉴 변경 감지 및 입력 상태 초기화 (개선됨)
     if "current_menu" not in st.session_state:
         st.session_state.current_menu = active
@@ -3767,6 +3818,9 @@ def main():
     elif active == "대응이력 검색":
         page_history_search()
     elif active == "뉴스 모니터링":
+        if st.session_state.get("role") != "pr":
+            st.warning("접근 권한이 없습니다.")
+            st.stop()
         page_news_monitor()
     elif active == "키워드 인사이트":
         from pages.keyword_insight import render_keyword_insight_page

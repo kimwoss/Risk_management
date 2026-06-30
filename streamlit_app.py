@@ -10,7 +10,6 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import threading
-import atexit
 
 # 공통 뉴스 수집 모듈 import
 from news_collector import (
@@ -28,15 +27,6 @@ from news_collector import (
     save_sent_cache,
     get_article_sentiment,
 )
-
-# APScheduler import with error handling
-try:
-    from apscheduler.schedulers.background import BackgroundScheduler
-    SCHEDULER_AVAILABLE = True
-    print("[INFO] 백그라운드 스케줄러 활성화 (cron-job.org + APScheduler 모드)")
-except ImportError:
-    SCHEDULER_AVAILABLE = False
-    print("[WARNING] APScheduler 미설치 - 백그라운드 스케줄러 비활성화")
 
 import pandas as pd
 import streamlit as st
@@ -1857,243 +1847,10 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame) -> list:
         print(f"[DEBUG] 상세 오류:\n{traceback.format_exc()}")
         return []
 
-# ----------------------------- 백그라운드 뉴스 모니터링 -----------------------------
-def background_news_monitor():
-    """
-    백그라운드에서 자동으로 뉴스를 수집하고 텔레그램 알림을 보내는 함수
-    브라우저 연결 여부와 관계없이 3분마다 자동 실행됨
-    """
-    try:
-        print(f"[BACKGROUND] 뉴스 수집 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
-        # 키워드 설정 (news_collector.KEYWORDS를 단일 진실 공급원으로 사용)
-        keywords = KEYWORDS
-        exclude_keywords = EXCLUDE_KEYWORDS
-        max_items = 30  # API 사용량 최적화
-
-        # API 키 체크
-        headers = _naver_headers()
-        api_ok = bool(headers.get("X-Naver-Client-Id") and headers.get("X-Naver-Client-Secret"))
-
-        if not api_ok:
-            print("[BACKGROUND] API 키가 없어 수집을 건너뜁니다.")
-            return
-
-        # 기존 DB 로드
-        existing_db = load_news_db()
-
-        # 뉴스 수집
-        all_news = []
-        quota_exceeded = False
-
-        for kw in keywords:
-            df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
-
-            # API 할당량 초과 체크
-            if df_kw.attrs.get('quota_exceeded', False):
-                print(f"[BACKGROUND] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
-                quota_exceeded = True
-                break
-
-            if not df_kw.empty:
-                # "포스코인터내셔널" 정확한 매칭 강화
-                if kw == "포스코인터내셔널":
-                    def should_include_posco_intl(row):
-                        title = str(row.get("기사제목", ""))
-                        description = str(row.get("주요기사 요약", ""))
-
-                        # 정확히 "포스코인터내셔널"이 포함되어야 함
-                        if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
-                            return False
-
-                        # 제외 키워드 체크
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                        for exclude_word in exclude_words:
-                            if exclude_word in title or exclude_word in description:
-                                return False
-
-                        return True
-
-                    mask = df_kw.apply(should_include_posco_intl, axis=1)
-                    df_kw = df_kw[mask].reset_index(drop=True)
-                    if not df_kw.empty:
-                        print(f"[BACKGROUND] '포스코인터내셔널' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                # "포스코모빌리티솔루션" 정확한 매칭 강화
-                elif kw == "포스코모빌리티솔루션":
-                    def should_include_posco_mobility(row):
-                        title = str(row.get("기사제목", ""))
-                        description = str(row.get("주요기사 요약", ""))
-
-                        # 정확히 "포스코모빌리티솔루션"이 포함되어야 함
-                        if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
-                            return False
-
-                        # 제외 키워드 체크
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                        for exclude_word in exclude_words:
-                            if exclude_word in title or exclude_word in description:
-                                return False
-
-                        return True
-
-                    mask = df_kw.apply(should_include_posco_mobility, axis=1)
-                    df_kw = df_kw[mask].reset_index(drop=True)
-                    if not df_kw.empty:
-                        print(f"[BACKGROUND] '포스코모빌리티솔루션' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                # "포스코" 키워드의 경우 특별 처리
-                elif kw == "포스코":
-                    def should_include_posco(row):
-                        title = str(row.get("기사제목", ""))
-                        title_lower = title.lower()
-                        description = str(row.get("주요기사 요약", ""))
-                        content_lower = description.lower()
-
-                        # 기존 조건: 타이틀에 "포스코" 포함
-                        title_has_posco = "포스코" in title or "posco" in title_lower
-
-                        # 새 조건: 타이틀에 "[단독]" 포함 AND 내용에 "포스코" 포함
-                        is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
-
-                        # 둘 중 하나라도 만족하면 포함
-                        if not (title_has_posco or is_exclusive_with_posco_in_content):
-                            return False
-
-                        for exclude_kw in exclude_keywords:
-                            if exclude_kw.lower() in title_lower:
-                                return False
-
-                        exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                        for exclude_word in exclude_words:
-                            if exclude_word in title or exclude_word in description:
-                                return False
-
-                        return True
-
-                    mask_posco = df_kw.apply(should_include_posco, axis=1)
-                    df_kw = df_kw[mask_posco].reset_index(drop=True)
-                    if not df_kw.empty:
-                        print(f"[BACKGROUND] '포스코' 필터링 완료: {len(df_kw)}건 추가")
-
-                else:
-                    # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
-                    exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
-                    def should_include_general(row):
-                        title = str(row.get("기사제목", ""))
-                        for exclude_word in exclude_words:
-                            if exclude_word in title:
-                                return False
-                        return True
-
-                    mask_general = df_kw.apply(should_include_general, axis=1)
-                    df_kw = df_kw[mask_general].reset_index(drop=True)
-
-                if not df_kw.empty:
-                    all_news.append(df_kw)
-
-        # API 할당량 초과 시 처리
-        if quota_exceeded:
-            print(f"[BACKGROUND] ❌ API 할당량 초과로 뉴스 수집 실패")
-            print(f"[BACKGROUND] 💡 해결 방법:")
-            print(f"[BACKGROUND]    1. 새로운 네이버 개발자 계정으로 API 키 재발급")
-            print(f"[BACKGROUND]    2. 매일 자정(KST) 이후 할당량 재설정")
-            print(f"[BACKGROUND]    3. 기존 저장된 뉴스 데이터는 유지됩니다")
-            return
-
-        # 통합 정리 & 저장
-        df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
-        if not df_new.empty:
-            df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
-            df_new = df_new.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
-            df_new = df_new.drop("날짜_datetime", axis=1)
-
-            # 중복 제거
-            key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
-            df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
-
-            # 기존 DB와 병합
-            merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
-            merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
-            if not merged.empty:
-                merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
-                merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
-                merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
-
-            # 신규 기사 감지
-            new_articles = detect_new_articles(existing_db, df_new)
-
-            # DB 저장 비활성화: GitHub Actions(standalone_monitor.py)에서만 DB 쓰기 담당
-            # Streamlit이 DB에 쓰면 GitHub Actions가 해당 기사를 "이미 DB에 있음"으로 판단해
-            # detect_new_articles에서 신규 감지 실패 → 텔레그램 전송 누락 발생
-            # save_news_db(merged)  # 비활성화
-            print(f"[BACKGROUND] ℹ️ DB 저장 스킵 - GitHub Actions 전담 (중복 감지 방지)")
-
-            if new_articles:
-                print(f"[BACKGROUND] ℹ️ 신규 기사 {len(new_articles)}건 감지 - 텔레그램은 GitHub Actions에서 발송")
-
-            print(f"[BACKGROUND] ✅ 뉴스 수집 완료")
-        else:
-            print(f"[BACKGROUND] ℹ️ 새로 수집된 기사가 없습니다.")
-
-    except Exception as e:
-        print(f"[BACKGROUND] ❌ 뉴스 수집 오류: {str(e)}")
-        import traceback
-        print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
-
-# 백그라운드 스케줄러 전역 변수
-_scheduler = None
-_scheduler_lock = threading.Lock()
-
 # 전송된 기사 URL 추적 (파일 기반 초기화 + 메모리 캐시, 최근 1000개)
 _sent_articles_cache = load_sent_cache()  # GitHub Actions가 저장한 캐시 파일에서 로드
 _sent_articles_lock = threading.Lock()
 _MAX_SENT_CACHE = 1000
-
-def start_background_scheduler():
-    """
-    백그라운드 스케줄러를 시작하는 함수
-    앱 시작 시 한 번만 실행됨
-    """
-    global _scheduler
-
-    # APScheduler가 없으면 스킵
-    if not SCHEDULER_AVAILABLE:
-        print("[BACKGROUND] ⚠️ APScheduler가 설치되지 않아 백그라운드 모니터링이 비활성화되었습니다.")
-        print("[BACKGROUND] 브라우저에서 '뉴스 모니터링' 메뉴를 열어두면 수동 새로고침이 작동합니다.")
-        return
-
-    with _scheduler_lock:
-        # 이미 스케줄러가 실행 중이면 스킵
-        if _scheduler is not None and _scheduler.running:
-            print("[BACKGROUND] 스케줄러가 이미 실행 중입니다.")
-            return
-
-        try:
-            # BackgroundScheduler 생성
-            _scheduler = BackgroundScheduler(timezone="Asia/Seoul")
-
-            # 3분(180초)마다 background_news_monitor 실행
-            _scheduler.add_job(
-                background_news_monitor,
-                'interval',
-                seconds=180,
-                id='news_monitor',
-                replace_existing=True,
-                max_instances=1  # 동시 실행 방지
-            )
-
-            # 스케줄러 시작
-            _scheduler.start()
-            print(f"[BACKGROUND] ✅ 백그라운드 스케줄러 시작 완료 (3분마다 자동 실행)")
-
-            # 앱 종료 시 스케줄러도 종료
-            atexit.register(lambda: _scheduler.shutdown() if _scheduler else None)
-
-        except Exception as e:
-            print(f"[BACKGROUND] ❌ 스케줄러 시작 오류: {str(e)}")
-            import traceback
-            print(f"[BACKGROUND] 상세 오류:\n{traceback.format_exc()}")
 
 # ----------------------------- 스타일 -----------------------------
 # CSS 캐시 비활성화 - 즉시 반영
@@ -3357,9 +3114,9 @@ def page_news_monitor():
                         # 세션 상태에도 저장 (즉시 UI 반영)
                         st.session_state.news_display_data = merged
 
-                        # 텔레그램 발송은 APScheduler(background_news_monitor)에서만 담당 - 중복 방지
+                        # 텔레그램 발송은 GitHub Actions(standalone_monitor)에서만 담당 - 중복 방지
                         if new_articles:
-                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 APScheduler에서 발송)")
+                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
                         st.session_state.last_news_fetch = now
 
                         # 상태 메시지에 신규 기사 수 표시

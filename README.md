@@ -62,9 +62,13 @@ P-IRIS/
 │   └── system_status.json    # 시스템 상태
 │
 ├── .github/workflows/        # GitHub Actions
-│   ├── news_monitor.yml      # 뉴스 자동 수집 (매시간)
+│   ├── heartbeat.yml         # 뉴스 자동 수집 (3분 루프, 주 백본)
+│   ├── news_monitor.yml      # 뉴스 수집 백업 (15분마다)
 │   ├── keep_alive.yml        # Streamlit Cloud 슬립 방지
 │   └── health_check.yml      # 시스템 상태 점검 (1일 2회)
+│
+├── scripts/
+│   └── merge_cache.py        # sent_cache/pending 큐 union 병합 (워크플로용)
 │
 ├── requirements.txt
 ├── .env.example
@@ -130,9 +134,14 @@ Python 3.11 이상 필요 (`.python-version` 참고).
 
 | 워크플로 | 주기 | 역할 |
 |---|---|---|
-| `news_monitor.yml` | 매시간 | 뉴스 수집 → `data/news_monitor.csv` 갱신 |
-| `keep_alive.yml` | 12시간마다 | Streamlit Cloud 슬립 방지 |
+| `heartbeat.yml` | **3분** (긴 잡 + 내부 `sleep 180` 루프) | 주 백본. 웹 접속·Streamlit 슬립과 무관하게 뉴스 수집·텔레그램 발송 |
+| `news_monitor.yml` | 15분마다 | 백업 안전망 (하트비트 장애 대비, 중복은 sent_cache가 차단) |
+| `keep_alive.yml` | 1일 2회 | 60일 비활성 시 스케줄 자동중지 방지 |
 | `health_check.yml` | 1일 2회 | DB 갱신 여부·캐시 상태 점검 |
+
+> GitHub cron은 3분 단위를 보장하지 못하므로(부하 시 지연), `heartbeat.yml`은 cron으로 반복하지 않고
+> 잡 하나를 길게 띄워 내부 `sleep 180` 루프로 3분 케이던스를 만든다. `0,30 * * * *` 트리거는
+> `concurrency` 그룹으로 루프를 끊김 없이 이어달리기 위한 용도다.
 
 ---
 

@@ -2991,211 +2991,22 @@ def page_news_monitor():
 
     # ===== 뉴스 수집 로직 =====
     if should_fetch:
-        # 수집 직전 상태 메시지
-        status.info("🔄 최신 기사를 가져오는 중…")
-
-        # API 키 유효성 체크
-        headers = _naver_headers()
-        api_ok = bool(headers.get("X-Naver-Client-Id") and headers.get("X-Naver-Client-Secret"))
-
-        # 초기엔 DB가 있으면 먼저 보여주고(끊김 없는 화면), 백그라운드처럼 바로 수집 시도
-        existing_db = load_news_db()
-
+        # 브라우저는 직접 크롤링하지 않는다. 수집은 backend(auto_monitor 백그라운드 + GitHub Actions
+        # heartbeat)가 전 키워드를 주기적으로 수행해 DB(news_monitor.csv)에 저장해 둔다 → 여기서는
+        # 그 DB만 즉시 읽어 표시한다. (브라우저가 직접 크롤링하면 백그라운드 수집과 동시 호출되어
+        #  네이버 rate limit 429 유발 + 새로고침 버퍼링이 생기므로, 수집과 표시를 분리.)
+        status.info("🔄 최신 뉴스 불러오는 중…")
         try:
-            all_news = []
-            quota_exceeded = False
-
-            if api_ok:
-                # 키워드별 최신순 순차 수집
-                # (병렬 수집은 여러 수집 경로와 겹쳐 네이버 초당 rate limit(429)을 유발하므로 순차 유지)
-                for kw in keywords:
-                    df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
-
-                    # API 할당량 초과 체크
-                    if df_kw.attrs.get('quota_exceeded', False):
-                        print(f"[DEBUG] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
-                        quota_exceeded = True
-                        break
-
-                    if not df_kw.empty:
-                        # "포스코인터내셔널" 정확한 매칭 강화
-                        if kw == "포스코인터내셔널":
-                            def should_include_posco_intl(row):
-                                title = str(row.get("기사제목", ""))
-                                description = str(row.get("주요기사 요약", ""))
-
-                                # 정확히 "포스코인터내셔널"이 포함되어야 함
-                                if "포스코인터내셔널" not in title and "포스코인터내셔널" not in description:
-                                    return False
-
-                                # 제외 키워드 체크
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            mask = df_kw.apply(should_include_posco_intl, axis=1)
-                            df_kw = df_kw[mask].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코인터내셔널' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                        # "포스코모빌리티솔루션" 정확한 매칭 강화
-                        elif kw == "포스코모빌리티솔루션":
-                            def should_include_posco_mobility(row):
-                                title = str(row.get("기사제목", ""))
-                                description = str(row.get("주요기사 요약", ""))
-
-                                # 정확히 "포스코모빌리티솔루션"이 포함되어야 함
-                                if "포스코모빌리티솔루션" not in title and "포스코모빌리티솔루션" not in description:
-                                    return False
-
-                                # 제외 키워드 체크
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            mask = df_kw.apply(should_include_posco_mobility, axis=1)
-                            df_kw = df_kw[mask].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코모빌리티솔루션' 정확 매칭 필터링 완료: {len(df_kw)}건 추가")
-
-                        # "포스코" 키워드의 경우 특별 처리
-                        elif kw == "포스코":
-                            def should_include_posco(row):
-                                title = str(row.get("기사제목", ""))
-                                title_lower = title.lower()
-                                description = str(row.get("주요기사 요약", ""))  # 내용 필드
-                                content_lower = description.lower()
-
-                                # 기존 조건: 타이틀에 "포스코" 포함
-                                title_has_posco = "포스코" in title or "posco" in title_lower
-
-                                # 새 조건: 타이틀에 "[단독]" 포함 AND 내용에 "포스코" 포함
-                                is_exclusive_with_posco_in_content = "[단독]" in title and "포스코" in description
-
-                                # 둘 중 하나라도 만족하면 포함 (1단계)
-                                if not (title_has_posco or is_exclusive_with_posco_in_content):
-                                    return False
-
-                                # 2단계: 제목에 제외 키워드(포스코인터내셔널 등)가 없는가?
-                                for exclude_kw in exclude_keywords:
-                                    if exclude_kw.lower() in title_lower:
-                                        return False
-
-                                # 3단계: 제목 또는 내용에 부동산 키워드가 없는가?
-                                exclude_words = ["청약", "분양", "입주", "재건축", "정비구역"]
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title or exclude_word in description:
-                                        return False
-
-                                return True
-
-                            # 포스코 전용 필터링 적용
-                            mask_posco = df_kw.apply(should_include_posco, axis=1)
-                            df_kw = df_kw[mask_posco].reset_index(drop=True)
-                            if not df_kw.empty:
-                                print(f"[DEBUG] '포스코' 필터링 완료: {len(df_kw)}건 추가")
-
-                        else:
-                            # 다른 키워드는 기존처럼 제목에서만 부동산 관련 키워드 제거
-                            exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
-                            def should_include_general(row):
-                                title = str(row.get("기사제목", ""))
-                                for exclude_word in exclude_words:
-                                    if exclude_word in title:
-                                        return False
-                                return True
-
-                            mask_general = df_kw.apply(should_include_general, axis=1)
-                            df_kw = df_kw[mask_general].reset_index(drop=True)
-
-                        if not df_kw.empty:
-                            all_news.append(df_kw)
-
-                # API 할당량 초과 시 처리
-                # 네이버는 '초당 rate limit'과 '일일 한도'를 모두 429로 응답하므로,
-                # 실제 오늘 사용량으로 구분 — 사용량이 낮으면 일시적 지연(저장된 뉴스 표시).
-                if quota_exceeded:
-                    try:
-                        _usage_today = load_api_usage()
-                    except Exception:
-                        _usage_today = 0
-                    if _usage_today >= 24000:
-                        status.error("❌ API 일일 할당량 초과 (25,000회)\n\n"
-                                    "매일 자정(KST) 이후 자동 재설정됩니다.\n"
-                                    "기존 저장된 뉴스는 그대로 유지됩니다.")
-                    else:
-                        status.warning(f"⏳ 일시적으로 일부 키워드 수집이 지연됐습니다 "
-                                    f"(저장된 최신 뉴스를 표시 중). 잠시 후 자동 갱신됩니다. "
-                                    f"(오늘 사용량 {_usage_today:,}/25,000회)")
-                    # 플래그 리셋
-                    st.session_state.trigger_news_update = False
-                    st.session_state.next_refresh_at = time.time() + refresh_interval
-                    st.session_state.initial_loaded = True
-                else:
-                    # 통합 정리 & 저장
-                    df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
-                    if not df_new.empty:
-                        # 태그 우선순위(포스코인터내셔널>포스코>계열사) → 최신순 정렬 후 중복제거
-                        df_new["_tagpri"] = df_new["검색키워드"].map(tag_priority)
-                        df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
-                        df_new = df_new.sort_values(["_tagpri", "날짜_datetime"], ascending=[True, False], na_position="last").reset_index(drop=True)
-
-                        # 중복 제거 (우선순위 높은 태그 유지)
-                        key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
-                        df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
-                        df_new = df_new.drop(columns=["_tagpri", "날짜_datetime"])
-
-                        # 기존 DB와 병합 (병합 후에도 태그 우선순위로 중복 해소)
-                        merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
-                        merged["_tagpri"] = merged["검색키워드"].map(tag_priority)
-                        merged = merged.sort_values("_tagpri", kind="stable").reset_index(drop=True)
-                        merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
-                        merged = merged.drop(columns=["_tagpri"])
-                        if not merged.empty:
-                            merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
-                            merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
-                            merged["날짜"] = merged["날짜"].dt.strftime("%Y-%m-%d %H:%M")
-
-                        # 신규 기사 감지 (참고용)
-                        new_articles = detect_new_articles(existing_db, df_new)
-
-                        # 로컬 파일에 저장 (다음 세션에서도 최신 기사 유지)
-                        save_news_db(merged)
-
-                        # 세션 상태에도 저장 (즉시 UI 반영)
-                        st.session_state.news_display_data = merged
-
-                        # 텔레그램 발송은 GitHub Actions(standalone_monitor)에서만 담당 - 중복 방지
-                        if new_articles:
-                            print(f"[STREAMLIT] 신규 기사 {len(new_articles)}건 감지 (텔레그램은 GitHub Actions에서 발송)")
-                        st.session_state.last_news_fetch = now
-
-                        # 상태 메시지에 신규 기사 수 표시
-                        if new_articles:
-                            status.success(f"✅ 기사 업데이트 완료! 신규 {len(new_articles)}건 (총 {len(merged)}건 저장)")
-                        else:
-                            status.success(f"✅ 기사 업데이트 완료! 현재 저장된 건수: {len(merged)}")
-                    else:
-                        # 결과 없음이어도 조용히 다음 라운드(180초 뒤)로 넘어감
-                        status.info("ℹ️ 새로 수집된 기사가 없어요. 다음 라운드에서 다시 시도할게.")
-            else:
-                # API 키 없으면 그냥 DB만 유지 표시
-                if existing_db.empty:
-                    status.warning("⚠️ API 키가 없고, 저장된 데이터도 없어요. 키 설정 후 다시 시도해줘.")
-                else:
-                    status.info("ℹ️ API 키가 없어 저장된 데이터만 표시 중이에요.")
-
+            # 로컬 DB 우선 로드: backend(auto_monitor 백그라운드)가 같은 컨테이너의 로컬 CSV를
+            # 갱신하므로 로컬이 가장 신선함(GitHub 커밋본은 더 stale할 수 있음). 없으면 GitHub 폴백.
+            df_latest = load_news_db(force_refresh=False)
+            st.session_state.news_display_data = df_latest
+            st.session_state.last_news_fetch = time.time()
+            status.success(f"✅ 최신 뉴스 {len(df_latest)}건 표시 중")
         except Exception as e:
-            # 오류 메시지를 간단히만 (초기 데이터 불가 문구는 제거)
-            status.error(f"❌ 뉴스 수집 오류: {e}")
+            status.error(f"❌ 뉴스 불러오기 오류: {e}")
 
-        # 플래그 먼저 리셋하고 다음 라운드 타임스탬프 갱신
+        # 플래그 리셋 + 다음 라운드 타임스탬프
         st.session_state.trigger_news_update = False
         st.session_state.next_refresh_at = time.time() + refresh_interval
         st.session_state.initial_loaded = True
@@ -3511,67 +3322,78 @@ def auto_monitor_on_load():
 
     # 2단계: 파일 락 획득 (동시 세션/프로세스 중복 실행 방지)
     os.makedirs("data", exist_ok=True)
-    lock_fd = None
-    lock_acquired = False
     try:
         lock_fd = open(lock_path, 'w')
+    except Exception:
+        return
+
+    def _release_lock(_fd):
         try:
             import fcntl
-            fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            lock_acquired = True
-        except (ImportError, IOError, OSError):
-            # Windows 환경이거나 다른 프로세스가 이미 락 보유 중
-            print("[AUTO_MONITOR] 파일 락 획득 실패 (다른 인스턴스 실행 중) - 스킵")
-            return
-
-        # 3단계: 락 획득 후 재확인 (락 대기 중 다른 프로세스가 실행했을 수 있음)
+            fcntl.flock(_fd, fcntl.LOCK_UN)
+        except Exception:
+            pass
         try:
-            if os.path.exists(run_status_path):
-                with open(run_status_path, 'r', encoding='utf-8') as f:
-                    status = json.load(f)
-                last_run_str = status.get("last_run_time", "")
-                if last_run_str:
-                    elapsed = (datetime.now() - datetime.fromisoformat(last_run_str)).total_seconds()
-                    if elapsed < MIN_INTERVAL_SEC:
-                        print(f"[AUTO_MONITOR] 락 획득 후 재확인: {elapsed:.0f}초 전 실행됨 - 스킵")
-                        return
+            _fd.close()
         except Exception:
             pass
 
-        # 4단계: 실행 시작 시각 선행 기록 (다른 세션이 중복 진입 못하도록)
+    try:
+        import fcntl
+        fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except (ImportError, IOError, OSError):
+        # Windows 환경이거나 다른 프로세스/스레드가 이미 락 보유 중
+        print("[AUTO_MONITOR] 파일 락 획득 실패 (다른 인스턴스 실행 중) - 스킵")
         try:
-            status_update = {}
-            if os.path.exists(run_status_path):
-                with open(run_status_path, 'r', encoding='utf-8') as f:
-                    status_update = json.load(f)
-            status_update["last_run_time"] = datetime.now().isoformat()
-            with open(run_status_path, 'w', encoding='utf-8') as f:
-                json.dump(status_update, f, ensure_ascii=False, indent=2)
+            lock_fd.close()
         except Exception:
             pass
+        return
 
-        # 5단계: standalone_monitor.main() 실행 (전체 파이프라인)
-        print(f"[AUTO_MONITOR] 자동 모니터 시작: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    # 3단계: 락 획득 후 재확인 (락 대기 중 다른 프로세스가 실행했을 수 있음)
+    try:
+        if os.path.exists(run_status_path):
+            with open(run_status_path, 'r', encoding='utf-8') as f:
+                status = json.load(f)
+            last_run_str = status.get("last_run_time", "")
+            if last_run_str:
+                elapsed = (datetime.now() - datetime.fromisoformat(last_run_str)).total_seconds()
+                if elapsed < MIN_INTERVAL_SEC:
+                    print(f"[AUTO_MONITOR] 락 획득 후 재확인: {elapsed:.0f}초 전 실행됨 - 스킵")
+                    _release_lock(lock_fd)
+                    return
+    except Exception:
+        pass
+
+    # 4단계: 실행 시작 시각 선행 기록 (다른 세션이 중복 진입 못하도록)
+    try:
+        status_update = {}
+        if os.path.exists(run_status_path):
+            with open(run_status_path, 'r', encoding='utf-8') as f:
+                status_update = json.load(f)
+        status_update["last_run_time"] = datetime.now().isoformat()
+        with open(run_status_path, 'w', encoding='utf-8') as f:
+            json.dump(status_update, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+    # 5단계: standalone_monitor.main()을 백그라운드 스레드로 실행 (페이지 렌더 비차단).
+    #  - 수집/발송은 백그라운드에서 진행되고, 화면은 즉시 저장된 DB를 표시 → 버퍼링 제거.
+    #  - 락은 스레드 종료 시 해제 (실행 중 다른 인스턴스 중복 진입 방지).
+    import threading
+
+    def _run_bg(_fd):
         try:
             import standalone_monitor
             standalone_monitor.main()
-            print(f"[AUTO_MONITOR] 자동 모니터 완료: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"[AUTO_MONITOR] 백그라운드 수집 완료: {datetime.now().strftime('%H:%M:%S')}")
         except Exception as e:
-            import traceback
-            print(f"[AUTO_MONITOR] 실행 오류: {e}\n{traceback.format_exc()}")
+            print(f"[AUTO_MONITOR] 백그라운드 실행 오류: {e}")
+        finally:
+            _release_lock(_fd)
 
-    finally:
-        if lock_fd:
-            if lock_acquired:
-                try:
-                    import fcntl
-                    fcntl.flock(lock_fd, fcntl.LOCK_UN)
-                except Exception:
-                    pass
-            try:
-                lock_fd.close()
-            except Exception:
-                pass
+    threading.Thread(target=_run_bg, args=(lock_fd,), daemon=True).start()
+    print("[AUTO_MONITOR] 백그라운드 수집 시작 (페이지 비차단)")
 
 
 # ----------------------------- 메인 루틴 -----------------------------

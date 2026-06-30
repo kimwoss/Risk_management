@@ -300,53 +300,47 @@ def main(send_telegram: bool = None):
         keywords_sorted = sorted(KEYWORDS, key=lambda k: KEYWORD_PRIORITY.get(k, 999))
         safe_print(f"[MONITOR] 우선순위 정렬: {', '.join([f'{kw}(P{KEYWORD_PRIORITY.get(kw, 999)})' for kw in keywords_sorted[:3]])}...")
 
-        # 키워드별 수집을 동시성 3으로 병렬화 (순차 호출 대비 시간 대폭 단축).
-        # 네이버 burst rate limit(429) 회피를 위해 3으로 제한하고, 실패/429 키워드는 순차 재시도.
-        def _collect(kw):
-            try:
-                naver_df = crawl_naver_news(kw, max_items=items_per_keyword, sort="date")
-                google_df = pd.DataFrame()
-                if "posco" in kw.lower() and "international" in kw.lower():
-                    try:
-                        google_df = crawl_google_news_rss(query="POSCO International", max_items=50)
-                    except Exception as e:
-                        safe_print(f"[MONITOR] Google News RSS 실패: {e}")
-                df_kw = merge_news_sources(naver_df, google_df)
-                if naver_df.attrs.get('quota_exceeded', False):
-                    df_kw.attrs['quota_exceeded'] = True
-                return kw, df_kw
-            except Exception as e:
-                safe_print(f"[MONITOR] '{kw}' 수집 실패: {e}")
-                return kw, pd.DataFrame()
-
-        from concurrent.futures import ThreadPoolExecutor
-        import time as _time_mod
-        with ThreadPoolExecutor(max_workers=3) as _ex:
-            collected = dict(_ex.map(_collect, keywords_sorted))
-
-        # 429 등으로 비거나 실패한 키워드는 순차로 1회 재시도 (데이터 누락 방지)
         for kw in keywords_sorted:
-            d = collected.get(kw)
-            if d is None or (hasattr(d, "attrs") and d.attrs.get("quota_exceeded")):
-                _time_mod.sleep(0.25)
-                collected[kw] = _collect(kw)[1]
+            # API 할당량 확인 (2회 호출 필요 - 평균 페이지네이션)
+            if not check_api_quota(required_calls=2):
+                priority = KEYWORD_PRIORITY.get(kw, 999)
 
-        # 수집 결과 처리 (우선순위 순서대로 필터링·집계) — 네트워크는 끝났으므로 빠름
-        for kw in keywords_sorted:
-            df_kw = collected.get(kw)
-            if df_kw is None:
-                continue
+                # 우선순위가 낮은 키워드는 스킵
+                if priority >= 3:
+                    safe_print(f"[MONITOR] ⏭️ API 할당량 부족 - 우선순위 낮은 키워드 스킵: '{kw}' (P{priority})")
+                    continue
+                else:
+                    safe_print(f"[MONITOR] ⚠️ API 할당량 부족하지만 우선순위 높음: '{kw}' (P{priority}) - 계속 수집")
 
-            # API 사용량 증가 (스레드 밖에서 순차로 — api_usage.json 파일 경쟁 방지)
+            safe_print(f"[MONITOR] 키워드 '{kw}' 검색 중... (우선순위: {KEYWORD_PRIORITY.get(kw, 999)})")
+            naver_df = crawl_naver_news(kw, max_items=items_per_keyword, sort="date")
+
+            # Google News RSS 추가 수집 (POSCO International 키워드일 때만)
+            google_df = pd.DataFrame()
+            if "posco" in kw.lower() and "international" in kw.lower():
+                try:
+                    safe_print(f"[MONITOR] Google News RSS 수집 중: {kw}")
+                    google_df = crawl_google_news_rss(query="POSCO International", max_items=50)
+                except Exception as e:
+                    safe_print(f"[MONITOR] Google News RSS 실패: {e}")
+                    google_df = pd.DataFrame()
+
+            # Naver + Google 병합
+            df_kw = merge_news_sources(naver_df, google_df)
+            if naver_df.attrs.get('quota_exceeded', False):
+                df_kw.attrs['quota_exceeded'] = True
+
+            # API 사용량 증가
             current_api_usage = increment_api_usage(calls=2)
 
-            # 할당량 초과 키워드는 해당 키워드만 스킵 (전체 중단 대신 — 수집된 나머지 보존)
+            # API 할당량 초과 체크
             if df_kw.attrs.get('quota_exceeded', False):
-                safe_print(f"[MONITOR] ⚠️ '{kw}' API 할당량 초과 — 스킵")
-                error_count += 1
+                safe_print(f"[MONITOR] ⚠️ API 할당량 초과 감지 - 뉴스 수집 중단")
+                quota_exceeded = True
                 if LOGGER_AVAILABLE:
                     logger.log_error("api_quota_exceeded", "Naver API 할당량 초과")
-                continue
+                error_count += 1
+                break
 
             # 키워드별 필터링 적용
             df_kw = apply_keyword_filters(df_kw, kw)
@@ -355,6 +349,8 @@ def main(send_telegram: bool = None):
                 all_news.append(df_kw)
                 total_collected += len(df_kw)
                 safe_print(f"[MONITOR] '{kw}': {len(df_kw)}건 수집")
+
+                # 수집 로깅
                 if LOGGER_AVAILABLE:
                     logger.log_collection(kw, len(df_kw), api_calls=2)
 

@@ -409,15 +409,25 @@ def show_login_page():
 
   /* Mobile */
   @media (max-width: 768px) {{
+    /* base 규칙(width:440px; margin-left:80px)과 동일한 selector 우선순위로 확실히 덮어쓰기 */
     .main .block-container,
+    section.main > div.block-container,
+    [data-testid="stMain"] .block-container,
     [data-testid="stMainBlockContainer"],
+    .stMainBlockContainer,
     div[class*="block-container"] {{
-      margin-left: 24px !important; margin-right: 24px !important;
-      margin-top: 18vh !important; width: auto !important; max-width: calc(100% - 48px) !important;
+      width: auto !important;
+      max-width: calc(100% - 32px) !important;
+      margin-left: 16px !important;
+      margin-right: 16px !important;
+      margin-top: 12vh !important;
+      padding: 30px 22px !important;
     }}
-    .overlay-meta {{ display: none; }}
-    .overlay-caption {{ bottom: auto; top: 72px; max-width: 80%; }}
-    .overlay-caption .title {{ font-size: 22px; }}
+    [data-testid="stForm"], div[data-testid="stForm"],
+    .stTextInput, .stButton, .stFormSubmitButton, .stCheckbox {{ max-width: 100% !important; }}
+    .overlay-brand {{ top: 16px; left: 16px; right: 16px; font-size: 9px; letter-spacing: 0.10em; gap: 8px; }}
+    .overlay-brand .mark {{ width: 18px; height: 18px; }}
+    .overlay-meta, .overlay-caption {{ display: none !important; }}
   }}
 </style>
 """,
@@ -2095,40 +2105,76 @@ def load_base_css():
         will-change: opacity;
       }
 
+      /* ── 메인 바로가기(CTA) 그리드 — 클래스 기반 반응형(iframe 제거) ── */
+      .iris-cta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 10px 0 4px;
+      }
+      .iris-cta-card {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 12px;
+        padding: 18px 12px;
+        text-align: center; text-decoration: none;
+        transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        min-height: 118px;
+      }
+      .iris-cta-card:hover {
+        background: rgba(255,255,255,0.10);
+        border-color: rgba(212,175,55,0.4);
+        transform: translateY(-3px);
+        text-decoration: none;
+      }
+      .iris-cta-card .cta-ico { font-size: 1.7rem; margin-bottom: 8px; line-height: 1; }
+      .iris-cta-card .cta-ttl { font-size: 0.92rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; word-break: keep-all; }
+      .iris-cta-card .cta-dsc { font-size: 0.72rem; color: rgba(255,255,255,0.52); line-height: 1.4; word-break: keep-all; }
+
       /* 모바일 최적화 (전역) */
       @media (max-width: 768px) {
-        .card {
-          padding: 16px !important;
-          border-radius: 10px !important;
-          margin-bottom: 16px !important;
+        /* 가로 스크롤 차단 */
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+          overflow-x: hidden !important; max-width: 100vw !important;
         }
-        .main-copy {
-          left: 24px !important;
-          padding-right: 24px !important;
+        img, iframe { max-width: 100% !important; }
+
+        .block-container { padding: 12px 14px 0 !important; margin-top: 8px !important; }
+        .card { padding: 16px !important; border-radius: 10px !important; margin-bottom: 16px !important; }
+        .main-copy { left: 24px !important; padding-right: 24px !important; }
+        .stButton>button, .stDownloadButton>button { font-size: 0.9rem !important; padding: 10px 14px !important; }
+
+        /* CTA 카드: 2열 */
+        .iris-cta-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+        .iris-cta-card { min-height: 104px; padding: 14px 10px; }
+
+        /* KPI 카드 글자 축소 */
+        .ic-value { font-size: 1.4rem !important; }
+        .iris-card.ic-total .ic-value { font-size: 1.9rem !important; }
+        .iris-card { min-height: 96px !important; padding: 12px 8px !important; }
+
+        /* 상단 내비: 안쪽 메뉴 버튼을 2열 그리드로 (로고 줄은 위에 풀폭).
+           st.container(key="iris_nav") → .st-key-iris_nav 앵커로 정확히 타깃 */
+        .st-key-iris_nav div[data-testid="stHorizontalBlock"] div[data-testid="stHorizontalBlock"] {
+          flex-wrap: wrap !important; gap: 6px !important;
         }
-        .stButton>button {
-          font-size: 0.9rem !important;
-          padding: 10px 14px !important;
+        .st-key-iris_nav div[data-testid="stHorizontalBlock"] div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"],
+        .st-key-iris_nav div[data-testid="stHorizontalBlock"] div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+          flex: 1 1 calc(50% - 3px) !important;
+          min-width: calc(50% - 3px) !important;
+          width: calc(50% - 3px) !important;
         }
-        .stDownloadButton>button {
-          font-size: 0.9rem !important;
-          padding: 10px 14px !important;
-        }
+        /* 비어 보이는 내비 래퍼 바 제거 (버튼은 별도 컨테이너에 렌더됨) */
+        .nav-container:empty { display: none !important; }
       }
 
       @media (max-width: 480px) {
-        .card {
-          padding: 12px !important;
-          border-radius: 8px !important;
-        }
-        .main-copy {
-          left: 16px !important;
-          padding-right: 16px !important;
-        }
-        [data-testid="stAppViewContainer"] .block-container {
-          padding-left: 1rem !important;
-          padding-right: 1rem !important;
-        }
+        .card { padding: 12px !important; border-radius: 8px !important; }
+        .main-copy { left: 16px !important; padding-right: 16px !important; }
+        [data-testid="stAppViewContainer"] .block-container { padding-left: 0.9rem !important; padding-right: 0.9rem !important; }
+        .iris-cta-card .cta-ttl { font-size: 0.86rem; }
+        .iris-cta-card .cta-dsc { font-size: 0.67rem; }
       }
 
       /* ── type="primary" 버튼 → gold 통일 ──────────────────── */
@@ -2326,7 +2372,7 @@ def render_top_nav(active_label: str):
     """, unsafe_allow_html=True)
     
     st.markdown('<div class="nav-container">', unsafe_allow_html=True)
-    with st.container():
+    with st.container(key="iris_nav"):
         c1, c2 = st.columns([1.2, 4.0], gap="medium")
         with c1:
             if logo_uri:
@@ -2372,16 +2418,25 @@ def render_main_page():
       }}
       @media (max-width:900px){{
         .main-hero {{
+          height:auto; min-height:360px; margin:12px 0;
           background:
             linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 60%),
-            url('{bg_uri}') center 65% / cover no-repeat, #000;
+            url('{bg_uri}') center 62% / cover no-repeat, #000;
         }}
       }}
       .main-copy {{ position:absolute; left:48px; top:50%; transform:translateY(-50%); color:#fff; max-width:720px; text-shadow:0 4px 20px rgba(0,0,0,.45); }}
       .t {{ font-size:3.2rem; line-height:1.15; font-weight:300; margin:0 0 8px; letter-spacing:-.02em; }}
       .s {{ font-size:1.4rem; margin:4px 0 18px; color:rgba(255,255,255,.95); }}
       .d {{ font-size:1.05rem; color:rgba(255,255,255,.85); line-height:1.55; max-width:560px; }}
-      @media (max-width:900px){{ .t{{font-size:2.2rem;}} .s{{font-size:1.1rem;}} }}
+      @media (max-width:900px){{
+        .main-copy {{ left:28px; right:20px; max-width:calc(100% - 48px); }}
+        .t{{font-size:2.4rem;}} .s{{font-size:1.15rem;}} .d{{font-size:0.98rem;}}
+      }}
+      @media (max-width:600px){{
+        .main-hero {{ min-height:320px; }}
+        .main-copy {{ left:20px; right:16px; }}
+        .t{{font-size:2rem;}} .s{{font-size:1rem; margin:4px 0 12px;}} .d{{font-size:0.9rem;}}
+      }}
     </style>
     <section class="main-hero">
       <div class="main-copy">
@@ -2392,73 +2447,28 @@ def render_main_page():
     </section>
     """, unsafe_allow_html=True)
 
-    # ── 바로가기 CTA 카드 그리드 ──
-    # st.markdown은 Streamlit 1.39+에서 style= 속성을 sanitize하여 레이아웃 붕괴.
-    # components.html()은 iframe 내 렌더링으로 sanitize 없이 완전한 CSS 지원.
-    # target="_parent" 로 부모 페이지 네비게이션 처리.
+    # ── 바로가기 CTA 카드 그리드 (클래스 기반 반응형) ──
+    # 클래스만 사용(인라인 style 없음)하므로 st.markdown sanitize 영향 없음.
+    # iframe 고정 높이로 인한 모바일 잘림을 피하고, CSS auto-fit으로 데스크톱 6열·모바일 2열 자동 대응.
     _role = st.session_state.get("role", "pr")
-    _news_card = (
-        """  <a href="?menu=뉴스 모니터링" target="_parent" class="card">
-    <span class="icon">📰</span><span class="ttl">뉴스 모니터링</span><span class="dsc">실시간 기사 수집·감성 분석</span>
-  </a>"""
-        if _role == "pr" else ""
+    _cards = []
+    if _role == "pr":
+        _cards.append(("뉴스 모니터링", "📰", "실시간 기사 수집·감성 분석"))
+    _cards += [
+        ("키워드 인사이트", "🔍", "AI 기반 트렌드·리스크 분석"),
+        ("이슈보고 생성", "📋", "AI 이슈 발생 보고서 자동 작성"),
+        ("언론사 정보", "🏢", "출입매체·기자 연락처 조회"),
+        ("담당자 정보", "👥", "내부 부서·담당자 검색"),
+        ("대응이력 검색", "📂", "과거 언론대응 이력 검색"),
+    ]
+    _cards_html = "".join(
+        f'<a href="?menu={label}" target="_self" class="iris-cta-card">'
+        f'<span class="cta-ico">{ico}</span>'
+        f'<span class="cta-ttl">{label}</span>'
+        f'<span class="cta-dsc">{dsc}</span></a>'
+        for label, ico, dsc in _cards
     )
-    _col_count = 6 if _role == "pr" else 5
-    st.components.v1.html(f"""
-<style>
-html, body {{
-    margin: 0; padding: 0;
-    background: transparent;
-    font-family: 'Inter', 'Noto Sans KR', system-ui, sans-serif;
-}}
-.grid {{
-    display: grid;
-    grid-template-columns: repeat({_col_count}, 1fr);
-    gap: 10px;
-    padding: 4px 2px;
-    margin-top: 8px;
-}}
-.card {{
-    display: block;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 12px;
-    padding: 20px 16px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
-}}
-.card:hover {{
-    background: rgba(255,255,255,0.10);
-    border-color: rgba(212,175,55,0.4);
-    transform: translateY(-3px);
-    text-decoration: none;
-}}
-.icon {{ font-size: 1.8rem; display: block; margin-bottom: 8px; }}
-.ttl  {{ font-size: 0.9rem; font-weight: 700; color: #e8e8e8; display: block; margin-bottom: 4px; }}
-.dsc  {{ font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; display: block; }}
-</style>
-<div class="grid">
-{_news_card}
-  <a href="?menu=키워드 인사이트" target="_parent" class="card">
-    <span class="icon">🔍</span><span class="ttl">키워드 인사이트</span><span class="dsc">AI 기반 트렌드·리스크 분석</span>
-  </a>
-  <a href="?menu=이슈보고 생성" target="_parent" class="card">
-    <span class="icon">📋</span><span class="ttl">이슈보고 생성</span><span class="dsc">AI 이슈 발생 보고서 자동 작성</span>
-  </a>
-  <a href="?menu=언론사 정보" target="_parent" class="card">
-    <span class="icon">🏢</span><span class="ttl">언론사 정보</span><span class="dsc">출입매체·기자 연락처 조회</span>
-  </a>
-  <a href="?menu=담당자 정보" target="_parent" class="card">
-    <span class="icon">👥</span><span class="ttl">담당자 정보</span><span class="dsc">내부 부서·담당자 검색</span>
-  </a>
-  <a href="?menu=대응이력 검색" target="_parent" class="card">
-    <span class="icon">📂</span><span class="ttl">대응이력 검색</span><span class="dsc">과거 언론대응 이력 검색</span>
-  </a>
-</div>
-""", height=155, scrolling=False)
+    st.markdown(f'<div class="iris-cta-grid">{_cards_html}</div>', unsafe_allow_html=True)
 
 # ----------------------------- 페이지들 -----------------------------
 def page_issue_report():

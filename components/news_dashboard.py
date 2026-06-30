@@ -54,7 +54,7 @@ _CSS = """
 }
 .ic-kw-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
     gap: 6px;
     margin-top: 0;
 }
@@ -64,6 +64,13 @@ _CSS = """
     border-left: 2px solid;
     text-align: center;
     transition: background 0.2s;
+    min-width: 0;
+}
+@media (max-width: 480px) {
+    .ic-total-hero { padding: 12px 16px; gap: 12px; }
+    .ic-total-num { font-size: 2rem; }
+    .ic-kw-grid { gap: 5px; }
+    .ic-kw-card { padding: 7px 6px 5px; }
 }
 .ic-kw-card:hover { background: rgba(255,255,255,0.06) !important; }
 .ic-kw-label {

@@ -12,6 +12,11 @@ from typing import Dict, Any, Optional
 LOG_FILE = os.path.join("data", "monitoring_log.jsonl")  # JSON Lines 형식
 STATS_FILE = os.path.join("data", "daily_stats.json")  # 일일 통계
 
+# 로그 로테이션 (무한 증가 방지)
+# 하트비트가 3분마다 쓰므로 자동 트리밍 필수. 크기 초과 시 최근 KEEP_LINES만 보존.
+MAX_LOG_BYTES = 3 * 1024 * 1024  # 3MB
+KEEP_LINES = 10000               # 약 2~3일치 (일일 통계는 daily_stats.json에 별도 저장됨)
+
 
 class MonitoringLogger:
     """모니터링 이벤트 로거"""
@@ -19,6 +24,18 @@ class MonitoringLogger:
     def __init__(self):
         """로거 초기화"""
         os.makedirs("data", exist_ok=True)
+
+    def _rotate_if_needed(self):
+        """로그 파일이 임계 크기를 넘으면 최근 KEEP_LINES 줄만 남기고 트리밍."""
+        try:
+            if os.path.exists(LOG_FILE) and os.path.getsize(LOG_FILE) > MAX_LOG_BYTES:
+                with open(LOG_FILE, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                if len(lines) > KEEP_LINES:
+                    with open(LOG_FILE, 'w', encoding='utf-8') as f:
+                        f.writelines(lines[-KEEP_LINES:])
+        except Exception as e:
+            print(f"[WARNING] 로그 로테이션 실패: {e}")
 
     def log_event(self, event_type: str, data: Dict[str, Any]):
         """
@@ -29,6 +46,8 @@ class MonitoringLogger:
             data: 이벤트 데이터
         """
         try:
+            self._rotate_if_needed()
+
             entry = {
                 "timestamp": datetime.now().isoformat(),
                 "event_type": event_type,

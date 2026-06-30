@@ -1,0 +1,120 @@
+name: News Heartbeat (3-min)
+
+# 사용자가 웹에 접속하지 않아도(밤·주말 등) 3분마다 뉴스 수집·텔레그램 발송을
+# 보장하는 백본 워크플로우.
+#
+# 핵심 기법: GitHub cron은 3분 단위를 안 지키므로(부하 시 지연·병합),
+# cron으로 짧게 반복하지 않는다. 대신 잡 하나를 길게 띄워 내부에서
+# `sleep 180`으로 직접 3분 루프를 돌린다. cron은 "루프 이어달리기" 용도로만 사용.
+
+on:
+  schedule:
+    # 30분마다 이어달리기 트리거 (간격이 길수록 GitHub이 더 잘 지킴)
+    - cron: '0,30 * * * *'
+  workflow_dispatch:
+
+# 실행 중인 루프는 보존하고, 다음 트리거는 대기열에서 이어받음 → 끊김 없는 연속 운영
+concurrency:
+  group: news-heartbeat
+  cancel-in-progress: false
+
+permissions:
+  contents: write  # 리포지토리에 쓰기 권한 (DB 커밋용)
+
+jobs:
+  loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55  # 6시간 한도 내. 50분 루프 + 30분 트리거로 연속 커버
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 3-minute monitoring loop
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: |
+          set +e  # 한 라운드가 실패해도 루프는 계속 진행
+
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # 커밋된 변경분을 remote와 병합 후 push (news_monitor.yml과 동일 전략).
+          # rebase로 다른 워크플로우(*/15 백업 등)와의 push 충돌 방지,
+          # sent_cache / pending_queue JSON은 scripts/merge_cache.py가 Union 병합.
+          merge_and_push() {
+            for i in 1 2 3; do
+              echo "Push attempt $i..."
+              git fetch origin main
+
+              if ! git rebase origin/main; then
+                echo "Rebase failed (attempt $i), aborting and retrying..."
+                git rebase --abort 2>/dev/null || true
+                sleep $((i * 5))
+                continue
+              fi
+
+              python3 scripts/merge_cache.py
+              git add data/sent_articles_cache.json data/pending_articles.json 2>/dev/null || true
+              git diff --staged --quiet || git commit --amend --no-edit
+
+              if git push; then
+                echo "Push successful!"
+                return 0
+              else
+                echo "Push failed (attempt $i), retrying in 5 seconds..."
+                sleep 5
+              fi
+            done
+            echo "Push failed after 3 attempts - 다음 라운드에서 재시도"
+            return 1
+          }
+
+          # ── 3분 루프 ──
+          LOOP_SECONDS=$((50 * 60))            # 약 50분간 반복
+          END=$(( $(date +%s) + LOOP_SECONDS ))
+          ITER=0
+
+          while [ "$(date +%s)" -lt "$END" ]; do
+            ITER=$((ITER + 1))
+            echo "========================================================"
+            echo "[HEARTBEAT] Iteration $ITER  ($(date -u +'%Y-%m-%d %H:%M:%S UTC'))"
+            echo "========================================================"
+
+            # 실행 직전 최신 data/ 동기화 (다른 워크플로우가 커밋한 최신 캐시 반영)
+            git fetch origin main -q || true
+            git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped"
+
+            # 전체 파이프라인: 수집 + 텔레그램 발송 + 로컬 CSV 저장
+            python standalone_monitor.py || echo "[HEARTBEAT] monitor 실행 오류 - 다음 라운드 계속"
+
+            # 변경분이 있을 때만 커밋·push (신규 기사 없으면 히스토리 안 부풀음)
+            git add data/
+            if ! git diff --staged --quiet; then
+              git commit -m "auto(heartbeat): $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || true
+              merge_and_push
+            else
+              echo "[HEARTBEAT] 변경 없음 - 커밋 스킵"
+            fi
+
+            # 다음 라운드까지 대기 (단, 잡 종료 시간이 지났으면 루프 탈출)
+            if [ "$(date +%s)" -lt "$END" ]; then
+              echo "[HEARTBEAT] 다음 라운드까지 180초 대기..."
+              sleep 180
+            fi
+          done
+
+          echo "[HEARTBEAT] 루프 종료 (총 $ITER 라운드). 다음 트리거가 이어받습니다."

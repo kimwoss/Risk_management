@@ -160,14 +160,16 @@ def main(send_telegram: bool = None):
 
     Args:
         send_telegram: 텔레그램 발송 여부. None(기본)이면 실행 환경으로 자동 판별.
-            - GitHub Actions(heartbeat/news_monitor): GITHUB_ACTIONS=true → 발송.
-              이 경로만 sent_articles_cache를 git fetch/merge/push로 공유하므로 중복이 안 남.
-            - Streamlit(auto_monitor_on_load)/로컬: 환경변수 없음 → 발송 안 함(수집·DB 갱신만).
-              Streamlit 컨테이너는 캐시를 git에 push하지 못해, 발송하면 GitHub Actions와
-              캐시가 어긋나 같은 기사를 중복 발송하게 됨 → 발송을 GitHub Actions로 일원화.
+            텔레그램은 'Streamlit/cron-job.org 경로'에서만 발송한다(단일 발송원).
+            - Streamlit(auto_monitor_on_load)/로컬: GITHUB_ACTIONS 미설정 → 발송.
+              cron-job.org가 앱을 주기적으로 호출해 24시간 트리거되는, 검증된 신뢰 경로.
+            - GitHub Actions(heartbeat/news_monitor): GITHUB_ACTIONS=true → 발송 안 함(수집·커밋만).
+              GitHub의 schedule cron이 잦은 주기에서 발화하지 않아 Actions 단독 발송은 신뢰 불가하고,
+              Streamlit과 동시에 보내면 캐시가 어긋나 중복이 발생하므로, 발송을 Streamlit으로 일원화.
+              (Actions는 수집·git 커밋으로 DB/캐시를 최신 유지 → Streamlit 재배포 시 중복 방지에 기여)
     """
     if send_telegram is None:
-        send_telegram = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
+        send_telegram = os.environ.get("GITHUB_ACTIONS", "").lower() != "true"
     error_count = 0
     total_collected = 0
     telegram_success = 0

@@ -641,9 +641,14 @@ def search_media_info(media_name: str):
         st.error(f"언론사 정보 검색 오류: {e}")
         return None
 
+@st.cache_resource(show_spinner=False)
+def _get_data_llm():
+    """DataBasedLLM 인스턴스 (데이터/서비스 재초기화 비용이 커 캐시)."""
+    return DataBasedLLM(model="gpt-4o")
+
 def generate_issue_report(media_name, reporter_name, issue_description):
     try:
-        data_llm = DataBasedLLM()
+        data_llm = _get_data_llm()
         return data_llm.generate_issue_report(media_name, reporter_name, issue_description)
     except Exception as e:
         return f"보고서 생성 중 오류: {str(e)}"

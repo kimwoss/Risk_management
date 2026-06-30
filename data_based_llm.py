@@ -28,7 +28,7 @@ except ImportError:
 class DataBasedLLM:
     """데이터 파일을 기반으로 답변을 생성하는 LLM 클래스"""
     
-    def __init__(self, data_folder: str = "data", model: str = "gpt-4"):
+    def __init__(self, data_folder: str = "data", model: str = "gpt-4o"):
         """
         데이터 기반 LLM 초기화
         
@@ -1143,8 +1143,199 @@ JSON 형식으로 응답:
 """
     
     def generate_issue_report(self, media_name: str, reporter_name: str, issue_description: str) -> str:
-        """기존 호환성을 위한 래퍼 함수 - 완전한 프로세스 호출"""
-        return self.generate_comprehensive_issue_report(media_name, reporter_name, issue_description)
+        """이슈 발생 보고서 생성 — 단일 합성(single-synthesis) 파이프라인.
+
+        실제 데이터(유관부서/위기단계 기준/유사사례/언론사정보/실시간 웹검색)를 모두 수집해
+        하나의 강력한 프롬프트로 LLM에 위임한다. 가짜 부서·고정문구·'분석 금지' 폴백을 제거.
+        """
+        # 1) 입력 검증
+        if not self._validate_inputs(media_name, reporter_name, issue_description):
+            return "입력값이 부족합니다. 언론사·기자명은 2자 이상, 이슈 내용은 10자 이상 입력해주세요."
+
+        try:
+            # 2) 실제 컨텍스트 수집
+            relevant_depts = self.get_relevant_departments_from_master_data(issue_description)
+            crisis_hint = self._assess_crisis_level_from_master_data(issue_description)
+            media_info = self._get_media_info_from_master_data(media_name)
+            similar_cases = self._collect_similar_cases(issue_description, media_name, limit=5)
+
+            # 3) 실시간 웹 검색 (항상 수행) — 실패 시 graceful degrade
+            try:
+                web_results = self._conduct_web_research(issue_description, {})
+            except Exception as e:
+                print(f"WARNING: 웹 검색 실패, 내부 데이터로 진행: {str(e)}")
+                web_results = {"sources": {}, "search_summary": "웹 검색 미수행"}
+
+            # 4) 단일 합성 프롬프트 구성 후 보고서 생성
+            prompt = self._build_issue_report_prompt(
+                media_name=media_name,
+                reporter_name=reporter_name,
+                issue_description=issue_description,
+                relevant_depts=relevant_depts,
+                crisis_hint=crisis_hint,
+                media_info=media_info,
+                similar_cases=similar_cases,
+                web_results=web_results,
+            )
+
+            # 시스템 프롬프트는 risk_report.txt(총괄 프롬프트) 자동 사용.
+            # 보고서는 일관성이 중요하므로 temperature를 낮추고 충분한 토큰을 확보한다.
+            return self.llm.chat(prompt, temperature=0.3, max_tokens=3000)
+
+        except Exception as e:
+            print(f"ERROR: 이슈 보고서 생성 실패: {str(e)}")
+            return self._generate_fallback_report(media_name, reporter_name, issue_description, str(e))
+
+    def _collect_similar_cases(self, issue_description: str, media_name: str, limit: int = 5) -> list:
+        """언론대응내역.csv에서 유사 과거 사례 수집 (키워드 + 언론사 기반)."""
+        if self.media_response_data is None or self.media_response_data.empty:
+            return []
+
+        df = self.media_response_data
+        issue_col = "이슈 발생 보고" if "이슈 발생 보고" in df.columns else None
+        if not issue_col:
+            return []
+
+        collected = []
+        seen = set()
+
+        def _add(row):
+            key = str(row.get("순번", row.name))
+            if key in seen:
+                return
+            seen.add(key)
+            collected.append({
+                "일시": str(row.get("발생 일시", "")).strip(),
+                "유형": str(row.get("발생 유형", "")).strip(),
+                "단계": str(row.get("단계", "")).strip(),
+                "부서": str(row.get("현업 부서", "")).strip(),
+                "이슈": str(row.get(issue_col, "")).strip(),
+                "결과": str(row.get("대응 결과", "")).strip(),
+            })
+
+        # 1) 키워드 기반 매칭
+        key_terms = self._extract_key_terms(issue_description.lower())
+        for term in key_terms:
+            if len(term) < 2:
+                continue
+            try:
+                mask = df[issue_col].astype(str).str.lower().str.contains(term, na=False, regex=False)
+                for _, row in df[mask].iterrows():
+                    _add(row)
+            except Exception:
+                continue
+
+        # 2) 언론사 기반 매칭 (정규화 검색)
+        try:
+            media_cases = self._search_by_media(media_name, limit=limit)
+            for _, row in media_cases.iterrows():
+                _add(row)
+        except Exception:
+            pass
+
+        # 최근순 정렬 후 상위 N건
+        def _date_key(c):
+            return c.get("일시", "")
+        collected.sort(key=_date_key, reverse=True)
+        return collected[:limit]
+
+    def _format_departments_block(self, relevant_depts: list) -> str:
+        """프롬프트용 유관부서 블록 (master_data 실제 정보만)."""
+        if not relevant_depts:
+            return "=== 유관 부서 ===\n(매칭된 부서 없음 — 기본 대응부서: 홍보그룹)"
+        lines = ["=== 유관 부서 (master_data.json 자동 매핑 / 실제 정보) ==="]
+        for i, d in enumerate(relevant_depts[:3], 1):
+            issues = ", ".join(d.get("담당이슈", [])[:5])
+            lines.append(
+                f"{i}. {d.get('부서명', 'N/A')} | 담당자: {d.get('담당자', 'N/A')} "
+                f"| 연락처: {d.get('연락처', 'N/A')} | 이메일: {d.get('이메일', 'N/A')} "
+                f"| 담당영역: {issues}"
+            )
+        return "\n".join(lines)
+
+    def _format_crisis_block(self, crisis_hint: str) -> str:
+        """프롬프트용 위기단계 분류 기준 블록 (정의+예시)."""
+        levels = (self.master_data or {}).get("crisis_levels", {})
+        if not levels:
+            return ""
+        lines = ["=== 위기 단계 분류 기준 (master_data.json) ==="]
+        for name, info in levels.items():
+            examples = ", ".join(info.get("예시", [])[:4])
+            lines.append(f"- {name}: {info.get('정의', '')} (예: {examples})")
+        lines.append(f"(참고) 키워드 기반 1차 추정 단계: {crisis_hint} — 최종 판단은 이슈 맥락에 근거해 확정하십시오.")
+        return "\n".join(lines)
+
+    def _format_similar_cases_block(self, similar_cases: list) -> str:
+        """프롬프트용 유사사례 블록."""
+        if not similar_cases:
+            return "=== 과거 유사 대응 사례 (언론대응내역) ===\n(매칭되는 과거 사례 없음)"
+        lines = ["=== 과거 유사 대응 사례 (언론대응내역.csv / 실제 이력) ==="]
+        for c in similar_cases:
+            issue_txt = c["이슈"][:120] + ("…" if len(c["이슈"]) > 120 else "")
+            result_txt = c["결과"][:120] + ("…" if len(c["결과"]) > 120 else "")
+            lines.append(f"- [{c['일시']} | {c['유형']} | {c['단계']} | {c['부서']}] {issue_txt}")
+            if result_txt:
+                lines.append(f"    └ 대응결과: {result_txt}")
+        return "\n".join(lines)
+
+    def _format_media_block(self, media_name: str, media_info: dict) -> str:
+        """프롬프트용 언론사 정보 블록."""
+        if not media_info:
+            return f"=== 언론사 정보 ===\n{media_name}: 내부 DB에 등록 정보 없음"
+        reporters = media_info.get("출입기자", [])
+        reporter_names = ", ".join([r.get("이름", "") for r in reporters[:5] if isinstance(r, dict)])
+        return (
+            "=== 언론사 정보 (master_data.json) ===\n"
+            f"{media_name} | 구분: {media_info.get('구분', 'N/A')} "
+            f"| 당사 담당자: {media_info.get('담당자', 'N/A')} "
+            f"| 출입기자({len(reporters)}명): {reporter_names}"
+        )
+
+    def _build_issue_report_prompt(self, media_name, reporter_name, issue_description,
+                                   relevant_depts, crisis_hint, media_info,
+                                   similar_cases, web_results) -> str:
+        """단일 합성 보고서 생성용 user 프롬프트."""
+        current_time = self._get_current_time()
+        web_context = self._extract_comprehensive_context(web_results)
+
+        depts_block = self._format_departments_block(relevant_depts)
+        crisis_block = self._format_crisis_block(crisis_hint)
+        similar_block = self._format_similar_cases_block(similar_cases)
+        media_block = self._format_media_block(media_name, media_info)
+
+        prompt = f"""[입력 정보]
+- 언론사: {media_name}
+- 기자명: {reporter_name}
+- 발생 일시(현재 한국시간): {current_time}
+- 이슈 내용:
+{issue_description}
+
+아래는 보고서 작성에 활용할 내부 데이터와 실시간 검색 결과입니다.
+이 자료를 적극 활용하여, 시스템 지침의 <이슈 발생 보고> 템플릿을 정확히 따르되 각 항목을 충실히 분석·작성하십시오.
+
+{depts_block}
+
+{crisis_block}
+
+{similar_block}
+
+{media_block}
+
+=== 실시간 웹 검색 결과 ===
+{web_context}
+
+[작성 요구사항 — 반드시 준수]
+1. '1. 발생 일시'는 위 현재 시각을 그대로 사용한다.
+2. '2. 발생 단계'는 위 위기 단계 분류 기준에 근거해 한 단계로 확정한다(단계명 표기).
+3. '3. 발생 내용'은 (언론사 기자명) 표기 후 이슈를 사실 중심으로 요약한다.
+4. '4. 유관 의견'의 유관 부서는 위에 매핑된 실제 부서·담당자·연락처만 사용한다. 가상의 부서명·담당자·전화번호를 만들어내지 말 것. 사실 확인은 웹 검색·내부 데이터에 근거한 구체적 내용으로 서술하며, 데이터로 확인되지 않은 사항은 '추가 확인 필요'로 명시한다(추측성 단정 금지).
+5. '5. 대응 방안'의 원보이스는 대외 인용이 가능한 정제된 1~2문장으로 작성한다.
+6. '6. 대응 결과'는 반드시 공란으로 남긴다.
+7. '참조. 최근 유사 사례'는 위 과거 사례에서 실제 1~2건을 (시기·유형·요지·교훈) 형태로 인용한다. 매칭 사례가 없으면 '해당 없음'으로 표기한다.
+8. '참조. 이슈 정의 및 개념 정립'은 이슈의 개념과 경영/사회/법률적 함의를 간결히 정리한다.
+9. 출력은 시스템 지침대로 <이슈 발생 보고>로 시작하고, 그 외 머리말·코드·주석·메타설명을 포함하지 않는다.
+"""
+        return prompt
     
     def _get_current_time(self) -> str:
         """현재 시간을 한국시간 기준으로 반환"""

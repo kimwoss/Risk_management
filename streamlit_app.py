@@ -27,6 +27,7 @@ from news_collector import (
     load_sent_cache,
     save_sent_cache,
     get_article_sentiment,
+    load_api_usage,
 )
 
 import pandas as pd
@@ -3005,26 +3006,10 @@ def page_news_monitor():
             quota_exceeded = False
 
             if api_ok:
-                # 키워드 수집을 병렬 실행 (순차 네이버 호출로 인한 새로고침 버퍼링 해소).
-                # 수집 데이터·이후 필터 로직은 기존과 동일 → 모니터링 품질 유지, 대기시간만 단축.
-                from concurrent.futures import ThreadPoolExecutor
-                _per_kw = max(5, max_items // max(1, len(keywords)))
-
-                def _fetch_one(kw):
-                    try:
-                        return kw, crawl_all_news_sources(kw, max_items=_per_kw, sort="date")
-                    except Exception as e:
-                        print(f"[WARNING] '{kw}' 병렬 수집 실패: {e}")
-                        return kw, pd.DataFrame()
-
-                with ThreadPoolExecutor(max_workers=min(8, max(1, len(keywords)))) as _ex:
-                    _fetched = dict(_ex.map(_fetch_one, keywords))
-
-                # 키워드별 처리 (수집은 위에서 병렬로 끝냄 → 아래는 필터링만, 빠름)
+                # 키워드별 최신순 순차 수집
+                # (병렬 수집은 여러 수집 경로와 겹쳐 네이버 초당 rate limit(429)을 유발하므로 순차 유지)
                 for kw in keywords:
-                    df_kw = _fetched.get(kw)
-                    if df_kw is None:
-                        df_kw = pd.DataFrame()
+                    df_kw = crawl_all_news_sources(kw, max_items=max_items // len(keywords), sort="date")
 
                     # API 할당량 초과 체크
                     if df_kw.attrs.get('quota_exceeded', False):
@@ -3133,12 +3118,21 @@ def page_news_monitor():
                             all_news.append(df_kw)
 
                 # API 할당량 초과 시 처리
+                # 네이버는 '초당 rate limit'과 '일일 한도'를 모두 429로 응답하므로,
+                # 실제 오늘 사용량으로 구분 — 사용량이 낮으면 일시적 지연(저장된 뉴스 표시).
                 if quota_exceeded:
-                    status.error("❌ API 할당량 초과 (일일 25,000회 제한)\n\n"
-                                "💡 해결 방법:\n"
-                                "1. 새로운 네이버 개발자 계정으로 API 키 재발급\n"
-                                "2. 매일 자정(KST) 이후 할당량 재설정\n"
-                                "3. 기존 저장된 뉴스 데이터는 유지됩니다")
+                    try:
+                        _usage_today = load_api_usage()
+                    except Exception:
+                        _usage_today = 0
+                    if _usage_today >= 24000:
+                        status.error("❌ API 일일 할당량 초과 (25,000회)\n\n"
+                                    "매일 자정(KST) 이후 자동 재설정됩니다.\n"
+                                    "기존 저장된 뉴스는 그대로 유지됩니다.")
+                    else:
+                        status.warning(f"⏳ 일시적으로 일부 키워드 수집이 지연됐습니다 "
+                                    f"(저장된 최신 뉴스를 표시 중). 잠시 후 자동 갱신됩니다. "
+                                    f"(오늘 사용량 {_usage_today:,}/25,000회)")
                     # 플래그 리셋
                     st.session_state.trigger_news_update = False
                     st.session_state.next_refresh_at = time.time() + refresh_interval

@@ -31,6 +31,7 @@ from news_collector import (
 import pandas as pd
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
+import extra_streamlit_components as stx
 from PIL import Image
 from html import unescape
 from dotenv import load_dotenv
@@ -111,60 +112,49 @@ def get_auth_token(role="pr"):
         pw = st.secrets.get("PASSWORD_PR", os.environ.get("ACCESS_CODE", ""))
     return hashlib.sha256(f"{pw}_secret_salt".encode()).hexdigest()
 
-def check_cookie_auth():
-    """쿠키에서 인증 정보 확인 (역할별 쿠키 분리)"""
-    auth_token_pr = get_auth_token("pr")
-    auth_token_general = get_auth_token("general")
+# 로그인 유지 쿠키 이름 / 유효기간(24시간)
+AUTH_COOKIE = "posco_auth"
+AUTH_COOKIE_TTL = timedelta(hours=24)
 
-    # JavaScript로 쿠키 확인 (PR/general 쿠키 각각 검사)
-    cookie_script = f"""
-    <script>
-        function getCookie(name) {{
-            const value = `; ${{document.cookie}}`;
-            const parts = value.split(`; ${{name}}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }}
 
-        const prToken = getCookie('posco_auth_token');
-        const generalToken = getCookie('posco_auth_token_general');
+def get_cookie_manager():
+    """쿠키 매니저 (세션별 1개 — 양방향 컴포넌트로 Python에서 직접 읽기/쓰기).
+    cache_resource를 쓰면 전 세션이 인스턴스를 공유해 쿠키가 섞일 수 있어 세션 상태에 보관한다."""
+    if "_piris_cm" not in st.session_state:
+        st.session_state["_piris_cm"] = stx.CookieManager(key="piris_cookie_mgr")
+    return st.session_state["_piris_cm"]
 
-        if (prToken === '{auth_token_pr}') {{
-            if (!window.location.search.includes('auto_login=pr')) {{
-                const url = new URL(window.location);
-                url.searchParams.set('auto_login', 'pr');
-                window.location.href = url.toString();
-            }}
-        }} else if (generalToken === '{auth_token_general}') {{
-            if (!window.location.search.includes('auto_login=general')) {{
-                const url = new URL(window.location);
-                url.searchParams.set('auto_login', 'general');
-                window.location.href = url.toString();
-            }}
-        }}
-    </script>
-    """
-    st.components.v1.html(cookie_script, height=0)
 
-    # URL 파라미터 확인
-    auto_login = st.query_params.get("auto_login")
-    if auto_login in ("pr", "general", "1"):
-        st.session_state.authenticated = True
-        st.session_state["role"] = "general" if auto_login == "general" else "pr"
-        st.query_params.clear()
-        return True
+def set_auth_cookie(role="pr"):
+    """로그인 성공 시 인증 토큰을 쿠키에 저장 (24시간 유지)"""
+    cm = get_cookie_manager()
+    cm.set(
+        AUTH_COOKIE,
+        get_auth_token(role),
+        expires_at=datetime.now() + AUTH_COOKIE_TTL,
+        key="piris_auth_set",
+    )
 
-    return False
 
 def check_authentication():
-    """인증 확인 함수 (쿠키 + 세션)"""
+    """인증 확인 (세션 → 쿠키 순). 세션이 끊겨도 24시간 내면 쿠키로 자동 복원."""
     # 이미 세션에서 인증됨
     if st.session_state.get("authenticated", False):
         return True
 
-    # 쿠키에서 인증 확인
-    if check_cookie_auth():
-        return True
+    # 쿠키에서 인증 복원 (컴포넌트가 브라우저 쿠키를 Python으로 동기화)
+    cm = get_cookie_manager()
+    cookies = cm.get_all(key="piris_auth_get")
+    token = cookies.get(AUTH_COOKIE) if cookies else None
+    if token:
+        if token == get_auth_token("pr"):
+            st.session_state.authenticated = True
+            st.session_state["role"] = "pr"
+            return True
+        if token == get_auth_token("general"):
+            st.session_state.authenticated = True
+            st.session_state["role"] = "general"
+            return True
 
     return False
 
@@ -489,33 +479,18 @@ def show_login_page():
         if _pw_pr and code_input == _pw_pr:
             st.session_state.authenticated = True
             st.session_state["role"] = "pr"
-            st.session_state.login_pending_cookie = True
-            auth_token = get_auth_token("pr")
             if remember:
-                st.components.v1.html(
-                    f"""<script>(function(){{
-                        const d=new Date();
-                        d.setTime(d.getTime()+(30*24*60*60*1000));
-                        document.cookie="posco_auth_token={auth_token};expires="+d.toUTCString()+";path=/;SameSite=Lax";
-                    }})();</script>""",
-                    height=0,
-                )
-            st.rerun()
+                # 쿠키 저장 → 컴포넌트가 자체 리런을 일으켜 앱으로 진입
+                set_auth_cookie("pr")
+            else:
+                st.rerun()
         elif _pw_general and code_input == _pw_general:
             st.session_state.authenticated = True
             st.session_state["role"] = "general"
-            st.session_state.login_pending_cookie = True
-            auth_token = get_auth_token("general")
             if remember:
-                st.components.v1.html(
-                    f"""<script>(function(){{
-                        const d=new Date();
-                        d.setTime(d.getTime()+(30*24*60*60*1000));
-                        document.cookie="posco_auth_token_general={auth_token};expires="+d.toUTCString()+";path=/;SameSite=Lax";
-                    }})();</script>""",
-                    height=0,
-                )
-            st.rerun()
+                set_auth_cookie("general")
+            else:
+                st.rerun()
         else:
             st.error("비밀번호가 올바르지 않습니다.")
 

@@ -983,13 +983,63 @@ def _openai_chat(messages, model=None, temperature=0.2, max_tokens=400):
         if r is not None:
             r.close()
 
+# --- 무료 LLM: Google Gemini REST 호출 (기사 요약 전용) ---
+def _get_gemini_key():
+    """Gemini API 키 (무료). .env 또는 Streamlit secrets에서 로드."""
+    key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or ""
+    if not key:
+        try:
+            key = st.secrets.get("GEMINI_API_KEY", "") or st.secrets.get("GOOGLE_API_KEY", "")
+        except Exception:
+            pass
+    return key.strip()
+
+
+def _gemini_chat(system_prompt, user_prompt, temperature=0.25, max_tokens=2048):
+    """Google Gemini 호출 (무료 티어). 성공 시 (text, None), 실패 시 (None, err)."""
+    api_key = _get_gemini_key()
+    if not api_key:
+        return None, "GEMINI_API_KEY not set"
+    model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    r = None
+    try:
+        r = requests.post(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            headers={"Content-Type": "application/json", "x-goog-api-key": api_key},
+            json={
+                "system_instruction": {"parts": [{"text": system_prompt}]},
+                "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+                "generationConfig": {
+                    "temperature": temperature,
+                    "maxOutputTokens": max_tokens,
+                },
+            },
+            timeout=25,
+        )
+        r.raise_for_status()
+        data = r.json()
+        cand = (data.get("candidates") or [{}])[0]
+        parts = (cand.get("content") or {}).get("parts") or []
+        text = "".join(p.get("text", "") for p in parts).strip()
+        return (text, None) if text else (None, "empty response")
+    except Exception as e:
+        return None, str(e)
+    finally:
+        if r is not None:
+            r.close()
+
 # --- 기사 본문/제목 추출 (가벼운 크롤러, 연결 누수 방지) ---
 def _extract_article_text_and_title(url: str):
     """기사 크롤링 (연결 누수 방지)"""
     html = ""
     resp = None
     try:
-        resp = requests.get(url, timeout=12, headers={"User-Agent": "Mozilla/5.0"})
+        resp = requests.get(url, timeout=12, headers={
+            # 완전한 데스크톱 UA 사용: 네이버 등은 짧은 UA에 JS 셸만 반환해 본문 추출이 실패함
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                          "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "ko-KR,ko;q=0.9",
+        })
         resp.raise_for_status()
         html = resp.text
     except Exception:
@@ -1007,16 +1057,24 @@ def _extract_article_text_and_title(url: str):
         og = soup.find("meta", property="og:title")
         if og and og.get("content"): title = og["content"].strip()
         elif soup.title: title = soup.title.get_text(strip=True)
+        # 제목 끝의 매체명 suffix 제거 (예: "...본업 경쟁력' | 아주경제")
+        if title:
+            title = re.split(r"\s*[|<]\s*", title)[0].strip() or title
 
-        # 본문 (네이버 등 우선 시도 → 일반 article/p → 전체 텍스트)
-        candidates = ["#dic_area", "article", "div#newsEndContents", "div#articeBody", "div#content", "div.article_body"]
+        # 본문 (네이버 모바일/데스크톱 우선 → 일반 CMS → article/p → 전체 텍스트)
+        candidates = ["#dic_area", "#newsct_article", "#articeBody", "#articleBodyContents",
+                      "#article-view-content-div", "article", "div#newsEndContents",
+                      "div#content", "div.article_body"]
         node = None
         for sel in candidates:
             node = soup.select_one(sel)
             if node: break
         if node:
-            ps = node.find_all(["p", "div"])
-            text = " ".join(p.get_text(" ", strip=True) for p in ps) or node.get_text(" ", strip=True)
+            # 단락(p) 우선. 단 본문이 <p>로 안 감싸인 사이트(네이버 #dic_area 등)는
+            # p 조인 결과가 거의 비므로 노드 전체 텍스트를 사용한다.
+            joined = " ".join(p.get_text(" ", strip=True) for p in node.find_all("p"))
+            node_text = node.get_text(" ", strip=True)
+            text = joined if len(joined) >= len(node_text) * 0.6 else node_text
         if not text:
             text = soup.get_text(" ", strip=True)
         text = re.sub(r"\s+", " ", text).strip()
@@ -1096,143 +1154,128 @@ def _build_evidence_pack(full_text: str, max_sentences: int = 20) -> str:
     result = ". ".join(final)
     return result[:4000]
 
+def _format_report(llm_text: str, media: str, title: str, url: str) -> str:
+    """LLM이 만든 '도입부 + 불릿'에 매체:제목 헤더와 URL을 코드로 조립한다.
+    매체명·제목·URL은 확정값이므로 LLM 출력에서 무시하고 정확히 삽입 → 오기/변형/누락 차단."""
+    if not llm_text:
+        return ""
+    intro_parts, bullets = [], []
+    seen_bullet = False
+    for raw_line in llm_text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line[0] in "-•·*▪◦":
+            seen_bullet = True
+            b = line.lstrip("-•·*▪◦ ").strip()
+            if b and not b.lower().startswith("http"):
+                bullets.append(b)
+        elif not seen_bullet:
+            # 도입부 후보. 모델이 실수로 넣은 URL/'매체 : 제목' 헤더 라인은 제외.
+            if line.lower().startswith("http"):
+                continue
+            if " : " in line and (title[:10] in line or line.startswith(media)):
+                continue
+            intro_parts.append(line)
+    if not bullets:
+        return ""
+    intro = " ".join(intro_parts).strip()
+    body = "\n\n".join(f"- {b}" for b in bullets[:6])
+    segments = ([intro] if intro else []) + [f"{media} : {title}", body, url]
+    return "\n\n".join(segments)
+
 # --- 링크를 직접 읽어 GPT로 '카톡 보고 메시지' 생성 (개선 버전) ---
 def make_kakao_report_from_url(url: str, fallback_media="", fallback_title="", fallback_summary=""):
     media = fallback_media or _publisher_from_link(url)
     title, body = _extract_article_text_and_title(url)
     title = title or fallback_title or "제목 미확인"
 
-    # ✅ 핵심 문장만 추출 (전처리 - 속도 향상)
-    evidence = _build_evidence_pack(body or fallback_summary or "", max_sentences=20)
+    # 기사 본문 (무료 Gemini는 컨텍스트가 넉넉 → 본문을 충분히 전달해 사실 누락 최소화)
+    article_text = (body or fallback_summary or "").strip()
+    if len(article_text) > 6000:
+        article_text = article_text[:6000]
+    if not article_text:
+        article_text = _build_evidence_pack(fallback_summary or "", max_sentences=20)
 
-    # ✅ 개선된 프롬프트 (순수 텍스트 출력 강화)
-    sys_prompt = """너는 포스코인터내셔널 홍보그룹 전용 '뉴스 보고 메시지 생성 봇'이다.
-사용자가 제공한 기사 링크 또는 기사 본문을 기반으로, 임원 보고용 카카오톡 메시지를 작성하라.
+    # 매체명·제목·URL은 확정값이라 LLM에 맡기지 않고 코드가 조립(_format_report)한다.
+    # LLM은 '도입부 1문장 + 핵심 불릿'만 생성 → 매체/제목 오기·제목 변형·URL 누락 원천 차단.
+    sys_prompt = """너는 포스코인터내셔널 홍보그룹의 '언론 모니터링 보고문 작성기'다.
+기사 1건을 받아 '도입부 1문장'과 '핵심 사실 불릿'만 작성한다.
+매체명·기사제목·URL은 시스템이 자동으로 넣으므로 너는 절대 출력하지 마라.
 
-[최우선 목표]
-- "빠르게 읽히는 보고 메시지"
-- "포스코그룹 관점에서 핵심만 정리"
-- "형식 100% 준수 (절대 깨지면 안 됨)"
+[출력 — 정확히 이 두 가지만]
+1) 첫 줄: 도입부 1문장. 기사 내용이 무엇이며 포스코그룹과 어떤 관련이 있는지 밝히고
+   "~ 관련 기사가 게재되어 보고 드립니다." / "~ 보도가 있어 공유드립니다." / "~ 보도입니다." 로 끝맺는다.
+2) 빈 줄 1개 뒤, 핵심 사실 불릿 3~6개. 각 줄은 "- "로 시작하고 불릿 사이에 빈 줄 1개를 둔다.
+※ 매체명/제목 헤더, URL, 기자명은 출력 금지.
 
------------------------------------
+[문체 — 개조식 보고체]
+- 모든 불릿은 명사형 종결: ~함 / ~음 / ~임 / ~밝힘 / ~전해짐 / ~알려짐 / ~기록함 / ~전망 등
+- 날짜·수치·고유명사(인명·기업명·금액·증감률)는 기사에 있으면 반드시 보존 (예: 29일, 매출 9676억원, 60.1% 감소)
+- 한 불릿 = 하나의 사실. 기사 흐름 순서대로. 중복·수식어·이모지 금지
+- 기사에 없는 내용 추측·해석 금지 (사실만 정리)
 
-[출력 형식 - 반드시 그대로 따를 것]
+[연관성 판단 — 도입부 작성용 참고]
+포스코인터내셔널 사업: 미얀마 가스전·LNG 터미널/트레이딩, 삼척블루파워, 구동모터코아(포스코모빌리티솔루션),
+식량/곡물 트레이딩·팜오일, 종합상사 트레이딩, DAEWOO 가전 글로벌 라이선스.
+그룹/관계사: 포스코홀딩스·포스코·포스코이앤씨(건설)·포스코퓨처엠 등. 경쟁군: 철강사·종합상사.
+→ 기사가 위 사업/그룹사/경쟁사/전현직 임원과 닿으면 그 연결고리를 도입부에 명시한다.
+   직접 관련이 약하면 무리하게 엮지 말고 사실 관계만 간결히 밝힌다.
 
-1. 첫 줄 → 기사 링크 그대로 출력
-2. 한 줄 공백 (엔터 1번)
-3. 다음 줄 → "매체명 : 기사 제목" (제목 절대 수정 금지)
-4. 다음 줄부터 핵심 요약 작성 (반드시 '-'로 시작하는 bullet)
+[좋은 예시 1 — 포스코인터내셔널 직접 사업]
+포스코인터내셔널이 인도 EBG그룹과 대우 브랜드 가전 라이선스 계약을 체결했다는 보도입니다.
 
------------------------------------
+- 29일 현지 언론에 따르면 EBG그룹은 포스코인터내셔널과의 협약에 따라 인도에서 대우 브랜드 가전의 제품 개발·생산·유통·판매를 총괄하기로 함
 
-[요약 작성 규칙]
+- 델리에 첫 대우 브랜드 플래그십 매장을 여는 것을 시작으로 2027년까지 인도 전역에 약 100개 매장을 구축할 계획임
 
-- 총 6~10줄 작성 (무조건 이 범위 지킬 것)
-- 각 문장은 100~200자 이내
-- 각 줄은 서로 다른 핵심 내용을 담을 것 (중복 금지)
-- 기사 문단 흐름 순서대로 정리 (위→아래)
-- 한 줄 = 하나의 핵심 메시지
+- 포스코인터내셔널 측은 "인도는 세계에서 가장 역동적으로 성장하는 가전 시장"이라며 에너지 효율 제품 공급 의지를 밝힘
 
------------------------------------
+[좋은 예시 2 — 외부 기업/산업 동향]
+세아그룹 두 지주사의 실적이 본업 경쟁력에 따라 엇갈렸다는 철강업계 분석으로, 종합상사·철강 경쟁 동향 차원에서 공유드립니다.
 
-[내용 구성 기준]
+- 세아베스틸지주는 1분기 매출 9676억원·영업이익 307억원으로 전년 동기 대비 매출 7.5%, 영업이익 69.8% 증가함
 
-다음 요소를 반드시 포함하여 요약할 것:
+- 반면 세아제강지주는 매출 9919억원으로 4.7% 늘었으나 영업이익은 267억원으로 60.1% 감소함
 
-1. 기사의 핵심 이슈 (첫 1~2줄)
-2. 산업 또는 시장 영향
-3. 포스코 / 포스코인터내셔널 관련 내용 (가장 중요)
-4. 사업/투자/재무 영향 (수치 있으면 반드시 포함)
-5. 향후 전망 또는 의미
+- 세아베스틸은 방산·원전·항공우주 등 고부가 특수강으로 포트폴리오를 확대해 안정적 수익 기반을 구축함
 
------------------------------------
+- 세아제강은 북미 에너지용 강관(OCTG) 중심 구조가 미국 관세·통상 환경 변화에 발목을 잡힌 것으로 분석됨
 
-[포스코 관련 강조 규칙 - 매우 중요]
+위 두 예시의 형식과 문체를 그대로 따른다. 매체명·제목·URL은 출력하지 않는다."""
 
-- 포스코 / 포스코인터내셔널 / 포스코그룹 관련 내용은 최소 2줄 이상 반드시 포함
-- 다른 기업보다 더 구체적으로 작성
-- "왜 중요한지" 드러나게 작성 (단, 해석은 금지하고 기사 기반으로만)
-
------------------------------------
-
-[문장 스타일 규칙]
-
-- 무조건 "비즈니스 보고 문장"으로 작성
-- 불필요한 수식어 제거
-- 짧고 명확하게 (핵심만 전달)
-- "~함", "~추진", "~전망", "~논의" 형태로 끝맺음
-
------------------------------------
-
-[금지 사항]
-
-- 제목 변형 금지
-- 이모지 사용 금지
-- 의견 / 해석 / 추측 절대 금지
-- 기자명, 날짜 등 불필요 정보 제거
-- 번호 리스트 사용 금지 (오직 '-'만 사용)
-- 문장 길이 과도하게 길어지지 않도록 할 것
-
------------------------------------
-
-[출력 예시]
-
-https://example.com
-
-매체명 : 기사 제목
-- 핵심 내용 1
-- 핵심 내용 2
-- 핵심 내용 3
-- 핵심 내용 4
-- 핵심 내용 5
-- 핵심 내용 6
-
------------------------------------
-
-[품질 체크 - 내부적으로 반드시 검증 후 출력]
-
-출력 전에 아래 조건을 스스로 점검하라:
-
-- bullet 개수 6~10개인가?
-- 모든 줄이 '-'로 시작하는가?
-- 포스코 관련 내용이 포함되어 있는가?
-- 문장이 100~200자 사이인가?
-- 제목이 변형되지 않았는가?
-
-조건 하나라도 위반 시 다시 작성 후 출력"""
-
-    user_prompt = f"""링크: {url}
+    user_prompt = f"""[기사 정보]
 매체명: {media}
 제목: {title}
 
 [기사 본문]
-{evidence}
+{article_text}
 
-위 내용을 바탕으로 임원 보고용 카카오톡 메시지를 작성하라."""
+위 기사로 '도입부 1문장 + 핵심 불릿 3~6개'만 작성하라.
+매체명·제목·URL은 절대 쓰지 마라 (시스템이 자동 삽입)."""
 
-    out, err = _openai_chat(
-        [{"role":"system","content":sys_prompt},{"role":"user","content":user_prompt}],
-        temperature=0.0,  # 정확성 최대화
-        max_tokens=1200
-    )
-    if out:
-        return out
+    # 등록된 OpenAI(GPT, gpt-4o-mini) 우선.
+    # (선택) GEMINI_API_KEY가 설정돼 있으면 무료 Gemini 우선·실패 시 OpenAI 폴백.
+    out = None
+    if _get_gemini_key():
+        out, _ = _gemini_chat(sys_prompt, user_prompt, temperature=0.25, max_tokens=1500)
+    if not out:
+        out, _ = _openai_chat(
+            [{"role": "system", "content": sys_prompt},
+             {"role": "user", "content": user_prompt}],
+            model="gpt-4o-mini", temperature=0.1, max_tokens=1200,
+        )
 
-    # 실패 시 백업 포맷 (기존 유지)
-    bullets = _short_bullets(evidence or fallback_summary, 4, 35)
-    if len(bullets) < 3:
-        bullets = [
-            "포스코인터내셔널 관련 주요 내용 확인 필요",
-            "상세 정보는 원문 기사 참고",
-            "비즈니스 임팩트 분석 후 추가 보고"
-        ]
+    report = _format_report(out, media, title, url) if out else ""
+    if report:
+        return report
 
-    # 백업 보고서도 새 형식에 맞춤 (URL-제목 직결, 블릿 사이 빈 줄, 마침표)
-    bullets_formatted = '\n\n'.join(f"- {b}." for b in bullets[:4])
-    backup_report = f"""{url}
-{media} : {title}
-{bullets_formatted}"""
-    return backup_report
+    # LLM 실패/파싱 실패 시 백업 (도입부 없이 매체:제목 / 불릿 / URL)
+    bullets = _short_bullets(article_text or fallback_summary, 5, 80)
+    if len(bullets) < 2:
+        bullets = ["기사 핵심 내용 확인 필요", "상세 내용은 원문 기사 참고"]
+    bullets_formatted = "\n\n".join(f"- {b}" for b in bullets[:6])
+    return f"{media} : {title}\n\n{bullets_formatted}\n\n{url}"
 
 # --- 카운트다운 전용 프래그먼트(지원 시) + 폴백 ---
 def _countdown_badge_html(secs_left: int) -> str:

@@ -58257,3 +58257,18 @@
 {"timestamp": "2026-04-03T07:28:05.936199", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 11, "api_calls": 2}}
 {"timestamp": "2026-04-03T07:28:13.949416", "event_type": "telegram", "data": {"success": 6, "failed": 1, "total": 7, "success_rate": 0.8571428571428571}}
 {"timestamp": "2026-04-03T07:28:14.006464", "event_type": "run_summary", "data": {"total_articles": 296, "new_articles": 7, "telegram_sent": 6, "errors": 0}}
+{"timestamp": "2026-06-30T01:16:01.718252", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 22, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:03.284962", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 75, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:04.053714", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:04.803105", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:05.523621", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 2, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:06.081325", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 3, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:06.640818", "event_type": "collection", "data": {"keyword": "구동모터코아", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:07.387263", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:08.121818", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:08.689973", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:09.258674", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:09.915226", "event_type": "collection", "data": {"keyword": "대미 투자 특별법", "articles_collected": 23, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:10.471997", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 2, "api_calls": 2}}
+{"timestamp": "2026-06-30T01:16:26.511517", "event_type": "telegram", "data": {"success": 6, "failed": 1, "total": 7, "success_rate": 0.8571428571428571}}
+{"timestamp": "2026-06-30T01:16:26.545321", "event_type": "run_summary", "data": {"total_articles": 288, "new_articles": 7, "telegram_sent": 6, "errors": 0}}

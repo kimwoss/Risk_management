@@ -1171,7 +1171,7 @@ def _format_report(llm_text: str, media: str, title: str, url: str) -> str:
     if not bullets:
         return ""
     intro = " ".join(intro_parts).strip()
-    body = "\n\n".join(f"- {b}" for b in bullets[:6])
+    body = "\n\n".join(f"- {b}" for b in bullets[:12])
     segments = ([intro] if intro else []) + [f"{media} : {title}", body, url]
     return "\n\n".join(segments)
 
@@ -1197,16 +1197,17 @@ def make_kakao_report_from_url(url: str, fallback_media="", fallback_title="", f
 [출력 — 정확히 이 두 가지만]
 1) 첫 줄: 도입부 1문장. 기사 내용이 무엇이며 포스코그룹과 어떤 관련이 있는지 밝히고
    "~ 관련 기사가 게재되어 보고 드립니다." / "~ 보도가 있어 공유드립니다." / "~ 보도입니다." 로 끝맺는다.
-2) 빈 줄 1개 뒤, 핵심 사실 불릿 3~6개. 각 줄은 "- "로 시작하고 불릿 사이에 빈 줄 1개를 둔다.
+2) 빈 줄 1개 뒤, 핵심 사실 불릿. 기사에 담긴 구체적 사실을 빠짐없이 반영하되 보통 5~9개(내용이 많으면 그 이상)로 작성하고, 각 줄은 "- "로 시작하며 불릿 사이에 빈 줄 1개를 둔다.
 ※ 매체명/제목 헤더, URL, 기자명은 출력 금지.
 
 [불릿 작성 — 가장 중요]
-- 각 불릿은 관련 정보를 한 줄에 충실히 응축한다: 누가·언제·무엇을·수치·배경·경위를 가능한 한 한 문장(필요하면 두 문장)에 묶어 담는다. 한 불릿은 대략 50~150자로 충실하게 작성.
-- 짧고 헐거운 단편의 나열을 금지한다. 이력·경위는 토막내지 말고 한 줄에 연결한다.
+- 완전성 최우선: 기사에 나오는 구체적 사실을 하나도 빠뜨리지 않는다. 등장하는 기업·종목·인물·기관명, 날짜·금액·증감률·비중·순위 등 모든 수치, 그리고 배경·원인·결과는 반드시 보존한다. 여러 항목을 "등"으로 뭉뚱그려 생략하지 말고 실제 이름을 나열한다.
+- 각 불릿은 관련 정보를 한 줄에 충실히 응축한다: 누가·언제·무엇을·수치·배경·경위·인과를 한 문장(필요하면 두 문장)에 묶어 담는다. 한 불릿은 대략 80~200자로 충실하게 작성하며, 짧고 헐거운 단편(한 줄에 사실 1개)은 금지한다.
+- 이력·경위·나열 항목은 토막내지 말고 한 줄에 연결한다.
   (나쁜 예: "청와대 행정관 역임함" / "KT에서 전무 역임함" 으로 쪼갬)
   (좋은 예: "청와대 행정관을 거쳐 한국통신프리텔·KT 대외협력실장 전무, 한화그룹 부사장을 역임했으며 2021년 포스코 커뮤니케이션본부장 부사장으로 임명됨" 으로 응축)
-- 기사의 리드(누가 언제 무엇을 결정·발표했는지)와 핵심 경위·배경·이력·수치를 빠짐없이 담는다. 부차적·홍보성 수식은 생략.
-- 기사 흐름 순서대로. 사실 간 중복 금지. 추측·해석·이모지 금지. 기사의 날짜·금액·증감률·고유명사는 반드시 보존.
+- 기사의 리드(누가 언제 무엇을 결정·발표했는지)와 핵심 경위·배경·이력·수치를 빠짐없이 담는다. 부차적·홍보성 수식만 생략한다.
+- 기사 흐름 순서대로. 사실 간 중복은 피하되, 사실 자체를 누락해 분량을 줄이지는 않는다. 추측·해석·이모지 금지.
 
 [문체 — 개조식 보고체]
 - 모든 불릿은 명사형 종결: ~함 / ~음 / ~임 / ~밝힘 / ~전해짐 / ~알려짐 / ~기록함 / ~보임 / ~전망 등 (불릿 끝에 마침표 없음)
@@ -1249,20 +1250,19 @@ def make_kakao_report_from_url(url: str, fallback_media="", fallback_title="", f
 [기사 본문]
 {article_text}
 
-위 기사로 '도입부 1문장 + 핵심 불릿 3~6개'만 작성하라.
+위 기사로 '도입부 1문장 + 핵심 불릿(구체 사실을 빠짐없이, 보통 5~9개)'만 작성하라.
+종목·인물·기관명과 수치는 누락하지 말고, 각 불릿은 80~200자로 충실히 응축하라.
 매체명·제목·URL은 절대 쓰지 마라 (시스템이 자동 삽입)."""
 
-    # 등록된 OpenAI(GPT, gpt-4o-mini) 우선.
-    # (선택) GEMINI_API_KEY가 설정돼 있으면 무료 Gemini 우선·실패 시 OpenAI 폴백.
-    out = None
-    if _get_gemini_key():
-        out, _ = _gemini_chat(sys_prompt, user_prompt, temperature=0.25, max_tokens=1800)
-    if not out:
-        out, _ = _openai_chat(
-            [{"role": "system", "content": sys_prompt},
-             {"role": "user", "content": user_prompt}],
-            model="gpt-4o-mini", temperature=0.2, max_tokens=1800,
-        )
+    # 품질 우선: gpt-4o로 요약 생성(on-demand 버튼이라 호출량이 적어 비용 부담 작음).
+    # OpenAI 실패/미설정 시에만 무료 Gemini로 폴백.
+    out, _ = _openai_chat(
+        [{"role": "system", "content": sys_prompt},
+         {"role": "user", "content": user_prompt}],
+        model="gpt-4o", temperature=0.2, max_tokens=2800,
+    )
+    if not out and _get_gemini_key():
+        out, _ = _gemini_chat(sys_prompt, user_prompt, temperature=0.25, max_tokens=2800)
 
     report = _format_report(out, media, title, url) if out else ""
     if report:

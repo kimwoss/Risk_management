@@ -16,6 +16,7 @@ from news_collector import (
     KEYWORDS,
     EXCLUDE_KEYWORDS,
     MAX_ITEMS_PER_RUN,
+    tag_priority,
     crawl_naver_news,
     crawl_google_news_rss,
     merge_news_sources,
@@ -3129,17 +3130,22 @@ def page_news_monitor():
                     # 통합 정리 & 저장
                     df_new = pd.concat(all_news, ignore_index=True) if all_news else pd.DataFrame()
                     if not df_new.empty:
+                        # 태그 우선순위(포스코인터내셔널>포스코>계열사) → 최신순 정렬 후 중복제거
+                        df_new["_tagpri"] = df_new["검색키워드"].map(tag_priority)
                         df_new["날짜_datetime"] = pd.to_datetime(df_new["날짜"], errors="coerce")
-                        df_new = df_new.sort_values("날짜_datetime", ascending=False, na_position="last").reset_index(drop=True)
-                        df_new = df_new.drop("날짜_datetime", axis=1)
+                        df_new = df_new.sort_values(["_tagpri", "날짜_datetime"], ascending=[True, False], na_position="last").reset_index(drop=True)
 
-                        # 중복 제거 (URL 우선, 없으면 제목+날짜)
+                        # 중복 제거 (우선순위 높은 태그 유지)
                         key = df_new["URL"].where(df_new["URL"].astype(bool), df_new["기사제목"] + "|" + df_new["날짜"])
                         df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
+                        df_new = df_new.drop(columns=["_tagpri", "날짜_datetime"])
 
-                        # 기존 DB와 병합해 최신순 정렬
+                        # 기존 DB와 병합 (병합 후에도 태그 우선순위로 중복 해소)
                         merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
+                        merged["_tagpri"] = merged["검색키워드"].map(tag_priority)
+                        merged = merged.sort_values("_tagpri", kind="stable").reset_index(drop=True)
                         merged = merged.drop_duplicates(subset=["URL", "기사제목"], keep="first").reset_index(drop=True)
+                        merged = merged.drop(columns=["_tagpri"])
                         if not merged.empty:
                             merged["날짜"] = pd.to_datetime(merged["날짜"], errors="coerce")
                             merged = merged.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)

@@ -3,6 +3,7 @@ Standalone News Monitor - GitHub Actions용
 Streamlit 없이 독립적으로 뉴스를 수집하고 텔레그램 알림을 전송합니다.
 3분마다 GitHub Actions에서 자동 실행됩니다 (*/3 * * * *).
 """
+import os
 import pandas as pd
 from datetime import datetime
 
@@ -154,8 +155,19 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
     return df
 
 
-def main():
-    """백그라운드 뉴스 모니터링 메인 함수"""
+def main(send_telegram: bool = None):
+    """백그라운드 뉴스 모니터링 메인 함수
+
+    Args:
+        send_telegram: 텔레그램 발송 여부. None(기본)이면 실행 환경으로 자동 판별.
+            - GitHub Actions(heartbeat/news_monitor): GITHUB_ACTIONS=true → 발송.
+              이 경로만 sent_articles_cache를 git fetch/merge/push로 공유하므로 중복이 안 남.
+            - Streamlit(auto_monitor_on_load)/로컬: 환경변수 없음 → 발송 안 함(수집·DB 갱신만).
+              Streamlit 컨테이너는 캐시를 git에 push하지 못해, 발송하면 GitHub Actions와
+              캐시가 어긋나 같은 기사를 중복 발송하게 됨 → 발송을 GitHub Actions로 일원화.
+    """
+    if send_telegram is None:
+        send_telegram = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
     error_count = 0
     total_collected = 0
     telegram_success = 0
@@ -213,8 +225,8 @@ def main():
             safe_print(f"[MONITOR] ⚠️ 캐시 갱신 실패 (계속 진행): {_e}")
         # ────────────────────────────────────────────────────────────────────
 
-        # 기존 Pending 큐 먼저 처리 (재시도)
-        if pending_queue:
+        # 기존 Pending 큐 먼저 처리 (재시도) — 텔레그램 발송 경로에서만
+        if pending_queue and send_telegram:
             safe_print(f"[MONITOR] 📤 기존 Pending 큐 처리 시작...")
             pending_queue, sent_cache, retry_success = process_pending_queue_and_send(pending_queue, sent_cache)
             telegram_success += retry_success
@@ -349,8 +361,8 @@ def main():
                 save_pending_queue(pending_queue)
                 safe_print(f"[MONITOR] 💾 Pending 큐 저장 완료: {len(pending_queue)}건")
 
-                # Pending 큐 처리 (텔레그램 전송)
-                if not is_first_run():
+                # Pending 큐 처리 (텔레그램 전송) — 발송 경로(GitHub Actions)에서만
+                if send_telegram and not is_first_run():
                     safe_print(f"[MONITOR] 📤 Pending 큐 처리 시작 (신규 기사 전송)...")
                     pending_queue, sent_cache, new_success = process_pending_queue_and_send(pending_queue, sent_cache)
                     telegram_success += new_success
@@ -365,8 +377,9 @@ def main():
                         failed = len(new_articles) - new_success
                         logger.log_telegram(new_success, failed, len(new_articles))
                 else:
-                    safe_print(f"[MONITOR] ⏭️ 첫 실행 감지 - 텔레그램 전송 스킵")
-                    # 첫 실행에서도 Pending 큐는 유지 (다음 런에서 전송)
+                    _reason = "발송 비활성(Streamlit 수집 전용)" if not send_telegram else "첫 실행 감지"
+                    safe_print(f"[MONITOR] ⏭️ 텔레그램 전송 스킵 ({_reason})")
+                    # Pending 큐는 유지 (GitHub Actions 발송 경로가 처리)
 
             # DB 저장 (텔레그램 발송 후)
             save_news_db(merged)

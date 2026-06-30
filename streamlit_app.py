@@ -3008,6 +3008,7 @@ def page_news_monitor():
                 # 키워드 수집을 병렬 실행 (순차 네이버 호출로 인한 새로고침 버퍼링 해소).
                 # 수집 데이터·이후 필터 로직은 기존과 동일 → 모니터링 품질 유지, 대기시간만 단축.
                 from concurrent.futures import ThreadPoolExecutor
+                import time as _t_fetch
                 _per_kw = max(5, max_items // max(1, len(keywords)))
 
                 def _fetch_one(kw):
@@ -3017,8 +3018,20 @@ def page_news_monitor():
                         print(f"[WARNING] '{kw}' 병렬 수집 실패: {e}")
                         return kw, pd.DataFrame()
 
-                with ThreadPoolExecutor(max_workers=min(8, max(1, len(keywords)))) as _ex:
+                # 동시성 3으로 제한: 네이버 burst rate limit(429) 회피 → 데이터 누락 없이 속도만 단축
+                with ThreadPoolExecutor(max_workers=3) as _ex:
                     _fetched = dict(_ex.map(_fetch_one, keywords))
+
+                # 혹시 429 등으로 비거나 실패한 키워드는 순차로 1회 재시도 (품질 유지)
+                for kw in keywords:
+                    _df = _fetched.get(kw)
+                    if _df is None or getattr(_df, "attrs", {}).get("quota_exceeded"):
+                        _t_fetch.sleep(0.25)
+                        try:
+                            _fetched[kw] = crawl_all_news_sources(kw, max_items=_per_kw, sort="date")
+                        except Exception:
+                            if _df is None:
+                                _fetched[kw] = pd.DataFrame()
 
                 # 키워드별 처리 (수집은 위에서 병렬로 끝냄 → 아래는 필터링만, 빠름)
                 for kw in keywords:

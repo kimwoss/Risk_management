@@ -1,8 +1,12 @@
-name: News Monitor
+name: News Monitor (backup)
+
+# 주 모니터링은 heartbeat.yml(3분 루프)이 담당.
+# 이 워크플로우는 하트비트가 죽었을 때를 대비한 백업 안전망으로 15분마다 1회 실행.
+# 중복 발송은 sent_articles_cache.json(URL 캐시)이 차단.
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # 10분마다 실행
+    - cron: '*/15 * * * *'  # 15분마다 실행 (백업)
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

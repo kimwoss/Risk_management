@@ -2114,6 +2114,11 @@ def load_base_css():
       .iris-cta-card .cta-ttl { font-size: 0.92rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; word-break: keep-all; }
       .iris-cta-card .cta-dsc { font-size: 0.72rem; color: rgba(255,255,255,0.52); line-height: 1.4; word-break: keep-all; }
 
+      /* ── 메뉴 중복 제거: 데스크톱은 '상단 내비'만 사용 → 홈 하단 CTA 그리드 숨김 ── */
+      @media (min-width: 769px) {
+        .iris-cta-grid { display: none !important; }
+      }
+
       /* 모바일 최적화 (전역) */
       @media (max-width: 768px) {
         /* 가로 스크롤 차단 */
@@ -2149,6 +2154,12 @@ def load_base_css():
         }
         /* 비어 보이는 내비 래퍼 바 제거 (버튼은 별도 컨테이너에 렌더됨) */
         .nav-container:empty { display: none !important; }
+
+        /* ── 메뉴 중복 제거: 모바일은 홈에서 '하단 CTA'만 사용 → 상단 내비 숨김 ──
+           단, 홈(=CTA 그리드가 있는 페이지)에서만 숨긴다. 내부 페이지엔 CTA가 없으므로
+           :has(.iris-cta-grid)가 매칭되지 않아 상단 내비가 그대로 남아 내비게이션 유지됨. */
+        html:has(.iris-cta-grid) .st-key-iris_nav,
+        html:has(.iris-cta-grid) .nav-container { display: none !important; }
       }
 
       @media (max-width: 480px) {

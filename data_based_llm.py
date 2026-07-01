@@ -998,7 +998,8 @@ class DataBasedLLM:
         for name, info in levels.items():
             examples = ", ".join(info.get("예시", [])[:4])
             lines.append(f"- {name}: {info.get('정의', '')} (예: {examples})")
-        lines.append(f"(참고) 키워드 기반 1차 추정 단계: {crisis_hint} — 최종 판단은 이슈 맥락에 근거해 확정하십시오.")
+        lines.append(f"(참고) 키워드 기반 1차 추정: {crisis_hint}. 단 이는 참고용이며, 작성 요구사항 2번의 원칙"
+                     f"(부정·리스크 요소 없는 단순 문의=1단계)을 우선 적용해 최종 확정하십시오.")
         return "\n".join(lines)
 
     def _format_similar_cases_block(self, similar_cases: list) -> str:
@@ -1027,6 +1028,61 @@ class DataBasedLLM:
             f"| 출입기자({len(reporters)}명): {reporter_names}"
         )
 
+    def _collect_gold_examples(self, issue_description: str, limit: int = 2) -> list:
+        """실제 작성된 구조화 '이슈 발생 보고'를 문체·깊이 few-shot으로 수집.
+        (언론대응내역.csv의 템플릿 구조 보고 중 이슈와 주제가 유사한 것 우선)"""
+        if self.media_response_data is None or self.media_response_data.empty:
+            return []
+        df = self.media_response_data
+        col = "이슈 발생 보고" if "이슈 발생 보고" in df.columns else None
+        if not col:
+            return []
+        s = df[col].astype(str)
+        structured = df[s.str.contains("유관 의견|대응 방안|발생 내용", regex=True)
+                        & s.str.len().between(200, 1100)]
+        if structured.empty:
+            return []
+        terms = [t for t in self._extract_key_terms(issue_description.lower()) if len(t) >= 2]
+
+        def _score(txt):
+            t = str(txt).lower()
+            return sum(1 for term in terms if term in t)
+
+        structured = structured.assign(_sc=structured[col].map(_score))
+        structured = structured.sort_values("_sc", ascending=False)
+        out = []
+        for _, r in structured.head(limit).iterrows():
+            out.append(str(r.get(col, "")).strip()[:1000])
+        return out
+
+    def _format_gold_examples_block(self, examples: list) -> str:
+        """프롬프트용 골드 few-shot 블록 (문체·구성·깊이 기준)."""
+        if not examples:
+            return ""
+        parts = ["=== 실제 작성 보고 예시 (문체·구성·깊이의 기준 — 내용은 복사 금지, 형식·톤만 따를 것) ==="]
+        for i, ex in enumerate(examples, 1):
+            parts.append(f"[예시 {i}]\n{ex}")
+        return "\n\n".join(parts)
+
+    def _format_all_departments_reference(self) -> str:
+        """유관부서 지정용 전체 부서 참조 (master_data.json). LLM이 담당이슈·키워드를 보고
+        의미 기반으로 가장 적합한 부서를 직접 지정하도록 전체 목록을 제공한다.
+        (키워드 문자열 매칭이 'LNG'↔'LNG트레이딩' 등을 놓치는 문제 보완)"""
+        depts = (self.master_data or {}).get("departments", {})
+        if not depts:
+            return "=== 유관 부서 지정 참조 ===\n(부서 데이터 없음 — 홍보그룹 기본 대응)"
+        lines = ["=== 유관 부서 지정 참조 (이 목록에서만 선택 / 담당이슈·키워드로 판단) ==="]
+        for name, info in depts.items():
+            if not info.get("활성상태", True):
+                continue
+            issues = ", ".join(info.get("담당이슈", [])[:6])
+            kw = info.get("키워드", "")
+            lines.append(
+                f"- {name} | 담당자: {info.get('담당자','')} | 연락처: {info.get('연락처','')} "
+                f"| 이메일: {info.get('이메일','')} | 담당이슈: {issues} | 키워드: {kw}"
+            )
+        return "\n".join(lines)
+
     def _build_issue_report_prompt(self, media_name, reporter_name, issue_description,
                                    relevant_depts, crisis_hint, media_info,
                                    similar_cases, web_results) -> str:
@@ -1034,10 +1090,11 @@ class DataBasedLLM:
         current_time = self._get_current_time()
         web_context = self._extract_comprehensive_context(web_results)
 
-        depts_block = self._format_departments_block(relevant_depts)
+        depts_block = self._format_all_departments_reference()
         crisis_block = self._format_crisis_block(crisis_hint)
         similar_block = self._format_similar_cases_block(similar_cases)
         media_block = self._format_media_block(media_name, media_info)
+        gold_block = self._format_gold_examples_block(self._collect_gold_examples(issue_description))
 
         prompt = f"""[입력 정보]
 - 언론사: {media_name}
@@ -1060,11 +1117,22 @@ class DataBasedLLM:
 === 실시간 웹 검색 결과 ===
 {web_context}
 
+{gold_block}
+
+[문체·깊이 — 위 '실제 작성 보고 예시' 수준으로 (매우 중요)]
+- 간결하고 사실 중심으로 쓴다. 홍보성 수식·상투어("중요한 사업", "기여할", "최선을 다하고 있습니다", "성공적 진행")는 배제한다.
+- 유관 의견은 해당 부서 실무자 관점의 구체적·사실적 입장으로 서술한다. 사안에 따라 신중론(예: "대외 언급은 자제하는 것이 바람직", "구체적 사항은 정해지지 않은 단계")도 실제 보고처럼 그대로 담는다.
+- 확인되지 않은 수치·일정·계약조건을 지어내지 않는다. 아는 사실은 구체적으로, 모르는 것은 '추가 확인 필요'로.
+- 형식(항목 번호·제목)은 아래 시스템 지침 템플릿을 따르고, 예시에서는 문체·구체성·실무 톤만 취한다.
+
 [작성 요구사항 — 반드시 준수]
 1. '1. 발생 일시'는 위 현재 시각을 그대로 사용한다.
-2. '2. 발생 단계'는 위 위기 단계 분류 기준에 근거해 한 단계로 확정한다(단계명 표기).
-3. '3. 발생 내용'은 (언론사 기자명) 표기 후 이슈를 사실 중심으로 요약한다.
-4. '4. 유관 의견'의 유관 부서는 위에 매핑된 실제 부서·담당자·연락처만 사용한다. 가상의 부서명·담당자·전화번호를 만들어내지 말 것. 사실 확인은 웹 검색·내부 데이터에 근거한 구체적 내용으로 서술하며, 데이터로 확인되지 않은 사항은 '추가 확인 필요'로 명시한다(추측성 단정 금지).
+2. '2. 발생 단계' 확정 원칙(엄수): 부정·논란·리스크 요소가 없는 단순 사실·일정·현황·통상 문의는 반드시 '1단계(관심)'로 분류한다. 부정 보도·해명 필요·규제/환경/노사 등 경미한 부정이면 2단계, 반복적 부정 보도·법적 분쟁 등은 3단계, 안전사고·경영진 스캔들·그룹 위기는 4단계. (키워드 추정치보다 이 원칙을 우선.)
+3. '3. 발생 내용'은 "({media_name} {reporter_name})" 표기로 시작해 이슈를 사실 중심으로 요약하고, 바로 다음 줄에 "- 문의 매체 담당(당사): {{위 언론사 정보의 '당사 담당자'}}"를 명시한다(값이 없으면 '미지정').
+4. '4. 유관 의견'은 다음 순서로 작성한다.
+   - 맨 앞에 "- 유관 부서: {{부서명}} ({{담당자}}, {{연락처}})" 로 담당 부서를 명확히 지정한다. 부서는 반드시 위 '유관 부서 지정 참조' 목록에서 담당이슈·키워드가 이슈와 가장 부합하는 실무 부서 1~2곳을 선택하고, 필요 시 홍보그룹을 병기한다. 목록에 없는 부서·담당자·번호를 지어내지 말 것.
+   - "- 사실 확인:"에는 [실시간 웹 검색 결과]와 [과거 유사 사례]에 근거해 현재까지 파악된 구체적 현황(진행 단계·최근 발표/동향·일자·수치 등)을 서술한다. '공시를 통해 확인 가능' 같은 회피성 문구 금지 — 검색·자료에서 확인된 내용을 실제로 요약하고, 자료로 확인 안 된 부분만 '추가 확인 필요'로 표기한다.
+   - "- 설명 논리:", "- 메시지 방향성:"도 이어서 작성한다.
 5. '5. 대응 방안'의 원보이스는 대외 인용이 가능한 정제된 1~2문장으로 작성한다.
 6. '6. 대응 결과'는 반드시 공란으로 남긴다.
 7. '참조. 최근 유사 사례'는 위 과거 사례에서 실제 1~2건을 (시기·유형·요지·교훈) 형태로 인용한다. 매칭 사례가 없으면 '해당 없음'으로 표기한다.
@@ -1229,8 +1297,8 @@ class DataBasedLLM:
             
             # 3. 맥락 기반 매칭 (추가 키워드)
             context_keywords = {
-                "1단계 (관심)": ["출시", "발표", "수상", "긍정", "성과", "성장", "개선", "기여", "협약", "파트너십"],
-                "2단계 (주의)": ["문의", "검토", "확인", "관련", "관심", "우려", "검증", "점검"],
+                "1단계 (관심)": ["출시", "발표", "수상", "긍정", "성과", "성장", "개선", "기여", "협약", "파트너십", "문의", "현황", "일정", "계획"],
+                "2단계 (주의)": ["우려", "논란 조짐", "해명", "반박", "지연", "차질", "규제", "노사"],
                 "3단계 (위기)": ["논란", "비판", "항의", "문제", "의혹", "조사", "검찰", "수사", "리콜", "결함"],
                 "4단계 (비상)": ["사고", "유출", "폭발", "화재", "인명피해", "환경오염", "대규모", "심각", "비상사태"]
             }
@@ -1256,7 +1324,8 @@ class DataBasedLLM:
         elif any(word in issue_lower for word in ["논란", "의혹", "조사", "문제"]):
             return "3단계 (위기)"
         else:
-            return "2단계 (주의)"  # 기본값
+            # 부정·리스크 요소가 없는 단순 문의·현황·일정 질의는 관심(1단계)이 기본.
+            return "1단계 (관심)"  # 기본값
     
     def _get_media_info_from_master_data(self, media_name: str) -> dict:
         """master_data.json에서 언론사 정보 추출"""

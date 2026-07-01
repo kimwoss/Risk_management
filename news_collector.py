@@ -1382,8 +1382,13 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 urls_to_remove.append(url)
                 continue
 
-            # 오래된 pending 기사 폐기 (24시간 초과 시 조용히 제거)
-            MAX_PENDING_ARTICLE_AGE_HOURS = 24
+            # 오래된 pending 기사 폐기 (기본 1시간 초과 시 조용히 제거)
+            # [중복 재전송 방지] Streamlit Cloud 재배포 시 신선한 컨테이너가 repo에 커밋된
+            # pending 백로그를 다시 처리하며 '이미 보낸 기사'를 재전송하는 문제를 막는다.
+            # 발송 경로(Streamlit)는 sent_cache를 repo에 커밋하지 못해(휘발성 FS + push 토큰 부재)
+            # 재배포 후 발송 이력을 잃는다. 따라서 발행 후 오래된(=직전 컨테이너가 이미 처리했을)
+            # pending은 발송하지 않고 폐기한다. 값은 PENDING_MAX_AGE_HOURS 환경변수로 조정 가능.
+            MAX_PENDING_ARTICLE_AGE_HOURS = int(os.getenv("PENDING_MAX_AGE_HOURS", "6"))
             try:
                 article_dt = pd.to_datetime(date, errors="coerce")
                 if pd.notna(article_dt):

@@ -187,6 +187,137 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
     return df
 
 
+def _sync_state_to_github(sent_cache: set, pending_queue: dict) -> bool:
+    """발송 이력(sent_cache)·pending을 GitHub Contents API로 origin/main에 반영한다.
+
+    [중복 재전송 근본 해결]
+    Streamlit Cloud는 로컬 파일시스템이 휘발성이라, 발송(텔레그램) 성공 뒤에도 sent_cache가
+    repo에 반영되지 않아 재배포 시 '이미 보냄'을 잊고 재전송한다. 발송 직후 이 두 파일을
+    repo에 커밋하면 repo가 발송 상태의 단일 진실원이 되어 재배포/재시작에도 중복이 사라진다.
+
+    - 토큰(GH_PAT) 없으면 no-op (기존 동작 유지 → age-window 백스톱이 방어).
+    - 로컬 git 트리를 건드리지 않고 Contents API만 사용(배포 체크아웃에 안전).
+    - 어떤 예외도 발송 흐름을 막지 않도록 조용히 무시한다.
+    - 동시 커밋(Actions 하트비트)과의 충돌은 sha 기반 409 재시도로 처리.
+    """
+    import base64
+    import json as _json
+
+    token = os.getenv("GH_PAT", "").strip()
+    if not token:
+        return False
+    try:
+        import requests
+    except Exception:
+        return False
+
+    from news_collector import (
+        save_sent_cache, save_pending_queue, _normalize_url,
+    )
+
+    REPO = os.getenv("GH_REPO", "kimwoss/Risk_management")
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    SENT_PATH = "data/sent_articles_cache.json"
+    PENDING_PATH = "data/pending_articles.json"
+
+    def _get(path):
+        r = requests.get(
+            f"https://api.github.com/repos/{REPO}/contents/{path}",
+            headers=headers, params={"ref": "main"}, timeout=20,
+        )
+        if r.status_code == 200:
+            j = r.json()
+            return j.get("sha"), base64.b64decode(j.get("content", ""))
+        if r.status_code == 404:
+            return None, b""
+        raise RuntimeError(f"GET {path} -> {r.status_code}")
+
+    def _put(path, content_bytes, sha, msg):
+        payload = {
+            "message": msg, "branch": "main",
+            "content": base64.b64encode(content_bytes).decode(),
+        }
+        if sha:
+            payload["sha"] = sha
+        r = requests.put(
+            f"https://api.github.com/repos/{REPO}/contents/{path}",
+            headers=headers, json=payload, timeout=20,
+        )
+        return r.status_code
+
+    def _read_local(path):
+        with open(path, "rb") as f:
+            return f.read()
+
+    sent_set = set(sent_cache)
+    ok = True
+
+    # ── sent_cache: 로컬(방금 보낸 URL 포함)이 remote의 상위집합 ──
+    #    (GitHub Actions는 sent를 '추가'하지 않으므로 union 후 덮어써도 유실 없음)
+    for _ in range(3):
+        try:
+            sha, remote_bytes = _get(SENT_PATH)
+            remote_urls = set()
+            if remote_bytes:
+                try:
+                    rd = _json.loads(remote_bytes.decode("utf-8"))
+                    remote_urls = set(rd.get("url_timestamps", {}).keys()) or set(rd.get("urls", []))
+                except Exception:
+                    remote_urls = set()
+            save_sent_cache(sent_set | remote_urls)  # 정확한 포맷으로 로컬 기록
+            code = _put(SENT_PATH, _read_local(os.path.join("data", "sent_articles_cache.json")),
+                        sha, "auto(streamlit): sync sent_cache after telegram send")
+            if code in (200, 201):
+                break
+            if code == 409:
+                continue  # 다른 커밋과 충돌 → 최신 sha로 재시도
+            ok = False
+            break
+        except Exception as e:
+            safe_print(f"[SYNC] sent_cache 동기화 오류(무시): {e}")
+            ok = False
+            break
+
+    # ── pending: remote(Actions 신규 추가분 포함) ∪ local, 단 이미 보낸 것은 제거 ──
+    for _ in range(3):
+        try:
+            sha, remote_bytes = _get(PENDING_PATH)
+            remote_queue = {}
+            if remote_bytes:
+                try:
+                    rd = _json.loads(remote_bytes.decode("utf-8"))
+                    remote_queue = rd.get("queue", {}) or {}
+                except Exception:
+                    remote_queue = {}
+            merged = {**remote_queue, **pending_queue}
+            pruned = {}
+            for k, v in merged.items():
+                link = (v.get("link") or k) if isinstance(v, dict) else k
+                if (link in sent_set or _normalize_url(link) in sent_set
+                        or k in sent_set or _normalize_url(k) in sent_set):
+                    continue  # 이미 전송됨 → 큐에서 제외
+                pruned[k] = v
+            save_pending_queue(pruned)
+            code = _put(PENDING_PATH, _read_local(os.path.join("data", "pending_articles.json")),
+                        sha, "auto(streamlit): sync pending after telegram send")
+            if code in (200, 201):
+                break
+            if code == 409:
+                continue
+            ok = False
+            break
+        except Exception as e:
+            safe_print(f"[SYNC] pending 동기화 오류(무시): {e}")
+            ok = False
+            break
+
+    return ok
+
+
 def main(send_telegram: bool = None):
     """백그라운드 뉴스 모니터링 메인 함수
 
@@ -437,6 +568,19 @@ def main(send_telegram: bool = None):
 
         safe_print(f"[MONITOR] 최종 Pending 큐 저장 중... (현재 {len(pending_queue)}건)")
         save_pending_queue(pending_queue)
+
+        # ── 발송 이력 repo 동기화 (중복 재전송 근본 차단) ─────────────────────
+        # 실제 발송이 있었던 발송 경로(Streamlit)에서만, 토큰(GH_PAT)이 있을 때 수행.
+        # repo가 발송 상태의 단일 진실원이 되어 재배포/재시작 후에도 재전송이 사라진다.
+        if send_telegram and telegram_success > 0:
+            try:
+                if _sync_state_to_github(sent_cache, pending_queue):
+                    safe_print("[MONITOR] ☁️ 발송 이력 repo 동기화 완료")
+                else:
+                    safe_print("[MONITOR] ℹ️ 발송 이력 동기화 건너뜀(토큰 없음/실패)")
+            except Exception as _e:
+                safe_print(f"[MONITOR] ⚠️ 발송 이력 동기화 예외(무시): {_e}")
+        # ────────────────────────────────────────────────────────────────────
 
         # 실행 요약 로깅
         if LOGGER_AVAILABLE:

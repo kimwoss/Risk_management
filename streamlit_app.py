@@ -3407,6 +3407,27 @@ def auto_monitor_on_load():
     print("[AUTO_MONITOR] 백그라운드 수집 시작 (페이지 비차단)")
 
 
+# ----------------------------- 재접속 스플래시 -----------------------------
+def _show_reconnect_splash():
+    """모바일 복귀 등 재접속 시 쿠키 동기화(1런) 동안 보여줄 가벼운 스플래시.
+    무거운 로그인 페이지(배경이미지·폰트·CSS) 렌더를 건너뛰어 '재부팅' 체감을 없앤다."""
+    st.markdown("""
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+            min-height:72vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="font-size:1.5rem;letter-spacing:.18em;font-weight:800;color:#D4AF37;">P-IRIS</div>
+  <div style="margin-top:12px;font-size:.9rem;color:#94a3b8;">불러오는 중…</div>
+  <div style="margin-top:18px;width:26px;height:26px;border:3px solid rgba(255,255,255,.15);
+              border-top-color:#D4AF37;border-radius:50%;animation:pirisSpin .8s linear infinite;"></div>
+</div>
+<style>@keyframes pirisSpin{to{transform:rotate(360deg)}}</style>
+""", unsafe_allow_html=True)
+    # 쿠키 컴포넌트가 리런을 못 일으키는 경우를 대비한 짧은 폴백 자동 새로고침
+    try:
+        st_autorefresh(interval=1200, key="_auth_splash_refresh", limit=5)
+    except Exception:
+        pass
+
+
 # ----------------------------- 메인 루틴 -----------------------------
 def main():
     # cron-job.org 트리거: 인증 체크 전에 실행 (cron-job.org는 로그인하지 않음)
@@ -3414,8 +3435,16 @@ def main():
 
     # 인증 체크 - 인증되지 않은 경우 로그인 페이지 표시
     if not check_authentication():
+        # 재접속(모바일 복귀 등)은 새 세션이라 쿠키 동기화에 1런이 필요하다.
+        # 최초 1회는 무거운 로그인 페이지 대신 가벼운 스플래시를 띄우고,
+        # 쿠키가 동기화되면(리런) 자동으로 앱에 진입한다. 실제 쿠키가 없으면 다음 런에서 로그인.
+        if not st.session_state.get("_auth_grace_used"):
+            st.session_state["_auth_grace_used"] = True
+            _show_reconnect_splash()
+            return
         show_login_page()
         return
+    st.session_state.pop("_auth_grace_used", None)
 
     load_base_css()
     if "data_loaded" not in st.session_state:

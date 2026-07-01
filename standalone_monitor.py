@@ -170,19 +170,30 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
         if not df.empty:
             safe_print(f"[MONITOR] '포스코' 필터링 완료: {len(df)}건")
 
-    # 기타 키워드 - 부동산 키워드만 제외
+    # 기타 키워드 - 키워드가 기사에 실제로 '연속 문자열'로 등장할 때만 통과 (+ 부동산 제외)
+    # 네이버 검색은 '포스코인터'를 '포스코'+'인터'로 토큰 분해해 무관 기사(예: 포스코 … 인터뷰)를
+    # 반환하기도 한다. 태그 정확도를 위해 키워드의 모든 토큰이 제목/요약에 그대로 들어간 기사만 남긴다.
     else:
         exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
+        kw_tokens = [t for t in keyword.split() if t]
+
         def should_include(row):
             title = str(row.get("기사제목", ""))
             description = str(row.get("주요기사 요약", ""))
             for exclude_word in exclude_words:
                 if exclude_word in title or exclude_word in description:
                     return False
+            # 키워드(모든 토큰)가 제목 또는 요약에 연속 문자열로 실제 등장해야 함
+            # (예: '포스코인터'는 붙어 있을 때만 매칭 — '포스코 … 인터' 분리 매칭은 배제)
+            for tok in kw_tokens:
+                if tok not in title and tok not in description:
+                    return False
             return True
 
         mask = df.apply(should_include, axis=1)
         df = df[mask].reset_index(drop=True)
+        if not df.empty:
+            safe_print(f"[MONITOR] '{keyword}' 키워드 포함 필터링: {len(df)}건")
 
     return df
 

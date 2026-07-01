@@ -451,17 +451,6 @@
       "last_attempt": "2026-07-01T06:19:27.736160",
       "hash_id": "ea009e488f631530"
     },
-    "https://ysmbc.co.kr/NewsArticle/1525622": {
-      "title": "환경단체 \"포스코 광양제철소, 오염물질 저감 대책 마련해야\"",
-      "link": "https://ysmbc.co.kr/NewsArticle/1525622",
-      "date": "2026-07-01 21:00",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-01T12:15:54.981084",
-      "hash_id": "da5b52666933d5a7"
-    },
     "http://www.phmbc.co.kr/www/news/desk_news?idx=203324&mode=view": {
       "title": "플랜트노조, 포스코 등 원청사 고소..\"다음 달 총파업\"",
       "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=203324&mode=view",
@@ -469,11 +458,11 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-01T12:15:54.981091",
+      "retry_count": 1,
+      "last_attempt": "2026-07-01T12:16:17.606245",
       "hash_id": "fa236b0e8e972774"
     }
   },
-  "last_updated": "2026-07-01 12:15:54",
-  "count": 43
+  "last_updated": "2026-07-01 12:16:22",
+  "count": 42
 }

@@ -262,18 +262,24 @@ class EnhancedResearchService:
             return []
     
     def _optimize_search_query(self, issue_description: str) -> str:
-        """검색 쿼리 최적화"""
-        query = issue_description.strip()
-        
-        # 불필요한 문구 제거
-        remove_phrases = ["발생한", "이슈", "문제", "상황", "관련", "대해서", "에 대한", "검토"]
-        for phrase in remove_phrases:
-            query = query.replace(phrase, "")
-        
-        # 핵심 키워드 강화
-        if "포스코" in query:
-            query = "포스코인터내셔널 " + query
-        
+        """검색 쿼리 최적화 — 질문·군더더기를 제거해 핵심 개체 키워드만 남긴다.
+        (질문 문장을 그대로 검색하면 네이버 관련성 검색이 오염되어 관련 기사가 안 나옴)"""
+        q = re.sub(r"[?？!.,·…\"'()\[\]]", " ", issue_description)
+        # 질문·군더더기 구절 제거 (다중 문자만 — 개체명 손상 방지)
+        fillers = [
+            "현재까지", "구체적으로", "자세히", "알려주세요", "알려달라", "알려달",
+            "설명해주세요", "설명해", "우리회사와의", "우리회사", "당사와의",
+            "현황", "일정은", "일정", "계획은", "계획", "관련하여", "관련해서",
+            "에 대한", "에 대해", "대해서", "무엇인가", "어떻게", "어떤", "인지",
+            "발생한", "이슈", "문제인지", "상황인지", "검토", "문의드립니다", "문의",
+        ]
+        for p in fillers:
+            q = q.replace(p, " ")
+        toks = [t for t in q.split() if len(t) >= 2]
+        query = " ".join(toks[:6]) if toks else issue_description.strip()
+        # 회사 맥락 강화(포스코 계열이 언급 안 됐으면 회사명 부가 → 관련성↑)
+        if "포스코" not in query and "posco" not in query.lower():
+            query = query + " 포스코인터내셔널"
         return " ".join(query.split())
     
     def _clean_html_tags(self, text: str) -> str:

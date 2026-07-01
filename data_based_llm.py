@@ -922,69 +922,94 @@ class DataBasedLLM:
 [출력 최우선 원칙 — 위의 모든 지침에 우선한다]
 - 이 문서는 홍보문이 아니라 언론 총괄책임자용 '사실 기록'이다. 실제 언론대응 보고처럼 간결·사실 중심·실무자 관점으로 쓴다.
 - 자료(실시간 웹검색·과거 유사사례·내부 데이터)로 실제 확인된 내용만 사실로 적는다. 내부 운영상태·실적·수익·계약조건 등 공개되지 않은 정보를 추측으로 단정하지 말 것. 확인된 공개 사실이 없으면 지어내지 말고 '현재 공개된 구체 현황 없음 — 담당 부서 확인 필요'로 적는다.
-- 홍보성 상투어 사용 금지: "최선을 다하고", "안정적으로 운영/수익 창출", "기여", "성공적", "지속 가능한 공급망", "전략적 중요성", "핵심 자산/거점" 등. 원보이스도 홍보 문구가 아니라 사실에 근거한 간결한 1~2문장으로 작성한다.
-- 이 이슈 대상과 직접 관련 없는 기사·사례는 인용하지 않는다.
+- 홍보성 상투어 전면 금지: "최선을 다하고", "안정적으로 운영/수익 창출", "기여/기여하고", "성공적", "지속 가능한 (공급망)", "전략적 중요성", "핵심 자산/거점/인프라", "중요한 요소/역할". 원보이스도 홍보 문구가 아니라 사실에 근거한 간결한 1~2문장으로.
+- 부정·논란 이슈 축소 금지: "일시적", "문제없음", "우려 최소화", "원만히 해결 중" 등으로 리스크를 낮잡거나 독자를 안심시키지 말 것. 사실관계와 리스크를 담담하게 기술한다(보고는 홍보가 아니라 판단 자료).
+- '설명 논리'는 이슈 해소를 위한 사실 기반 논리만 쓰고(수식어·홍보문 배제), '메시지 방향성'은 대외 발표 톤을 한 줄로 제시하되 '사실 확인'·'설명 논리'를 그대로 반복하지 않는다.
+- 이 이슈 대상과 직접 관련 없는 기사·사례는 인용하지 않는다(관련 사례 없으면 '해당 없음').
 """
             system_prompt = base_system + override
             # 보고서는 일관성이 중요하므로 temperature를 낮추고 충분한 토큰을 확보한다.
-            return self.llm.chat(prompt, system_prompt=system_prompt, temperature=0.2, max_tokens=3000)
+            report = self.llm.chat(prompt, system_prompt=system_prompt, temperature=0.2, max_tokens=3000)
+            # 2차 교정: 홍보성 수식·축소성 스핀 제거(구조·사실 보존). LLM은 PR 문체 관성이 강해
+            # 1패스만으로 다 걸러지지 않으므로 별도 교정 패스로 실무 보고체를 확정한다.
+            return self._refine_report(report)
 
         except Exception as e:
             print(f"ERROR: 이슈 보고서 생성 실패: {str(e)}")
             return self._generate_fallback_report(media_name, reporter_name, issue_description, str(e))
 
+    def _refine_report(self, report: str) -> str:
+        """생성된 보고서 2차 교정 — 홍보성 수식·축소성 표현 제거, 구조·수치·사실은 보존."""
+        if not report or len(report) < 80:
+            return report
+        refine_sys = ("너는 포스코인터내셔널 언론대응 '이슈 발생 보고서' 교정기다. "
+                      "홍보성 수식과 축소·안심성 표현을 제거해 사실 중심의 담담한 실무 보고체로 다듬는다.")
+        refine_user = f"""다음 이슈 발생 보고서를 교정하라.
+
+[규칙]
+1. 1~6 항목의 번호·제목·구조와 '참조' 섹션, '<이슈 발생 보고>' 머리를 그대로 유지한다.
+2. 수치·날짜·고유명사·부서명·담당자·연락처·사실 내용은 변경·삭제하지 않는다.
+3. 홍보성 수식어("최선을 다하고", "안정적으로 운영/수익 창출", "기여/기여하고", "성공적", "지속 가능한", "전략적 중요성", "핵심 자산/거점/인프라", "중요한 요소/역할")와 축소·안심성 표현("일시적", "원만히/원만한", "우려 최소화", "문제없음")을 삭제하거나 건조한 사실 표현으로 대체한다.
+4. 새로운 사실을 지어내 추가하지 않는다. 문장만 정제한다.
+5. 교정된 보고서 전문만 출력한다(설명·머리말 없이).
+
+[보고서]
+{report}"""
+        try:
+            refined = self.llm.chat(refine_user, system_prompt=refine_sys, temperature=0.1, max_tokens=3000)
+            # 교정 결과가 구조를 유지하고 비정상적으로 짧지 않을 때만 채택
+            if refined and "발생 단계" in refined and len(refined) > len(report) * 0.55:
+                return refined.strip()
+        except Exception as e:
+            print(f"WARNING: 보고서 교정 실패, 원본 사용: {str(e)}")
+        return report
+
+    # 유사사례 매칭에서 제외할 일반어(이것만으로는 관련성 없음 → 오매칭 유발)
+    _GENERIC_MATCH_TERMS = {
+        "포스코", "포스코인터내셔널", "포스코인터", "posco", "회사", "우리회사", "당사",
+        "투자", "사업", "관련", "현황", "계획", "전망", "문의", "보도", "기사", "확인",
+        "입장", "요청", "해명", "내용", "예정", "가능성", "대응", "이슈",
+    }
+
     def _collect_similar_cases(self, issue_description: str, media_name: str, limit: int = 5) -> list:
-        """언론대응내역.csv에서 유사 과거 사례 수집 (키워드 + 언론사 기반)."""
+        """언론대응내역.csv에서 '주제가 실제로 겹치는' 과거 사례만 수집.
+        회사명·'투자/현황' 등 일반어로는 매칭하지 않고, 특정 개체어 겹침 수로 점수화한다.
+        (기존 방식이 일반어·동일매체로 무관 사례를 끌어와 보고에 오인용되던 문제 해결)"""
         if self.media_response_data is None or self.media_response_data.empty:
             return []
-
         df = self.media_response_data
         issue_col = "이슈 발생 보고" if "이슈 발생 보고" in df.columns else None
         if not issue_col:
             return []
 
-        collected = []
-        seen = set()
+        # 특정 개체어만 사용(일반어 제외)
+        spec_terms = [t for t in self._extract_key_terms(issue_description.lower())
+                      if len(t) >= 2 and t not in self._GENERIC_MATCH_TERMS]
+        if not spec_terms:
+            return []
 
-        def _add(row):
-            key = str(row.get("순번", row.name))
-            if key in seen:
-                return
-            seen.add(key)
-            collected.append({
-                "일시": str(row.get("발생 일시", "")).strip(),
-                "유형": str(row.get("발생 유형", "")).strip(),
-                "단계": str(row.get("단계", "")).strip(),
-                "부서": str(row.get("현업 부서", "")).strip(),
-                "이슈": str(row.get(issue_col, "")).strip(),
-                "결과": str(row.get("대응 결과", "")).strip(),
-            })
-
-        # 1) 키워드 기반 매칭
-        key_terms = self._extract_key_terms(issue_description.lower())
-        for term in key_terms:
-            if len(term) < 2:
-                continue
-            try:
-                mask = df[issue_col].astype(str).str.lower().str.contains(term, na=False, regex=False)
-                for _, row in df[mask].iterrows():
-                    _add(row)
-            except Exception:
-                continue
-
-        # 2) 언론사 기반 매칭 (정규화 검색)
-        try:
-            media_cases = self._search_by_media(media_name, limit=limit)
-            for _, row in media_cases.iterrows():
-                _add(row)
-        except Exception:
-            pass
-
-        # 최근순 정렬 후 상위 N건
-        def _date_key(c):
-            return c.get("일시", "")
-        collected.sort(key=_date_key, reverse=True)
-        return collected[:limit]
+        texts = df[issue_col].fillna("").astype(str)
+        scored = []
+        for idx, val in texts.items():
+            txt = str(val).lower()
+            score = sum(1 for t in spec_terms if t in txt)
+            if score >= 1:
+                row = df.loc[idx]
+                scored.append((
+                    score,
+                    str(row.get("발생 일시", "")).strip(),
+                    {
+                        "일시": str(row.get("발생 일시", "")).strip(),
+                        "유형": str(row.get("발생 유형", "")).strip(),
+                        "단계": str(row.get("단계", "")).strip(),
+                        "부서": str(row.get("현업 부서", "")).strip(),
+                        "이슈": str(row.get(issue_col, "")).strip(),
+                        "결과": str(row.get("대응 결과", "")).strip(),
+                    },
+                ))
+        # 겹침 점수 높은 순 → 최신 순
+        scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        return [c for _, _, c in scored[:limit]]
 
     def _format_departments_block(self, relevant_depts: list) -> str:
         """프롬프트용 유관부서 블록 (master_data 실제 정보만)."""

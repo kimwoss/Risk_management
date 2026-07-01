@@ -202,6 +202,7 @@ def _sync_state_to_github(sent_cache: set, pending_queue: dict) -> bool:
     """
     import base64
     import json as _json
+    import time as _time
 
     token = os.getenv("GH_PAT", "").strip()
     if not token:
@@ -210,6 +211,20 @@ def _sync_state_to_github(sent_cache: set, pending_queue: dict) -> bool:
         import requests
     except Exception:
         return False
+
+    # 커밋 throttle — main에 sync 커밋을 3분마다 밀어내면 커밋 스팸이 되고,
+    # GitHub Actions(뉴스 수집 heartbeat/backup)의 스케줄·push와 충돌·경합할 수 있다.
+    # 따라서 최소 간격(기본 30분) 내 재커밋은 생략한다. 컨테이너 재배포 직후엔
+    # throttle 파일이 없어 즉시 1회 동기화되므로 발송 상태는 빠르게 영속화된다.
+    _throttle_file = os.path.join("data", ".last_state_sync")
+    _min_interval = int(os.getenv("STATE_SYNC_MIN_INTERVAL", "1800"))
+    try:
+        if os.path.exists(_throttle_file):
+            _last = float((open(_throttle_file, encoding="utf-8").read().strip() or "0"))
+            if _time.time() - _last < _min_interval:
+                return False  # 최근에 이미 동기화함 → 커밋 스팸 방지
+    except Exception:
+        pass
 
     from news_collector import (
         save_sent_cache, save_pending_queue, _normalize_url,
@@ -314,6 +329,13 @@ def _sync_state_to_github(sent_cache: set, pending_queue: dict) -> bool:
             safe_print(f"[SYNC] pending 동기화 오류(무시): {e}")
             ok = False
             break
+
+    # throttle 타임스탬프 기록 (다음 최소 간격 내 재커밋 방지)
+    try:
+        with open(_throttle_file, "w", encoding="utf-8") as f:
+            f.write(str(_time.time()))
+    except Exception:
+        pass
 
     return ok
 

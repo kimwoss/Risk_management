@@ -513,11 +513,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-02T06:08:08.529671",
+      "retry_count": 5,
+      "last_attempt": "2026-07-02T06:13:55.693634",
       "hash_id": "da78e42e12775c61"
+    },
+    "http://www.lawissue.co.kr/view.php?ud=20260702150452987867191f6c6e_12": {
+      "title": "포스코그룹, ‘트리플 코어’ 전략 선언…국가 핵심자원 공급자 도약",
+      "link": "http://www.lawissue.co.kr/view.php?ud=20260702150452987867191f6c6e_12",
+      "date": "2026-07-02 15:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 3,
+      "last_attempt": "2026-07-02T06:13:56.637915",
+      "hash_id": "60a14dcd233c7600"
     }
   },
-  "last_updated": "2026-07-02 06:08:10",
-  "count": 47
+  "last_updated": "2026-07-02 06:14:01",
+  "count": 48
 }

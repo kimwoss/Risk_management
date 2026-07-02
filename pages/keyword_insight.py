@@ -21,6 +21,7 @@ from modules.ui_components import (
     render_section_header,
     render_tone_bar,
     render_news_volume_chart,
+    render_trend_chart,
     render_top_media_chart,
     render_issue_clusters,
     render_competitor_table,
@@ -114,8 +115,11 @@ def render_charts(news_items: list[dict], trend_data: list[dict], gpt: dict, key
         render_tone_bar(pos, neu, neg)
 
     with col_right:
-        top_media = gpt.get("top_media", [])
-        render_top_media_chart(top_media)
+        # GPT 추정 top_media 폐기 → 수집 기사 media_name 실집계
+        render_top_media_chart(news_items)
+
+    # 데이터랩 트렌드(매 분석마다 이미 1회 호출·과금 중) — 죽은 차트 부활, 추가 비용 0
+    render_trend_chart(trend_data, "검색 관심도 추이 (최근 30일, 네이버 데이터랩)")
 
 
 def render_issues(gpt: dict):
@@ -196,10 +200,10 @@ def render_keyword_insight_page():
 
     if not (analyze_btn and keyword):
         st.markdown("""
-        <div style="text-align:center; padding:60px 20px; color:#475569">
+        <div style="text-align:center; padding:60px 20px; color:var(--ki-sub)">
             <div style="font-size:40px; margin-bottom:16px">🔍</div>
-            <div style="font-size:16px; font-weight:600; color:#64748b">키워드를 입력하고 분석을 시작하세요</div>
-            <div style="font-size:13px; color:#475569; margin-top:8px">
+            <div style="font-size:16px; font-weight:600; color:var(--ki-muted)">키워드를 입력하고 분석을 시작하세요</div>
+            <div style="font-size:13px; color:var(--ki-sub); margin-top:8px">
                 뉴스 보도량·검색 트렌드·AI 분석을 교차 결합한 임원용 브리핑을 생성합니다
             </div>
         </div>

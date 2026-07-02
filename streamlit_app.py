@@ -106,17 +106,47 @@ iframe[title] {
 ACCESS_CODE = os.environ.get("ACCESS_CODE", "")  # 환경 변수에서 로드 (.env 파일 또는 배포 환경 설정)
 import hashlib
 
+# secrets.toml 예시 파일의 플레이스홀더 문구 — 실제 비밀번호로 취급하지 않음
+_PLACEHOLDER_PW_MARKERS = ("여기에", "비밀번호_입력")
+
+
+def _resolve_password(role="pr") -> str:
+    """역할별 비밀번호 단일 조회 헬퍼 (소스 이원화 지뢰 제거).
+    우선순위: Streamlit secrets → 환경변수(.env). 플레이스홀더 값은 무시.
+    배포(Cloud Secrets)와 로컬(.env ACCESS_CODE) 어느 쪽만 설정돼 있어도 동작."""
+    def _secret(key):
+        try:
+            return st.secrets.get(key, "")
+        except Exception:
+            return ""
+
+    if role == "general":
+        candidates = [_secret("PASSWORD_GENERAL"), os.environ.get("PASSWORD_GENERAL", "")]
+    else:
+        candidates = [
+            _secret("PASSWORD_PR"),
+            os.environ.get("PASSWORD_PR", ""),
+            os.environ.get("ACCESS_CODE", ""),
+        ]
+    for pw in candidates:
+        pw = str(pw or "").strip()
+        if pw and not any(m in pw for m in _PLACEHOLDER_PW_MARKERS):
+            return pw
+    return ""
+
+
 def get_auth_token(role="pr"):
     """인증 토큰 생성 (보안을 위해 해시 사용)"""
-    if role == "general":
-        pw = st.secrets.get("PASSWORD_GENERAL", "")
-    else:
-        pw = st.secrets.get("PASSWORD_PR", os.environ.get("ACCESS_CODE", ""))
+    pw = _resolve_password(role)
     return hashlib.sha256(f"{pw}_secret_salt".encode()).hexdigest()
 
 # 로그인 유지 쿠키 이름 / 유효기간(24시간)
 AUTH_COOKIE = "posco_auth"
 AUTH_COOKIE_TTL = timedelta(hours=24)
+
+# 테마 쿠키 (라이트/다크 토글 상태 1년 유지)
+THEME_COOKIE = "piris_theme"
+THEME_COOKIE_TTL = timedelta(days=365)
 
 
 def get_cookie_manager():
@@ -138,8 +168,90 @@ def set_auth_cookie(role="pr"):
     )
 
 
+def get_current_theme() -> str:
+    """현재 테마 반환 (session → 인증 런의 쿠키 스냅샷 → 자체 쿠키 조회 → dark).
+    쿠키 동기화가 안 끝난 런에는 세션에 고정하지 않고 dark를 임시 반환해,
+    다음 런에서 저장된 테마가 올바르게 복원되도록 한다."""
+    theme = st.session_state.get("theme")
+    if theme in ("dark", "light"):
+        return theme
+
+    # 1) 인증 복원 런에서 저장해 둔 쿠키 스냅샷 재사용 (추가 component 마운트 0)
+    snapshot = st.session_state.get("_cookies_snapshot")
+    if snapshot is not None:
+        theme = snapshot.get(THEME_COOKIE, "dark")
+        if theme not in ("dark", "light"):
+            theme = "dark"
+        st.session_state["theme"] = theme
+        return theme
+
+    # 2) 스냅샷 없으면 자체 조회 — 동기화 전(None)이면 세션 고정 없이 임시 dark
+    try:
+        cm = get_cookie_manager()
+        cookies = cm.get_all(key="piris_theme_get")
+    except Exception:
+        cookies = None
+    if cookies is None:
+        return "dark"
+    theme = cookies.get(THEME_COOKIE, "dark")
+    if theme not in ("dark", "light"):
+        theme = "dark"
+    st.session_state["theme"] = theme
+    return theme
+
+
+def set_theme(theme: str):
+    """테마 변경: 세션 갱신 + 쿠키 1년 저장 (기존 CookieManager 재사용, 신규 의존성 0)"""
+    st.session_state["theme"] = theme
+    try:
+        cm = get_cookie_manager()
+        cm.set(
+            THEME_COOKIE,
+            theme,
+            expires_at=datetime.now() + THEME_COOKIE_TTL,
+            key="piris_theme_set",
+        )
+    except Exception:
+        pass
+
+
+def apply_theme_attribute(theme: str):
+    """<html data-theme='…'> 속성 주입 — Streamlit은 리런마다 DOM을 다시 그리므로
+    매 렌더마다 재적용해야 한다. (st.markdown은 <script>를 제거하므로 components.html 사용)"""
+    import streamlit.components.v1 as _components
+    _components.html(
+        f"<script>window.parent.document.documentElement.setAttribute('data-theme', '{theme}');</script>",
+        height=0,
+    )
+
+
+def clear_auth_cookie():
+    """로그아웃 시 인증 쿠키 삭제"""
+    cm = get_cookie_manager()
+    try:
+        cm.delete(AUTH_COOKIE, key="piris_auth_del")
+    except Exception:
+        pass
+
+
+def logout():
+    """로그아웃: 세션 정리 + 쿠키 삭제 + 로그인 화면으로.
+    쿠키 삭제(컴포넌트)가 브라우저에 반영되기 전 rerun될 수 있으므로
+    _logout_requested 플래그로 쿠키 복원을 차단한다 (재로그인 시 해제)."""
+    st.session_state.pop("authenticated", None)
+    st.session_state.pop("role", None)
+    st.session_state["_logout_requested"] = True
+    clear_auth_cookie()
+    st.rerun()
+
+
 def check_authentication():
     """인증 확인 (세션 → 쿠키 순). 세션이 끊겨도 24시간 내면 쿠키로 자동 복원."""
+    # 로그아웃 직후: 쿠키 삭제가 아직 브라우저에 반영 안 됐어도 복원을 차단
+    if st.session_state.get("_logout_requested"):
+        clear_auth_cookie()  # 반영될 때까지 재시도 (멱등)
+        return False
+
     # 이미 세션에서 인증됨
     if st.session_state.get("authenticated", False):
         return True
@@ -147,6 +259,9 @@ def check_authentication():
     # 쿠키에서 인증 복원 (컴포넌트가 브라우저 쿠키를 Python으로 동기화)
     cm = get_cookie_manager()
     cookies = cm.get_all(key="piris_auth_get")
+    if cookies is not None:
+        # 같은 런에서 테마 등 다른 쿠키도 재사용 (컴포넌트 중복 마운트 방지)
+        st.session_state["_cookies_snapshot"] = cookies
     token = cookies.get(AUTH_COOKIE) if cookies else None
     if token:
         if token == get_auth_token("pr"):
@@ -476,23 +591,30 @@ def show_login_page():
 
     # ── 인증 처리 ────────────────────────────────────────────────
     if submitted:
-        _pw_pr = st.secrets.get("PASSWORD_PR", "")
-        _pw_general = st.secrets.get("PASSWORD_GENERAL", "")
+        # 단일 헬퍼로 조회 — secrets/.env 어느 쪽에 설정돼 있어도 동작
+        _pw_pr = _resolve_password("pr")
+        _pw_general = _resolve_password("general")
+        def _enter_app(role: str):
+            """로그인 성공 처리 — 행업 방지 + 쿠키 flush 보장.
+            즉시 st.rerun()을 부르면 쿠키 컴포넌트가 브라우저에 전달되기 전에
+            런이 끊겨 '기기 기억하기'가 저장되지 않는다. 대신 짧은 자동 리프레시로
+            무조건 다음 런 진입을 보장한다 (쿠키 컴포넌트의 자체 리런이 오면 더 빨리 진입)."""
+            st.session_state.authenticated = True
+            st.session_state["role"] = role
+            st.session_state.pop("_logout_requested", None)
+            if remember:
+                set_auth_cookie(role)
+                try:
+                    st_autorefresh(interval=1200, key="_login_enter_refresh", limit=3)
+                except Exception:
+                    st.rerun()
+            else:
+                st.rerun()
+
         if _pw_pr and code_input == _pw_pr:
-            st.session_state.authenticated = True
-            st.session_state["role"] = "pr"
-            if remember:
-                # 쿠키 저장 → 컴포넌트가 자체 리런을 일으켜 앱으로 진입
-                set_auth_cookie("pr")
-            else:
-                st.rerun()
+            _enter_app("pr")
         elif _pw_general and code_input == _pw_general:
-            st.session_state.authenticated = True
-            st.session_state["role"] = "general"
-            if remember:
-                set_auth_cookie("general")
-            else:
-                st.rerun()
+            _enter_app("general")
         else:
             st.error("비밀번호가 올바르지 않습니다.")
 
@@ -952,28 +1074,52 @@ def _publisher_from_link(u: str) -> str:
 def _get_openai_key():
     return os.getenv("OPENAI_API_KEY") or os.getenv("OPEN_API_KEY") or ""
 
+
+def _post_with_retry(url, *, headers, json_body, timeout=25, max_retries=2):
+    """LLM REST 호출 공용 재시도 래퍼.
+    429·5xx·타임아웃·연결오류에 한해 지수 백오프(1s→3s) 재시도 — 정상 경로 비용 증가 0.
+    성공 시 (json, None), 실패 시 (None, err)."""
+    delays = [1, 3][:max_retries]
+    last_err = None
+    for attempt in range(len(delays) + 1):
+        r = None
+        try:
+            r = requests.post(url, headers=headers, json=json_body, timeout=timeout)
+            if r.status_code == 429 or r.status_code >= 500:
+                last_err = f"HTTP {r.status_code}"
+            else:
+                r.raise_for_status()
+                return r.json(), None
+        except (requests.Timeout, requests.ConnectionError) as e:
+            last_err = str(e)
+        except Exception as e:
+            # 4xx 등 재시도 무의미한 오류는 즉시 반환
+            return None, str(e)
+        finally:
+            if r is not None:
+                r.close()
+        if attempt < len(delays):
+            time.sleep(delays[attempt])
+    return None, last_err
+
+
 def _openai_chat(messages, model=None, temperature=0.2, max_tokens=400):
-    """경량 OpenAI Chat 호출 (연결 누수 방지)"""
+    """경량 OpenAI Chat 호출 (재시도·백오프 포함)"""
     api_key = _get_openai_key()
     if not api_key:
         return None, "OPENAI_API_KEY not set"
     model = model or os.getenv("OPENAI_GPT_MODEL", "gpt-4o-mini")
-    r = None
+    data, err = _post_with_retry(
+        "https://api.openai.com/v1/chat/completions",
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        json_body={"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens, "n": 1},
+    )
+    if err:
+        return None, err
     try:
-        r = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            json={"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens, "n": 1},
-            timeout=25,
-        )
-        r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"].strip(), None
+        return data["choices"][0]["message"]["content"].strip(), None
     except Exception as e:
         return None, str(e)
-    finally:
-        # 연결 누수 방지
-        if r is not None:
-            r.close()
 
 # --- 무료 LLM: Google Gemini REST 호출 (기사 요약 전용) ---
 def _get_gemini_key():
@@ -988,37 +1134,32 @@ def _get_gemini_key():
 
 
 def _gemini_chat(system_prompt, user_prompt, temperature=0.25, max_tokens=2048):
-    """Google Gemini 호출 (무료 티어). 성공 시 (text, None), 실패 시 (None, err)."""
+    """Google Gemini 호출 (무료 티어, 재시도·백오프 포함). 성공 시 (text, None), 실패 시 (None, err)."""
     api_key = _get_gemini_key()
     if not api_key:
         return None, "GEMINI_API_KEY not set"
     model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-    r = None
-    try:
-        r = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-            headers={"Content-Type": "application/json", "x-goog-api-key": api_key},
-            json={
-                "system_instruction": {"parts": [{"text": system_prompt}]},
-                "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
-                "generationConfig": {
-                    "temperature": temperature,
-                    "maxOutputTokens": max_tokens,
-                },
+    data, err = _post_with_retry(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+        headers={"Content-Type": "application/json", "x-goog-api-key": api_key},
+        json_body={
+            "system_instruction": {"parts": [{"text": system_prompt}]},
+            "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+            "generationConfig": {
+                "temperature": temperature,
+                "maxOutputTokens": max_tokens,
             },
-            timeout=25,
-        )
-        r.raise_for_status()
-        data = r.json()
+        },
+    )
+    if err:
+        return None, err
+    try:
         cand = (data.get("candidates") or [{}])[0]
         parts = (cand.get("content") or {}).get("parts") or []
         text = "".join(p.get("text", "") for p in parts).strip()
         return (text, None) if text else (None, "empty response")
     except Exception as e:
         return None, str(e)
-    finally:
-        if r is not None:
-            r.close()
 
 # --- 기사 본문/제목 추출 (가벼운 크롤러, 연결 누수 방지) ---
 def _extract_article_text_and_title(url: str):
@@ -1563,9 +1704,48 @@ def save_news_db(df: pd.DataFrame):
     safe_print("[DEBUG] news saved:", len(out), "rows ->", NEWS_DB_FILE)
 
 # ----------------------------- 공용 UI 유틸 -----------------------------
-def show_table(df: pd.DataFrame, label: str):
-    st.markdown(f"#### {label}")
-    st.dataframe(df, use_container_width=True, height=min(560, 44 + min(len(df), 12) * 38))
+def _prep_contact_links(df: pd.DataFrame, phone_cols=(), email_cols=()):
+    """연락처/이메일 컬럼을 tel:/mailto: 링크로 변환 → 원클릭 전화·메일.
+    반환: (표시용 df, column_config). 원본 df는 변경하지 않는다."""
+    display_df = df.copy()
+    col_config = {}
+    for c in phone_cols:
+        if c in display_df.columns:
+            display_df[c] = display_df[c].astype(str).map(
+                lambda v: f"tel:{v.strip()}" if re.search(r"\d{3,}", v or "") else ""
+            )
+            col_config[c] = st.column_config.LinkColumn(
+                f"📞 {c}", display_text=r"tel:(.*)", help="클릭하면 바로 전화 연결"
+            )
+    for c in email_cols:
+        if c in display_df.columns:
+            display_df[c] = display_df[c].astype(str).map(
+                lambda v: f"mailto:{v.strip()}" if "@" in (v or "") else ""
+            )
+            col_config[c] = st.column_config.LinkColumn(
+                f"✉️ {c}", display_text=r"mailto:(.*)", help="클릭하면 메일 작성"
+            )
+    return display_df, col_config
+
+
+def show_table(df: pd.DataFrame, label: str, csv_name: str = None,
+               phone_cols=(), email_cols=()):
+    """공용 테이블 렌더 + 선택적 CSV 내보내기(utf-8-sig, 엑셀 호환) + tel/mailto 링크"""
+    if label:
+        st.markdown(f"#### {label}")
+    display_df, col_config = _prep_contact_links(df, phone_cols, email_cols)
+    st.dataframe(
+        display_df, use_container_width=True,
+        height=min(560, 44 + min(len(df), 12) * 38),
+        column_config=col_config or None,
+    )
+    if csv_name:
+        st.download_button(
+            "⬇ 엑셀용 CSV 다운로드",
+            df.to_csv(index=False).encode("utf-8-sig"),
+            file_name=csv_name, mime="text/csv",
+            key=f"csv_dl_{csv_name}",
+        )
 
 _PHONE_PATTERNS = [r'(?:0?1[016789])[ .-]?\d{3,4}[ .-]?\d{4}']
 EMAIL_RE = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+')
@@ -1900,15 +2080,37 @@ _MAX_SENT_CACHE = 1000
 def load_base_css():
     st.markdown("""
     <style>
-      /* ── 글로벌 디자인 토큰 ────────────────────────────── */
+      /* @import는 CSS 스펙상 다른 규칙보다 앞서야 로드됨 — 반드시 최상단 유지 */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap');
+
+      /* ── 글로벌 디자인 토큰 (다크 = 기본) ────────────────────
+         라이트/다크 전환은 html[data-theme] 속성 + 아래 변수 오버라이드만으로 처리.
+         새 색이 필요하면 하드코딩하지 말고 토큰을 추가할 것. */
       :root {
         --c-bg:        #0a0b0d;
+        --c-bg-2:      #0c0d10;
         --c-surface:   rgba(255,255,255,0.04);
         --c-surface-h: rgba(255,255,255,0.07);
         --c-border:    rgba(255,255,255,0.08);
+        --c-panel:          #1E1E1E;   /* 뉴스 카드 등 솔리드 패널 */
+        --c-panel-h:        #252525;
+        --c-panel-border:   #2A2A2A;
+        --c-panel-border-h: #3A3A3A;
+        --c-card-bg1:  rgba(24,24,28,.65);
+        --c-card-bg2:  rgba(16,16,20,.85);
+        --c-dash-bg1:  rgba(26,26,46,0.88);
+        --c-dash-bg2:  rgba(22,33,62,0.82);
+        --c-nav-bg:    rgba(10,11,13,0.55);
+        --c-btn-bg1:   #2a2b2f;
+        --c-btn-bg2:   #1a1b1f;
+        /* 골드 토큰 단일화: 전 화면이 아래 3단조만 참조 (#E89547/#c4a52e 등 개별 골드 금지) */
         --c-gold:      #D4AF37;
+        --c-gold-deep: #b09530;
+        --c-gold-dark: #8e771a;
         --c-gold-dim:  rgba(212,175,55,0.12);
         --c-gold-glow: rgba(212,175,55,0.20);
+        --c-gold-border: rgba(212,175,55,0.45);
+        --c-on-gold:   #f0e8c8;
         --c-pos:       #22c55e;
         --c-neg:       #ef4444;
         --c-warn:      #f59e0b;
@@ -1920,17 +2122,55 @@ def load_base_css():
         --c-orange:    #f97316;
         --c-emerald:   #10b981;
         --c-amber:     #c8920a;
-        --c-text:      #e8e8e8;
-        --c-text-dim:  rgba(255,255,255,0.55);
-        --c-text-mute: rgba(255,255,255,0.35);
+        --c-text:        #e8e8e8;
+        --c-text-strong: #ffffff;
+        /* WCAG AA: 보조 텍스트 대비 상향 (dim ≥ 0.62, 정보 텍스트 ≥ 0.5) */
+        --c-text-dim:  rgba(255,255,255,0.62);
+        --c-text-mute: rgba(255,255,255,0.50);
+        --c-hr:        rgba(255,255,255,0.07);
         --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;
         --shadow-card: 0 4px 20px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.05) inset;
         --shadow-card-h: 0 8px 28px rgba(0,0,0,0.35);
       }
 
+      /* ── 라이트 테마 오버라이드 (◐ 토글 → html[data-theme='light']) ── */
+      html[data-theme='light'] {
+        --c-bg:        #f7f8fa;
+        --c-bg-2:      #fdfdfe;
+        --c-surface:   rgba(15,23,42,0.045);
+        --c-surface-h: rgba(15,23,42,0.08);
+        --c-border:    rgba(15,23,42,0.12);
+        --c-panel:          #ffffff;
+        --c-panel-h:        #f3f4f7;
+        --c-panel-border:   #e2e5ea;
+        --c-panel-border-h: #c9ced7;
+        --c-card-bg1:  rgba(255,255,255,0.92);
+        --c-card-bg2:  rgba(248,249,251,0.97);
+        --c-dash-bg1:  rgba(255,255,255,0.95);
+        --c-dash-bg2:  rgba(243,245,250,0.92);
+        --c-nav-bg:    rgba(255,255,255,0.78);
+        --c-btn-bg1:   #ffffff;
+        --c-btn-bg2:   #eef0f3;
+        /* 흰 배경 대비를 위해 라이트에선 골드를 어둡게 */
+        --c-gold:      #9c7c1e;
+        --c-gold-deep: #8a6d1b;
+        --c-gold-dark: #6f5713;
+        --c-gold-dim:  rgba(156,124,30,0.12);
+        --c-gold-glow: rgba(156,124,30,0.18);
+        --c-gold-border: rgba(156,124,30,0.45);
+        --c-on-gold:   #fffdf2;
+        --c-text:        #1a1c1f;
+        --c-text-strong: #000000;
+        --c-text-dim:  rgba(0,0,0,0.62);
+        --c-text-mute: rgba(0,0,0,0.50);
+        --c-hr:        rgba(0,0,0,0.08);
+        --shadow-card: 0 4px 20px rgba(15,23,42,0.08), 0 1px 0 rgba(255,255,255,0.6) inset;
+        --shadow-card-h: 0 8px 28px rgba(15,23,42,0.14);
+      }
+
       /* ── 통합 대시보드 컨테이너 ─────────────────────────── */
       .iris-dash {
-        background: linear-gradient(145deg, rgba(26,26,46,0.88) 0%, rgba(22,33,62,0.82) 100%);
+        background: linear-gradient(145deg, var(--c-dash-bg1) 0%, var(--c-dash-bg2) 100%);
         border: 1px solid var(--c-border);
         border-radius: var(--r-lg);
         padding: 24px;
@@ -1991,7 +2231,7 @@ def load_base_css():
       .iris-card.ic-amber   .ic-label { color: var(--c-amber); }
       /* 카드 내부 숫자 */
       .ic-value { color: var(--c-text); font-size: 1.8rem; font-weight: 700; margin: 6px 0; }
-      .iris-card.ic-total .ic-value { font-size: 2.4rem; color: #fff; }
+      .iris-card.ic-total .ic-value { font-size: 2.4rem; color: var(--c-text-strong); }
       /* 퍼센트 */
       .ic-pct { color: var(--c-text-mute); font-size: 0.7rem; margin-top: 4px; }
       /* 감성 필 뱃지 */
@@ -2003,30 +2243,29 @@ def load_base_css():
       /* ── 컨테이너 폭 + 상단 여백 ─────────────────────────── */
       .block-container {max-width:1360px !important; padding: 24px 20px 0 !important; margin-top: 16px !important;}
 
-      /* 배경/폰트 */
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap');
+      /* 배경/폰트 (@import는 최상단으로 이동됨 — 여기 두면 브라우저가 무시함) */
       [data-testid="stAppViewContainer"]{
-        background: linear-gradient(180deg,#0c0d10 0%, #0a0b0d 100%) !important;
-        color:#eee; font-family:'Inter','Noto Sans KR',system-ui,Segoe UI,Roboto,Apple SD Gothic Neo,Pretendard,sans-serif;
+        background: linear-gradient(180deg, var(--c-bg-2) 0%, var(--c-bg) 100%) !important;
+        color: var(--c-text); font-family:'Inter','Noto Sans KR',system-ui,Segoe UI,Roboto,Apple SD Gothic Neo,Pretendard,sans-serif;
       }
       [data-testid="stHeader"]{background:transparent; height:0;}
       section[data-testid="stSidebar"] {display:none !important;}
 
       /* 카드 */
       .card{
-        background: linear-gradient(135deg, rgba(24,24,28,.65), rgba(16,16,20,.85));
-        border: 1px solid rgba(255,255,255,.08);
+        background: linear-gradient(135deg, var(--c-card-bg1), var(--c-card-bg2));
+        border: 1px solid var(--c-border);
         border-radius: 12px; padding: 24px; margin-bottom: 24px;
-        box-shadow: 0 8px 32px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.05) inset;
+        box-shadow: var(--shadow-card);
         backdrop-filter: blur(10px);
       }
-      .input-card{ border-color: rgba(212,175,55,.25); }
-      .result-card{ border-color: rgba(189,189,189,.2); }
+      .input-card{ border-color: var(--c-gold-border); }
+      .result-card{ border-color: var(--c-border); }
 
       /* 버튼 (제네시스 톤) */
       .stButton>button{
-        border-radius:8px; font-weight:700; border:1px solid rgba(255,255,255,.18);
-        background: linear-gradient(180deg, #2a2b2f, #1a1b1f); color:#fff;
+        border-radius:8px; font-weight:700; border:1px solid var(--c-border);
+        background: linear-gradient(180deg, var(--c-btn-bg1), var(--c-btn-bg2)); color: var(--c-text);
         padding:10px 16px; letter-spacing:.01em;
       }
       /* 로고 영역 스타일 */
@@ -2034,21 +2273,22 @@ def load_base_css():
         opacity: 0.9;
       }
       .stButton>button:hover{
-        border-color: rgba(212,175,55,.6) !important;
-        background: linear-gradient(135deg, rgba(32,34,40,.9), rgba(24,26,32,.95)) !important;
-        box-shadow: 0 4px 20px rgba(212,175,55,.12), 0 2px 8px rgba(0,0,0,0.2) !important;
+        border-color: var(--c-gold-border) !important;
+        background: linear-gradient(135deg, var(--c-btn-bg1), var(--c-btn-bg2)) !important;
+        box-shadow: 0 4px 20px var(--c-gold-glow), 0 2px 8px rgba(0,0,0,0.2) !important;
         transform: translateY(-1px) !important;
-        color: #fff !important;
+        color: var(--c-text) !important;
       }
       .stButton>button:disabled{
-        color:#fff; border-color:#fff; background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+        color: var(--c-text); border-color: var(--c-border);
+        background: linear-gradient(135deg, var(--c-surface-h), var(--c-surface));
       }
 
-      /* 다운로드 버튼 특별 스타일 */
+      /* 다운로드 버튼 특별 스타일 — 골드 토큰만 사용 */
       .stDownloadButton>button{
-        background: linear-gradient(135deg, #b09530, #8e771a) !important;
-        border: 1px solid rgba(175,148,40,.4) !important;
-        color: #f0e8c8 !important;
+        background: linear-gradient(135deg, var(--c-gold-deep), var(--c-gold-dark)) !important;
+        border: 1px solid var(--c-gold-border) !important;
+        color: var(--c-on-gold) !important;
         font-weight: 700 !important;
         border-radius: 8px !important;
         padding: 10px 16px !important;
@@ -2056,16 +2296,62 @@ def load_base_css():
         transition: all 0.25s ease !important;
       }
       .stDownloadButton>button:hover{
-        background: linear-gradient(135deg, #c4a52e, #b09530) !important;
-        border-color: rgba(175,148,40,.7) !important;
-        box-shadow: 0 4px 20px rgba(175,148,40,.2) !important;
+        background: linear-gradient(135deg, var(--c-gold), var(--c-gold-deep)) !important;
+        border-color: var(--c-gold-border) !important;
+        box-shadow: 0 4px 20px var(--c-gold-glow) !important;
         transform: translateY(-1px) !important;
-        color: #f8f0d8 !important;
+        color: var(--c-on-gold) !important;
       }
 
       /* 데이터프레임 */
-      div[data-testid="stDataFrame"]{ background: rgba(255,255,255,.03) !important; border:1px solid rgba(255,255,255,.08); border-radius:10px; }
-      div[data-testid="stDataFrame"] *{ color:#e7e7e7 !important; }
+      div[data-testid="stDataFrame"]{ background: var(--c-surface) !important; border:1px solid var(--c-border); border-radius:10px; }
+      div[data-testid="stDataFrame"] *{ color: var(--c-text) !important; }
+
+      /* ── Streamlit 위젯 라벨·입력창: 테마 토큰 따르기 ──────────
+         config.toml은 다크 고정(base=dark)이라 라이트 모드에서 라벨이 흰색,
+         입력창이 검정으로 남는 문제를 토큰으로 보정 (다크에선 기존과 동일 톤). */
+      [data-testid="stWidgetLabel"] p,
+      [data-testid="stWidgetLabel"] label,
+      .stTextInput > label, .stTextInput > label p,
+      .stTextArea > label,  .stTextArea > label p,
+      .stSelectbox > label, .stSelectbox > label p,
+      div[data-testid="stRadio"] > label p,
+      .stCheckbox label p {
+        color: var(--c-text) !important;
+      }
+      .stTextInput > div > div,
+      .stTextArea textarea,
+      [data-testid="stNumberInput"] input,
+      [data-testid="stSelectbox"] > div > div {
+        background: var(--c-panel) !important;
+        color: var(--c-text) !important;
+        border-color: var(--c-border) !important;
+      }
+      .stTextInput input, .stTextArea textarea {
+        color: var(--c-text) !important;
+        -webkit-text-fill-color: var(--c-text) !important;
+        caret-color: var(--c-gold) !important;
+      }
+      .stTextInput input::placeholder, .stTextArea textarea::placeholder {
+        color: var(--c-text-mute) !important;
+        -webkit-text-fill-color: var(--c-text-mute) !important;
+      }
+      [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        background: var(--c-panel) !important;
+        color: var(--c-text) !important;
+      }
+      /* expander (과거 대응이력 등) */
+      [data-testid="stExpander"] {
+        background: var(--c-surface);
+        border: 1px solid var(--c-border) !important;
+        border-radius: 10px;
+      }
+      [data-testid="stExpander"] summary p,
+      [data-testid="stExpander"] summary span {
+        color: var(--c-text) !important;
+      }
+      /* caption */
+      [data-testid="stCaptionContainer"] p { color: var(--c-text-mute) !important; }
 
       /* 페이지 전환 애니메이션 개선 */
       @keyframes stFadeSlide { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
@@ -2096,8 +2382,8 @@ def load_base_css():
       }
       .iris-cta-card {
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.10);
+        background: var(--c-surface);
+        border: 1px solid var(--c-border);
         border-radius: 12px;
         padding: 18px 12px;
         text-align: center; text-decoration: none;
@@ -2105,14 +2391,14 @@ def load_base_css():
         min-height: 118px;
       }
       .iris-cta-card:hover {
-        background: rgba(255,255,255,0.10);
-        border-color: rgba(212,175,55,0.4);
+        background: var(--c-surface-h);
+        border-color: var(--c-gold-border);
         transform: translateY(-3px);
         text-decoration: none;
       }
       .iris-cta-card .cta-ico { font-size: 1.7rem; margin-bottom: 8px; line-height: 1; }
-      .iris-cta-card .cta-ttl { font-size: 0.92rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; word-break: keep-all; }
-      .iris-cta-card .cta-dsc { font-size: 0.72rem; color: rgba(255,255,255,0.52); line-height: 1.4; word-break: keep-all; }
+      .iris-cta-card .cta-ttl { font-size: 0.92rem; font-weight: 700; color: var(--c-text); margin-bottom: 4px; word-break: keep-all; }
+      .iris-cta-card .cta-dsc { font-size: 0.72rem; color: var(--c-text-mute); line-height: 1.4; word-break: keep-all; }
 
       /* ── 메뉴 중복 제거: 데스크톱은 '상단 내비'만 사용 → 홈 하단 CTA 그리드 숨김 ── */
       @media (min-width: 769px) {
@@ -2170,38 +2456,38 @@ def load_base_css():
         .iris-cta-card .cta-dsc { font-size: 0.67rem; }
       }
 
-      /* ── type="primary" 버튼 → gold 통일 ──────────────────── */
+      /* ── type="primary" 버튼 → gold 토큰 통일 ─────────────── */
       [data-testid="stBaseButton-primary"],
       .stButton>button[kind="primary"] {
-        background: linear-gradient(135deg, #b09530, #8e771a) !important;
-        border: 1px solid rgba(175,148,40,.45) !important;
-        color: #f0e8c8 !important;
+        background: linear-gradient(135deg, var(--c-gold-deep), var(--c-gold-dark)) !important;
+        border: 1px solid var(--c-gold-border) !important;
+        color: var(--c-on-gold) !important;
         font-weight: 700 !important;
       }
       [data-testid="stBaseButton-primary"]:hover,
       .stButton>button[kind="primary"]:hover {
-        background: linear-gradient(135deg, #c4a52e, #b09530) !important;
-        border-color: rgba(212,175,55,.7) !important;
-        box-shadow: 0 4px 20px rgba(212,175,55,.18) !important;
-        color: #fff8e0 !important;
+        background: linear-gradient(135deg, var(--c-gold), var(--c-gold-deep)) !important;
+        border-color: var(--c-gold-border) !important;
+        box-shadow: 0 4px 20px var(--c-gold-glow) !important;
+        color: var(--c-on-gold) !important;
       }
 
       /* ── 섹션 헤더 h3 (st.markdown "###") ───────────────── */
       [data-testid="stMarkdownContainer"] h3 {
         font-size: 1rem !important;
         font-weight: 600 !important;
-        color: var(--c-text-dim, rgba(255,255,255,0.55)) !important;
+        color: var(--c-text-dim) !important;
         letter-spacing: 0.06em !important;
         text-transform: uppercase !important;
         margin: 28px 0 14px !important;
         padding-bottom: 8px !important;
-        border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+        border-bottom: 1px solid var(--c-hr) !important;
       }
 
       /* ── 구분선 hr (st.markdown "---") ──────────────────── */
       hr {
         border: none !important;
-        border-top: 1px solid rgba(255,255,255,0.07) !important;
+        border-top: 1px solid var(--c-hr) !important;
         margin: 24px 0 !important;
       }
 
@@ -2210,19 +2496,19 @@ def load_base_css():
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
         min-height: 220px; text-align: center;
-        color: var(--c-text-mute, rgba(255,255,255,0.35));
+        color: var(--c-text-mute);
         padding: 32px 24px;
-        border: 1px dashed rgba(255,255,255,0.1);
+        border: 1px dashed var(--c-border);
         border-radius: var(--r-md, 12px);
       }
       .empty-state .es-icon { font-size: 2.4rem; margin-bottom: 12px; opacity: 0.5; }
-      .empty-state .es-title { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+      .empty-state .es-title { font-size: 0.95rem; font-weight: 600; color: var(--c-text-dim); margin-bottom: 6px; }
       .empty-state .es-desc  { font-size: 0.8rem; line-height: 1.55; }
 
       /* ── CTA 바로가기 카드 (메인 페이지) ─────────────────── */
       .cta-card {
-        background: var(--c-surface, rgba(255,255,255,0.04));
-        border: 1px solid rgba(255,255,255,0.07);
+        background: var(--c-surface);
+        border: 1px solid var(--c-border);
         border-radius: var(--r-md, 12px);
         padding: 20px 16px;
         text-align: center;
@@ -2232,15 +2518,15 @@ def load_base_css():
         display: block;
       }
       .cta-card:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(212,175,55,0.3);
+        background: var(--c-surface-h);
+        border-color: var(--c-gold-border);
         transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        box-shadow: var(--shadow-card-h);
         text-decoration: none !important;
       }
       .cta-card .cta-icon  { font-size: 1.8rem; margin-bottom: 8px; }
-      .cta-card .cta-title { font-size: 0.9rem; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; }
-      .cta-card .cta-desc  { font-size: 0.72rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+      .cta-card .cta-title { font-size: 0.9rem; font-weight: 700; color: var(--c-text); margin-bottom: 4px; }
+      .cta-card .cta-desc  { font-size: 0.72rem; color: var(--c-text-mute); line-height: 1.4; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -2294,8 +2580,8 @@ def render_top_nav(active_label: str):
     <style>
       /* ── 네비게이션 컨테이너 ─────────────────────────────── */
       .nav-container {
-        background: rgba(10,11,13,0.55);
-        border: 1px solid rgba(255,255,255,0.05);
+        background: var(--c-nav-bg);
+        border: 1px solid var(--c-border);
         border-radius: 18px;
         padding: 12px 18px;
         margin: 8px 0 20px 0;
@@ -2310,7 +2596,7 @@ def render_top_nav(active_label: str):
         font-weight: 500 !important;
         border: 1px solid transparent !important;
         background: transparent !important;
-        color: rgba(255,255,255,0.42) !important;
+        color: var(--c-text-mute) !important;
         padding: 10px 16px !important;
         letter-spacing: 0.01em !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -2320,9 +2606,9 @@ def render_top_nav(active_label: str):
         box-shadow: none !important;
       }
       .nav-container .stButton>button:hover {
-        background: rgba(255,255,255,0.06) !important;
-        color: rgba(255,255,255,0.80) !important;
-        border-color: rgba(255,255,255,0.08) !important;
+        background: var(--c-surface-h) !important;
+        color: var(--c-text) !important;
+        border-color: var(--c-border) !important;
         transform: none !important;
         box-shadow: none !important;
       }
@@ -2331,8 +2617,8 @@ def render_top_nav(active_label: str):
       .nav-container .stButton>button:disabled {
         background: var(--c-gold-dim, rgba(212,175,55,0.12)) !important;
         color: var(--c-gold, #D4AF37) !important;
-        border: 1px solid rgba(212,175,55,0.28) !important;
-        box-shadow: 0 0 14px rgba(212,175,55,0.08) !important;
+        border: 1px solid var(--c-gold-border) !important;
+        box-shadow: 0 0 14px var(--c-gold-glow) !important;
         font-weight: 700 !important;
         opacity: 1 !important;
         transform: none !important;
@@ -2366,7 +2652,7 @@ def render_top_nav(active_label: str):
     
     st.markdown('<div class="nav-container">', unsafe_allow_html=True)
     with st.container(key="iris_nav"):
-        c1, c2 = st.columns([1.2, 4.0], gap="medium")
+        c1, c2, c3 = st.columns([1.2, 3.5, 0.5], gap="medium")
         with c1:
             if logo_uri:
                 # 로고를 클릭 가능한 HTML로 직접 구현 (메뉴 버튼과 높이 정렬)
@@ -2395,6 +2681,24 @@ def render_top_nav(active_label: str):
                     if clicked:
                         st.query_params["menu"] = label
                         st.rerun()
+        with c3:
+            t_col, o_col = st.columns(2, gap="small")
+            with t_col:
+                # ◐ 라이트/다크 테마 토글
+                _theme = get_current_theme()
+                if st.button("◐", key="nav_theme_toggle", use_container_width=True,
+                             help="라이트/다크 테마 전환"):
+                    _new_theme = "light" if _theme == "dark" else "dark"
+                    set_theme(_new_theme)
+                    # 주의: 여기서 st.rerun()을 부르면 쿠키 컴포넌트 flush가 끊겨
+                    # 쿠키가 저장되지 않고, 리런 경합으로 토글이 이중 발화할 수 있다.
+                    # data-theme은 CSS 변수 기반이라 속성 재주입만으로 즉시 전환된다.
+                    apply_theme_attribute(_new_theme)
+            with o_col:
+                # ⏻ 로그아웃 (공용 PC·모바일 이탈 경로)
+                if st.button("⏻", key="nav_logout", use_container_width=True,
+                             help="로그아웃"):
+                    logout()
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ----------------------------- 메인 히어로 -----------------------------
@@ -2485,6 +2789,9 @@ def page_issue_report():
         gen = st.button("이슈발생보고 생성", use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
     with col2:
+        # ── 생성: 결과를 세션에 저장만 하고, 표시는 아래 공통 렌더가 담당 ──
+        # (생성·표시가 한 블록에 있으면 편집/다운로드 클릭 rerun 때 gen=False가 되어
+        #  결과가 통째로 사라지는 워크플로 파괴 버그가 있었음 → 생성/표시 디커플)
         if gen:
             if not media.strip():
                 st.error("언론사명을 입력해주세요.")
@@ -2495,24 +2802,46 @@ def page_issue_report():
             else:
                 with st.spinner("AI가 분석하고 있습니다..."):
                     report = generate_issue_report(media, reporter, issue)
-                st.markdown('<div class="card result-card">', unsafe_allow_html=True)
-                st.markdown("### 생성된 이슈 발생 보고서")
-                edited = st.text_area("보고서 내용(수정 가능)", value=report, height=300, key="issue_report_edit")
-                payload = f"""포스코인터내셔널 언론대응 이슈 발생 보고서
+                # 키가 'issue_'로 시작하면 메뉴 전환 시 정리 로직에 지워지므로 다른 프리픽스 사용
+                st.session_state["saved_issue_report"] = {
+                    "content": report,
+                    "media": media,
+                    "reporter": reporter,
+                    "issue": issue,
+                    "created": datetime.now(timezone(timedelta(hours=9))).strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                # 이전 편집본 초기화 (새 보고서 기준으로 textarea 재생성)
+                st.session_state.pop("saved_issue_report_edit", None)
+
+        # ── 표시: 세션에 보고서가 있으면 항상 렌더 (편집·다운로드에도 유지) ──
+        saved = st.session_state.get("saved_issue_report")
+        if saved:
+            st.markdown('<div class="card result-card">', unsafe_allow_html=True)
+            st.markdown("### 생성된 이슈 발생 보고서")
+            st.caption(f"{saved['media']} · {saved['reporter']} · {saved['created']} 생성")
+            edited = st.text_area("보고서 내용(수정 가능)", value=saved["content"], height=300, key="saved_issue_report_edit")
+            payload = f"""포스코인터내셔널 언론대응 이슈 발생 보고서
 ================================
 
-생성일시: {datetime.now(timezone(timedelta(hours=9))).strftime('%Y-%m-%d %H:%M:%S')}
-언론사: {media}
-기자명: {reporter}
-발생 이슈: {issue}
+생성일시: {saved['created']}
+언론사: {saved['media']}
+기자명: {saved['reporter']}
+발생 이슈: {saved['issue']}
 
 보고서 내용:
 {edited}
 """
+            dl_col, clr_col = st.columns([3, 1])
+            with dl_col:
                 st.download_button("⬇ 보고서 다운로드", data=payload,
                                    file_name=f"이슈발생보고서_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M%S')}.txt",
                                    mime="text/plain", use_container_width=True)
-                st.markdown('</div>', unsafe_allow_html=True)
+            with clr_col:
+                if st.button("🗑 지우기", use_container_width=True, key="issue_report_clear"):
+                    st.session_state.pop("saved_issue_report", None)
+                    st.session_state.pop("saved_issue_report_edit", None)
+                    st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.markdown("""
             <div class="empty-state">
@@ -2597,7 +2926,9 @@ def page_media_search():
                                 # 구분 필드를 제외하고 DataFrame 생성
                                 display_data = [{k: v for k, v in reporter.items() if k != "구분"} for reporter in sorted_reporters]
                                 df_reporters = pd.DataFrame(display_data)
-                                show_table(df_reporters, "👥 출입기자 상세정보")
+                                show_table(df_reporters, "👥 출입기자 상세정보",
+                                           csv_name=f"출입기자_{info.get('name','언론사')}.csv",
+                                           phone_cols=("연락처",), email_cols=("이메일",))
                         else:
                             st.info("등록된 출입기자 정보가 없습니다.")
                 else:
@@ -2656,7 +2987,9 @@ def page_contact_search():
             filtered = rows
 
         if filtered:
-            show_table(pd.DataFrame(filtered), "👥 담당자 검색 결과")
+            show_table(pd.DataFrame(filtered), "👥 담당자 검색 결과",
+                       csv_name="담당자_검색결과.csv",
+                       phone_cols=("연락처",), email_cols=("이메일",))
         else:
             st.warning("❌ 해당 조건에 맞는 담당자를 찾을 수 없습니다.")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -2679,7 +3012,7 @@ def page_contact_search():
         else:
             rows.append([dept_name, dept.get("담당자",""), dept.get("직급","")])
     df = pd.DataFrame(rows, columns=["부서명","담당자","직급"])
-    show_table(df, "🔷 전체 부서 담당자 정보")
+    show_table(df, "🔷 전체 부서 담당자 정보", csv_name="전체_부서_담당자.csv")
     st.markdown('</div>', unsafe_allow_html=True)
 
 def page_history_search():
@@ -2884,7 +3217,8 @@ def page_history_search():
                 "대응 결과": "✅ 대응 결과"
             })
 
-            show_table(display_df, "")
+            show_table(display_df, "",
+                       csv_name=f"언론대응이력_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d')}.csv")
         else:
             st.warning("❌ 검색 조건에 맞는 내역이 없습니다.")
 
@@ -2954,7 +3288,7 @@ def page_news_monitor():
     div[data-testid="stRadio"] label > div,
     div[data-testid="stRadio"] span,
     div[data-testid="stRadio"] p,
-    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: white !important; }
+    .stRadio > label > div[data-testid="stMarkdownContainer"] > p { color: var(--c-text) !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -2967,8 +3301,8 @@ def page_news_monitor():
     with c_timer:
         countdown_fragment(refresh_interval)
 
-    # ── 2행: 뷰 선택 + CSV (표시/내보내기 컨트롤) — df_show 준비 후 채워짐 ──
-    c_view, c_view_spacer, c_download = st.columns([3, 6, 2])
+    # ── 2행: 뷰 선택 + 감성 필터 + CSV (표시/내보내기 컨트롤) ──
+    c_view, c_sent, c_download = st.columns([3, 6, 2])
 
     # ===== 새로고침 방식 결정 =====
     # 수동 새로고침: Naver API 직접 호출 (실시간 최신 뉴스)
@@ -3027,7 +3361,7 @@ def page_news_monitor():
     db = st.session_state.get('news_display_data', load_news_db())
 
     if db.empty:
-        st.markdown('<p style="color: white;">📰 저장된 뉴스 데이터가 없습니다.</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color: var(--c-text);">📰 저장된 뉴스 데이터가 없습니다.</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         return
 
@@ -3035,11 +3369,44 @@ def page_news_monitor():
     pattern = "|".join(keywords)
     df_show = db[db["검색키워드"].astype(str).str.contains(pattern, case=False, na=False)].copy()
     if df_show.empty:
-        st.markdown('<p style="color: white;">📰 POSCO 관련 기사가 없습니다.</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color: var(--c-text);">📰 POSCO 관련 기사가 없습니다.</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         return
 
-    df_show = df_show.sort_values(by="날짜", ascending=False, na_position="last").reset_index(drop=True).head(50)
+    df_show = df_show.sort_values(by="날짜", ascending=False, na_position="last").reset_index(drop=True)
+
+    # ── 2행 채우기: 뷰 선택 + 감성 필터 ──
+    with c_view:
+        view = st.radio(
+            "표시 방식", ["카드형 뷰", "테이블 뷰"],
+            index=0, horizontal=True, key="news_view",
+            label_visibility="collapsed"
+        )
+    with c_sent:
+        sent_filter = st.radio(
+            "감성 필터", ["전체", "긍정·중립", "부정만 보기"],
+            index=0, horizontal=True, key="news_sent_filter",
+            label_visibility="collapsed"
+        )
+
+    # 감성 필터는 head(50) 이전에 적용 — "부정만 보기"가 상단 50건에 갇히지 않도록
+    total_before_filter = len(df_show)
+    if "sentiment" in df_show.columns and sent_filter != "전체":
+        sent_series = df_show["sentiment"].astype(str)
+        if sent_filter == "부정만 보기":
+            df_show = df_show[sent_series == "neg"]
+        else:
+            df_show = df_show[sent_series != "neg"]
+    filtered_count = len(df_show)
+    df_show = df_show.head(50)
+
+    if sent_filter != "전체":
+        st.caption(f"전체 {total_before_filter:,}건 중 {filtered_count:,}건 (최신 {len(df_show)}건 표시)")
+
+    if df_show.empty:
+        st.info("조건에 맞는 기사가 없습니다.")
+        return
+
     if "URL" in df_show.columns:
         df_show["매체명"] = df_show["URL"].apply(_publisher_from_link)
     if "매체명" in df_show.columns:
@@ -3047,17 +3414,10 @@ def page_news_monitor():
             lambda row: _publisher_from_link(row["URL"]) if pd.notna(row["URL"]) else row["매체명"], axis=1
         )
 
-    # ── 2행 채우기: 뷰 선택 + CSV ──
-    with c_view:
-        view = st.radio(
-            "표시 방식", ["카드형 뷰", "테이블 뷰"],
-            index=0, horizontal=True, key="news_view",
-            label_visibility="collapsed"
-        )
     with c_download:
         st.download_button(
             "⬇ CSV",
-            df_show.to_csv(index=False).encode("utf-8"),
+            df_show.to_csv(index=False).encode("utf-8-sig"),  # 엑셀 한글 호환
             file_name=f"posco_news_{datetime.now(timezone(timedelta(hours=9))).strftime('%Y%m%d_%H%M')}.csv",
             mime="text/csv",
             use_container_width=True,
@@ -3068,8 +3428,8 @@ def page_news_monitor():
 <style>
   /* 기사 목록 카드 — 좌측 정렬 강제 (dashboard .news-card의 center 덮어쓰기) */
   .news-card{
-    background: #1E1E1E;
-    border: 1px solid #2A2A2A;
+    background: var(--c-panel);
+    border: 1px solid var(--c-panel-border);
     border-radius: 8px;
     padding: 20px 24px;
     margin-bottom: 12px;
@@ -3081,8 +3441,8 @@ def page_news_monitor():
     align-items: flex-start !important;
   }
   .news-card:hover{
-    background: #252525;
-    border-color: #3A3A3A;
+    background: var(--c-panel-h);
+    border-color: var(--c-panel-border-h);
   }
 
   /* 상단: 출처 태그와 날짜 */
@@ -3098,8 +3458,8 @@ def page_news_monitor():
     gap: 6px;
   }
   .news-media{
-    background: rgba(175,140,30,.16);
-    color: #c4a030;
+    background: var(--c-gold-dim);
+    color: var(--c-gold);
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 11px;
@@ -3107,21 +3467,21 @@ def page_news_monitor():
   }
   .news-key{
     background: rgba(100,155,195,.10);
-    color: #7ab8d8;
+    color: #55a8d8;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 11px;
     font-weight: 500;
   }
   .news-date{
-    color: #AAAAAA;
+    color: var(--c-text-mute);
     font-size: 12px;
     font-weight: 400;
   }
 
   /* 중간: 제목과 요약 — 좌측 정렬 명시 */
   .news-title{
-    color: #FFFFFF;
+    color: var(--c-text-strong);
     font-size: 16px;
     font-weight: 600;
     line-height: 1.55;
@@ -3130,7 +3490,7 @@ def page_news_monitor():
     text-align: left !important;
   }
   .news-summary{
-    color: #CCCCCC;
+    color: var(--c-text-dim);
     font-size: 13px;
     line-height: 1.7;
     margin: 0 0 16px 0;
@@ -3170,24 +3530,24 @@ def page_news_monitor():
     font-weight: 500 !important;
     border-radius: 4px !important;
     transition: all 0.2s ease !important;
-    background-color: rgba(255,255,255,0.08) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    background-color: var(--c-surface-h) !important;
+    border: 1px solid var(--c-border) !important;
     margin-bottom: 4px !important;
   }
   button[kind="secondary"]:hover {
-    background-color: #b09530 !important;
-    border-color: #b09530 !important;
-    color: #f0e8c8 !important;
+    background-color: var(--c-gold-deep) !important;
+    border-color: var(--c-gold-deep) !important;
+    color: var(--c-on-gold) !important;
   }
 
   /* 생성된 보고서 스타일 */
   .report-container {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 8px;
     padding: 15px;
     margin: 10px 0;
-    color: #e0e0e0;
+    color: var(--c-text);
     font-family: monospace;
     white-space: pre-wrap;
     line-height: 1.5;
@@ -3447,6 +3807,8 @@ def main():
     st.session_state.pop("_auth_grace_used", None)
 
     load_base_css()
+    # 테마: 리런마다 DOM이 다시 그려지므로 data-theme 속성을 매 렌더 재적용 (필수)
+    apply_theme_attribute(get_current_theme())
     if "data_loaded" not in st.session_state:
         st.session_state["data_loaded"] = True
 

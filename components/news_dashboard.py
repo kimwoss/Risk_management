@@ -43,7 +43,7 @@ _CSS = """
 .ic-total-num {
     font-size: 2.4rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     letter-spacing: -0.01em;
 }
@@ -51,6 +51,24 @@ _CSS = """
     font-size: 1rem;
     font-weight: 600;
     color: #818cf8;
+}
+.ic-neg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: rgba(239,68,68,0.14);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.35);
+    white-space: nowrap;
+}
+.ic-neg-badge.zero {
+    background: rgba(148,163,184,0.08);
+    color: rgba(148,163,184,0.75);
+    border-color: rgba(148,163,184,0.2);
 }
 .ic-kw-grid {
     display: grid;
@@ -72,7 +90,7 @@ _CSS = """
     .ic-kw-grid { gap: 5px; }
     .ic-kw-card { padding: 7px 6px 5px; }
 }
-.ic-kw-card:hover { background: rgba(255,255,255,0.06) !important; }
+.ic-kw-card:hover { background: var(--c-surface-h, rgba(255,255,255,0.06)) !important; }
 .ic-kw-label {
     font-weight: 600;
     white-space: nowrap;
@@ -82,11 +100,11 @@ _CSS = """
 }
 .ic-kw-num {
     font-weight: 700;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     margin-bottom: 3px;
 }
-.ic-kw-pct { color: rgba(255,255,255,0.38); }
+.ic-kw-pct { color: var(--c-text-mute, rgba(255,255,255,0.5)); }
 
 .ic-kw-1 { border-left-color: #22c55e; background: rgba(34,197,94,0.07); }
 .ic-kw-1 .ic-kw-label { font-size: 0.72rem; color: #4ade80; }
@@ -194,7 +212,8 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     import random, string
     unique_id = ''.join(random.choices(string.ascii_lowercase, k=8))
 
-    # ── 상단: 총합 카드 ────────────────────────────────────────
+    # ── 상단: 총합 카드 (부정 기사 건수 배지 포함 — 위기 감지 핵심 지표) ──
+    _neg_cls = "" if total_neg > 0 else " zero"
     st.markdown(f'''
 <div class="ic-total-hero">
     <div class="ic-total-date">{display_date}</div>
@@ -203,6 +222,8 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
         <span class="ic-total-num" id="total-{unique_id}" data-target="{total_today}">0</span>
         <span class="ic-total-unit">건</span>
     </div>
+    <div class="ic-total-sep"></div>
+    <div class="ic-neg-badge{_neg_cls}">🔻 부정 {total_neg}건</div>
 </div>
 ''', unsafe_allow_html=True)
 

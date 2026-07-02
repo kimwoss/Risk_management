@@ -27,7 +27,6 @@ USER_PROMPT_TEMPLATE = """[키워드]: {keyword}
   "trend": "급증|증가|보합|감소|급감",
   "crisis_level": "관심|주의|경계|심각",
   "sentiment": {{"positive": 0, "neutral": 0, "negative": 0}},
-  "top_media": ["매체1", "매체2", "매체3", "매체4", "매체5"],
   "issues": [{{"title": "이슈 제목", "description": "1줄 설명"}}],
   "competitors": [{{"name": "기관명", "count": 0, "trend": "1줄 동향"}}],
   "risks": ["리스크 항목 (3개 이내)"],
@@ -117,38 +116,53 @@ def call_gpt_once(keyword: str, news_items: list[dict]) -> dict:
         news_json=json.dumps(news_for_prompt, ensure_ascii=False),
     )
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4.1-2025-04-14",
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user",   "content": user_prompt},
-            ],
-            temperature=0.2,
-            max_tokens=2000,
-            response_format={"type": "json_object"},
-        )
-        raw = response.choices[0].message.content
-        result = json.loads(raw)
-    except openai.APIConnectionError:
-        st.error("⚠️ OpenAI API 연결 실패. 네트워크를 확인해주세요.")
-        st.stop()
-    except openai.RateLimitError as e:
-        err_body = str(e).lower()
-        if "insufficient_quota" in err_body or "exceeded your current quota" in err_body:
-            st.error("⚠️ OpenAI API 크레딧이 소진되었습니다. platform.openai.com/account/billing 에서 잔액을 확인해주세요.")
-        else:
-            st.error("⚠️ OpenAI API 분당 요청 한도 초과. 잠시 후 다시 시도해주세요.")
-        st.stop()
-    except openai.AuthenticationError:
-        st.error("⚠️ OpenAI API 키가 유효하지 않습니다. .env 또는 Streamlit secrets를 확인해주세요.")
-        st.stop()
-    except openai.APIStatusError as e:
-        st.error(f"⚠️ OpenAI API 오류 (HTTP {e.status_code}): {getattr(e, 'code', '')} — {str(e)[:120]}")
-        st.stop()
-    except json.JSONDecodeError:
-        st.error("⚠️ AI 응답 파싱 실패. 다시 시도해주세요.")
-        st.stop()
+    # 순간 429·5xx·연결 오류는 지수 백오프(1s→3s)로 최대 2회 재시도 — 곧바로 사용자 실패로 떨어지지 않도록
+    _delays = [1, 3]
+    result = None
+    for _attempt in range(len(_delays) + 1):
+        _retryable_err = None
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4.1-2025-04-14",
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user",   "content": user_prompt},
+                ],
+                temperature=0.2,
+                max_tokens=2000,
+                response_format={"type": "json_object"},
+            )
+            raw = response.choices[0].message.content
+            result = json.loads(raw)
+            break
+        except openai.APIConnectionError:
+            _retryable_err = "⚠️ OpenAI API 연결 실패. 네트워크를 확인해주세요."
+        except openai.RateLimitError as e:
+            err_body = str(e).lower()
+            if "insufficient_quota" in err_body or "exceeded your current quota" in err_body:
+                # 쿼터 소진은 재시도 무의미 → 즉시 안내
+                st.error("⚠️ OpenAI API 크레딧이 소진되었습니다. platform.openai.com/account/billing 에서 잔액을 확인해주세요.")
+                st.stop()
+            _retryable_err = "⚠️ OpenAI API 분당 요청 한도 초과. 잠시 후 다시 시도해주세요."
+        except openai.AuthenticationError:
+            st.error("⚠️ OpenAI API 키가 유효하지 않습니다. .env 또는 Streamlit secrets를 확인해주세요.")
+            st.stop()
+        except openai.APIStatusError as e:
+            if getattr(e, "status_code", 0) >= 500:
+                _retryable_err = f"⚠️ OpenAI API 일시 오류 (HTTP {e.status_code}). 잠시 후 다시 시도해주세요."
+            else:
+                st.error(f"⚠️ OpenAI API 오류 (HTTP {e.status_code}): {getattr(e, 'code', '')} — {str(e)[:120]}")
+                st.stop()
+        except json.JSONDecodeError:
+            st.error("⚠️ AI 응답 파싱 실패. 다시 시도해주세요.")
+            st.stop()
+
+        if _retryable_err:
+            if _attempt < len(_delays):
+                time.sleep(_delays[_attempt])
+                continue
+            st.error(_retryable_err)
+            st.stop()
 
     _save_to_session(keyword, result)
     return result

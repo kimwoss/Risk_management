@@ -42,7 +42,7 @@ _CSS = """
 .sta-hero-num {
     font-size: 2.4rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     letter-spacing: -0.01em;
 }
@@ -64,7 +64,7 @@ _CSS = """
     text-align: center;
     transition: background 0.2s;
 }
-.sta-kw-card:hover { background: rgba(255,255,255,0.06) !important; }
+.sta-kw-card:hover { background: var(--c-surface-h, rgba(255,255,255,0.06)) !important; }
 .sta-kw-label {
     font-size: 0.72rem;
     font-weight: 600;
@@ -73,11 +73,11 @@ _CSS = """
 .sta-kw-num {
     font-size: 1.45rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     margin-bottom: 3px;
 }
-.sta-kw-pct { font-size: 0.68rem; color: rgba(255,255,255,0.38); }
+.sta-kw-pct { font-size: 0.68rem; color: var(--c-text-mute, rgba(255,255,255,0.5)); }
 
 .sta-kw-1 { border-left-color: #22c55e; background: rgba(34,197,94,0.07); }
 .sta-kw-1 .sta-kw-label { color: #4ade80; }

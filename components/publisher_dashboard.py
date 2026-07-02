@@ -42,7 +42,7 @@ _CSS = """
 .pub-hero-num {
     font-size: 2.4rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     letter-spacing: -0.01em;
 }
@@ -64,7 +64,7 @@ _CSS = """
     text-align: center;
     transition: background 0.2s;
 }
-.pub-kw-card:hover { background: rgba(255,255,255,0.06) !important; }
+.pub-kw-card:hover { background: var(--c-surface-h, rgba(255,255,255,0.06)) !important; }
 .pub-kw-label {
     font-size: 0.70rem;
     font-weight: 600;
@@ -74,11 +74,11 @@ _CSS = """
 .pub-kw-num {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--c-text-strong, #fff);
     line-height: 1;
     margin-bottom: 3px;
 }
-.pub-kw-pct { font-size: 0.65rem; color: rgba(255,255,255,0.38); }
+.pub-kw-pct { font-size: 0.65rem; color: var(--c-text-mute, rgba(255,255,255,0.5)); }
 
 .pub-kw-1 { border-left-color: #3b82f6; background: rgba(59,130,246,0.07); }
 .pub-kw-1 .pub-kw-label { color: #60a5fa; }
@@ -114,22 +114,23 @@ def render_publisher_dashboard(media_contacts: dict, show_live: bool = True):
     """
     total = len(media_contacts)
 
+    # 하드코딩 제거 — master_data의 '구분' 값을 완전 동적 집계
+    # (언론사 추가·삭제 시 자동 반영, KPI가 실데이터와 항상 일치)
+    from collections import Counter
+    _cat = Counter(
+        str(info.get('구분', '')).strip()
+        for info in media_contacts.values()
+    )
     category_counts = {
-        '종합지': 11,
-        '경제지': 10,
-        '경제TV': 9,
-        '영자지': 5,
-        '석간지': 4,
+        '종합지': _cat.get('종합지', 0),
+        '경제지': _cat.get('경제지', 0),
+        '경제TV': _cat.get('경제TV', 0),
+        '영자지': _cat.get('영자지', 0),
+        '석간지': _cat.get('석간지', 0),
+        '통신사': _cat.get('통신사', 0),
     }
-
-    통신사_count = 0
-    for media_name, media_info in media_contacts.items():
-        if media_info.get('구분', '') == '통신사':
-            통신사_count += 1
-    category_counts['통신사'] = 통신사_count
-
-    fixed_sum = sum(category_counts.values())
-    category_counts['온라인지'] = max(0, total - fixed_sum)
+    # 온라인지 = '온라인지' 구분 + 미분류 잔여 (합계가 총계와 일치하도록)
+    category_counts['온라인지'] = max(0, total - sum(category_counts.values()))
 
     def pct(count):
         return (count / total * 100) if total > 0 else 0

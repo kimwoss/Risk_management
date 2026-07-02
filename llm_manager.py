@@ -2,9 +2,25 @@
 OpenAI API를 사용하는 LLM 클래스
 """
 import os
+import time
 from typing import List, Dict, Optional, Any
 from openai import OpenAI
 from dotenv import load_dotenv
+
+# 재시도 대기 시간 (지수 백오프: 1초 → 3초, 총 대기 10초 상한 내)
+_RETRY_DELAYS = [1, 3]
+
+
+def _is_retryable_error(e: Exception) -> bool:
+    """429(순간 rate limit)·5xx·타임아웃·연결 오류만 재시도.
+    쿼터 소진(insufficient_quota)은 재시도해도 소용없으므로 제외."""
+    msg = str(e).lower()
+    if "insufficient_quota" in msg or "exceeded your current quota" in msg:
+        return False
+    status = getattr(e, "status_code", None)
+    if status == 429 or (isinstance(status, int) and status >= 500):
+        return True
+    return any(k in msg for k in ("rate_limit", "rate limit", "timeout", "timed out", "connection"))
 
 class LLMManager:
     """OpenAI API를 사용하는 LLM 관리 클래스"""
@@ -32,6 +48,19 @@ class LLMManager:
         # 총괄 프롬프트 로드
         self.master_prompt = self._load_master_prompt()
         
+    def _create_with_retry(self, **kwargs):
+        """chat.completions.create + 지수 백오프 재시도 (정상 경로 비용 증가 0).
+        순간 429·5xx·타임아웃이 곧바로 사용자 실패로 떨어지지 않도록 한다."""
+        for attempt in range(len(_RETRY_DELAYS) + 1):
+            try:
+                return self.client.chat.completions.create(**kwargs)
+            except Exception as e:
+                if attempt >= len(_RETRY_DELAYS) or not _is_retryable_error(e):
+                    raise
+                delay = _RETRY_DELAYS[attempt]
+                print(f"[LLM RETRY] {type(e).__name__} — {delay}초 후 재시도 ({attempt + 1}/{len(_RETRY_DELAYS)})")
+                time.sleep(delay)
+
     def _load_master_prompt(self) -> str:
         """총괄 프롬프트 로드 (risk_report.txt)"""
         try:
@@ -77,7 +106,7 @@ class LLMManager:
         messages.append({"role": "user", "content": message})
         
         try:
-            response = self.client.chat.completions.create(
+            response = self._create_with_retry(
                 model=self.model,
                 messages=messages,
                 temperature=temperature,
@@ -150,13 +179,13 @@ class LLMManager:
         self.conversation_history.append({"role": "user", "content": message})
         
         try:
-            response = self.client.chat.completions.create(
+            response = self._create_with_retry(
                 model=self.model,
                 messages=self.conversation_history,
                 temperature=temperature,
                 max_tokens=max_tokens
             )
-            
+
             ai_response = response.choices[0].message.content
             
             # AI 응답을 대화 기록에 추가

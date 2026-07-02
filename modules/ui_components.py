@@ -6,59 +6,52 @@ import streamlit as st
 import plotly.graph_objects as go
 from datetime import datetime
 
-# ── 컬러 팔레트 (다크 테마) ──
-COLORS = {
-    "primary":           "#60a5fa",
-    "secondary":         "#a78bfa",
-    "positive":          "#34d399",
-    "negative":          "#f87171",
-    "warning":           "#fbbf24",
-    "neutral":           "#94a3b8",
-    "text_primary":      "#f1f5f9",
-    "text_body":         "#cbd5e1",
-    "text_sub":          "#64748b",
-    "text_link":         "#60a5fa",
-    "bg_page":           "#0f172a",
-    "bg_card":           "#1e293b",
-    "bg_card_hover":     "#334155",
-    "bg_elevated":       "#293548",
-    "bg_input":          "#1e293b",
-    "border":            "#334155",
-    "border_light":      "#475569",
-    "chart_bar":         "#475569",
-    "chart_bar_accent":  "#60a5fa",
-    "chart_line":        "#34d399",
-    "chart_grid":        "#1e293b",
+# (구 COLORS 딕셔너리 제거 — CSS는 --ki-* 토큰, Plotly는 get_chart_palette() 사용)
+
+# ── Plotly 팔레트 (테마별) ──
+# Plotly는 CSS 변수를 해석하지 못하므로 파이썬에서 라이트/다크 분기 필수.
+# (rgb()/대문자 hex 표기 — CSS 토큰 일괄 치환과 충돌하지 않도록)
+_PLOTLY_PALETTE = {
+    "dark": dict(
+        grid="#1E293B", tick="#64748B", font="#94A3B8", axis_label="#CBD5E1",
+        bar_default="rgb(71,85,105)", bar_accent="#60A5FA", line_trend="#34D399",
+    ),
+    "light": dict(
+        grid="#E2E8F0", tick="#64748B", font="rgb(71,85,105)", axis_label="rgb(51,65,85)",
+        bar_default="#94A3B8", bar_accent="#2563EB", line_trend="#059669",
+    ),
 }
 
-# ── Plotly 공통 테마 (다크) ──
-PLOTLY_THEME = dict(
-    plot_bgcolor="rgba(0,0,0,0)",
-    paper_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Pretendard, Apple SD Gothic Neo, sans-serif", size=12, color="#94a3b8"),
-    margin=dict(l=0, r=0, t=36, b=0),
-    xaxis=dict(
-        gridcolor="#1e293b", showline=False,
-        tickfont=dict(size=10, color="#64748b"),
-    ),
-    yaxis=dict(
-        gridcolor="#1e293b", showline=False, zeroline=False,
-        tickfont=dict(size=10, color="#64748b"),
-    ),
-    legend=dict(
-        orientation="h", yanchor="bottom", y=1.02,
-        xanchor="right", x=1, font=dict(size=11, color="#94a3b8"),
-    ),
-)
 
-CHART_COLORS = {
-    "bar_default":  "#475569",
-    "bar_accent":   "#60a5fa",
-    "line_trend":   "#34d399",
-    "tone_pos":     "#10b981",
-    "tone_neu":     "#64748b",
-    "tone_neg":     "#ef4444",
-}
+def _current_theme() -> str:
+    return "light" if st.session_state.get("theme") == "light" else "dark"
+
+
+def get_chart_palette() -> dict:
+    return _PLOTLY_PALETTE[_current_theme()]
+
+
+def get_chart_layout(theme: str = None) -> dict:
+    """Plotly 공통 레이아웃 — 현재 테마(다크/라이트)에 맞는 색상 반환"""
+    p = _PLOTLY_PALETTE[theme or _current_theme()]
+    return dict(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Pretendard, Apple SD Gothic Neo, sans-serif", size=12, color=p["font"]),
+        margin=dict(l=0, r=0, t=36, b=0),
+        xaxis=dict(
+            gridcolor=p["grid"], showline=False,
+            tickfont=dict(size=10, color=p["tick"]),
+        ),
+        yaxis=dict(
+            gridcolor=p["grid"], showline=False, zeroline=False,
+            tickfont=dict(size=10, color=p["tick"]),
+        ),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.02,
+            xanchor="right", x=1, font=dict(size=11, color=p["font"]),
+        ),
+    )
 
 # ── 위기 등급 색상 ──
 CRISIS_COLORS = {
@@ -82,24 +75,50 @@ def inject_custom_css():
     <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
+    /* ── 키워드 인사이트 디자인 토큰 (다크 기본 + 라이트 오버라이드) ── */
+    :root {
+        --ki-bg:          #0F172A;
+        --ki-card:        #1E293B;
+        --ki-card-h:      var(--ki-card-h);
+        --ki-border:      #33415B;
+        --ki-border-l:    #47556E;
+        --ki-text:        #F1F5F9;
+        --ki-text-strong: #E2E8F0;
+        --ki-body:        #CBD5E1;
+        --ki-muted:       #94A3B8;
+        --ki-sub:         #7C8BA1;
+    }
+    html[data-theme='light'] {
+        --ki-bg:          #f5f6fa;
+        --ki-card:        #ffffff;
+        --ki-card-h:      #eef1f6;
+        --ki-border:      #d8dee8;
+        --ki-border-l:    #c3ccd9;
+        --ki-text:        #101828;
+        --ki-text-strong: #1d2939;
+        --ki-body:        #344054;
+        --ki-muted:       #5b6b81;
+        --ki-sub:         #667085;
+    }
+
     html, body, [class*="css"] {
         font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     }
 
-    .stApp { background: #0f172a; }
+    .stApp { background: var(--ki-bg); }
 
-    .stApp p, .stApp span, .stApp label, .stApp li { color: #cbd5e1; }
-    .stApp h1, .stApp h2, .stApp h3 { color: #f1f5f9 !important; }
+    .stApp p, .stApp span, .stApp label, .stApp li { color: var(--ki-body); }
+    .stApp h1, .stApp h2, .stApp h3 { color: var(--ki-text) !important; }
 
     .stTextInput > div > div > input {
-        background: #1e293b !important; color: #f1f5f9 !important;
-        border: 1px solid #334155 !important; border-radius: 10px !important;
+        background: var(--ki-card) !important; color: var(--ki-text) !important;
+        border: 1px solid var(--ki-border) !important; border-radius: 10px !important;
     }
     .stTextInput > div > div > input:focus {
         border-color: #60a5fa !important;
         box-shadow: 0 0 0 2px rgba(96,165,250,0.2) !important;
     }
-    .stTextInput label { color: #94a3b8 !important; font-size: 13px !important; }
+    .stTextInput label { color: var(--ki-muted) !important; font-size: 13px !important; }
 
     .stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
@@ -108,12 +127,12 @@ def inject_custom_css():
     }
 
     [data-testid="stMetric"] {
-        background: #1e293b; border: 1px solid #334155;
+        background: var(--ki-card); border: 1px solid var(--ki-border);
         border-radius: 12px; padding: 16px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    [data-testid="stMetricLabel"] { font-size: 12px !important; color: #64748b !important; font-weight: 500 !important; }
-    [data-testid="stMetricValue"] { font-size: 26px !important; font-weight: 700 !important; color: #f1f5f9 !important; }
+    [data-testid="stMetricLabel"] { font-size: 12px !important; color: var(--ki-sub) !important; font-weight: 500 !important; }
+    [data-testid="stMetricValue"] { font-size: 26px !important; font-weight: 700 !important; color: var(--ki-text) !important; }
     [data-testid="stMetricDelta"] { font-size: 12px !important; }
 
     hr {
@@ -123,20 +142,20 @@ def inject_custom_css():
     }
 
     .insight-card {
-        background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+        background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 12px;
         padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 12px;
     }
     .insight-card-accent {
-        background: #1e293b; border: 1px solid #334155;
+        background: var(--ki-card); border: 1px solid var(--ki-border);
         border-left: 3px solid #60a5fa; border-radius: 0 12px 12px 0;
         padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 10px;
     }
 
     .section-header {
-        font-size: 15px; font-weight: 700; color: #f1f5f9;
+        font-size: 15px; font-weight: 700; color: var(--ki-text);
         margin: 28px 0 14px; display: flex; align-items: center; gap: 8px;
     }
-    .section-sub { font-size: 12px; color: #64748b; font-weight: 400; margin-left: 4px; }
+    .section-sub { font-size: 12px; color: var(--ki-sub); font-weight: 400; margin-left: 4px; }
 
     .badge {
         display: inline-block; padding: 2px 10px; border-radius: 12px;
@@ -147,11 +166,11 @@ def inject_custom_css():
     .badge-red    { color: #fca5a5; background: rgba(239,68,68,0.15);  border: 1px solid rgba(239,68,68,0.3); }
     .badge-yellow { color: #fcd34d; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
     .badge-purple { color: #c4b5fd; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); }
-    .badge-gray   { color: #94a3b8; background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.2); }
+    .badge-gray   { color: var(--ki-muted); background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.2); }
 
     .tone-bar { display: flex; border-radius: 8px; overflow: hidden; height: 28px; margin: 8px 0; }
     .tone-pos { background: #10b981; }
-    .tone-neu { background: #64748b; }
+    .tone-neu { background: var(--ki-sub); }
     .tone-neg { background: #ef4444; }
     .tone-segment {
         display: flex; align-items: center; justify-content: center;
@@ -159,14 +178,14 @@ def inject_custom_css():
     }
 
     .article-card {
-        background: #1e293b; border: 1px solid #334155; border-radius: 10px;
+        background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 10px;
         padding: 14px 18px; margin-bottom: 8px; transition: all 0.2s;
     }
-    .article-card:hover { background: #293548; border-color: #475569; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .article-title { font-size: 14px; font-weight: 600; color: #e2e8f0; text-decoration: none; line-height: 1.4; }
+    .article-card:hover { background: var(--ki-card-h); border-color: var(--ki-border-l); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .article-title { font-size: 14px; font-weight: 600; color: var(--ki-text-strong); text-decoration: none; line-height: 1.4; }
     .article-title:hover { color: #60a5fa; }
-    .article-meta { font-size: 11px; color: #64748b; margin-top: 4px; }
-    .article-desc { font-size: 12px; color: #94a3b8; margin-top: 6px; line-height: 1.5; }
+    .article-meta { font-size: 11px; color: var(--ki-sub); margin-top: 4px; }
+    .article-desc { font-size: 12px; color: var(--ki-muted); margin-top: 6px; line-height: 1.5; }
 
     .cross-analysis { border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; }
     .cross-active   { background: rgba(239,68,68,0.08);  border: 1px solid rgba(239,68,68,0.25); }
@@ -174,7 +193,7 @@ def inject_custom_css():
     .cross-latent   { background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.25); }
     .cross-inactive { background: rgba(34,197,94,0.08);  border: 1px solid rgba(34,197,94,0.25); }
 
-    .action-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+    .action-card { background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
     .action-card-primary {
         background: linear-gradient(135deg, rgba(30,58,95,0.8), rgba(37,99,235,0.15));
         border: 1px solid rgba(96,165,250,0.3);
@@ -185,16 +204,16 @@ def inject_custom_css():
         font-size: 12px; font-weight: 700; margin-right: 10px; flex-shrink: 0;
     }
 
-    .signal-risk { padding: 4px 0 4px 12px; border-left: 2px solid #f87171; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; line-height: 1.5; }
-    .signal-opp  { padding: 4px 0 4px 12px; border-left: 2px solid #34d399; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; line-height: 1.5; }
+    .signal-risk { padding: 4px 0 4px 12px; border-left: 2px solid #f87171; font-size: 12px; color: var(--ki-body); margin-bottom: 4px; line-height: 1.5; }
+    .signal-opp  { padding: 4px 0 4px 12px; border-left: 2px solid #34d399; font-size: 12px; color: var(--ki-body); margin-bottom: 4px; line-height: 1.5; }
 
     .custom-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .custom-table th { text-align: left; padding: 10px 14px; font-weight: 600; color: #64748b; font-size: 11px; background: #0f172a; border-bottom: 1px solid #334155; }
-    .custom-table td { padding: 10px 14px; color: #cbd5e1; border-bottom: 1px solid #1e293b; }
+    .custom-table th { text-align: left; padding: 10px 14px; font-weight: 600; color: var(--ki-sub); font-size: 11px; background: var(--ki-bg); border-bottom: 1px solid var(--ki-border); }
+    .custom-table td { padding: 10px 14px; color: var(--ki-body); border-bottom: 1px solid var(--ki-card); }
 
-    .report-footer { text-align: center; padding: 20px 0 8px; border-top: 1px solid #334155; margin-top: 24px; font-size: 11px; color: #64748b; }
+    .report-footer { text-align: center; padding: 20px 0 8px; border-top: 1px solid var(--ki-border); margin-top: 24px; font-size: 11px; color: var(--ki-sub); }
 
-    .stAlert { background: #1e293b !important; border: 1px solid #334155 !important; border-radius: 10px !important; }
+    .stAlert { background: var(--ki-card) !important; border: 1px solid var(--ki-border) !important; border-radius: 10px !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -209,17 +228,17 @@ def render_page_header(keyword: str = ""):
                         display:flex; align-items:center; justify-content:center;
                         color:#fff; font-size:15px; font-weight:700;">P</div>
             <div>
-                <div style="font-size:11px; color:#64748b; font-weight:500; letter-spacing:0.05em">
+                <div style="font-size:11px; color:var(--ki-sub); font-weight:500; letter-spacing:0.05em">
                     P-IRIS KEYWORD INSIGHT
                 </div>
-                <div style="font-size:20px; font-weight:800; color:#f1f5f9; letter-spacing:-0.02em">
+                <div style="font-size:20px; font-weight:800; color:var(--ki-text); letter-spacing:-0.02em">
                     {title_text}
                 </div>
             </div>
         </div>
         <div style="text-align:right">
-            <div style="font-size:11px; color:#64748b">분석 기준일</div>
-            <div style="font-size:13px; font-weight:600; color:#cbd5e1">
+            <div style="font-size:11px; color:var(--ki-sub)">분석 기준일</div>
+            <div style="font-size:13px; font-weight:600; color:var(--ki-body)">
                 {datetime.now().strftime('%Y-%m-%d')}
             </div>
         </div>
@@ -275,7 +294,7 @@ def render_cross_analysis(news_vs_search: str, summary: str):
         <span class="badge {badge_map.get(news_vs_search, 'badge-gray')}">
             보도-검색 교차분석: {news_vs_search}
         </span>
-        <div style="font-size:13px; color:#cbd5e1; margin-top:6px; line-height:1.6">{summary}</div>
+        <div style="font-size:13px; color:var(--ki-body); margin-top:6px; line-height:1.6">{summary}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -313,12 +332,13 @@ def render_news_volume_chart(news_items: list[dict], keyword: str):
     sorted_dates = sorted(counts.keys())
     values = [counts[d] for d in sorted_dates]
 
+    p = get_chart_palette()
     fig = go.Figure(go.Bar(
         x=sorted_dates, y=values,
-        marker_color=[CHART_COLORS["bar_accent"] if v == max(values) else CHART_COLORS["bar_default"] for v in values],
+        marker_color=[p["bar_accent"] if v == max(values) else p["bar_default"] for v in values],
         hovertemplate="%{x}: %{y}건<extra></extra>",
     ))
-    fig.update_layout(**PLOTLY_THEME, height=250, title_text="뉴스 보도량 추이 (최근 7일)", title_font_color="#94a3b8", title_font_size=13)
+    fig.update_layout(**get_chart_layout(), height=250, title_text="뉴스 보도량 추이 (최근 7일)", title_font_color=p["font"], title_font_size=13)
     _st().plotly_chart(fig, use_container_width=True)
 
 
@@ -329,33 +349,43 @@ def render_trend_chart(trend_data: list[dict], label: str, time_unit: str = "dat
         return
     periods = [item.get("period", "") for item in trend_data]
     ratios = [item.get("ratio", 0) for item in trend_data]
+    p = get_chart_palette()
     fig = go.Figure(go.Scatter(
         x=periods, y=ratios,
         mode="lines+markers",
-        line=dict(color=CHART_COLORS["line_trend"], width=2),
-        marker=dict(size=4, color=CHART_COLORS["line_trend"]),
+        line=dict(color=p["line_trend"], width=2),
+        marker=dict(size=4, color=p["line_trend"]),
         fill="tozeroy",
         fillcolor="rgba(52,211,153,0.08)",
         hovertemplate="%{x}: %{y}<extra></extra>",
     ))
-    fig.update_layout(**PLOTLY_THEME, height=250, title_text=label, title_font_color="#94a3b8", title_font_size=13)
+    fig.update_layout(**get_chart_layout(), height=250, title_text=label, title_font_color=p["font"], title_font_size=13)
     _st().plotly_chart(fig, use_container_width=True)
 
 
-def render_top_media_chart(top_media: list[str]):
-    """TOP 5 보도 매체 수평 막대"""
-    if not top_media:
+def render_top_media_chart(news_items: list[dict]):
+    """TOP 5 보도 매체 수평 막대 — 실제 수집 기사의 media_name 집계 (GPT 추정치 아님)"""
+    from collections import Counter
+    counts = Counter(
+        a.get("media_name", "").strip()
+        for a in (news_items or [])
+        if a.get("media_name", "").strip()
+    )
+    top = counts.most_common(5)
+    if not top:
         return
-    labels = list(reversed(top_media[:5]))
-    values = list(range(len(labels), 0, -1))
+    labels = [m for m, _ in reversed(top)]
+    values = [c for _, c in reversed(top)]
+    p = get_chart_palette()
     fig = go.Figure(go.Bar(
         x=values, y=labels, orientation="h",
-        marker_color=CHART_COLORS["bar_accent"],
-        hovertemplate="%{y}<extra></extra>",
+        marker_color=p["bar_accent"],
+        text=values, textposition="outside",
+        hovertemplate="%{y}: %{x}건<extra></extra>",
     ))
-    theme = {k: v for k, v in PLOTLY_THEME.items() if k not in ("xaxis", "yaxis")}
-    fig.update_layout(**theme, height=220, title_text="TOP 5 보도 매체", title_font_color="#94a3b8", title_font_size=13,
-                      xaxis=dict(visible=False), yaxis=dict(tickfont=dict(size=11, color="#cbd5e1")))
+    theme = {k: v for k, v in get_chart_layout().items() if k not in ("xaxis", "yaxis")}
+    fig.update_layout(**theme, height=220, title_text="TOP 5 보도 매체 (실집계)", title_font_color=p["font"], title_font_size=13,
+                      xaxis=dict(visible=False), yaxis=dict(tickfont=dict(size=11, color=p["axis_label"])))
     _st().plotly_chart(fig, use_container_width=True)
 
 
@@ -367,7 +397,7 @@ def render_summary_box(summary: str):
                 border: 1px solid rgba(96,165,250,0.4); border-left: 4px solid #3b82f6;
                 border-radius: 12px; padding: 18px 22px; margin-bottom: 16px;
                 box-shadow: 0 2px 12px rgba(59,130,246,0.1);">
-        <div style="font-size:14px; color:#e2e8f0; line-height:1.8; font-weight:400">
+        <div style="font-size:14px; color:var(--ki-text-strong); line-height:1.8; font-weight:400">
             {summary}
         </div>
     </div>
@@ -387,10 +417,10 @@ def render_issue_clusters(clusters: list[dict]):
         with cols[i % num_cols]:
             _st().markdown(f"""
             <div class="insight-card-accent">
-                <div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:6px">
+                <div style="font-size:13px; font-weight:700; color:var(--ki-text); margin-bottom:6px">
                     {title}
                 </div>
-                <div style="font-size:12px; color:#94a3b8; line-height:1.5">{desc}</div>
+                <div style="font-size:12px; color:var(--ki-muted); line-height:1.5">{desc}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -398,24 +428,24 @@ def render_issue_clusters(clusters: list[dict]):
 def render_company_exposure(ce: dict):
     render_section_header("🏢", "자사 노출 분석")
     tone = ce.get("tone", "중립")
-    tone_color = {"긍정": "#34d399", "중립": "#94a3b8", "부정": "#f87171", "해당없음": "#64748b"}.get(tone, "#94a3b8")
+    tone_color = {"긍정": "#34d399", "중립": "var(--ki-muted)", "부정": "#f87171", "해당없음": "var(--ki-sub)"}.get(tone, "var(--ki-muted)")
     _st().markdown(f"""
     <div class="insight-card">
         <div style="display:flex; gap:16px; margin-bottom:10px; flex-wrap:wrap">
             <div>
-                <div style="font-size:11px; color:#64748b">언급 횟수</div>
-                <div style="font-size:22px; font-weight:700; color:#f1f5f9">{ce.get('mention_count', 0)}건</div>
+                <div style="font-size:11px; color:var(--ki-sub)">언급 횟수</div>
+                <div style="font-size:22px; font-weight:700; color:var(--ki-text)">{ce.get('mention_count', 0)}건</div>
             </div>
             <div>
-                <div style="font-size:11px; color:#64748b">언급 맥락</div>
-                <div style="font-size:14px; font-weight:600; color:#cbd5e1">{ce.get('mention_context', '-')}</div>
+                <div style="font-size:11px; color:var(--ki-sub)">언급 맥락</div>
+                <div style="font-size:14px; font-weight:600; color:var(--ki-body)">{ce.get('mention_context', '-')}</div>
             </div>
             <div>
-                <div style="font-size:11px; color:#64748b">논조</div>
+                <div style="font-size:11px; color:var(--ki-sub)">논조</div>
                 <div style="font-size:14px; font-weight:600; color:{tone_color}">{tone}</div>
             </div>
         </div>
-        <div style="font-size:13px; color:#94a3b8; line-height:1.6">{ce.get('summary', '')}</div>
+        <div style="font-size:13px; color:var(--ki-muted); line-height:1.6">{ce.get('summary', '')}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -448,18 +478,18 @@ def render_competitor_table(competitors: list[dict]):
 def render_journalist_matches(matches: list[dict]):
     render_section_header("👤", "출입기자 매칭", "관련 기자 리스트")
     if not matches:
-        _st().markdown('<div class="insight-card"><div style="color:#64748b; font-size:13px">매칭된 기자 정보가 없습니다.</div></div>', unsafe_allow_html=True)
+        _st().markdown('<div class="insight-card"><div style="color:var(--ki-sub); font-size:13px">매칭된 기자 정보가 없습니다.</div></div>', unsafe_allow_html=True)
         return
     tone_badge = {"우호": "badge-green", "중립": "badge-gray", "비우호": "badge-red"}
     rows_html = ""
     for j in matches:
         t = j.get("tone", "중립")
         rows_html += f"""<tr>
-            <td><strong style="color:#f1f5f9">{j.get('name', '')}</strong></td>
+            <td><strong style="color:var(--ki-text)">{j.get('name', '')}</strong></td>
             <td>{j.get('media', '')}</td>
             <td><span class="badge {tone_badge.get(t, 'badge-gray')}">{t}</span></td>
             <td>{j.get('last_contact', 'N/A')}</td>
-            <td style="color:#94a3b8">{j.get('relevance', '')}</td>
+            <td style="color:var(--ki-muted)">{j.get('relevance', '')}</td>
         </tr>"""
     _st().markdown(f"""
     <div class="insight-card" style="padding:0; overflow:hidden">
@@ -474,7 +504,7 @@ def render_journalist_matches(matches: list[dict]):
 def render_past_responses(responses: list[dict]):
     render_section_header("📁", "과거 대응이력", "유사 이슈 사례 — 최신순")
     if not responses:
-        _st().markdown('<div class="insight-card"><div style="color:#64748b; font-size:13px">유사 대응이력이 없습니다.</div></div>', unsafe_allow_html=True)
+        _st().markdown('<div class="insight-card"><div style="color:var(--ki-sub); font-size:13px">유사 대응이력이 없습니다.</div></div>', unsafe_allow_html=True)
         return
 
     # 최신순 정렬
@@ -492,22 +522,22 @@ def render_past_responses(responses: list[dict]):
             col_left, col_right = _st().columns([1, 2], gap="medium")
             with col_left:
                 _st().markdown(f"""
-                <div style="background:#1e293b; border-radius:8px; padding:14px 16px; height:100%">
-                    <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 유형</div>
-                    <div style="font-size:14px; font-weight:700; color:#cbd5e1">{response_type or "—"}</div>
+                <div style="background:var(--ki-card); border-radius:8px; padding:14px 16px; height:100%">
+                    <div style="font-size:11px; color:var(--ki-sub); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 유형</div>
+                    <div style="font-size:14px; font-weight:700; color:var(--ki-body)">{response_type or "—"}</div>
                 </div>
                 """, unsafe_allow_html=True)
             with col_right:
                 _st().markdown(f"""
-                <div style="background:#1e293b; border-radius:8px; padding:14px 16px">
-                    <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 결과</div>
-                    <div style="font-size:13px; color:#e2e8f0; line-height:1.7">{result or "—"}</div>
+                <div style="background:var(--ki-card); border-radius:8px; padding:14px 16px">
+                    <div style="font-size:11px; color:var(--ki-sub); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">대응 결과</div>
+                    <div style="font-size:13px; color:var(--ki-text-strong); line-height:1.7">{result or "—"}</div>
                 </div>
                 """, unsafe_allow_html=True)
             _st().markdown(f"""
-            <div style="background:#0f172a; border-radius:8px; padding:14px 16px; margin-top:10px;
+            <div style="background:var(--ki-bg); border-radius:8px; padding:14px 16px; margin-top:10px;
                         border-left:3px solid #3b82f6">
-                <div style="font-size:11px; color:#64748b; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">💡 시사점</div>
+                <div style="font-size:11px; color:var(--ki-sub); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px">💡 시사점</div>
                 <div style="font-size:13px; color:#60a5fa; line-height:1.7">{lesson or "—"}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -521,11 +551,11 @@ def render_risk_opportunity(ro: dict):
     _st().markdown(f"""
     <div class="insight-card">
         <div style="font-size:12px; font-weight:600; color:#f87171; margin-bottom:6px">🔻 리스크</div>
-        {risks_html or '<div style="color:#64748b; font-size:12px">리스크 시그널 없음</div>'}
+        {risks_html or '<div style="color:var(--ki-sub); font-size:12px">리스크 시그널 없음</div>'}
         <div style="font-size:12px; font-weight:600; color:#34d399; margin:12px 0 6px">🔺 기회</div>
-        {opps_html or '<div style="color:#64748b; font-size:12px">기회 시그널 없음</div>'}
-        <div style="margin-top:12px; font-size:13px; color:#cbd5e1; line-height:1.6;
-                    background:#0f172a; border-radius:8px; padding:10px 12px">
+        {opps_html or '<div style="color:var(--ki-sub); font-size:12px">기회 시그널 없음</div>'}
+        <div style="margin-top:12px; font-size:13px; color:var(--ki-body); line-height:1.6;
+                    background:var(--ki-bg); border-radius:8px; padding:10px 12px">
             {ro.get('summary', '')}
         </div>
     </div>
@@ -537,27 +567,27 @@ def render_risk_signals(risks: list[str], opportunities: list[str]):
     risks_html = "".join(f'<div class="signal-risk">{s}</div>' for s in risks)
     opps_html  = "".join(f'<div class="signal-opp">{s}</div>'  for s in opportunities)
     _st().markdown(f"""
-    <div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:10px">⚡ 리스크 · 기회 시그널</div>
+    <div style="font-size:13px; font-weight:700; color:var(--ki-text); margin-bottom:10px">⚡ 리스크 · 기회 시그널</div>
     <div class="insight-card">
         <div style="font-size:12px; font-weight:600; color:#f87171; margin-bottom:6px">🔻 리스크</div>
-        {risks_html or '<div style="color:#64748b; font-size:12px">리스크 시그널 없음</div>'}
+        {risks_html or '<div style="color:var(--ki-sub); font-size:12px">리스크 시그널 없음</div>'}
         <div style="font-size:12px; font-weight:600; color:#34d399; margin:12px 0 6px">🔺 기회</div>
-        {opps_html or '<div style="color:#64748b; font-size:12px">기회 시그널 없음</div>'}
+        {opps_html or '<div style="color:var(--ki-sub); font-size:12px">기회 시그널 없음</div>'}
     </div>
     """, unsafe_allow_html=True)
 
 
 def render_action_list(actions: list[str]):
     """신형 GPT 결과 구조(flat list) 렌더링 — 섹션 헤더 없음 (2열 배치용)"""
-    color_map = {0: "#3b82f6", 1: "#8b5cf6", 2: "#64748b"}
-    _st().markdown('<div style="font-size:13px; font-weight:700; color:#f1f5f9; margin-bottom:10px">🚀 커뮤니케이션 액션 제안</div>', unsafe_allow_html=True)
+    color_map = {0: "#3b82f6", 1: "#8b5cf6", 2: "var(--ki-sub)"}
+    _st().markdown('<div style="font-size:13px; font-weight:700; color:var(--ki-text); margin-bottom:10px">🚀 커뮤니케이션 액션 제안</div>', unsafe_allow_html=True)
     for i, action in enumerate(actions):
         card_class = "action-card action-card-primary" if i == 0 else "action-card"
         _st().markdown(f"""
         <div class="{card_class}">
             <div style="display:flex; align-items:flex-start">
-                <span class="action-number" style="background:{color_map.get(i, '#64748b')}">{i+1}</span>
-                <div style="font-size:13px; font-weight:500; color:#f1f5f9; line-height:1.6">{action}</div>
+                <span class="action-number" style="background:{color_map.get(i, 'var(--ki-sub)')}">{i+1}</span>
+                <div style="font-size:13px; font-weight:500; color:var(--ki-text); line-height:1.6">{action}</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -565,17 +595,17 @@ def render_action_list(actions: list[str]):
 
 def render_action_cards(actions: list[dict]):
     render_section_header("🚀", "커뮤니케이션 액션 제안")
-    color_map = {1: "#3b82f6", 2: "#8b5cf6", 3: "#64748b"}
+    color_map = {1: "#3b82f6", 2: "#8b5cf6", 3: "var(--ki-sub)"}
     for a in actions:
         p = a.get("priority", 3)
         card_class = "action-card action-card-primary" if p == 1 else "action-card"
         _st().markdown(f"""
         <div class="{card_class}">
             <div style="display:flex; align-items:flex-start">
-                <span class="action-number" style="background:{color_map.get(p, '#64748b')}">{p}</span>
+                <span class="action-number" style="background:{color_map.get(p, 'var(--ki-sub)')}">{p}</span>
                 <div>
-                    <div style="font-size:13px; font-weight:600; color:#f1f5f9; margin-bottom:2px">{a.get('action', '')}</div>
-                    <div style="font-size:11px; color:#64748b">{a.get('rationale', '')}</div>
+                    <div style="font-size:13px; font-weight:600; color:var(--ki-text); margin-bottom:2px">{a.get('action', '')}</div>
+                    <div style="font-size:11px; color:var(--ki-sub)">{a.get('rationale', '')}</div>
                 </div>
             </div>
         </div>
@@ -587,7 +617,7 @@ def render_footer(keyword: str):
     <div class="report-footer">
         P-IRIS Keyword Insight &middot; GPT-4.1 분석 &middot; 네이버 뉴스 API + 데이터랩 API
         &middot; {datetime.now().strftime('%Y-%m-%d %H:%M')} 생성<br>
-        <span style="font-size:10px; color:#475569">
+        <span style="font-size:10px; color:var(--ki-border-l)">
             ※ 검색 관심도는 네이버 데이터랩 기준 상대값(최대=100)이며 절대 검색량이 아닙니다.
         </span>
     </div>

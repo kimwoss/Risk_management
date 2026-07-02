@@ -612,8 +612,8 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-02T11:40:43.145036",
+      "retry_count": 5,
+      "last_attempt": "2026-07-02T13:39:38.900470",
       "hash_id": "f0e519cb55d54202"
     },
     "https://biz.heraldcorp.com/article/10796451?ref=naver": {
@@ -623,8 +623,8 @@
       "press": "헤럴드경제",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-02T13:07:05.077817",
+      "retry_count": 5,
+      "last_attempt": "2026-07-02T13:39:40.847512",
       "hash_id": "2381f93d425db368"
     },
     "http://www.phmbc.co.kr/www/news/desk_news?idx=203359&mode=view": {
@@ -634,22 +634,11 @@
       "press": "",
       "keyword": "포스코 전기로",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-02T13:06:33.937284",
+      "retry_count": 4,
+      "last_attempt": "2026-07-02T13:39:39.904666",
       "hash_id": "99000fba0f302fef"
-    },
-    "http://www.popcornnews.net/news/articleView.html?idxno=125511": {
-      "title": "포스코그룹, 자원 중심 '트리플 코어' 전환…리튬·에너지로 성장 축 이...",
-      "link": "http://www.popcornnews.net/news/articleView.html?idxno=125511",
-      "date": "2026-07-02 22:28",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-02T13:29:44.191253",
-      "hash_id": "7fc6d7d42beb8773"
     }
   },
-  "last_updated": "2026-07-02 13:36:42",
-  "count": 59
+  "last_updated": "2026-07-02 13:39:45",
+  "count": 58
 }

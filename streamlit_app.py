@@ -2262,8 +2262,10 @@ def load_base_css():
       .input-card{ border-color: var(--c-gold-border); }
       .result-card{ border-color: var(--c-border); }
 
-      /* 버튼 (제네시스 톤) */
-      .stButton>button{
+      /* 버튼 (제네시스 톤)
+         주의: help= 툴팁이 붙은 버튼은 stTooltip 래퍼로 감싸져 직계(>) 선택자가
+         빗나가므로 자손 선택자를 사용한다 (◐/⏻ 버튼 다크 잔존 버그 방지) */
+      .stButton button{
         border-radius:8px; font-weight:700; border:1px solid var(--c-border);
         background: linear-gradient(180deg, var(--c-btn-bg1), var(--c-btn-bg2)); color: var(--c-text);
         padding:10px 16px; letter-spacing:.01em;
@@ -2272,14 +2274,14 @@ def load_base_css():
       .nav-container a:hover {
         opacity: 0.9;
       }
-      .stButton>button:hover{
+      .stButton button:hover{
         border-color: var(--c-gold-border) !important;
         background: linear-gradient(135deg, var(--c-btn-bg1), var(--c-btn-bg2)) !important;
         box-shadow: 0 4px 20px var(--c-gold-glow), 0 2px 8px rgba(0,0,0,0.2) !important;
         transform: translateY(-1px) !important;
         color: var(--c-text) !important;
       }
-      .stButton>button:disabled{
+      .stButton button:disabled{
         color: var(--c-text); border-color: var(--c-border);
         background: linear-gradient(135deg, var(--c-surface-h), var(--c-surface));
       }

@@ -722,22 +722,11 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-03T12:04:03.811238",
+      "retry_count": 3,
+      "last_attempt": "2026-07-03T12:59:20.454623",
       "hash_id": "a42aae2de86ce19f"
-    },
-    "https://news.mtn.co.kr/news-detail/2026070321080864172": {
-      "title": "[단독] 포스코이앤씨, 50대 직원 대상으로 희망퇴직 실시",
-      "link": "https://news.mtn.co.kr/news-detail/2026070321080864172",
-      "date": "2026-07-03 21:16",
-      "press": "MTN",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-03T12:58:55.133194",
-      "hash_id": "b1e5ec8a01ca2d8c"
     }
   },
-  "last_updated": "2026-07-03 12:58:55",
-  "count": 67
+  "last_updated": "2026-07-03 12:59:25",
+  "count": 66
 }

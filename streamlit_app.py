@@ -2559,7 +2559,7 @@ def load_main_background_uri():
     return ""
 
 # ----------------------------- 네비게이션 -----------------------------
-MENU_ITEMS = ["뉴스 모니터링", "키워드 인사이트", "이슈보고 생성", "언론사 정보", "담당자 정보", "대응이력 검색"]
+MENU_ITEMS = ["뉴스 모니터링", "키워드 분석", "이슈보고 생성", "언론사 정보", "담당자 정보", "대응이력 검색"]
 
 def get_visible_menu():
     """역할에 따라 노출할 메뉴 목록 반환"""
@@ -2754,7 +2754,7 @@ def render_main_page():
     if _role == "pr":
         _cards.append(("뉴스 모니터링", "📰", "실시간 기사 수집·감성 분석"))
     _cards += [
-        ("키워드 인사이트", "🔍", "AI 기반 트렌드·리스크 분석"),
+        ("키워드 분석", "🔍", "AI 기반 트렌드·리스크 분석"),
         ("이슈보고 생성", "📋", "AI 이슈 발생 보고서 자동 작성"),
         ("언론사 정보", "🏢", "출입매체·기자 연락처 조회"),
         ("담당자 정보", "👥", "내부 부서·담당자 검색"),
@@ -3862,7 +3862,7 @@ def main():
             st.warning("접근 권한이 없습니다.")
             st.stop()
         page_news_monitor()
-    elif active == "키워드 인사이트":
+    elif active == "키워드 분석":
         from pages.keyword_insight import render_keyword_insight_page
         render_keyword_insight_page()
     else:

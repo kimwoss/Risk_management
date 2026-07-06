@@ -788,11 +788,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-06T20:57:11.932662",
+      "retry_count": 3,
+      "last_attempt": "2026-07-06T22:13:17.437317",
       "hash_id": "d3125e8e7be38494"
+    },
+    "https://news.bizwatch.co.kr/article/real_estate/2026/07/06/0022": {
+      "title": "[르포]은마 달리자…대치동 전체가 들썩",
+      "link": "https://news.bizwatch.co.kr/article/real_estate/2026/07/06/0022",
+      "date": "2026-07-07 06:59",
+      "press": "비즈워치",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-06T22:13:28.939017",
+      "hash_id": "2929912559a3ebd8"
     }
   },
-  "last_updated": "2026-07-06 21:00:19",
-  "count": 72
+  "last_updated": "2026-07-06 22:13:36",
+  "count": 73
 }

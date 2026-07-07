@@ -1676,16 +1676,36 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
             print(f"[WARNING] GitHub 로드 실패: {e}")
             return None
 
-    # force_refresh: GitHub 강제 로드 후 로컬 저장
+    def _latest_ts(d: pd.DataFrame | None) -> str:
+        """데이터프레임의 최신 기사 시각(문자열). 비교 불가 시 빈 문자열."""
+        try:
+            if d is None or d.empty or "날짜" not in d.columns:
+                return ""
+            return str(d["날짜"].astype(str).max())
+        except Exception:
+            return ""
+
+    # force_refresh: GitHub 강제 로드 후 로컬 폴백
     if force_refresh:
         df = _read_github()
         if df is None:
             df = _read_local()
     else:
-        # 로컬 우선 → GitHub 폴백
-        df = _read_local()
-        if df is None:
-            df = _read_github()
+        # 로컬 vs GitHub 중 더 신선한 쪽 선택.
+        # - 컨테이너 슬립/재기동 직후: 로컬이 낡음 (Actions 하트비트는 GitHub에만 커밋)
+        # - in-app 백그라운드 수집 직후: GitHub이 낡음
+        # → 최신 기사 시각을 비교해 항상 신선한 쪽을 채택 (호출 주기: 초기 로드/3분 자동/수동)
+        local_df = _read_local()
+        gh_df = _read_github()
+        if gh_df is not None and _latest_ts(gh_df) > _latest_ts(local_df):
+            df = gh_df
+            try:
+                df.head(200).to_csv(NEWS_DB_FILE, index=False, encoding="utf-8")
+                print(f"[DEBUG] GitHub본이 더 신선({_latest_ts(gh_df)}) → 로컬 캐시 갱신")
+            except Exception as e:
+                print(f"[WARNING] 로컬 캐시 갱신 실패: {e}")
+        else:
+            df = local_df if local_df is not None else gh_df
 
     if df is not None:
         return df

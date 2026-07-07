@@ -865,8 +865,8 @@
       "press": "",
       "keyword": "대미 투자 특별법",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-07T07:44:15.428591",
+      "retry_count": 2,
+      "last_attempt": "2026-07-07T08:11:24.848506",
       "hash_id": "45d3938420e02bd3"
     },
     "https://www.newsis.com/view/NISX20260707_0003699235": {
@@ -876,33 +876,22 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-07T07:44:15.428602",
+      "retry_count": 2,
+      "last_attempt": "2026-07-07T08:11:23.923030",
       "hash_id": "b90c951450f355ae"
     },
-    "https://news.mtn.co.kr/news-detail/2026070716390354076": {
-      "title": "기후솔루션 \"저탄소철강 인증, 장부상 녹색철강은 배제해야\"",
-      "link": "https://news.mtn.co.kr/news-detail/2026070716390354076",
-      "date": "2026-07-07 16:50",
-      "press": "MTN",
-      "keyword": "포스코 수소환원제철",
-      "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-07T07:52:24.396301",
-      "hash_id": "94ea9f0a60468633"
-    },
-    "https://www.newsquest.co.kr/news/articleView.html?idxno=269294": {
-      "title": "\"포스코퓨처엠 주주들 긴장…지분 8.2% 쏟아지는 '오버행 폭탄' 온다\"",
-      "link": "https://www.newsquest.co.kr/news/articleView.html?idxno=269294",
-      "date": "2026-07-07 16:56",
+    "https://biz.sbs.co.kr/article_hub/20000321172?division=NAVER": {
+      "title": "건설사 SNS 경쟁 '후끈'…인스타는 데시앙·유튜브는 자이TV 두각",
+      "link": "https://biz.sbs.co.kr/article_hub/20000321172?division=NAVER",
+      "date": "2026-07-07 17:08",
       "press": "",
-      "keyword": "포스코",
+      "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-07T08:05:55.604195",
-      "hash_id": "2d599dd44368b7fa"
+      "retry_count": 1,
+      "last_attempt": "2026-07-07T08:11:25.777623",
+      "hash_id": "37a423eb3e06064b"
     }
   },
-  "last_updated": "2026-07-07 08:09:15",
-  "count": 82
+  "last_updated": "2026-07-07 08:11:28",
+  "count": 81
 }

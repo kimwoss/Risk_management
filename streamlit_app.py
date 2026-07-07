@@ -620,6 +620,12 @@ def show_login_page():
 
 DATA_FOLDER = os.path.abspath("data")
 MASTER_DATA_FILE = os.path.join(DATA_FOLDER, "master_data.json")
+# 민감 데이터(연락처 포함)는 비공개 저장소에서 부트스트랩 (공개 저장소 분리 대비)
+try:
+    from modules.private_data import ensure_master_data
+    ensure_master_data(MASTER_DATA_FILE)
+except Exception as _e:
+    print(f"[WARNING] private_data 부트스트랩 실패: {_e}")
 MEDIA_RESPONSE_FILE = os.path.join(DATA_FOLDER, "언론대응내역.csv")
 NEWS_DB_FILE = os.path.join(DATA_FOLDER, "news_monitor.csv")
 try:

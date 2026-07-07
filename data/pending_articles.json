@@ -865,8 +865,8 @@
       "press": "",
       "keyword": "대미 투자 특별법",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-07T08:11:24.848506",
+      "retry_count": 5,
+      "last_attempt": "2026-07-07T11:42:10.200424",
       "hash_id": "45d3938420e02bd3"
     },
     "https://www.newsis.com/view/NISX20260707_0003699235": {
@@ -876,8 +876,8 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-07T08:11:23.923030",
+      "retry_count": 5,
+      "last_attempt": "2026-07-07T11:42:09.263986",
       "hash_id": "b90c951450f355ae"
     },
     "https://biz.sbs.co.kr/article_hub/20000321172?division=NAVER": {
@@ -887,11 +887,33 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-07T08:11:25.777623",
+      "retry_count": 4,
+      "last_attempt": "2026-07-07T11:42:11.129700",
       "hash_id": "37a423eb3e06064b"
+    },
+    "http://www.joseilbo.com/news/news_read.php?uid=571455&class=32&grp=": {
+      "title": "국힘 불참한 재경위, '환율·레버리지ETF' 등 문제 제기 이어져",
+      "link": "http://www.joseilbo.com/news/news_read.php?uid=571455&class=32&grp=",
+      "date": "2026-07-07 18:02",
+      "press": "",
+      "keyword": "대미투자특별법",
+      "sentiment": "pos",
+      "retry_count": 5,
+      "last_attempt": "2026-07-07T09:22:26.734410",
+      "hash_id": "9b205ad740b14f0c"
+    },
+    "https://www.newsis.com/view/NISX20260708_0003699964": {
+      "title": "[오늘의 주요일정]전남광주통합특별시(7월8일 수요일)",
+      "link": "https://www.newsis.com/view/NISX20260708_0003699964",
+      "date": "2026-07-08 07:58",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-07T23:07:11.890643",
+      "hash_id": "b6a4d42eeef51553"
     }
   },
-  "last_updated": "2026-07-07 08:11:28",
-  "count": 81
+  "last_updated": "2026-07-07 23:46:12",
+  "count": 83
 }

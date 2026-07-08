@@ -4,6 +4,7 @@ Streamlit App과 Standalone Monitor가 공유하는 뉴스 수집 로직
 """
 import os
 import re
+import time
 import urllib.parse
 import json
 from datetime import datetime, timezone, timedelta
@@ -1301,6 +1302,32 @@ def detect_new_articles(old_df: pd.DataFrame, new_df: pd.DataFrame, sent_cache: 
 
 # ======================== 텔레그램 알림 ========================
 
+def merge_remote_sent_cache(sent_cache: set) -> set:
+    """발송 직전, 원격(repo)에 커밋된 sent_cache를 병합해 다른 발송 주체의 최근 발송분을 반영.
+
+    발송 주체가 여러 개(Streamlit 앱 auto_monitor, heartbeat 런 A/B(50분 루프 20분 겹침),
+    news_monitor 백업 워크플로) 동시 가동되므로, 각자 프로세스 시작 시점 캐시만 믿으면
+    다른 주체가 방금 보낸 기사를 '미발송'으로 판단해 중복 발송이 발생한다.
+    발송 루프 직전에 원격 캐시를 병합해 이 창을 프로세스 수명(최대 50분) → 수 초로 줄인다.
+    실패해도 기존 캐시로 진행 (기능 저하 없음, 중복 방지만 약화)."""
+    try:
+        repo = os.getenv("GH_REPO", "kimwoss/Risk_management")
+        url = f"https://raw.githubusercontent.com/{repo}/main/data/sent_articles_cache.json?t={int(time.time())}"
+        r = requests.get(url, timeout=8)
+        if r.status_code == 200:
+            data = r.json()
+            remote_urls = data.get("url_timestamps", {}).keys() if "url_timestamps" in data else data.get("urls", [])
+            before = len(sent_cache)
+            for u in remote_urls:
+                sent_cache.add(u)
+            added = len(sent_cache) - before
+            if added:
+                print(f"[DEBUG] 원격 sent_cache 병합: +{added}건 (다른 발송 주체의 최근 발송분)")
+    except Exception as e:
+        print(f"[DEBUG] 원격 sent_cache 병합 실패(무시하고 진행): {e}")
+    return sent_cache
+
+
 def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tuple:
     """
     Pending 큐의 기사들을 텔레그램으로 전송 (개선된 버전)
@@ -1336,6 +1363,9 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         if not pending_queue:
             print("[DEBUG] Pending 큐 비어있음 - 전송할 기사 없음")
             return pending_queue, sent_cache, 0
+
+        # [중복 발송 방지] 발송 직전 원격 캐시 병합 - 다른 발송 주체의 최근 발송분 반영
+        sent_cache = merge_remote_sent_cache(sent_cache)
 
         # 텔레그램 API URL
         api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"

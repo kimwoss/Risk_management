@@ -1041,8 +1041,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-09T03:24:21.402306",
+      "retry_count": 4,
+      "last_attempt": "2026-07-09T05:17:52.062469",
       "hash_id": "0650bad9223eed90"
     },
     "https://www.g-enews.com/view.php?ud=202607072148062178fda4f5ab74_1": {
@@ -1052,8 +1052,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-09T03:24:20.414917",
+      "retry_count": 4,
+      "last_attempt": "2026-07-09T05:17:51.135503",
       "hash_id": "f611cf0327d223d0"
     },
     "https://www.newsis.com/view/NISX20260709_0003702204": {
@@ -1063,8 +1063,8 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-09T03:24:23.267555",
+      "retry_count": 4,
+      "last_attempt": "2026-07-09T05:17:53.924590",
       "hash_id": "cfe69834c9f25751"
     },
     "http://www.joseilbo.com/news/news_read.php?uid=571578&class=10&grp=": {
@@ -1074,8 +1074,8 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-09T03:24:22.329968",
+      "retry_count": 4,
+      "last_attempt": "2026-07-09T05:17:52.994843",
       "hash_id": "e1893f192e03c45e"
     },
     "https://www.newsis.com/view/NISX20260709_0003702440": {
@@ -1085,11 +1085,77 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T03:24:29.517224",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T05:17:54.856263",
       "hash_id": "1d9eeabda35599bd"
+    },
+    "https://biz.newdaily.co.kr/site/data/html/2026/07/09/2026070900185.html": {
+      "title": "호주에 재생에너지 무역사절단 파견 … 해상풍력 시장 공략 본격화",
+      "link": "https://biz.newdaily.co.kr/site/data/html/2026/07/09/2026070900185.html",
+      "date": "2026-07-09 13:54",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663088",
+      "hash_id": "7f8f773db5cd911c"
+    },
+    "https://news.tf.co.kr/read/economy/2341577.htm": {
+      "title": "포스코노조, 찬성률 92.2%로 쟁의행위 찬반투표 가결",
+      "link": "https://news.tf.co.kr/read/economy/2341577.htm",
+      "date": "2026-07-09 14:08",
+      "press": "더팩트",
+      "keyword": "포스코 노조",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663120",
+      "hash_id": "92419334677c5924"
+    },
+    "https://www.yna.co.kr/view/AKR20260709124600053?input=1195m": {
+      "title": "포스코노조, 조합원 투표서 쟁의행위 가결…92% 찬성",
+      "link": "https://www.yna.co.kr/view/AKR20260709124600053?input=1195m",
+      "date": "2026-07-09 14:07",
+      "press": "연합뉴스",
+      "keyword": "포스코 노조",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663126",
+      "hash_id": "b001cccb2754a6c1"
+    },
+    "https://www.news1.kr/photos/8000267": {
+      "title": "미래산업포럼서 강연하는 이덕만 포스코홀딩스 연구위원",
+      "link": "https://www.news1.kr/photos/8000267",
+      "date": "2026-07-09 13:52",
+      "press": "뉴스1",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663141",
+      "hash_id": "8d8c2024ebadaf93"
+    },
+    "https://www.viva100.com/article/20260709500772": {
+      "title": "광양만권 이차전지 산업 ‘지원 확대’ 신호탄…민형배 특별시장, 기업...",
+      "link": "https://www.viva100.com/article/20260709500772",
+      "date": "2026-07-09 14:10",
+      "press": "",
+      "keyword": "포스코퓨처엠",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663151",
+      "hash_id": "e9088cb2faf47682"
+    },
+    "https://www.news1.kr/photos/8000270": {
+      "title": "'사람과 AI 협업이 만드는 새로운 제조 경쟁력'",
+      "link": "https://www.news1.kr/photos/8000270",
+      "date": "2026-07-09 13:52",
+      "press": "뉴스1",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T05:17:50.663157",
+      "hash_id": "b2de17185f4aa8a4"
     }
   },
-  "last_updated": "2026-07-09 03:24:52",
-  "count": 99
+  "last_updated": "2026-07-09 05:18:23",
+  "count": 105
 }

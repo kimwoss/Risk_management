@@ -1217,8 +1217,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T21:00:55.720909",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T22:24:53.983209",
       "hash_id": "7c259957fc7e38a7"
     },
     "https://www.newsis.com/view/NISX20260709_0003702820": {
@@ -1228,64 +1228,9 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T21:00:52.155764",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T22:24:52.998596",
       "hash_id": "926745f6cdda42f5"
-    },
-    "https://www.kmib.co.kr/article/view.asp?arcid=0030088663&code=61141111&cp=nv": {
-      "title": "‘자원 무기화’ 시대… 포스코·고려아연·LS, 핵심광물 ‘영토 확장’...",
-      "link": "https://www.kmib.co.kr/article/view.asp?arcid=0030088663&code=61141111&cp=nv",
-      "date": "2026-07-10 06:01",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T21:07:19.783960",
-      "hash_id": "82a5408bb1fd3458"
-    },
-    "https://www.startuptoday.co.kr/news/articleView.html?idxno=806220": {
-      "title": "[기획] 두산건설, 시평 25위가 쓴 정비 수주 5위",
-      "link": "https://www.startuptoday.co.kr/news/articleView.html?idxno=806220",
-      "date": "2026-07-10 06:00",
-      "press": "",
-      "keyword": "포스코이앤씨",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T21:07:19.783971",
-      "hash_id": "e069089f6e91d8a1"
-    },
-    "https://magazine.hankyung.com/business/article/202607093968b": {
-      "title": "“철강만 팔아선 못 산다”…리튬·에너지에 베팅하는 포스코의 변신",
-      "link": "https://magazine.hankyung.com/business/article/202607093968b",
-      "date": "2026-07-10 06:37",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234545",
-      "hash_id": "d6ec45be950c90d5"
-    },
-    "https://www.bntnews.co.kr/article/view/bnt202607100008": {
-      "title": "이재명 대통령 몽골 방문…교역 10억달러 목표",
-      "link": "https://www.bntnews.co.kr/article/view/bnt202607100008",
-      "date": "2026-07-10 06:20",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234557",
-      "hash_id": "08ed91af67a1b0a4"
-    },
-    "https://www.fetv.co.kr/news/articleView.html?idxno=306126": {
-      "title": "[포스코그룹 사업재편] ④철강사업, 국내 부진 속 찾은 돌파구 '해외'",
-      "link": "https://www.fetv.co.kr/news/articleView.html?idxno=306126",
-      "date": "2026-07-10 07:00",
-      "press": "",
-      "keyword": "포스코 전기로",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234563",
-      "hash_id": "c9e9aa2aaa8656e9"
     },
     "https://biz.sbs.co.kr/article_hub/20000321678?division=NAVER": {
       "title": "'반도체 클러스터' 광주 군공항 인근 토지거래허가구역 지정",
@@ -1294,8 +1239,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234568",
+      "retry_count": 1,
+      "last_attempt": "2026-07-09T22:25:08.220666",
       "hash_id": "c12112da402f652d"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=441021": {
@@ -1305,22 +1250,11 @@
       "press": "",
       "keyword": "미얀마 LNG",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234572",
+      "retry_count": 1,
+      "last_attempt": "2026-07-09T22:25:11.895232",
       "hash_id": "197cbc0ea19a0a13"
-    },
-    "https://www.news1.kr/industry/sb-founded/6223501": {
-      "title": "'국산 NPU+피지컬 AI' 뜬다…휴머노이드 특화 'K-풀스택' 기대",
-      "link": "https://www.news1.kr/industry/sb-founded/6223501",
-      "date": "2026-07-10 06:10",
-      "press": "뉴스1",
-      "keyword": "포스코DX",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:24:07.234577",
-      "hash_id": "59076bd901ced11b"
     }
   },
-  "last_updated": "2026-07-09 22:24:07",
-  "count": 120
+  "last_updated": "2026-07-09 22:25:14",
+  "count": 114
 }

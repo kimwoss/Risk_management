@@ -1096,8 +1096,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T06:03:35.654774",
+      "retry_count": 2,
+      "last_attempt": "2026-07-09T10:27:21.106959",
       "hash_id": "6d7014db29aa577c"
     },
     "https://m.skyedaily.com/news_view.html?ID=307566": {
@@ -1107,8 +1107,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T07:00:01.949612",
+      "retry_count": 2,
+      "last_attempt": "2026-07-09T10:27:22.043181",
       "hash_id": "f39cf17ea2d04cf0"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=441972": {
@@ -1118,8 +1118,8 @@
       "press": "",
       "keyword": "포스코 전기로",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T07:48:34.201609",
+      "retry_count": 2,
+      "last_attempt": "2026-07-09T10:27:22.973374",
       "hash_id": "b4b1a4958e82e6b5"
     },
     "https://view.asiae.co.kr/article/2026070916405082691": {
@@ -1133,83 +1133,6 @@
       "last_attempt": "2026-07-09T09:56:22.135709",
       "hash_id": "7e5b850e6c9e815e"
     },
-    "https://www.ajunews.com/view/20260709171422413": {
-      "title": "울란바타르 석탄 난방 바꾼다…韓 히트펌프, 몽골 에너지시장 공략",
-      "link": "https://www.ajunews.com/view/20260709171422413",
-      "date": "2026-07-09 18:38",
-      "press": "아주경제",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135721",
-      "hash_id": "4b033ed4e228dd03"
-    },
-    "https://www.kukinews.com/article/view/kuk202607090197": {
-      "title": "한-몽 에너지 협력 구축…몽골 재생e 중심 에너지전환 가속",
-      "link": "https://www.kukinews.com/article/view/kuk202607090197",
-      "date": "2026-07-09 18:36",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135728",
-      "hash_id": "b058e5cc97c63ca1"
-    },
-    "https://www.news1.kr/society/environment/6223491": {
-      "title": "韓, 몽골 에너지전환 돕는다…히트펌프·재생에너지 사업 본격화",
-      "link": "https://www.news1.kr/society/environment/6223491",
-      "date": "2026-07-09 18:36",
-      "press": "뉴스1",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135735",
-      "hash_id": "014006db7b9f0b61"
-    },
-    "https://www.asiatoday.co.kr/kn/view.php?key=20260709010003673": {
-      "title": "기후부, 몽골과 에너지 협력…재생에너지 전환·기술 정책 교류 추진",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260709010003673",
-      "date": "2026-07-09 18:34",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135744",
-      "hash_id": "833cf41f717b2c1a"
-    },
-    "https://www.etnews.com/20260709000388": {
-      "title": "한·몽 에너지협력위 신설…포스코인터, 재생e·히트펌프 몽골시장 진출...",
-      "link": "https://www.etnews.com/20260709000388",
-      "date": "2026-07-09 18:33",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135755",
-      "hash_id": "48005c99be884024"
-    },
-    "https://www.yna.co.kr/view/AKR20260709168400530?input=1195m": {
-      "title": "李대통령 국빈방문 계기, 몽골과 재생에너지 개발 협력",
-      "link": "https://www.yna.co.kr/view/AKR20260709168400530?input=1195m",
-      "date": "2026-07-09 18:33",
-      "press": "연합뉴스",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135767",
-      "hash_id": "eb3391cc64693524"
-    },
-    "https://www.edaily.co.kr/news/newspath.asp?newsid=05267686645512880": {
-      "title": "한-몽 에너지전환 협력 강화…K에너지 심는다",
-      "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=05267686645512880",
-      "date": "2026-07-09 18:33",
-      "press": "이데일리",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135778",
-      "hash_id": "29f9206a44b901d2"
-    },
     "https://www.newsis.com/view/NISX20260709_0003703032": {
       "title": "기후부, 몽골과 에너지전환 협력…에너지협력위 신설",
       "link": "https://www.newsis.com/view/NISX20260709_0003703032",
@@ -1217,31 +1140,9 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135788",
+      "retry_count": 1,
+      "last_attempt": "2026-07-09T10:27:31.202196",
       "hash_id": "6d2f7a3636a0808f"
-    },
-    "https://www.newspim.com/news/view/20260709001243": {
-      "title": "한-몽골 에너지 협력 강화…재생에너지 확대 지원사격",
-      "link": "https://www.newspim.com/news/view/20260709001243",
-      "date": "2026-07-09 18:30",
-      "press": "뉴스핌",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135798",
-      "hash_id": "9cd433cc4929d3ea"
-    },
-    "https://www.cnbnews.com/news/articleView.html?idxno=1007630": {
-      "title": "에너지공단, 호주 재생에너지 무역사절단 파견…해상풍력 시장 진출 시...",
-      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1007630",
-      "date": "2026-07-09 18:00",
-      "press": "",
-      "keyword": "포스코인터내셔널",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135807",
-      "hash_id": "853aeeb928f83743"
     },
     "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4077980": {
       "title": "철강업계 임단협 본격화…성과급·노란봉투법에 노사 긴장 고조",
@@ -1276,61 +1177,6 @@
       "last_attempt": "2026-07-09T09:56:22.135857",
       "hash_id": "d594d7fcb6d1a26a"
     },
-    "http://www.inews24.com/view/1984200": {
-      "title": "포스코 노조, 쟁의행위 가결…찬성률 92.2%",
-      "link": "http://www.inews24.com/view/1984200",
-      "date": "2026-07-09 18:38",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135865",
-      "hash_id": "20fc7c4f1a449950"
-    },
-    "https://www.koscaj.com/news/articleView.html?idxno=325212": {
-      "title": "2026 건설의 날 은탑산업훈장 ●최상대 대도토건㈜ 대표이사",
-      "link": "https://www.koscaj.com/news/articleView.html?idxno=325212",
-      "date": "2026-07-09 18:26",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135873",
-      "hash_id": "80fe6fa6b0ba6227"
-    },
-    "https://www.newsworks.co.kr/news/articleView.html?idxno=846762": {
-      "title": "구조적 한파 맞은 철강업, 포스코 노조 쟁의 가결로 '시름' 깊어져",
-      "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=846762",
-      "date": "2026-07-09 18:18",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135882",
-      "hash_id": "e44ed6ff76f9e82c"
-    },
-    "https://www.laborplus.co.kr/news/articleView.html?idxno=41122": {
-      "title": "건설산업연맹, '상생 협력·원청 교섭'으로 건설산업 살리자",
-      "link": "https://www.laborplus.co.kr/news/articleView.html?idxno=41122",
-      "date": "2026-07-09 18:14",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135891",
-      "hash_id": "44810cc9a31fe034"
-    },
-    "https://www.eroun.net/news/articleView.html?idxno=85082": {
-      "title": "[이로운 칼럼]'노동 없는 미래'는 없다...포스코의 이중 경영이 마주한...",
-      "link": "https://www.eroun.net/news/articleView.html?idxno=85082",
-      "date": "2026-07-09 18:10",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135902",
-      "hash_id": "a2fc4ce3a0c051d8"
-    },
     "https://biz.chosun.com/industry/company/2026/07/09/VWAB3TXD3FFBLFD554LPBVY6X4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
       "title": "포스코 노조, 찬성률 92%로 쟁의행위 가결",
       "link": "https://biz.chosun.com/industry/company/2026/07/09/VWAB3TXD3FFBLFD554LPBVY6X4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
@@ -1338,31 +1184,9 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135911",
+      "retry_count": 2,
+      "last_attempt": "2026-07-09T10:27:27.633838",
       "hash_id": "2108b70b2571f518"
-    },
-    "https://www.mdtoday.co.kr/news/articleView.html?idxno=604301": {
-      "title": "포스코, 파업 위기 고조…노조 쟁의행위 92.2% 찬성",
-      "link": "https://www.mdtoday.co.kr/news/articleView.html?idxno=604301",
-      "date": "2026-07-09 18:04",
-      "press": "메디컬투데이",
-      "keyword": "포스코 노조",
-      "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135919",
-      "hash_id": "bdd5eec7bb3ad57c"
-    },
-    "https://www.asiatoday.co.kr/kn/view.php?key=20260710010003709": {
-      "title": "[K산업 CFO 열전] 그룹분할·자본재편 주도… 'AI 데이터센터 투자' 설계...",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260710010003709",
-      "date": "2026-07-09 17:46",
-      "press": "",
-      "keyword": "포스코 전기로",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.135992",
-      "hash_id": "eeb26bda0104fe08"
     },
     "https://www.newsis.com/view/NISX20260709_0003703269": {
       "title": "포스코노조, 쟁의행위 '찬성 92.2%'…\"회사 바로 세우기\"",
@@ -1371,8 +1195,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T09:56:45.922081",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T10:27:25.766429",
       "hash_id": "b56d7ae6dc9d7f34"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/07/09/2026070990285.html": {
@@ -1382,8 +1206,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T09:56:37.052148",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T10:27:24.831854",
       "hash_id": "403654a1859d91de"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=442003": {
@@ -1393,31 +1217,9 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T09:56:28.112044",
+      "retry_count": 3,
+      "last_attempt": "2026-07-09T10:27:23.900572",
       "hash_id": "81920bf985839341"
-    },
-    "http://www.netongs.com/news/articleView.html?idxno=333974": {
-      "title": "민형배 통합특별시장, 광양만권 이차전지 산업 현장 방문",
-      "link": "http://www.netongs.com/news/articleView.html?idxno=333974",
-      "date": "2026-07-09 18:38",
-      "press": "",
-      "keyword": "포스코퓨처엠",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.136037",
-      "hash_id": "2d7f14504403324a"
-    },
-    "http://www.fnnews.com/news/202607091824502389": {
-      "title": "[사설] 15년 만의 한몽 정상회담, 자원개발 협력 강화를",
-      "link": "http://www.fnnews.com/news/202607091824502389",
-      "date": "2026-07-09 18:26",
-      "press": "",
-      "keyword": "포스코홀딩스",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.136043",
-      "hash_id": "6c5f19f9c0e76f7c"
     },
     "http://www.joseilbo.com/news/news_read.php?uid=571625&class=32&grp=": {
       "title": "李대통령 \"한·몽 황금시대 열어가자\"...몽골 대통령 \"중요한 전략적 동...",
@@ -1426,31 +1228,9 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.136048",
+      "retry_count": 2,
+      "last_attempt": "2026-07-09T10:27:26.697420",
       "hash_id": "7bff8a953cd57a63"
-    },
-    "https://www.mk.co.kr/article/12094688": {
-      "title": "정부 '1호 대미투자처' 내달 국회 보고 추진",
-      "link": "https://www.mk.co.kr/article/12094688",
-      "date": "2026-07-09 17:49",
-      "press": "",
-      "keyword": "대미 투자 특별법",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.136055",
-      "hash_id": "076010ebc426ac4b"
-    },
-    "https://www.ajunews.com/view/20260709173637442": {
-      "title": "무안군자원봉사센터, 새마을부녀회와 알루미늄 캔 자원순환 활동 전개",
-      "link": "https://www.ajunews.com/view/20260709173637442",
-      "date": "2026-07-09 17:46",
-      "press": "아주경제",
-      "keyword": "포스코엠텍",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T09:56:22.136061",
-      "hash_id": "08521616d4dbbf33"
     },
     "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260709.99099002871": {
       "title": "한·몽골 '에너지 전환' 협력체계 구축…'공동위원회' 신설 추진",
@@ -1460,7 +1240,7 @@
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:06:11.923988",
+      "last_attempt": "2026-07-09T10:27:20.626002",
       "hash_id": "2143127226cece95"
     },
     "https://www.newsis.com/view/NISI20260709_0021357547": {
@@ -1471,7 +1251,7 @@
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:06:11.924000",
+      "last_attempt": "2026-07-09T10:27:20.626009",
       "hash_id": "6c8e97061118c2cc"
     },
     "https://www.mk.co.kr/article/12094792": {
@@ -1482,7 +1262,7 @@
       "keyword": "포스코 노조",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:06:11.924006",
+      "last_attempt": "2026-07-09T10:27:20.626040",
       "hash_id": "e90fc8d0823b50ed"
     },
     "https://www.etoday.co.kr/news/view/2602248": {
@@ -1493,7 +1273,7 @@
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:26:22.731175",
+      "last_attempt": "2026-07-09T10:27:20.625987",
       "hash_id": "352326292aa63059"
     },
     "https://www.hidomin.com/news/articleView.html?idxno=712719": {
@@ -1504,7 +1284,7 @@
       "keyword": "포스코 노조",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:26:22.731186",
+      "last_attempt": "2026-07-09T10:27:20.626015",
       "hash_id": "921bee128130d3c6"
     },
     "https://www.gukjenews.com/news/articleView.html?idxno=3631510": {
@@ -1515,7 +1295,7 @@
       "keyword": "포스코",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:26:22.731193",
+      "last_attempt": "2026-07-09T10:27:20.626029",
       "hash_id": "739325f05691fff1"
     },
     "https://www.hidomin.com/news/articleView.html?idxno=712707": {
@@ -1526,10 +1306,10 @@
       "keyword": "포스코 노조",
       "sentiment": "neg",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T10:26:22.731198",
+      "last_attempt": "2026-07-09T10:27:20.626034",
       "hash_id": "1988b39b3d41c46b"
     }
   },
-  "last_updated": "2026-07-09 10:26:22",
-  "count": 139
+  "last_updated": "2026-07-09 10:27:58",
+  "count": 119
 }

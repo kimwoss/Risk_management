@@ -1239,8 +1239,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T22:25:08.220666",
+      "retry_count": 5,
+      "last_attempt": "2026-07-09T23:38:46.043915",
       "hash_id": "c12112da402f652d"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=441021": {
@@ -1250,33 +1250,22 @@
       "press": "",
       "keyword": "미얀마 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-09T22:25:11.895232",
+      "retry_count": 5,
+      "last_attempt": "2026-07-09T23:38:46.971745",
       "hash_id": "197cbc0ea19a0a13"
     },
-    "https://www.etnews.com/20260710000003": {
-      "title": "한-몽 비즈니스포럼 “핵심광물·AI·소비재 협력 확대”",
-      "link": "https://www.etnews.com/20260710000003",
-      "date": "2026-07-10 07:35",
-      "press": "",
+    "https://www.nocutnews.co.kr/news/6546081?utm_source=naver&utm_medium=article&utm_campaign=20260710083131": {
+      "title": "한-몽골 경제계, 미래산업으로 협력 확대…MOU 21건 체결",
+      "link": "https://www.nocutnews.co.kr/news/6546081?utm_source=naver&utm_medium=article&utm_campaign=20260710083131",
+      "date": "2026-07-10 08:23",
+      "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:43:18.141904",
-      "hash_id": "060ea55b460fa854"
-    },
-    "http://www.newsprime.co.kr/news/article.html?no=739829": {
-      "title": "포스코퓨처엠, 삼성SDI·현대차 이어 GM까지…공급망 전면 회복에 4분기...",
-      "link": "http://www.newsprime.co.kr/news/article.html?no=739829",
-      "date": "2026-07-10 07:34",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-09T22:43:18.141915",
-      "hash_id": "eba997e8d9c90964"
+      "retry_count": 1,
+      "last_attempt": "2026-07-09T23:38:55.863263",
+      "hash_id": "e365fa3e13a438eb"
     }
   },
-  "last_updated": "2026-07-09 22:43:18",
-  "count": 116
+  "last_updated": "2026-07-09 23:38:58",
+  "count": 115
 }

@@ -1129,8 +1129,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-09T11:07:31.859237",
+      "retry_count": 5,
+      "last_attempt": "2026-07-09T13:57:02.608969",
       "hash_id": "6d2f7a3636a0808f"
     },
     "https://biz.chosun.com/industry/company/2026/07/09/VWAB3TXD3FFBLFD554LPBVY6X4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -1195,22 +1195,121 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-09T11:07:32.787158",
+      "retry_count": 4,
+      "last_attempt": "2026-07-09T13:57:03.533954",
       "hash_id": "6c8e97061118c2cc"
     },
-    "https://www.news1.kr/politics/president/6223419": {
-      "title": "李대통령 \"몽탄 모델 확산…자원부국 몽골, 韓과 협력하면 시너지\"",
-      "link": "https://www.news1.kr/politics/president/6223419",
-      "date": "2026-07-09 20:04",
-      "press": "뉴스1",
+    "https://www.edaily.co.kr/news/newspath.asp?newsid=06973286645512880": {
+      "title": "한-몽 경제인 300명 한자리에…핵심광물·AI 협력 확대",
+      "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=06973286645512880",
+      "date": "2026-07-09 22:48",
+      "press": "이데일리",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123332",
+      "hash_id": "95e48fa25a94833a"
+    },
+    "https://www.sedaily.com/article/20066023?ref=naver": {
+      "title": "李 “한몽, 협력 잠재력 무궁무진”…핵심광물 등 MOU 21건 체결",
+      "link": "https://www.sedaily.com/article/20066023?ref=naver",
+      "date": "2026-07-09 22:08",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123346",
+      "hash_id": "a2479e7334b6f618"
+    },
+    "https://www.tokenpost.kr/news/economy/376321": {
+      "title": "KB국민은행·포스코, 철강 공급망 맞춤 금융 서비스 확대",
+      "link": "https://www.tokenpost.kr/news/economy/376321",
+      "date": "2026-07-09 22:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123382",
+      "hash_id": "f13da899559f88e4"
+    },
+    "https://www.webeconomy.co.kr/news/articleView.html?idxno=2228247": {
+      "title": "[금융] KB 포스코 상생협약 / IBK 신보 협약 / IBK DGIST 인재육성 / 우리...",
+      "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2228247",
+      "date": "2026-07-09 22:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123388",
+      "hash_id": "5dec4a7891ee135a"
+    },
+    "https://www.polinews.co.kr/news/articleView.html?idxno=736586": {
+      "title": "李대통령 \"몽탄 모델 확산시켜야…자원부국 몽골, 韓과 협력하면 시너지...",
+      "link": "https://www.polinews.co.kr/news/articleView.html?idxno=736586",
+      "date": "2026-07-09 22:51",
+      "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
       "retry_count": 0,
-      "last_attempt": "2026-07-09T11:07:23.868242",
-      "hash_id": "aa10b9e4cb8488dd"
+      "last_attempt": "2026-07-09T13:57:02.123394",
+      "hash_id": "b8438b61849d8abe"
+    },
+    "https://www.sjsori.com/news/articleView.html?idxno=87508": {
+      "title": "李대통령 \"한·몽 협력 잠재력 무궁무진…핵심광물 공급망 힘 합쳐야\"",
+      "link": "https://www.sjsori.com/news/articleView.html?idxno=87508",
+      "date": "2026-07-09 22:24",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123399",
+      "hash_id": "a5540a6806ffd890"
+    },
+    "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0400&key=20260709.99099003005": {
+      "title": "몽골 찾은 李대통령 “한몽, 핵심광물 힘 합쳐야”",
+      "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0400&key=20260709.99099003005",
+      "date": "2026-07-09 22:20",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123404",
+      "hash_id": "edfc5fe19ad5cb5e"
+    },
+    "https://www.mk.co.kr/article/12094895": {
+      "title": "‘몽탄’ 띄운 李대통령…“핵심광물·AI까지 한몽 협력 넓히자”",
+      "link": "https://www.mk.co.kr/article/12094895",
+      "date": "2026-07-09 22:13",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123410",
+      "hash_id": "1894b59731ca6f0d"
+    },
+    "https://www.daejonilbo.com/news/articleView.html?idxno=2287070": {
+      "title": "이재명 대통령 \"'몽탄'은 상호호혜 모델\"…몽골 협력 확대",
+      "link": "https://www.daejonilbo.com/news/articleView.html?idxno=2287070",
+      "date": "2026-07-09 22:06",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-09T13:57:02.123415",
+      "hash_id": "8b138cafd47c8f60"
+    },
+    "https://www.newsis.com/view/NISX20260709_0003703313": {
+      "title": "청년 전통공연예술인 등용문…10주년 맞은 국립정동극장 '청춘만발', 내...",
+      "link": "https://www.newsis.com/view/NISX20260709_0003703313",
+      "date": "2026-07-09 21:24",
+      "press": "",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-09T13:57:15.284476",
+      "hash_id": "7a25fa0c555aba74"
     }
   },
-  "last_updated": "2026-07-09 11:08:02",
-  "count": 110
+  "last_updated": "2026-07-09 13:57:33",
+  "count": 119
 }

@@ -1316,8 +1316,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-10T10:02:56.536204",
+      "retry_count": 4,
+      "last_attempt": "2026-07-10T11:52:57.072756",
       "hash_id": "c10b01f4808fec4e"
     },
     "https://biz.chosun.com/industry/company/2026/07/10/26CBPH7S6JCNBOMDT6VIQ6BCQU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -1327,11 +1327,33 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-10T10:02:55.603779",
+      "retry_count": 5,
+      "last_attempt": "2026-07-10T11:52:56.138873",
       "hash_id": "2f459a8ce2d28f88"
+    },
+    "https://m.skyedaily.com/news_view.html?ID=307603": {
+      "title": "서울지노위, 대우·두산·쌍용·호반·반도건설 등 ‘사용자성’ 인정",
+      "link": "https://m.skyedaily.com/news_view.html?ID=307603",
+      "date": "2026-07-10 20:04",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-10T11:53:14.351005",
+      "hash_id": "8b8b0fc3edaffec1"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008652366&plink=ORI&cooper=NAVER": {
+      "title": "이 대통령, 몽골 대통령과 국빈 만찬…국궁 세트·스마트워치 선물",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008652366&plink=ORI&cooper=NAVER",
+      "date": "2026-07-10 20:24",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-10T11:53:24.543929",
+      "hash_id": "1953dc131840b6ed"
     }
   },
-  "last_updated": "2026-07-10 10:03:12",
-  "count": 121
+  "last_updated": "2026-07-10 11:53:37",
+  "count": 123
 }

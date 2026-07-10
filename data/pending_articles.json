@@ -1349,8 +1349,8 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-10T11:53:24.543929",
+      "retry_count": 4,
+      "last_attempt": "2026-07-10T17:16:02.976559",
       "hash_id": "1953dc131840b6ed"
     },
     "http://www.maniareport.com/view.php?ud=202607101630174432dad9f33a29_19": {
@@ -1363,30 +1363,8 @@
       "retry_count": 3,
       "last_attempt": "2026-07-10T14:32:49.020234",
       "hash_id": "cd4cb0020df6b152"
-    },
-    "https://www.joongang.co.kr/article/25444234": {
-      "title": "李대통령, 몽골 국빈만찬서 “진정한 ‘안다’”…국궁 세트·스마트워...",
-      "link": "https://www.joongang.co.kr/article/25444234",
-      "date": "2026-07-11 01:35",
-      "press": "",
-      "keyword": "포스코홀딩스",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-10T17:15:37.763626",
-      "hash_id": "b25b636f5df2683c"
-    },
-    "https://www.yna.co.kr/view/AKR20260710159051001?input=1195m": {
-      "title": "李대통령 \"韓-몽골 진정한 친구…누구에도 안뒤지는 파트너 안목\"(종합...",
-      "link": "https://www.yna.co.kr/view/AKR20260710159051001?input=1195m",
-      "date": "2026-07-11 00:43",
-      "press": "연합뉴스",
-      "keyword": "포스코홀딩스",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-10T17:15:37.763636",
-      "hash_id": "cbbfcfd5eee2c96f"
     }
   },
-  "last_updated": "2026-07-10 17:15:37",
-  "count": 126
+  "last_updated": "2026-07-10 17:16:11",
+  "count": 124
 }

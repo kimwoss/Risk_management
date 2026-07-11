@@ -1408,17 +1408,6 @@
       "last_attempt": "2026-07-11T22:38:18.180783",
       "hash_id": "f2d5ce59dd15af94"
     },
-    "https://www.sentv.co.kr/article/view/sentv202607100004": {
-      "title": "포스코, ‘철강·자원·에너지’ 트리플 코어 선포…지배구조·공급망 ...",
-      "link": "https://www.sentv.co.kr/article/view/sentv202607100004",
-      "date": "2026-07-12 08:02",
-      "press": "",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-11T23:10:45.925021",
-      "hash_id": "7bcd45c859f46416"
-    },
     "https://www.newsis.com/view/NISX20260710_0003704920": {
       "title": "삼성·현대차·신세계 IT계열사에 노조 생긴 사연…결국 AI",
       "link": "https://www.newsis.com/view/NISX20260710_0003704920",
@@ -1426,8 +1415,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-11T23:10:45.925032",
+      "retry_count": 1,
+      "last_attempt": "2026-07-11T23:11:09.956888",
       "hash_id": "cbc514e1ec6ed40c"
     },
     "https://www.newsis.com/view/NISX20260710_0003704730": {
@@ -1437,11 +1426,11 @@
       "press": "",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-11T23:10:45.925038",
+      "retry_count": 1,
+      "last_attempt": "2026-07-11T23:11:11.106265",
       "hash_id": "ea7f28df69db8300"
     }
   },
-  "last_updated": "2026-07-11 23:10:45",
-  "count": 131
+  "last_updated": "2026-07-11 23:11:17",
+  "count": 130
 }

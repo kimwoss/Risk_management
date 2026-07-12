@@ -24,7 +24,11 @@ permissions:
 jobs:
   loop:
     runs-on: ubuntu-latest
-    timeout-minutes: 55  # 6시간 한도 내. 50분 루프 + 30분 트리거로 연속 커버
+    # 루프를 길게 잡는 이유: GitHub는 스케줄 이벤트를 수시로 드랍한다(관측: 주말 최대
+    # 162분 연속 드랍, 평일에도 하루 48회 중 11~17회만 실행). 50분 루프에서는 드랍
+    # 구간이 그대로 발송 공백이 됐다. 340분 루프면 5.7시간 창에 트리거가 1번만
+    # 붙어도 이어달리기가 유지된다. (concurrency 큐가 후속 런을 대기시킴)
+    timeout-minutes: 355  # 6시간 한도 직전. 340분 루프 + 15분 마진
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -84,7 +88,7 @@ jobs:
           }
 
           # ── 3분 루프 ──
-          LOOP_SECONDS=$((50 * 60))            # 약 50분간 반복
+          LOOP_SECONDS=$((340 * 60))           # 약 5시간 40분 반복 (timeout 355분에 15분 마진)
           END=$(( $(date +%s) + LOOP_SECONDS ))
           ITER=0
 

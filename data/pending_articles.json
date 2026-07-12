@@ -1441,17 +1441,6 @@
       "last_attempt": "2026-07-12T08:37:15.505130",
       "hash_id": "0813ad309a66ff46"
     },
-    "https://www.news1.kr/industry/sb-founded/6222865": {
-      "title": "\"밭·공장 자율주행으로 잇는다\"…대동그룹 '농업 피지컬 AI' 속도",
-      "link": "https://www.news1.kr/industry/sb-founded/6222865",
-      "date": "2026-07-13 06:30",
-      "press": "뉴스1",
-      "keyword": "포스코홀딩스",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-12T21:33:23.948280",
-      "hash_id": "6c906eb8cae7340e"
-    },
     "https://www.businesspost.co.kr/BP?command=article_view&num=441910": {
       "title": "[Who Is ?] 박철희 호반건설 총괄사장",
       "link": "https://www.businesspost.co.kr/BP?command=article_view&num=441910",
@@ -1459,22 +1448,11 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-12T22:12:31.506292",
+      "retry_count": 1,
+      "last_attempt": "2026-07-12T22:12:59.384749",
       "hash_id": "17b4988eae2e2127"
-    },
-    "https://www.labortoday.co.kr/news/articleView.html?idxno=235645": {
-      "title": "10대 건설사 모두 '원청 사용자' 맞다",
-      "link": "https://www.labortoday.co.kr/news/articleView.html?idxno=235645",
-      "date": "2026-07-13 06:34",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-12T22:12:31.506308",
-      "hash_id": "1485d0c45b366623"
     }
   },
-  "last_updated": "2026-07-12 22:12:31",
-  "count": 134
+  "last_updated": "2026-07-12 22:13:01",
+  "count": 132
 }

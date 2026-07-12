@@ -1415,8 +1415,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-11T23:11:09.956888",
+      "retry_count": 3,
+      "last_attempt": "2026-07-12T00:17:38.943806",
       "hash_id": "cbc514e1ec6ed40c"
     },
     "https://www.newsis.com/view/NISX20260710_0003704730": {
@@ -1426,33 +1426,11 @@
       "press": "",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-11T23:11:11.106265",
+      "retry_count": 3,
+      "last_attempt": "2026-07-12T00:17:39.880973",
       "hash_id": "ea7f28df69db8300"
-    },
-    "https://www.joongangenews.com/news/articleView.html?idxno=532156": {
-      "title": "[주간 산업 나침반] 한화오션, 잠수함 수주전 석패...현대차·한국GM·포...",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=532156",
-      "date": "2026-07-12 09:00",
-      "press": "",
-      "keyword": "포스코 노조",
-      "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-07-12T00:03:36.697193",
-      "hash_id": "aed9a23854e991d8"
-    },
-    "https://www.greened.kr/news/articleView.html?idxno=344826": {
-      "title": "블루코어PFV 송도 103층 타워, 항공 안전성 검토에 높이 조정 가능성",
-      "link": "https://www.greened.kr/news/articleView.html?idxno=344826",
-      "date": "2026-07-12 08:48",
-      "press": "",
-      "keyword": "포스코이앤씨",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-12T00:07:00.511238",
-      "hash_id": "15059d943b394720"
     }
   },
-  "last_updated": "2026-07-12 00:17:09",
-  "count": 132
+  "last_updated": "2026-07-12 00:17:56",
+  "count": 130
 }

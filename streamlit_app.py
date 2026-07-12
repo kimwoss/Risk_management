@@ -3272,7 +3272,11 @@ def page_news_monitor():
 
     # ===== 당일 뉴스 현황 대시보드 (최상단 배치) =====
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
-    db_for_dashboard = st.session_state.get('news_display_data', load_news_db())
+    # 주의: .get(key, default)는 세션에 값이 있어도 default를 평가하므로 조건부로 로드
+    if 'news_display_data' in st.session_state:
+        db_for_dashboard = st.session_state['news_display_data']
+    else:
+        db_for_dashboard = load_news_db()
     render_news_dashboard(db_for_dashboard, show_live=True)
 
     # ===== [컨트롤 Row] 알림 | 표시방식 | 타이머 | 새로고침 | CSV — 1줄 통합 =====
@@ -3370,8 +3374,7 @@ def page_news_monitor():
         #  네이버 rate limit 429 유발 + 새로고침 버퍼링이 생기므로, 수집과 표시를 분리.)
         status.info("🔄 최신 뉴스 불러오는 중…")
         try:
-            # 로컬 DB 우선 로드: backend(auto_monitor 백그라운드)가 같은 컨테이너의 로컬 CSV를
-            # 갱신하므로 로컬이 가장 신선함(GitHub 커밋본은 더 stale할 수 있음). 없으면 GitHub 폴백.
+            # 로컬·GitHub 중 신선한 쪽 로드 (load_news_db 내부에서 비교 선택)
             df_latest = load_news_db(force_refresh=False)
             st.session_state.news_display_data = df_latest
             st.session_state.last_news_fetch = time.time()
@@ -3379,14 +3382,44 @@ def page_news_monitor():
         except Exception as e:
             status.error(f"❌ 뉴스 불러오기 오류: {e}")
 
-        # 플래그 리셋 + 다음 라운드 타임스탬프
+        # ── 캐치업 모드 ──
+        # 접속 직전 Actions 하트비트가 드랍돼 로컬·GitHub 둘 다 낡았을 수 있다.
+        # 이때 auto_monitor 백그라운드 수집(20~60초 소요)이 로컬을 곧 갱신하므로,
+        # 표시 데이터가 낡았으면 다음 자동 새로고침을 3분 → 20초로 앞당겨 따라잡는다.
+        # (신규 기사가 실제로 없는 시간대의 공회전 방지를 위해 연속 6회로 제한)
+        _stale = False
+        try:
+            _df = st.session_state.get('news_display_data')
+            if _df is not None and not _df.empty and "날짜" in _df.columns:
+                _latest = pd.to_datetime(str(_df["날짜"].astype(str).max()), errors="coerce")
+                if pd.notna(_latest):
+                    # 기사 시각은 KST 기준, 컨테이너는 UTC → KST now로 비교해야 함
+                    _now_kst = datetime.now(timezone(timedelta(hours=9))).replace(tzinfo=None)
+                    _age_min = (_now_kst - _latest).total_seconds() / 60
+                    _prev_latest = st.session_state.get('catchup_prev_latest')
+                    if str(_latest) != _prev_latest:
+                        st.session_state.catchup_count = 0  # 새 데이터 유입 → 카운터 리셋
+                        st.session_state.catchup_prev_latest = str(_latest)
+                    _count = st.session_state.get('catchup_count', 0)
+                    if _age_min > 12 and _count < 6:
+                        _stale = True
+                        st.session_state.catchup_count = _count + 1
+                        print(f"[DEBUG] 캐치업 모드: 최신기사 {_age_min:.0f}분 경과 → 20초 후 재확인 ({_count + 1}/6)")
+        except Exception:
+            pass
+
+        # 플래그 리셋 + 다음 라운드 타임스탬프 (캐치업 중엔 20초 단축 주기)
         st.session_state.trigger_news_update = False
-        st.session_state.next_refresh_at = time.time() + refresh_interval
+        st.session_state.next_refresh_at = time.time() + (20 if _stale else refresh_interval)
         st.session_state.initial_loaded = True
 
     # ===== 화면 표시 (저장된 최신 데이터 기준) =====
     # 세션에 최신 수집 데이터가 있으면 우선 사용 (즉시 반영)
-    db = st.session_state.get('news_display_data', load_news_db())
+    # 주의: .get(key, default)는 세션에 값이 있어도 default를 평가하므로 조건부로 로드
+    if 'news_display_data' in st.session_state:
+        db = st.session_state['news_display_data']
+    else:
+        db = load_news_db()
 
     if db.empty:
         st.markdown('<p style="color: var(--c-text);">📰 저장된 뉴스 데이터가 없습니다.</p>', unsafe_allow_html=True)

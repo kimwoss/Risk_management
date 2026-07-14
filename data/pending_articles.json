@@ -1646,8 +1646,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-14T08:25:05.102478",
+      "retry_count": 4,
+      "last_attempt": "2026-07-14T10:18:40.886286",
       "hash_id": "9d99b7dfb12d564f"
     },
     "https://www.g-enews.com/view.php?ud=202607140856331416fda4f5ab74_1": {
@@ -1657,8 +1657,8 @@
       "press": "",
       "keyword": "포스코 전기로",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T08:25:04.159295",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T10:18:40.043216",
       "hash_id": "805785f45fb6b754"
     },
     "https://biz.chosun.com/industry/company/2026/07/14/OGGSCG6PEBGTFIZ4V4A7CDWJ5M/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -1668,8 +1668,8 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T08:25:03.220423",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T10:18:39.209116",
       "hash_id": "06beb18c96a8d948"
     },
     "https://www.newsis.com/view/NISX20260714_0003708807": {
@@ -1679,8 +1679,8 @@
       "press": "",
       "keyword": "포스코DX",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T08:25:02.277282",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T10:18:38.383049",
       "hash_id": "139047b77aafcf6b"
     },
     "https://www.newsis.com/view/NISX20260714_0003708933": {
@@ -1690,8 +1690,8 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-14T08:25:12.298101",
+      "retry_count": 3,
+      "last_attempt": "2026-07-14T10:18:42.580606",
       "hash_id": "97ffb459da0e4e71"
     },
     "https://www.newsis.com/view/NISX20260714_0003709156": {
@@ -1701,11 +1701,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-14T08:25:11.352816",
+      "retry_count": 3,
+      "last_attempt": "2026-07-14T10:18:41.730762",
       "hash_id": "0cbb3f8d6bfa10b2"
+    },
+    "https://biz.heraldcorp.com/article/10808378?ref=naver": {
+      "title": "‘재고용’ 된 선배, ‘기술 배우는’ 후배…대한항공·포스코, 정년 후...",
+      "link": "https://biz.heraldcorp.com/article/10808378?ref=naver",
+      "date": "2026-07-14 19:01",
+      "press": "헤럴드경제",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-14T10:18:37.971139",
+      "hash_id": "60be6d60768103d4"
     }
   },
-  "last_updated": "2026-07-14 08:25:17",
-  "count": 155
+  "last_updated": "2026-07-14 10:19:08",
+  "count": 156
 }

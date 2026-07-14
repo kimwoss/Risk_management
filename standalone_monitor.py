@@ -356,16 +356,19 @@ def main(send_telegram: bool = None):
 
     Args:
         send_telegram: 텔레그램 발송 여부. None(기본)이면 실행 환경으로 자동 판별.
-            텔레그램은 'Streamlit/cron-job.org 경로'에서만 발송한다(단일 발송원).
-            - Streamlit(auto_monitor_on_load)/로컬: GITHUB_ACTIONS 미설정 → 발송.
-              cron-job.org가 앱을 주기적으로 호출해 24시간 트리거되는, 검증된 신뢰 경로.
-            - GitHub Actions(heartbeat/news_monitor): GITHUB_ACTIONS=true → 발송 안 함(수집·커밋만).
-              GitHub의 schedule cron이 잦은 주기에서 발화하지 않아 Actions 단독 발송은 신뢰 불가하고,
-              Streamlit과 동시에 보내면 캐시가 어긋나 중복이 발생하므로, 발송을 Streamlit으로 일원화.
-              (Actions는 수집·git 커밋으로 DB/캐시를 최신 유지 → Streamlit 재배포 시 중복 방지에 기여)
+            [2026-07-14 발송 주체 전환] 텔레그램은 'GitHub Actions 경로'에서만 발송한다(단일 발송원).
+            - GitHub Actions(heartbeat/news_monitor): GITHUB_ACTIONS=true → 발송.
+              heartbeat가 340분 루프(3분 라운드)로 상시 가동되어 24시간 무인 발송을 보장.
+            - Streamlit(auto_monitor_on_load)/로컬: 발송 안 함(수집·화면 표시 전용).
+              기존 'Streamlit만 발송' 구조는 열린 브라우저 탭(웹소켓 세션)이 있어야만
+              스크립트가 실행되는 Streamlit 특성상, 주말·야간 무접속 구간에 발송이
+              수십 분~시간 단위로 밀리는 원인이었다 (2026-07-12 배치 발송 관측).
+              cron-job.org 핑은 303 리다이렉트만 받고 스크립트를 실행하지 못함(검증됨).
+            중복 발송 방지: 발송 직전 원격 sent_cache 재병합(merge_remote_sent_cache) +
+            heartbeat/news_monitor는 concurrency 그룹으로 각각 직렬화.
     """
     if send_telegram is None:
-        send_telegram = os.environ.get("GITHUB_ACTIONS", "").lower() != "true"
+        send_telegram = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
     error_count = 0
     total_collected = 0
     telegram_success = 0

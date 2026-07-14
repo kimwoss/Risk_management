@@ -12,7 +12,9 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: news-monitor
+  # heartbeat와 같은 그룹: 하트비트 루프가 돌고 있으면 백업은 대기(사실상 스킵),
+  # 하트비트가 죽었을 때만 실행된다. 발송 주체 이원화에 따른 동시 발송 창 제거 (2026-07-14)
+  group: news-heartbeat
   cancel-in-progress: false  # 실행 중인 run은 완료 대기 (취소하면 캐시 유실 위험)
 
 permissions:

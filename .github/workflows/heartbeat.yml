@@ -103,7 +103,9 @@ jobs:
             git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped"
 
             # 전체 파이프라인: 수집 + 텔레그램 발송 + 로컬 CSV 저장
-            python standalone_monitor.py || echo "[HEARTBEAT] monitor 실행 오류 - 다음 라운드 계속"
+            # timeout 240초: 한 라운드가 행(hang)에 걸려도 루프 전체가 죽지 않도록 상한
+            # (2026-07-14 관측: 라운드 행으로 340분 루프가 첫 10분 만에 침묵 → 커버리지 공백)
+            timeout 240 python standalone_monitor.py || echo "[HEARTBEAT] monitor 오류/타임아웃($?) - 다음 라운드 계속"
 
             # 변경분이 있을 때만 커밋·push (신규 기사 없으면 히스토리 안 부풀음)
             git add data/

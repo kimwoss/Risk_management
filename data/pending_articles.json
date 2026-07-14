@@ -1591,8 +1591,8 @@
       "press": "",
       "keyword": "포스코 수소환원제철",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T00:39:11.187839",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T04:00:44.425201",
       "hash_id": "1b901a7b35d974df"
     },
     "https://www.investchosun.com/site/data/html_dir/2026/07/14/2026071480031.html": {
@@ -1613,8 +1613,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-14T02:35:13.421779",
+      "retry_count": 3,
+      "last_attempt": "2026-07-14T04:00:46.338734",
       "hash_id": "cf4a0fe97c6bf57c"
     },
     "https://health.chosun.com/site/data/html_dir/2026/07/14/2026071401328.html": {
@@ -1624,11 +1624,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-14T02:35:12.437746",
+      "retry_count": 3,
+      "last_attempt": "2026-07-14T04:00:45.356120",
       "hash_id": "6e522eaff2acce21"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/07/14/20260714500088?wlog_tag3=naver": {
+      "title": "한국판 IRA ‘국내생산세액공제’ 도입… SMR 국가전략기술 지정 [하반기...",
+      "link": "https://www.seoul.co.kr/news/economy/2026/07/14/20260714500088?wlog_tag3=naver",
+      "date": "2026-07-14 11:41",
+      "press": "",
+      "keyword": "대미 투자 특별법",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-14T04:00:47.355127",
+      "hash_id": "e16e4615c3d5444f"
     }
   },
-  "last_updated": "2026-07-14 02:35:23",
-  "count": 148
+  "last_updated": "2026-07-14 04:01:06",
+  "count": 149
 }

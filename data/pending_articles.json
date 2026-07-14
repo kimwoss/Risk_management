@@ -1690,8 +1690,8 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T10:18:42.580606",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T10:19:39.002364",
       "hash_id": "97ffb459da0e4e71"
     },
     "https://www.newsis.com/view/NISX20260714_0003709156": {
@@ -1701,22 +1701,11 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-14T10:18:41.730762",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T10:19:38.056338",
       "hash_id": "0cbb3f8d6bfa10b2"
-    },
-    "https://biz.heraldcorp.com/article/10808378?ref=naver": {
-      "title": "‘재고용’ 된 선배, ‘기술 배우는’ 후배…대한항공·포스코, 정년 후...",
-      "link": "https://biz.heraldcorp.com/article/10808378?ref=naver",
-      "date": "2026-07-14 19:01",
-      "press": "헤럴드경제",
-      "keyword": "포스코",
-      "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-14T10:18:37.971139",
-      "hash_id": "60be6d60768103d4"
     }
   },
-  "last_updated": "2026-07-14 10:19:08",
-  "count": 156
+  "last_updated": "2026-07-14 10:19:44",
+  "count": 155
 }

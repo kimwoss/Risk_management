@@ -1580,11 +1580,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-14T00:08:38.791072",
+      "retry_count": 5,
+      "last_attempt": "2026-07-14T00:39:10.200888",
       "hash_id": "9188e76d3386c1bb"
+    },
+    "https://www.newsis.com/view/NISX20260714_0003708005": {
+      "title": "영광군, 청정수소특화단지 최적지 부상…관건은 '원전 PPA'",
+      "link": "https://www.newsis.com/view/NISX20260714_0003708005",
+      "date": "2026-07-14 09:10",
+      "press": "",
+      "keyword": "포스코 수소환원제철",
+      "sentiment": "pos",
+      "retry_count": 3,
+      "last_attempt": "2026-07-14T00:39:11.187839",
+      "hash_id": "1b901a7b35d974df"
     }
   },
-  "last_updated": "2026-07-14 00:08:43",
-  "count": 144
+  "last_updated": "2026-07-14 00:39:16",
+  "count": 145
 }

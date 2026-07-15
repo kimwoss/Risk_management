@@ -1811,11 +1811,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-15T05:21:21.578520",
+      "retry_count": 5,
+      "last_attempt": "2026-07-15T05:25:00.601672",
       "hash_id": "a6f7bb09d0460ce3"
+    },
+    "https://www.newsis.com/view/NISX20260715_0003710533": {
+      "title": "포스코, 국내 기업 최초 3.6억달러 외화채 조기상환…\"이자 3100만달러 절...",
+      "link": "https://www.newsis.com/view/NISX20260715_0003710533",
+      "date": "2026-07-15 14:19",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-15T05:25:01.381047",
+      "hash_id": "c65df71dc33903a2"
     }
   },
-  "last_updated": "2026-07-15 05:21:32",
-  "count": 165
+  "last_updated": "2026-07-15 05:25:06",
+  "count": 166
 }

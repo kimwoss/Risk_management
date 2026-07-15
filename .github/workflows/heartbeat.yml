@@ -98,9 +98,14 @@ jobs:
             echo "[HEARTBEAT] Iteration $ITER  ($(date -u +'%Y-%m-%d %H:%M:%S UTC'))"
             echo "========================================================"
 
-            # 실행 직전 최신 data/ 동기화 (다른 워크플로우가 커밋한 최신 캐시 반영)
+            # 실행 직전 최신 뉴스 CSV만 remote로 갱신.
+            # [중복 재발송 방지 - 2026-07-15] sent_cache/pending은 checkout 대상에서 제외한다.
+            #   과거: `git checkout origin/main -- data/`가 로컬 sent_cache(방금 발송한 URL 포함)를
+            #   remote(아직 그 발송이 push 안 된 상태)로 통째 덮어써, 다음 라운드가 같은 기사를
+            #   '미발송'으로 오판해 재발송했다. 로컬 발송이력을 보존하고, 원격의 최신 발송분은
+            #   Python 발송 직전 merge_remote_sent_cache가 union 병합하므로 커버리지 유실 없음.
             git fetch origin main -q || true
-            git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped"
+            git checkout origin/main -- data/news_monitor.csv 2>/dev/null || echo "csv sync skipped"
 
             # 전체 파이프라인: 수집 + 텔레그램 발송 + 로컬 CSV 저장
             # timeout 240초: 한 라운드가 행(hang)에 걸려도 루프 전체가 죽지 않도록 상한

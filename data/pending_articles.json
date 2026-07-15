@@ -1833,8 +1833,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-15T05:32:22.116459",
+      "retry_count": 5,
+      "last_attempt": "2026-07-15T05:36:00.620928",
       "hash_id": "879b7164d658fa32"
     },
     "https://biz.chosun.com/industry/company/2026/07/15/6R2CROYJUBBJTPYRVYZPR3XZOM/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -1844,11 +1844,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-15T05:32:21.332584",
+      "retry_count": 5,
+      "last_attempt": "2026-07-15T05:35:59.809179",
       "hash_id": "95dca762d9069765"
+    },
+    "https://www.g-enews.com/view.php?ud=2026071514172527923084322ec9_1": {
+      "title": "포스코, 국내 첫 외화채 공개매수…3.6억달러 조기상환",
+      "link": "https://www.g-enews.com/view.php?ud=2026071514172527923084322ec9_1",
+      "date": "2026-07-15 14:34",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-15T05:36:08.840609",
+      "hash_id": "b58c1ee093fa3622"
+    },
+    "https://www.investchosun.com/site/data/html_dir/2026/07/15/2026071580111.html": {
+      "title": "[Invest]포스코, 외화채 공개매수로 3.6억달러 조기상환",
+      "link": "https://www.investchosun.com/site/data/html_dir/2026/07/15/2026071580111.html",
+      "date": "2026-07-15 14:34",
+      "press": "인베스트조선",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-15T05:36:09.625709",
+      "hash_id": "b12172e8b087ab8a"
     }
   },
-  "last_updated": "2026-07-15 05:32:30",
-  "count": 168
+  "last_updated": "2026-07-15 05:36:12",
+  "count": 170
 }

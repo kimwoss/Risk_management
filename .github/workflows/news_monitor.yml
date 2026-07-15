@@ -23,6 +23,9 @@ permissions:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    # 백업은 단일 수집 사이클(수 분)만 수행. 무한 대기/hang이 concurrency 그룹(news-heartbeat)을
+    # 오래 점유해 하트비트를 막지 않도록 상한을 짧게 둔다. (2026-07-15 몰림 대응)
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,7 +45,8 @@ jobs:
         run: |
           # 스크립트 실행 직전에 최신 data/ 파일을 가져옴
           # setup-python + pip install 이후에 실행하여 stale 데이터 최소화
-          git fetch origin main
+          export GIT_HTTP_LOW_SPEED_LIMIT=1000 GIT_HTTP_LOW_SPEED_TIME=20
+          timeout 60 git fetch origin main || echo "fetch timeout/실패 - 로컬로 진행"
           git checkout origin/main -- data/ 2>/dev/null || echo "data/ fetch skipped (first run or conflict)"
           echo "Data files refreshed at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           # sent_cache 크기 확인 (디버그)
@@ -82,13 +86,14 @@ jobs:
             # 최대 3회 재시도
             # 매 시도마다: (1) remote rebase → (2) JSON 병합 → (3) push
             # git rebase로 health_check 등 다른 워크플로우와의 push 충돌 방지
+            export GIT_HTTP_LOW_SPEED_LIMIT=1000 GIT_HTTP_LOW_SPEED_TIME=20
             for i in 1 2 3; do
               echo "Push attempt $i..."
 
-              git fetch origin main
+              timeout 60 git fetch origin main || { echo "fetch timeout/실패"; sleep $((i*5)); continue; }
 
               # remote/main을 로컬에 rebase → push 충돌 방지
-              if ! git rebase origin/main; then
+              if ! timeout 60 git rebase origin/main; then
                 echo "Rebase failed (attempt $i), aborting and retrying..."
                 git rebase --abort 2>/dev/null || true
                 sleep $((i * 5))
@@ -97,12 +102,12 @@ jobs:
 
               # sent_cache / pending_queue JSON을 remote와 Union 병합
               # → 두 Job이 동시에 수정해도 발송 이력이 유실되지 않음
-              python3 scripts/merge_cache.py
+              timeout 60 python3 scripts/merge_cache.py || echo "merge_cache 스킵"
 
               git add data/sent_articles_cache.json data/pending_articles.json 2>/dev/null || true
               git diff --staged --quiet || git commit --amend --no-edit
 
-              if git push; then
+              if timeout 60 git push; then
                 echo "Push successful!"
                 break
               else

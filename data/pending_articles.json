@@ -2075,8 +2075,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T01:22:05.148851",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T01:25:32.779718",
       "hash_id": "1034cfab0de8ce26"
     },
     "https://www.seoul.co.kr/news/society/law/2026/07/16/20260716500029?wlog_tag3=naver": {
@@ -2086,11 +2086,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T01:22:06.090682",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T01:25:33.723599",
       "hash_id": "1cf89a24eddc4955"
+    },
+    "https://www.newsis.com/view/NISX20260716_0003711692": {
+      "title": "대법 \"포스코, 협력업체 직접 고용하라\"…'불법파견' 재확인",
+      "link": "https://www.newsis.com/view/NISX20260716_0003711692",
+      "date": "2026-07-16 10:22",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T01:25:34.663982",
+      "hash_id": "a02ab2184f7e4194"
     }
   },
-  "last_updated": "2026-07-16 01:22:09",
-  "count": 190
+  "last_updated": "2026-07-16 01:25:40",
+  "count": 191
 }

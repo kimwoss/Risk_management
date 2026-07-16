@@ -2042,11 +2042,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T01:11:03.572572",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T01:14:28.962672",
       "hash_id": "f41e8bd7448a7631"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008660553&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 대법 \"포스코, 사내하청 직원 직접 고용해야\" 불법파견 인정",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008660553&plink=ORI&cooper=NAVER",
+      "date": "2026-07-16 10:12",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T01:14:38.837523",
+      "hash_id": "49171133fda4acdd"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000322896?division=NAVER": {
+      "title": "[속보] 대법원 \"포스코, 사내하청 직원 직접 고용해야\" 불법파견 인정",
+      "link": "https://biz.sbs.co.kr/article_hub/20000322896?division=NAVER",
+      "date": "2026-07-16 10:11",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T01:14:32.599225",
+      "hash_id": "e0a93bc4015cd4e7"
     }
   },
-  "last_updated": "2026-07-16 01:11:06",
-  "count": 186
+  "last_updated": "2026-07-16 01:14:42",
+  "count": 188
 }

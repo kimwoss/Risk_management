@@ -2108,11 +2108,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T01:42:58.436091",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T01:46:22.517618",
       "hash_id": "8c97aa4be9bd0fc8"
+    },
+    "https://www.newsis.com/view/NISX20260716_0003711846": {
+      "title": "포스코 \"대법원 직고용 판결 존중…후속절차 성실히 이행\"",
+      "link": "https://www.newsis.com/view/NISX20260716_0003711846",
+      "date": "2026-07-16 10:43",
+      "press": "",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T01:46:26.137024",
+      "hash_id": "7f6638f289287d7d"
     }
   },
-  "last_updated": "2026-07-16 01:42:58",
-  "count": 192
+  "last_updated": "2026-07-16 01:46:31",
+  "count": 193
 }

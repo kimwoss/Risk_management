@@ -2273,11 +2273,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T03:03:46.866494",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T03:07:16.945041",
       "hash_id": "eb81087df23043e6"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000322927?division=NAVER": {
+      "title": "대법 포스코 하청 노동자 불법파견 재차 인정…노사관계 풍전등화",
+      "link": "https://biz.sbs.co.kr/article_hub/20000322927?division=NAVER",
+      "date": "2026-07-16 12:06",
+      "press": "",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T03:07:20.647763",
+      "hash_id": "09cfdf1b48557d99"
     }
   },
-  "last_updated": "2026-07-16 03:03:52",
-  "count": 207
+  "last_updated": "2026-07-16 03:07:21",
+  "count": 208
 }

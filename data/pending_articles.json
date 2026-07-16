@@ -2152,11 +2152,22 @@
       "press": "동아일보",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:18:09.032936",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:21:46.246067",
       "hash_id": "2ae3a6a13fc7067b"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=442495": {
+      "title": "대법원 포스코 협력업체 불법파견 인정, \"사내하청 직원 직고용해야\"",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=442495",
+      "date": "2026-07-16 11:20",
+      "press": "",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:21:49.873379",
+      "hash_id": "c7700a08f63d7e0c"
     }
   },
-  "last_updated": "2026-07-16 02:18:22",
-  "count": 196
+  "last_updated": "2026-07-16 02:21:53",
+  "count": 197
 }

@@ -2163,8 +2163,8 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T02:25:17.562200",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T02:28:53.280388",
       "hash_id": "c7700a08f63d7e0c"
     },
     "https://www.newsis.com/view/NISX20260716_0003711964": {
@@ -2174,11 +2174,22 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:25:21.177009",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:28:54.245778",
       "hash_id": "94914dad34f552e8"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366795": {
+      "title": "포스코 사내하청 노동자 정규직 전환 촉구하는 금속노조",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366795",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:29:00.831853",
+      "hash_id": "db289a73052d1626"
     }
   },
-  "last_updated": "2026-07-16 02:25:29",
-  "count": 198
+  "last_updated": "2026-07-16 02:29:04",
+  "count": 199
 }

@@ -2174,8 +2174,8 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T02:28:54.245778",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T02:32:27.702864",
       "hash_id": "94914dad34f552e8"
     },
     "https://www.newsis.com/view/NISI20260716_0021366795": {
@@ -2185,11 +2185,66 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:29:00.831853",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:32:28.645293",
       "hash_id": "db289a73052d1626"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366786": {
+      "title": "포스코 대법원 선고에 따른 금속노조 기자회견",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366786",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:32:29.601613",
+      "hash_id": "36b64b92dd016436"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366793": {
+      "title": "포스코 대법원 선고에 따른 금속노조 기자회견",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366793",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:32:30.563224",
+      "hash_id": "36b64b92dd016436"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366791": {
+      "title": "포스코 대법원 선고에 따른 금속노조 기자회견",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366791",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:32:31.508736",
+      "hash_id": "36b64b92dd016436"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366789": {
+      "title": "금속노조, 포스코 대법원 선고에 따른 입장발표 기자회견",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366789",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:32:32.470103",
+      "hash_id": "58bd2b4f029781f7"
+    },
+    "https://www.newsis.com/view/NISI20260716_0021366798": {
+      "title": "포스코 사내하청 노동자 정규직 전환 촉구",
+      "link": "https://www.newsis.com/view/NISI20260716_0021366798",
+      "date": "2026-07-16 11:26",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:32:33.409871",
+      "hash_id": "5bb604b3be176388"
     }
   },
-  "last_updated": "2026-07-16 02:29:04",
-  "count": 199
+  "last_updated": "2026-07-16 02:32:36",
+  "count": 204
 }

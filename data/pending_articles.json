@@ -2152,8 +2152,8 @@
       "press": "동아일보",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T02:21:46.246067",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T02:25:16.621210",
       "hash_id": "2ae3a6a13fc7067b"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=442495": {
@@ -2163,11 +2163,22 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:21:49.873379",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:25:17.562200",
       "hash_id": "c7700a08f63d7e0c"
+    },
+    "https://www.newsis.com/view/NISX20260716_0003711964": {
+      "title": "포스코, 대법원 직고용 판결 수용…\"승소 원고부터 순차적 직고용\"",
+      "link": "https://www.newsis.com/view/NISX20260716_0003711964",
+      "date": "2026-07-16 11:22",
+      "press": "",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:25:21.177009",
+      "hash_id": "94914dad34f552e8"
     }
   },
-  "last_updated": "2026-07-16 02:21:53",
-  "count": 197
+  "last_updated": "2026-07-16 02:25:29",
+  "count": 198
 }

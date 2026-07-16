@@ -2504,8 +2504,8 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-16T09:52:09.063681",
+      "retry_count": 2,
+      "last_attempt": "2026-07-16T10:49:48.920843",
       "hash_id": "8c395c937623d388"
     },
     "https://www.hani.co.kr/arti/society/society_general/1268602.html": {
@@ -2515,8 +2515,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T09:52:27.958464",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T10:49:48.044085",
       "hash_id": "579c7e9435a48c52"
     },
     "https://www.ksg.co.kr/news/main_newsView.jsp?pNum=147647": {
@@ -2625,11 +2625,66 @@
       "press": "",
       "keyword": "리엘리먼트",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T09:52:14.441851",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T10:49:47.154892",
       "hash_id": "933b926471aa2970"
+    },
+    "http://www.newsworker.co.kr/news/articleView.html?idxno=437000": {
+      "title": "공정위, 포스코그룹 '2·3차까지'... 5300개 공급망 상생 시동",
+      "link": "http://www.newsworker.co.kr/news/articleView.html?idxno=437000",
+      "date": "2026-07-16 19:44",
+      "press": "뉴스워커",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-16T10:49:46.658523",
+      "hash_id": "d9c0364261e0c3d5"
+    },
+    "https://www.laborplus.co.kr/news/articleView.html?idxno=41164": {
+      "title": "[위클립] 7월 3주",
+      "link": "https://www.laborplus.co.kr/news/articleView.html?idxno=41164",
+      "date": "2026-07-16 19:47",
+      "press": "",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-07-16T10:49:46.658534",
+      "hash_id": "de4bc708d8eddf93"
+    },
+    "https://www.ekn.kr/web/view.php?key=20260716022433188": {
+      "title": "철강업계 ‘하투’ 전운 고조…‘직고용·원하청 교섭’ 곳곳에 암초",
+      "link": "https://www.ekn.kr/web/view.php?key=20260716022433188",
+      "date": "2026-07-16 19:46",
+      "press": "에너지경제",
+      "keyword": "포스코 직고용",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-07-16T10:49:46.658541",
+      "hash_id": "4982329ac4a2bb74"
+    },
+    "https://www.greened.kr/news/articleView.html?idxno=345304": {
+      "title": "포스코, 5300곳 협력사와 상생 생태계 넓힌다",
+      "link": "https://www.greened.kr/news/articleView.html?idxno=345304",
+      "date": "2026-07-16 19:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-16T10:49:46.658546",
+      "hash_id": "482216b55ddc09ca"
+    },
+    "https://www.businesskorea.co.kr/news/articleView.html?idxno=273198": {
+      "title": "[Market Focus] SK하이닉스, 국내 급락세에도 美 상장 사흘 만에 ADR '프리...",
+      "link": "https://www.businesskorea.co.kr/news/articleView.html?idxno=273198",
+      "date": "2026-07-16 19:46",
+      "press": "비즈니스코리아",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-16T10:49:46.658551",
+      "hash_id": "32223e1b12e22520"
     }
   },
-  "last_updated": "2026-07-16 09:52:36",
-  "count": 239
+  "last_updated": "2026-07-16 10:50:15",
+  "count": 244
 }

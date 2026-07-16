@@ -2185,8 +2185,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T02:32:28.645293",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T02:36:05.911179",
       "hash_id": "db289a73052d1626"
     },
     "https://www.newsis.com/view/NISI20260716_0021366786": {
@@ -2196,8 +2196,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:32:29.601613",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:36:06.852569",
       "hash_id": "36b64b92dd016436"
     },
     "https://www.newsis.com/view/NISI20260716_0021366793": {
@@ -2207,8 +2207,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:32:30.563224",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:36:07.821520",
       "hash_id": "36b64b92dd016436"
     },
     "https://www.newsis.com/view/NISI20260716_0021366791": {
@@ -2218,8 +2218,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:32:31.508736",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:36:08.761628",
       "hash_id": "36b64b92dd016436"
     },
     "https://www.newsis.com/view/NISI20260716_0021366789": {
@@ -2229,8 +2229,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:32:32.470103",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:36:09.707689",
       "hash_id": "58bd2b4f029781f7"
     },
     "https://www.newsis.com/view/NISI20260716_0021366798": {
@@ -2240,11 +2240,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-16T02:32:33.409871",
+      "retry_count": 3,
+      "last_attempt": "2026-07-16T02:36:10.653776",
       "hash_id": "5bb604b3be176388"
+    },
+    "https://biz.heraldcorp.com/article/10811000?ref=naver": {
+      "title": "“무조건 65세까지”…퇴직자 99% 재고용에도 현대차 노조 ‘몽니’ [정...",
+      "link": "https://biz.heraldcorp.com/article/10811000?ref=naver",
+      "date": "2026-07-16 11:35",
+      "press": "헤럴드경제",
+      "keyword": "포스코 노조",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:36:14.253175",
+      "hash_id": "7586ea8f2e06b3e8"
     }
   },
-  "last_updated": "2026-07-16 02:32:36",
-  "count": 204
+  "last_updated": "2026-07-16 02:36:17",
+  "count": 205
 }

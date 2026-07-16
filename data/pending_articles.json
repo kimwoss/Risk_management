@@ -2141,11 +2141,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-16T02:14:42.084959",
+      "retry_count": 5,
+      "last_attempt": "2026-07-16T02:18:08.079620",
       "hash_id": "f8bbb586523da135"
+    },
+    "https://www.donga.com/news/article/all/20260716/134310115/2": {
+      "title": "“와! 눈 떴구나! 하하하”…91세 노학자가 골라낸 ‘진짜 행복’ [동아...",
+      "link": "https://www.donga.com/news/article/all/20260716/134310115/2",
+      "date": "2026-07-16 11:13",
+      "press": "동아일보",
+      "keyword": "포스코DX",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-16T02:18:09.032936",
+      "hash_id": "2ae3a6a13fc7067b"
     }
   },
-  "last_updated": "2026-07-16 02:14:45",
-  "count": 195
+  "last_updated": "2026-07-16 02:18:22",
+  "count": 196
 }

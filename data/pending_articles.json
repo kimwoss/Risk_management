@@ -2856,11 +2856,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-19T23:46:28.970980",
+      "retry_count": 3,
+      "last_attempt": "2026-07-19T23:49:54.629447",
       "hash_id": "2d78ab966dbeef75"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/07/20/20260720500009?wlog_tag3=naver": {
+      "title": "정부 “대미 통상관계 안정적 관리…개도국 성장 지원 ‘K-AI 패키지’ ...",
+      "link": "https://www.seoul.co.kr/news/economy/2026/07/20/20260720500009?wlog_tag3=naver",
+      "date": "2026-07-20 08:47",
+      "press": "",
+      "keyword": "대미 투자 특별법",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-19T23:50:00.425368",
+      "hash_id": "48a10a86a9416692"
     }
   },
-  "last_updated": "2026-07-19 23:46:29",
-  "count": 260
+  "last_updated": "2026-07-19 23:50:00",
+  "count": 261
 }

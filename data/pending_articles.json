@@ -2911,11 +2911,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-20T01:47:01.307829",
+      "retry_count": 3,
+      "last_attempt": "2026-07-20T01:50:28.311223",
       "hash_id": "ce44eb51b3738308"
+    },
+    "http://www.beyondpost.co.kr/view.php?ud=202607201040357940205868f676_30": {
+      "title": "롯데건설 '르엘', 하이엔드 아파트 관심도 1위...디에이치·호반써밋 뒤...",
+      "link": "http://www.beyondpost.co.kr/view.php?ud=202607201040357940205868f676_30",
+      "date": "2026-07-20 10:48",
+      "press": "",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-20T01:50:29.106301",
+      "hash_id": "2b44cd82eebdb22e"
     }
   },
-  "last_updated": "2026-07-20 01:47:01",
-  "count": 265
+  "last_updated": "2026-07-20 01:50:32",
+  "count": 266
 }

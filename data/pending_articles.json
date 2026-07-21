@@ -3175,11 +3175,22 @@
       "press": "워크로",
       "keyword": "포스코 직고용",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-07-21T07:31:17.358762",
+      "retry_count": 3,
+      "last_attempt": "2026-07-21T07:34:40.212089",
       "hash_id": "71aa59fd6bbbb2c7"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005884067": {
+      "title": "블랙록, KAI·에코프로 지분율 5% 넘겨",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005884067",
+      "date": "2026-07-21 16:32",
+      "press": "MBN",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-21T07:34:41.125831",
+      "hash_id": "89c8d4e2e6547fed"
     }
   },
-  "last_updated": "2026-07-21 07:31:17",
-  "count": 289
+  "last_updated": "2026-07-21 07:34:41",
+  "count": 290
 }

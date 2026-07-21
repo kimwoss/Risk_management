@@ -1074,35 +1074,49 @@ def remove_from_pending(url: str, pending_queue: dict) -> dict:
 
 # ======================== API 할당량 관리 ========================
 
-def load_api_usage() -> int:
-    """오늘 API 사용량 로드"""
+def _load_api_usage_data() -> dict:
+    """api_usage.json 전체 로드 (오늘 날짜만 유효, 아니면 초기화)."""
+    today = datetime.now().strftime("%Y-%m-%d")
     if os.path.exists(API_USAGE_FILE):
         try:
             with open(API_USAGE_FILE, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                today = datetime.now().strftime("%Y-%m-%d")
-                if data.get("date") == today:
-                    return data.get("count", 0)
+            if data.get("date") == today:
+                return data
         except Exception as e:
             print(f"[WARNING] API 사용량 로드 실패: {e}")
-    return 0
+    return {"date": today, "count": 0, "alerts_sent": []}
+
+
+def load_api_usage() -> int:
+    """오늘 API 사용량(호출 수) 로드"""
+    return _load_api_usage_data().get("count", 0)
+
+
+def _write_api_usage(count: int, alerts_sent: list):
+    """api_usage.json 기록 (count + 당일 경고 발송 플래그 alerts_sent 보존)."""
+    os.makedirs(DATA_FOLDER, exist_ok=True)
+    today = datetime.now().strftime("%Y-%m-%d")
+    data = {
+        "date": today,
+        "count": count,
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "quota_remaining": MAX_API_CALLS_PER_DAY - count,
+        "quota_percentage": (count / MAX_API_CALLS_PER_DAY) * 100,
+        "alerts_sent": alerts_sent,  # 당일 이미 보낸 임계값 라벨(["80","95"]) — 중복 알림 방지
+    }
+    with open(API_USAGE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def save_api_usage(count: int):
-    """오늘 API 사용량 저장"""
+    """오늘 API 사용량 저장 (당일 경고 발송 플래그는 보존)"""
     try:
-        os.makedirs(DATA_FOLDER, exist_ok=True)
-        today = datetime.now().strftime("%Y-%m-%d")
-        data = {
-            "date": today,
-            "count": count,
-            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "quota_remaining": MAX_API_CALLS_PER_DAY - count,
-            "quota_percentage": (count / MAX_API_CALLS_PER_DAY) * 100
-        }
-        with open(API_USAGE_FILE, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"[DEBUG] API 사용량 저장: {count}/{MAX_API_CALLS_PER_DAY} ({data['quota_percentage']:.1f}%)")
+        existing = _load_api_usage_data()
+        alerts_sent = existing.get("alerts_sent", [])
+        _write_api_usage(count, alerts_sent)
+        pct = (count / MAX_API_CALLS_PER_DAY) * 100
+        print(f"[DEBUG] API 사용량 저장: {count}/{MAX_API_CALLS_PER_DAY} ({pct:.1f}%)")
     except Exception as e:
         print(f"[WARNING] API 사용량 저장 실패: {e}")
 
@@ -1666,29 +1680,42 @@ def check_api_quota_and_alert():
         bool: API 사용 가능 여부
     """
     try:
-        usage = load_api_usage()
+        data = _load_api_usage_data()
+        usage = data.get("count", 0)
+        alerts_sent = data.get("alerts_sent", [])
         remaining = MAX_API_CALLS_PER_DAY - usage
         usage_percent = (usage / MAX_API_CALLS_PER_DAY) * 100
 
         print(f"[DEBUG] API 사용량: {usage:,}/{MAX_API_CALLS_PER_DAY:,} ({usage_percent:.1f}%)")
 
-        # 80% 도달 시 경고
-        if usage >= API_QUOTA_WARNING_THRESHOLD and usage < (API_QUOTA_WARNING_THRESHOLD + 100):
-            send_system_alert(
-                f"⚠️ *API 할당량 경고*\n\n"
-                f"Naver API 사용량: {usage:,}/{MAX_API_CALLS_PER_DAY:,}\n"
-                f"사용률: {usage_percent:.1f}%\n"
-                f"남은 호출 수: {remaining:,}"
-            )
-
-        # 95% 도달 시 긴급 경고
-        elif usage >= (MAX_API_CALLS_PER_DAY * 0.95):
-            send_system_alert(
+        # 임계값별로 '당일 1회만' 발송. alerts_sent(api_usage.json에 커밋·동기화)로
+        # 매 라운드(3분)마다 반복 발송되던 문제를 차단. 높은 임계값을 먼저 확인.
+        label, message = None, None
+        if usage >= (MAX_API_CALLS_PER_DAY * 0.95) and "95" not in alerts_sent:
+            label = "95"
+            message = (
                 f"🚨 *API 할당량 긴급*\n\n"
                 f"사용량이 95%를 초과했습니다!\n"
                 f"사용: {usage:,}/{MAX_API_CALLS_PER_DAY:,}\n"
-                f"일부 키워드 수집이 중단될 수 있습니다."
+                f"일부 키워드 수집이 중단될 수 있습니다.\n"
+                f"(오늘 1회만 알림 — 자정 리셋)"
             )
+        elif usage >= API_QUOTA_WARNING_THRESHOLD and "80" not in alerts_sent and "95" not in alerts_sent:
+            label = "80"
+            message = (
+                f"⚠️ *API 할당량 경고*\n\n"
+                f"Naver API 사용량: {usage:,}/{MAX_API_CALLS_PER_DAY:,}\n"
+                f"사용률: {usage_percent:.1f}%\n"
+                f"남은 호출 수: {remaining:,}\n"
+                f"(오늘 1회만 알림 — 자정 리셋)"
+            )
+
+        if label:
+            send_system_alert(message)
+            # 발송 즉시 플래그 기록 (동일 라운드/타 프로세스의 재발송 방지)
+            if label not in alerts_sent:
+                alerts_sent.append(label)
+            _write_api_usage(usage, alerts_sent)
 
         return usage < MAX_API_CALLS_PER_DAY
 

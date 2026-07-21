@@ -3142,8 +3142,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-21T06:13:03.622210",
+      "retry_count": 5,
+      "last_attempt": "2026-07-21T06:16:30.394717",
       "hash_id": "0e969997b3fe0228"
     },
     "https://biz.chosun.com/industry/company/2026/07/21/KW3GHP6WNNDLZM3LSOIDGGM4X4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -3153,11 +3153,22 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-21T06:13:04.530821",
+      "retry_count": 3,
+      "last_attempt": "2026-07-21T06:16:31.293576",
       "hash_id": "0d41c67530fede1c"
+    },
+    "https://www.newsis.com/view/NISX20260721_0003717186": {
+      "title": "광양시, 지역 산업 인공지능 전환 실증 생태계 구축 협약",
+      "link": "https://www.newsis.com/view/NISX20260721_0003717186",
+      "date": "2026-07-21 15:11",
+      "press": "",
+      "keyword": "포스코DX",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-21T06:16:32.213004",
+      "hash_id": "416de4fee10312c0"
     }
   },
-  "last_updated": "2026-07-21 06:13:07",
-  "count": 287
+  "last_updated": "2026-07-21 06:16:35",
+  "count": 288
 }

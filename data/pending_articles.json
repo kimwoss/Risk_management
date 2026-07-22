@@ -3263,8 +3263,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-22T05:37:11.880740",
+      "retry_count": 3,
+      "last_attempt": "2026-07-22T05:41:17.098003",
       "hash_id": "d53647a5aa98edd9"
     },
     "https://www.newsinside.kr/news/articleView.html?idxno=4855353": {
@@ -3332,8 +3332,19 @@
       "retry_count": 0,
       "last_attempt": "2026-07-22T05:33:30.894534",
       "hash_id": "058ead6b5e2590f6"
+    },
+    "https://www.g-enews.com/view.php?ud=2026072210442433683084322ec9_1": {
+      "title": "포스코, 포항에 국내 첫 첨단제조 인큐베이터…실증부터 양산까지 지원",
+      "link": "https://www.g-enews.com/view.php?ud=2026072210442433683084322ec9_1",
+      "date": "2026-07-22 14:38",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-22T05:41:17.866834",
+      "hash_id": "e0d3de472a5bdccf"
     }
   },
-  "last_updated": "2026-07-22 05:37:47",
-  "count": 303
+  "last_updated": "2026-07-22 05:41:18",
+  "count": 304
 }

@@ -2752,13 +2752,14 @@ def render_top_nav(active_label: str):
         border: 1px solid transparent !important;
         background: transparent !important;
         color: var(--c-text-mute) !important;
-        padding: 10px 16px !important;
-        letter-spacing: 0.01em !important;
+        padding: 10px 12px !important;
+        letter-spacing: 0 !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
         height: 44px !important;
         min-height: 44px !important;
-        font-size: 0.9rem !important;
+        font-size: 0.86rem !important;
         box-shadow: none !important;
+        white-space: nowrap !important;   /* 메뉴명 줄바꿈 방지 (데스크톱 1줄 유지) */
       }
       .nav-container .stButton>button:hover {
         background: var(--c-surface-h) !important;
@@ -2808,8 +2809,9 @@ def render_top_nav(active_label: str):
     _is_pr = st.session_state.get("role") == "pr"
     st.markdown('<div class="nav-container">', unsafe_allow_html=True)
     with st.container(key="iris_nav"):
-        # PR은 데이터 업데이트(⬆) 버튼이 추가되므로 컨트롤 열을 조금 넓힌다
-        c1, c2, c3 = st.columns([1.2, 3.5, (0.75 if _is_pr else 0.5)], gap="medium")
+        # PR은 데이터 업데이트(⬆) 버튼이 추가되므로 컨트롤 열을 조금 넓힌다.
+        # 로고 열은 좁히고 메뉴 열은 넓혀, 6개 메뉴명이 한 줄에 들어가도록 배분.
+        c1, c2, c3 = st.columns([0.9, 4.3, (0.85 if _is_pr else 0.6)], gap="small")
         with c1:
             if logo_uri:
                 # 로고를 클릭 가능한 HTML로 직접 구현 (메뉴 버튼과 높이 정렬)

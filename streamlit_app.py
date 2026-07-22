@@ -2602,6 +2602,133 @@ def set_active_menu_from_url(default_label="메인"):
     except Exception:
         return st.session_state.get("top_menu", default_label)
 
+# ----------------------------- 데이터 업데이트(업로드) -----------------------------
+def _du_preview_history(data: bytes):
+    """대응이력 xlsx 미리보기 + 반영·배포."""
+    import pandas as _pd
+    from modules import data_updater as du
+    from modules import repo_writer as rw
+    try:
+        cur = _pd.read_csv(MEDIA_RESPONSE_FILE, encoding="utf-8-sig", dtype=str)
+    except Exception as e:
+        st.error(f"현재 대응이력 CSV 로드 실패: {e}")
+        return
+    try:
+        res = du.parse_history_delta(data, cur)
+    except Exception as e:
+        st.error(f"파싱 실패: {e}")
+        return
+    n = len(res["new_rows"])
+    st.markdown(f"**대응이력** · 시트 `{res['sheet']}`")
+    if n == 0:
+        st.success("신규 항목 없음 — 이미 최신입니다.")
+        return
+    st.info(f"신규 **{n}건** (순번 {res['start_seq']}~{res['end_seq']})")
+    prev = _pd.DataFrame(res["new_rows"])[["순번", "발생 일시", "발생 유형", "현업 부서", "이슈 발생 보고"]]
+    prev["이슈 발생 보고"] = prev["이슈 발생 보고"].str.slice(0, 45)
+    st.dataframe(prev, use_container_width=True, hide_index=True,
+                 height=min(360, 44 + n * 35))
+    if st.button(f"✅ {n}건 반영하고 배포", key="du_apply_hist", type="primary", use_container_width=True):
+        content = du.history_updated_bytes(res["updated_df"])
+        try:
+            with open(MEDIA_RESPONSE_FILE, "wb") as f:
+                f.write(content)
+            clear_data_cache()
+        except Exception as e:
+            st.error(f"로컬 저장 실패: {e}")
+            return
+        ok, info = rw.commit_file(
+            "public", "data/언론대응내역.csv", content,
+            f"data: 대응이력 {n}건 업로드 반영 (앱 업로드)")
+        if ok:
+            st.success(f"✅ 반영·배포 완료 — 곧 재배포됩니다. [{info}]")
+        else:
+            st.warning(f"로컬엔 반영됐지만 배포는 생략/실패: {info}\n"
+                       "(GH_PAT 토큰이 없으면 재배포 시 되돌아갈 수 있어요. 관리자에게 문의)")
+
+
+def _du_preview_journalist(data: bytes):
+    """기자리스트 xlsx 미리보기 + 반영·배포(비공개 레포)."""
+    from modules import data_updater as du
+    from modules import repo_writer as rw
+    try:
+        master = load_master_data_fresh()
+        if not master:
+            master = {"media_contacts": {}}
+    except Exception as e:
+        st.error(f"현재 master_data 로드 실패: {e}")
+        return
+    try:
+        res = du.parse_journalist_delta(data, master)
+    except Exception as e:
+        st.error(f"파싱 실패: {e}")
+        return
+    s = res["summary"]
+    st.markdown("**기자리스트** · 정규 기자 기준 (DESK·편집국장 엔트리는 보존)")
+    if not du.has_journalist_changes(s):
+        st.success("변경 사항 없음 — 이미 최신입니다.")
+        return
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("신규 매체", len(s["new_media"]))
+    c2.metric("기자 추가", len(s["add_rep"]))
+    c3.metric("연락처·이메일 변경", len(s["upd_rep"]))
+    c4.metric("기자 이탈", len(s["del_rep"]))
+    with st.expander("변경 상세 보기", expanded=True):
+        if s["new_media"]:
+            st.markdown("**신규 매체**: " + ", ".join(s["new_media"]))
+        for m, jn, pos, tel in s["add_rep"]:
+            st.markdown(f"- ➕ **{m}** · {jn} ({pos}) {tel}")
+        for m, jn, ch in s["upd_rep"]:
+            st.markdown(f"- ♻️ **{m}** · {jn}: {'; '.join(ch)}")
+        for m, jn in s["del_rep"]:
+            st.markdown(f"- ➖ **{m}** · {jn} (이탈)")
+    if st.button("✅ 반영하고 배포(비공개 레포)", key="du_apply_jour", type="primary", use_container_width=True):
+        content = du.journalist_updated_bytes(res["updated_master"])
+        try:
+            with open(MASTER_DATA_FILE, "wb") as f:
+                f.write(content)
+            clear_data_cache()
+        except Exception as e:
+            st.error(f"로컬 저장 실패: {e}")
+            return
+        ok, info = rw.commit_file(
+            "private", "data/master_data.json", content,
+            "data: 기자리스트 업로드 반영 (앱 업로드)")
+        if ok:
+            st.success(f"✅ 반영·배포 완료 — 다음 앱 시작 시 반영됩니다. [{info}]")
+        else:
+            st.warning(f"로컬엔 반영됐지만 배포는 생략/실패: {info}\n"
+                       "(GH_DATA_TOKEN 토큰이 없으면 재시작 시 되돌아갈 수 있어요. 관리자에게 문의)")
+
+
+def _data_update_dialog():
+    @st.dialog("데이터 업데이트", width="large")
+    def _dlg():
+        from modules import data_updater as du
+        from modules import repo_writer as rw
+        st.caption("마스터 엑셀(.xlsx)을 올리면 유형을 자동 인식해 현재 데이터와 비교합니다. "
+                   "미리보기를 확인한 뒤 반영하세요.")
+        if not (rw.can_commit("public") or rw.can_commit("private")):
+            st.info("ℹ️ 현재 환경에 배포 토큰이 없어 **미리보기·로컬 반영까지만** 됩니다. "
+                    "실제 배포는 관리자 환경(토큰 설정)에서 수행됩니다.")
+        files = st.file_uploader(
+            "대응이력 / 기자리스트 마스터 파일 (여러 개 가능)",
+            type=["xlsx"], accept_multiple_files=True, key="du_uploader")
+        if not files:
+            return
+        for f in files:
+            data = f.getvalue()
+            ftype = du.detect_file_type(data)
+            st.markdown(f"---\n#### 📄 {f.name}")
+            if ftype == "history":
+                _du_preview_history(data)
+            elif ftype == "journalist":
+                _du_preview_journalist(data)
+            else:
+                st.error("인식 불가 — 대응이력/기자리스트 마스터 xlsx가 아닙니다.")
+    _dlg()
+
+
 def render_top_nav(active_label: str):
     logo_uri = load_logo_data_uri()
     st.markdown("""
@@ -2678,9 +2805,11 @@ def render_top_nav(active_label: str):
     </style>
     """, unsafe_allow_html=True)
     
+    _is_pr = st.session_state.get("role") == "pr"
     st.markdown('<div class="nav-container">', unsafe_allow_html=True)
     with st.container(key="iris_nav"):
-        c1, c2, c3 = st.columns([1.2, 3.5, 0.5], gap="medium")
+        # PR은 데이터 업데이트(⬆) 버튼이 추가되므로 컨트롤 열을 조금 넓힌다
+        c1, c2, c3 = st.columns([1.2, 3.5, (0.75 if _is_pr else 0.5)], gap="medium")
         with c1:
             if logo_uri:
                 # 로고를 클릭 가능한 HTML로 직접 구현 (메뉴 버튼과 높이 정렬)
@@ -2710,8 +2839,16 @@ def render_top_nav(active_label: str):
                         st.query_params["menu"] = label
                         st.rerun()
         with c3:
-            t_col, o_col = st.columns(2, gap="small")
-            with t_col:
+            # PR: ⬆(데이터 업데이트) ◐ ⏻  /  일반: ◐ ⏻
+            ctrl_cols = st.columns(3 if _is_pr else 2, gap="small")
+            idx = 0
+            if _is_pr:
+                with ctrl_cols[idx]:
+                    if st.button("⬆", key="nav_data_update", use_container_width=True,
+                                 help="데이터 업데이트 (대응이력·기자리스트 엑셀 업로드)"):
+                        st.session_state["_open_data_update"] = True
+                idx += 1
+            with ctrl_cols[idx]:
                 # ◐ 라이트/다크 테마 토글
                 _theme = get_current_theme()
                 if st.button("◐", key="nav_theme_toggle", use_container_width=True,
@@ -2722,12 +2859,17 @@ def render_top_nav(active_label: str):
                     # 쿠키가 저장되지 않고, 리런 경합으로 토글이 이중 발화할 수 있다.
                     # data-theme은 CSS 변수 기반이라 속성 재주입만으로 즉시 전환된다.
                     apply_theme_attribute(_new_theme)
-            with o_col:
+            idx += 1
+            with ctrl_cols[idx]:
                 # ⏻ 로그아웃 (공용 PC·모바일 이탈 경로)
                 if st.button("⏻", key="nav_logout", use_container_width=True,
                              help="로그아웃"):
                     logout()
     st.markdown('</div>', unsafe_allow_html=True)
+
+    # PR 데이터 업데이트 다이얼로그 (버튼 클릭 시 오픈)
+    if _is_pr and st.session_state.pop("_open_data_update", False):
+        _data_update_dialog()
 
 # ----------------------------- 메인 히어로 -----------------------------
 def render_main_page():

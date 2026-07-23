@@ -3681,11 +3681,22 @@
       "press": "",
       "keyword": "포스코 직고용",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-23T08:34:22.779347",
+      "retry_count": 3,
+      "last_attempt": "2026-07-23T08:37:50.739201",
       "hash_id": "273ca756cad26465"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=443012": {
+      "title": "포스코 노사 단체교섭 결렬, 노조 \"사측 제시안 사실상 기본임금 동결\"",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=443012",
+      "date": "2026-07-23 17:34",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-23T08:37:51.498477",
+      "hash_id": "4375e769e62df0d4"
     }
   },
-  "last_updated": "2026-07-23 08:34:23",
-  "count": 335
+  "last_updated": "2026-07-23 08:37:54",
+  "count": 336
 }

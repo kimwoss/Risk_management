@@ -3560,8 +3560,8 @@
       "press": "",
       "keyword": "포스코 노조",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-23T05:09:17.615944",
+      "retry_count": 2,
+      "last_attempt": "2026-07-23T05:16:01.561435",
       "hash_id": "86f58ae4949bf5f7"
     },
     "https://www.kukinews.com/article/view/kuk202607230102": {
@@ -3585,8 +3585,30 @@
       "retry_count": 0,
       "last_attempt": "2026-07-23T05:09:17.615971",
       "hash_id": "302a781aeac81b63"
+    },
+    "https://biz.chosun.com/industry/company/2026/07/23/IOAXTCSREZCJRBQCP5Y3ENSRPU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코 노조, 단체교섭 결렬 선언… “중앙노동위 조정 신청 예정”",
+      "link": "https://biz.chosun.com/industry/company/2026/07/23/IOAXTCSREZCJRBQCP5Y3ENSRPU/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-07-23 14:11",
+      "press": "",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-23T05:16:19.815402",
+      "hash_id": "c6d72e4113eb2b1a"
+    },
+    "https://www.nocutnews.co.kr/news/6552292?utm_source=naver&utm_medium=article&utm_campaign=20260723021012": {
+      "title": "포스코 노사 임단협 결렬…중앙노동위 조정 신청",
+      "link": "https://www.nocutnews.co.kr/news/6552292?utm_source=naver&utm_medium=article&utm_campaign=20260723021012",
+      "date": "2026-07-23 14:11",
+      "press": "노컷뉴스",
+      "keyword": "포스코 노조",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-23T05:16:20.582376",
+      "hash_id": "775046e4368453bd"
     }
   },
-  "last_updated": "2026-07-23 05:09:44",
-  "count": 326
+  "last_updated": "2026-07-23 05:16:23",
+  "count": 328
 }

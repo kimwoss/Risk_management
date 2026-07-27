@@ -4055,11 +4055,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-27T09:35:03.781429",
+      "retry_count": 5,
+      "last_attempt": "2026-07-27T09:39:01.449018",
       "hash_id": "f92f7e0d2f9259ab"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/07/27/20260727500255?wlog_tag3=naver": {
+      "title": "중동산 줄이고 미국산 늘린다… LNG 공급선 다변화 박차",
+      "link": "https://www.seoul.co.kr/news/economy/2026/07/27/20260727500255?wlog_tag3=naver",
+      "date": "2026-07-27 18:34",
+      "press": "",
+      "keyword": "광양 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-27T09:39:02.212621",
+      "hash_id": "5d8138598ee27e84"
     }
   },
-  "last_updated": "2026-07-27 09:35:30",
-  "count": 369
+  "last_updated": "2026-07-27 09:39:07",
+  "count": 370
 }

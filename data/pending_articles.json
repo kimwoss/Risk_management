@@ -4506,11 +4506,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-29T04:26:03.800928",
+      "retry_count": 5,
+      "last_attempt": "2026-07-29T04:29:32.157422",
       "hash_id": "3233ce8d2001b648"
+    },
+    "https://www.etoday.co.kr/news/view/2608732": {
+      "title": "브라질 자원에 韓기술 더한다…이 대통령 \"한·브라질 공동번영\" [종합...",
+      "link": "https://www.etoday.co.kr/news/view/2608732",
+      "date": "2026-07-29 13:28",
+      "press": "이투데이",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-29T04:29:38.334377",
+      "hash_id": "efaa918749ae7118"
     }
   },
-  "last_updated": "2026-07-29 04:26:09",
-  "count": 410
+  "last_updated": "2026-07-29 04:29:41",
+  "count": 411
 }

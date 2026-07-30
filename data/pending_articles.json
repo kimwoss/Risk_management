@@ -4979,8 +4979,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널 대우",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-30T06:26:58.712326",
+      "retry_count": 4,
+      "last_attempt": "2026-07-30T06:31:11.116139",
       "hash_id": "9cd9e7e7b4a4d3d6"
     },
     "https://news.einfomax.co.kr/news/articleView.html?idxno=4427826": {
@@ -5001,8 +5001,8 @@
       "press": "",
       "keyword": "포스코인터내셔널 희토류",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-30T06:26:57.933786",
+      "retry_count": 4,
+      "last_attempt": "2026-07-30T06:31:10.326569",
       "hash_id": "e829bb3daaf4db6e"
     },
     "https://dealsite.co.kr/articles/166271": {
@@ -5111,8 +5111,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T06:27:12.012713",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T06:31:11.890133",
       "hash_id": "63c4e7f4ef86f588"
     },
     "http://www.economytalk.kr/news/articleView.html?idxno=423182": {
@@ -5221,8 +5221,8 @@
       "press": "",
       "keyword": "미얀마 가스전",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-30T06:26:57.171247",
+      "retry_count": 4,
+      "last_attempt": "2026-07-30T06:31:09.564243",
       "hash_id": "c5e255911280dec3"
     },
     "https://www.smartbizn.com/news/articleView.html?idxno=149906": {
@@ -5254,11 +5254,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코 전기로",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-30T06:26:56.880030",
+      "retry_count": 2,
+      "last_attempt": "2026-07-30T06:31:12.651466",
       "hash_id": "7e71ed5bb51ca050"
+    },
+    "https://www.etoday.co.kr/news/view/2609347": {
+      "title": "리튬 흑자에도 긴축 고삐…포스코그룹 구조개편 목표 3.5조로 상향 [종합...",
+      "link": "https://www.etoday.co.kr/news/view/2609347",
+      "date": "2026-07-30 15:30",
+      "press": "이투데이",
+      "keyword": "포스코인터내셔널 팜",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T06:31:18.518594",
+      "hash_id": "ac65823f712bd859"
     }
   },
-  "last_updated": "2026-07-30 06:27:24",
-  "count": 478
+  "last_updated": "2026-07-30 06:31:21",
+  "count": 479
 }

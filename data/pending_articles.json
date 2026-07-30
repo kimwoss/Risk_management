@@ -5441,11 +5441,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T08:05:31.058461",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T08:09:05.966838",
       "hash_id": "af85f9a7e1dabdfe"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=443586": {
+      "title": "시공능력평가 10대 건설사 6곳 순위 변동, 삼성물산 13년 연속 1위 지켜",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=443586",
+      "date": "2026-07-30 17:04",
+      "press": "",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T08:09:06.751919",
+      "hash_id": "7891d809124d991c"
     }
   },
-  "last_updated": "2026-07-30 08:05:31",
-  "count": 495
+  "last_updated": "2026-07-30 08:09:09",
+  "count": 496
 }

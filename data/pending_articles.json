@@ -5463,8 +5463,8 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T08:16:24.603007",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T08:20:11.717492",
       "hash_id": "ad1ccff30af9104b"
     },
     "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005890909": {
@@ -5474,11 +5474,11 @@
       "press": "MBN",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T08:16:32.819044",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T08:20:12.495031",
       "hash_id": "24e3a47681d31530"
     }
   },
-  "last_updated": "2026-07-30 08:16:38",
+  "last_updated": "2026-07-30 08:20:15",
   "count": 498
 }

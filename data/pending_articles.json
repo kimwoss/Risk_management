@@ -5573,11 +5573,22 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T23:50:38.957149",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T23:54:04.894207",
       "hash_id": "aaeffe5da5fee69b"
+    },
+    "http://www.joseilbo.com/news/news_read.php?uid=572993&class=32&grp=": {
+      "title": "이 대통령, '한-칠레 비즈니스 라운드테이블' 참석… \"핵심광물·AI·방산...",
+      "link": "http://www.joseilbo.com/news/news_read.php?uid=572993&class=32&grp=",
+      "date": "2026-07-31 08:50",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T23:54:05.880208",
+      "hash_id": "861381966be142e9"
     }
   },
-  "last_updated": "2026-07-30 23:50:42",
-  "count": 507
+  "last_updated": "2026-07-30 23:54:06",
+  "count": 508
 }

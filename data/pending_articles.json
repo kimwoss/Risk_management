@@ -5364,8 +5364,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:46:34.015177",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:50:22.831403",
       "hash_id": "e025c592d2770138"
     },
     "https://www.thepowernews.co.kr/view.php?ud=202607301641199088de3f0aa1be_7": {
@@ -5375,11 +5375,44 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T07:46:44.686247",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T07:50:23.620465",
       "hash_id": "95b4ac3cbe602ccb"
+    },
+    "https://www.g-enews.com/view.php?ud=202607301633564107112616b072_1": {
+      "title": "포스코홀딩스, 철강·리튬·LNG 동반 개선…'트리플 코어' 시동",
+      "link": "https://www.g-enews.com/view.php?ud=202607301633564107112616b072_1",
+      "date": "2026-07-30 16:48",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T07:50:30.913720",
+      "hash_id": "689a7394170ae234"
+    },
+    "https://www.g-enews.com/view.php?ud=202607301603392442112616b072_1": {
+      "title": "포스코인터내셔널, 2분기 영업익 4290억원…역대 최대",
+      "link": "https://www.g-enews.com/view.php?ud=202607301603392442112616b072_1",
+      "date": "2026-07-30 16:46",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T07:50:24.388620",
+      "hash_id": "aaa1f90bdec2f783"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000325708?division=NAVER": {
+      "title": "[증시 인사이트] 삼성전자, 반도체 영업익 89조원 기록…코스피는 약세",
+      "link": "https://biz.sbs.co.kr/article_hub/20000325708?division=NAVER",
+      "date": "2026-07-30 16:46",
+      "press": "",
+      "keyword": "포스코퓨처엠",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T07:50:27.658792",
+      "hash_id": "7f08f9cc7230a51b"
     }
   },
-  "last_updated": "2026-07-30 07:46:50",
-  "count": 489
+  "last_updated": "2026-07-30 07:50:33",
+  "count": 492
 }

@@ -5331,8 +5331,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:38:44.606103",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:42:40.427178",
       "hash_id": "bfcaeed2a28495e6"
     },
     "https://www.g-enews.com/view.php?ud=202607301631254440112616b072_1": {
@@ -5342,8 +5342,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:38:53.638636",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:42:41.967337",
       "hash_id": "fa04934d06576e1b"
     },
     "https://www.newsis.com/view/NISX20260730_0003730377": {
@@ -5353,11 +5353,22 @@
       "press": "",
       "keyword": "포스코 전기로",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:38:45.367885",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:42:41.188822",
       "hash_id": "6640ea8068acaab7"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=443563": {
+      "title": "포스코이앤씨 2분기 영업이익 440억으로 흑자전환, 2개 분기 연속 흑자",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=443563",
+      "date": "2026-07-30 16:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T07:42:55.121444",
+      "hash_id": "e025c592d2770138"
     }
   },
-  "last_updated": "2026-07-30 07:39:06",
-  "count": 487
+  "last_updated": "2026-07-30 07:42:58",
+  "count": 488
 }

@@ -5430,11 +5430,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T08:01:41.984759",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T08:05:25.270294",
       "hash_id": "3ef6b43705c40d81"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=443590": {
+      "title": "포스코홀딩스 2분기 영업익 8190억 35% 증가, 2차전지·인프라 수익 개선",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=443590",
+      "date": "2026-07-30 17:02",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T08:05:31.058461",
+      "hash_id": "af85f9a7e1dabdfe"
     }
   },
-  "last_updated": "2026-07-30 08:01:52",
-  "count": 494
+  "last_updated": "2026-07-30 08:05:31",
+  "count": 495
 }

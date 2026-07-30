@@ -5441,8 +5441,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T08:09:05.966838",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T08:12:43.539513",
       "hash_id": "af85f9a7e1dabdfe"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=443586": {
@@ -5452,11 +5452,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T08:09:06.751919",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T08:12:44.301250",
       "hash_id": "7891d809124d991c"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000325698?division=NAVER": {
+      "title": "가덕도, 또 '삐그덕'…현대건설만 웃는다 [기업 백브리핑]",
+      "link": "https://biz.sbs.co.kr/article_hub/20000325698?division=NAVER",
+      "date": "2026-07-30 17:11",
+      "press": "",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T08:12:50.095515",
+      "hash_id": "ad1ccff30af9104b"
     }
   },
-  "last_updated": "2026-07-30 08:09:09",
-  "count": 496
+  "last_updated": "2026-07-30 08:12:50",
+  "count": 497
 }

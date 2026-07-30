@@ -4979,8 +4979,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코인터내셔널 대우",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-30T06:18:42.941217",
+      "retry_count": 2,
+      "last_attempt": "2026-07-30T06:26:58.712326",
       "hash_id": "9cd9e7e7b4a4d3d6"
     },
     "https://news.einfomax.co.kr/news/articleView.html?idxno=4427826": {
@@ -5001,8 +5001,8 @@
       "press": "",
       "keyword": "포스코인터내셔널 희토류",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-30T06:18:42.941232",
+      "retry_count": 2,
+      "last_attempt": "2026-07-30T06:26:57.933786",
       "hash_id": "e829bb3daaf4db6e"
     },
     "https://dealsite.co.kr/articles/166271": {
@@ -5111,8 +5111,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-30T06:18:42.941333",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T06:27:12.012713",
       "hash_id": "63c4e7f4ef86f588"
     },
     "http://www.economytalk.kr/news/articleView.html?idxno=423182": {
@@ -5221,11 +5221,44 @@
       "press": "",
       "keyword": "미얀마 가스전",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-07-30T06:18:42.941379",
+      "retry_count": 2,
+      "last_attempt": "2026-07-30T06:26:57.171247",
       "hash_id": "c5e255911280dec3"
+    },
+    "https://www.smartbizn.com/news/articleView.html?idxno=149906": {
+      "title": "포스코홀딩스, 2분기 영업익 8190억···전년비 34.9% 증가",
+      "link": "https://www.smartbizn.com/news/articleView.html?idxno=149906",
+      "date": "2026-07-30 15:24",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-30T06:26:56.880013",
+      "hash_id": "60970189578870ab"
+    },
+    "https://www.edaily.co.kr/news/newspath.asp?newsid=05251286645519768": {
+      "title": "포스코이앤씨, 2분기 영업익 440억…'흑자 전환' 성공",
+      "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=05251286645519768",
+      "date": "2026-07-30 15:26",
+      "press": "이데일리",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-30T06:26:56.880024",
+      "hash_id": "fb494adb7be583e4"
+    },
+    "https://www.nocutnews.co.kr/news/6555989?utm_source=naver&utm_medium=article&utm_campaign=20260730032322": {
+      "title": "이덕배 한은 포항본부장 \"포항 철강산업 살아야 대한민국 제조업 산다\"",
+      "link": "https://www.nocutnews.co.kr/news/6555989?utm_source=naver&utm_medium=article&utm_campaign=20260730032322",
+      "date": "2026-07-30 15:24",
+      "press": "노컷뉴스",
+      "keyword": "포스코 전기로",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-07-30T06:26:56.880030",
+      "hash_id": "7e71ed5bb51ca050"
     }
   },
-  "last_updated": "2026-07-30 06:23:00",
-  "count": 475
+  "last_updated": "2026-07-30 06:27:24",
+  "count": 478
 }

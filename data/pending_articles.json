@@ -5386,8 +5386,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:54:10.742726",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:57:55.072783",
       "hash_id": "689a7394170ae234"
     },
     "https://www.g-enews.com/view.php?ud=202607301603392442112616b072_1": {
@@ -5397,8 +5397,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:54:09.183663",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:57:53.534053",
       "hash_id": "aaa1f90bdec2f783"
     },
     "https://biz.sbs.co.kr/article_hub/20000325708?division=NAVER": {
@@ -5408,8 +5408,8 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T07:54:09.965672",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T07:57:54.294558",
       "hash_id": "7f08f9cc7230a51b"
     },
     "https://www.chosun.com/economy/industry-company/2026/07/30/LURUKYEN5NG3LLI6IVRK4EVQ4Q/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
@@ -5419,11 +5419,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T07:54:14.003550",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T07:57:55.846783",
       "hash_id": "ff81e5ed57f1c007"
+    },
+    "https://www.fntimes.com/html/view.php?ud=202607301621182668fa6b69a559_18": {
+      "title": "포스코홀딩스, 2Q 영업익 전년比 35% 증가…\"3분기 리튬·철강 동반 개선...",
+      "link": "https://www.fntimes.com/html/view.php?ud=202607301621182668fa6b69a559_18",
+      "date": "2026-07-30 16:56",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T07:58:06.549144",
+      "hash_id": "3ef6b43705c40d81"
     }
   },
-  "last_updated": "2026-07-30 07:54:19",
-  "count": 493
+  "last_updated": "2026-07-30 07:58:09",
+  "count": 494
 }

@@ -5111,8 +5111,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T06:31:11.890133",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T06:34:55.706178",
       "hash_id": "63c4e7f4ef86f588"
     },
     "http://www.economytalk.kr/news/articleView.html?idxno=423182": {
@@ -5254,8 +5254,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코 전기로",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-07-30T06:31:12.651466",
+      "retry_count": 4,
+      "last_attempt": "2026-07-30T06:34:56.467938",
       "hash_id": "7e71ed5bb51ca050"
     },
     "https://www.etoday.co.kr/news/view/2609347": {
@@ -5265,11 +5265,22 @@
       "press": "이투데이",
       "keyword": "포스코인터내셔널 팜",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T06:31:18.518594",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T06:35:07.169513",
       "hash_id": "ac65823f712bd859"
+    },
+    "https://www.dizzotv.com/site/data/html_dir/2026/07/30/2026073080147.html": {
+      "title": "리튬이 살아났다…포스코홀딩스, 이차전지 흑자 전환에 실적 '반등'",
+      "link": "https://www.dizzotv.com/site/data/html_dir/2026/07/30/2026073080147.html",
+      "date": "2026-07-30 15:32",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T06:35:07.948805",
+      "hash_id": "889c6f55e85da7e0"
     }
   },
-  "last_updated": "2026-07-30 06:31:21",
-  "count": 479
+  "last_updated": "2026-07-30 06:35:18",
+  "count": 480
 }

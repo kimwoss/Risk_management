@@ -5452,8 +5452,8 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-07-30T08:12:44.301250",
+      "retry_count": 5,
+      "last_attempt": "2026-07-30T08:16:23.841552",
       "hash_id": "7891d809124d991c"
     },
     "https://biz.sbs.co.kr/article_hub/20000325698?division=NAVER": {
@@ -5463,11 +5463,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-30T08:12:50.095515",
+      "retry_count": 3,
+      "last_attempt": "2026-07-30T08:16:24.603007",
       "hash_id": "ad1ccff30af9104b"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005890909": {
+      "title": "포스코홀딩스, 2분기 영업이익 8,190억 원…포스코인터내셔널, 분기 최대...",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005890909",
+      "date": "2026-07-30 17:14",
+      "press": "MBN",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-30T08:16:32.819044",
+      "hash_id": "24e3a47681d31530"
     }
   },
-  "last_updated": "2026-07-30 08:12:50",
-  "count": 497
+  "last_updated": "2026-07-30 08:16:38",
+  "count": 498
 }

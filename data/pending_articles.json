@@ -5738,11 +5738,22 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-07-31T11:51:00.424207",
+      "retry_count": 3,
+      "last_attempt": "2026-07-31T11:54:25.500913",
       "hash_id": "6df2d37831b6cc37"
+    },
+    "https://m.skyedaily.com/news_view.html?ID=308903": {
+      "title": "포스코퓨처엠, 2분기 영업익 267억원 흑자… 배터리 소재 회복세",
+      "link": "https://m.skyedaily.com/news_view.html?ID=308903",
+      "date": "2026-07-31 20:50",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-07-31T11:54:26.403535",
+      "hash_id": "89c6951443906a5e"
     }
   },
-  "last_updated": "2026-07-31 11:51:00",
-  "count": 522
+  "last_updated": "2026-07-31 11:54:26",
+  "count": 523
 }

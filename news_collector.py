@@ -1074,9 +1074,19 @@ def remove_from_pending(url: str, pending_queue: dict) -> dict:
 
 # ======================== API 할당량 관리 ========================
 
+def _quota_day() -> str:
+    """할당량 카운터의 '오늘' 날짜 (한국시간 기준).
+
+    서버는 UTC로 도는데 과거엔 datetime.now()(UTC)로 날짜를 판정해 카운터가
+    UTC 자정(=한국 오전 9시)에 리셋됐다. 네이버 API 실제 할당량은 한국 자정(00:00 KST)에
+    리셋되므로, 이를 일치시켜 리셋 시점 혼선과 잔여량 오차를 없앤다.
+    """
+    return datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d")
+
+
 def _load_api_usage_data() -> dict:
     """api_usage.json 전체 로드 (오늘 날짜만 유효, 아니면 초기화)."""
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = _quota_day()
     if os.path.exists(API_USAGE_FILE):
         try:
             with open(API_USAGE_FILE, 'r', encoding='utf-8') as f:
@@ -1096,7 +1106,7 @@ def load_api_usage() -> int:
 def _write_api_usage(count: int, alerts_sent: list):
     """api_usage.json 기록 (count + 당일 경고 발송 플래그 alerts_sent 보존)."""
     os.makedirs(DATA_FOLDER, exist_ok=True)
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = _quota_day()
     data = {
         "date": today,
         "count": count,

@@ -6761,11 +6761,22 @@
       "press": "",
       "keyword": "포스코이앤씨",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-06T07:32:03.415888",
+      "retry_count": 3,
+      "last_attempt": "2026-08-06T13:17:50.963845",
       "hash_id": "6b3a58421dc11ee9"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=444167": {
+      "title": "포스코퓨처엠 국내 배터리 제조사에 LFP양극재 19만 톤 6년 장기 공급 합...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=444167",
+      "date": "2026-08-06 20:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-06T13:17:51.852268",
+      "hash_id": "9938bfbc0f432d33"
     }
   },
-  "last_updated": "2026-08-06 07:32:06",
-  "count": 615
+  "last_updated": "2026-08-06 13:18:13",
+  "count": 616
 }

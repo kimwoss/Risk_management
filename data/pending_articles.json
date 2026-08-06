@@ -6750,11 +6750,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-08-06T07:28:22.675310",
+      "retry_count": 5,
+      "last_attempt": "2026-08-06T07:32:02.475079",
       "hash_id": "8e99dad740957dd1"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=444134": {
+      "title": "현대건설 도시정비 수주 12조 가시권, 이한우 목동에서 '기념비적 성적...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=444134",
+      "date": "2026-08-06 16:28",
+      "press": "",
+      "keyword": "포스코이앤씨",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-06T07:32:03.415888",
+      "hash_id": "6b3a58421dc11ee9"
     }
   },
-  "last_updated": "2026-08-06 07:28:40",
-  "count": 614
+  "last_updated": "2026-08-06 07:32:06",
+  "count": 615
 }

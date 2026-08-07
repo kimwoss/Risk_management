@@ -6981,11 +6981,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-07T02:41:49.814426",
+      "retry_count": 3,
+      "last_attempt": "2026-08-07T02:45:28.006788",
       "hash_id": "59fd0a111aa65219"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000327313?division=NAVER": {
+      "title": "코스피 반등후 장중 6200선 밑으로…코스닥 엿새 만에 하락 반전",
+      "link": "https://biz.sbs.co.kr/article_hub/20000327313?division=NAVER",
+      "date": "2026-08-07 11:41",
+      "press": "",
+      "keyword": "포스코퓨처엠",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-08-07T02:45:28.969983",
+      "hash_id": "af526fb0de62274b"
     }
   },
-  "last_updated": "2026-08-07 02:42:08",
-  "count": 635
+  "last_updated": "2026-08-07 02:45:29",
+  "count": 636
 }

@@ -6,7 +6,8 @@ name: News Monitor (backup)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # 15분마다 실행 (백업)
+    - cron: '0 * * * *'  # [2026-08-07] 시간당 1회로 축소. cron-job.org(15분)+heartbeat가 주력이라
+                         # 백업은 깊은 예비로 충분. 잦은 백업이 concurrency 큐에서 취소 런을 양산하던 것 방지
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

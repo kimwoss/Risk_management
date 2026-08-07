@@ -7058,11 +7058,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-08-07T07:45:34.890172",
+      "retry_count": 5,
+      "last_attempt": "2026-08-07T07:49:19.432727",
       "hash_id": "0ea52072190124fd"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000327380?division=NAVER": {
+      "title": "[증시 인사이트] 사이드카 없었지만 극심한 변동성에 힘빠진 코스피",
+      "link": "https://biz.sbs.co.kr/article_hub/20000327380?division=NAVER",
+      "date": "2026-08-07 16:47",
+      "press": "",
+      "keyword": "포스코퓨처엠",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-07T07:49:20.219531",
+      "hash_id": "1d919f6d74338718"
     }
   },
-  "last_updated": "2026-08-07 07:45:55",
-  "count": 642
+  "last_updated": "2026-08-07 07:49:20",
+  "count": 643
 }

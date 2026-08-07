@@ -6926,11 +6926,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-07T00:17:52.577570",
+      "retry_count": 3,
+      "last_attempt": "2026-08-07T00:21:18.187688",
       "hash_id": "d32b4748380d6516"
+    },
+    "https://www.seoul.co.kr/news/economy/securities/2026/08/07/20260807500024?wlog_tag3=naver": {
+      "title": "[서울데이터랩]개장 직후 인기 검색 종목 20選",
+      "link": "https://www.seoul.co.kr/news/economy/securities/2026/08/07/20260807500024?wlog_tag3=naver",
+      "date": "2026-08-07 09:18",
+      "press": "",
+      "keyword": "포스코퓨처엠",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-07T00:21:24.163414",
+      "hash_id": "41443ed1334a234b"
     }
   },
-  "last_updated": "2026-08-07 00:17:55",
-  "count": 630
+  "last_updated": "2026-08-07 00:21:24",
+  "count": 631
 }

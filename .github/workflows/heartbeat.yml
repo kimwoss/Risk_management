@@ -26,10 +26,13 @@ permissions:
 jobs:
   loop:
     runs-on: ubuntu-latest
-    # [2026-08-07] 짧은 루프(13분)로 전환. 외부 cron-job.org가 15분마다 재실행하므로
-    # 긴 루프로 cron 드랍을 버틸 필요가 없어졌다. 13분 루프 + 15분 재실행 = 겹치지 않아
-    # 대기·취소 런(취소 메일)이 사라지고, 죽어도 최대 15분 내 외부 트리거가 되살린다.
-    timeout-minutes: 18  # 13분 루프 + 여유 5분 (hang 시 빨리 죽고 다음 트리거가 인계)
+    # [2026-08-07 재조정] 긴 루프로 복귀. 짧은 13분 루프는 런 교체(14분마다)가 잦아
+    # sent_cache 인계 경합 → 텔레그램 중복 발송을 유발했다. 한 프로세스가 캐시를
+    # 5시간 들고 돌면 런 경계가 20배 줄어 중복이 사라진다(in-process 중복 차단).
+    # 재실행은 외부 cron-job.org가 책임지므로, 죽어도 되살아난다(예전 긴-루프의
+    # 'GitHub cron 재실행 실패' 문제는 해소됨). 트레이드오프: 루프 중 들어오는
+    # 외부 디스패치가 큐에서 취소되는 '취소 런'이 생김(무해, 알림 끄기로 대응).
+    timeout-minutes: 330  # 6시간 한도 내. 300분 루프 + 30분 마진
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -96,7 +99,7 @@ jobs:
           }
 
           # ── 3분 루프 ──
-          LOOP_SECONDS=$((13 * 60))            # 13분 반복 (외부 15분 재실행과 맞물려 무중단)
+          LOOP_SECONDS=$((300 * 60))           # 5시간 반복 (in-process 캐시 유지로 중복 차단)
           END=$(( $(date +%s) + LOOP_SECONDS ))
           ITER=0
 

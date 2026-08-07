@@ -6882,8 +6882,8 @@
       "press": "에너지경제",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-08-06T23:59:57.928040",
+      "retry_count": 2,
+      "last_attempt": "2026-08-07T00:04:09.899613",
       "hash_id": "b38b35444639e0a6"
     },
     "https://www.newsquest.co.kr/news/articleView.html?idxno=271278": {
@@ -6904,11 +6904,22 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-07T00:00:01.070783",
+      "retry_count": 3,
+      "last_attempt": "2026-08-07T00:04:09.080772",
       "hash_id": "4344e706b9af5f2f"
+    },
+    "https://www.nocutnews.co.kr/news/6559567?utm_source=naver&utm_medium=article&utm_campaign=20260807085902": {
+      "title": "포스코퓨처엠, LFP 시장 뚫어…대규모 장기 공급 합의",
+      "link": "https://www.nocutnews.co.kr/news/6559567?utm_source=naver&utm_medium=article&utm_campaign=20260807085902",
+      "date": "2026-08-07 09:00",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-07T00:04:10.768314",
+      "hash_id": "65b71aca36050592"
     }
   },
-  "last_updated": "2026-08-07 00:00:24",
-  "count": 628
+  "last_updated": "2026-08-07 00:04:11",
+  "count": 629
 }

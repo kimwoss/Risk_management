@@ -8103,8 +8103,8 @@
       "press": "",
       "keyword": "대미투자특별법",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-08-18T03:10:45.927353",
+      "retry_count": 1,
+      "last_attempt": "2026-08-18T03:17:01.217328",
       "hash_id": "34f12c4c0f9eef8f"
     },
     "http://www.smedaily.co.kr/news/articleView.html?idxno=361847": {
@@ -8169,8 +8169,8 @@
       "press": "",
       "keyword": "포스코퓨처엠",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-08-18T03:10:45.927387",
+      "retry_count": 1,
+      "last_attempt": "2026-08-18T03:16:43.108781",
       "hash_id": "8e3061b32f0a818a"
     },
     "https://biz.newdaily.co.kr/site/data/html/2026/08/18/2026081800107.html": {
@@ -8290,8 +8290,8 @@
       "press": "",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-18T03:10:52.913169",
+      "retry_count": 3,
+      "last_attempt": "2026-08-18T03:16:42.347636",
       "hash_id": "f1588b4fb0cd107f"
     },
     "https://www.newsis.com/view/NISX20260818_0003752218": {
@@ -8301,8 +8301,8 @@
       "press": "",
       "keyword": "광양 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-18T03:10:49.591543",
+      "retry_count": 3,
+      "last_attempt": "2026-08-18T03:16:41.586327",
       "hash_id": "9ca578eda714fd08"
     },
     "https://www.newsis.com/view/NISX20260818_0003752177": {
@@ -8312,11 +8312,44 @@
       "press": "",
       "keyword": "포스코DX",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-08-18T03:10:48.796156",
+      "retry_count": 3,
+      "last_attempt": "2026-08-18T03:16:40.827358",
       "hash_id": "cd72261454aea1bb"
+    },
+    "https://biz.heraldcorp.com/article/10844009?ref=naver": {
+      "title": "[헤럴드pic] 포스코 창사 첫 파업 갈림길",
+      "link": "https://biz.heraldcorp.com/article/10844009?ref=naver",
+      "date": "2026-08-18 12:13",
+      "press": "헤럴드경제",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-08-18T03:16:40.536840",
+      "hash_id": "ede783038d09ad44"
+    },
+    "https://biz.heraldcorp.com/article/10844008?ref=naver": {
+      "title": "[헤럴드pic] 포스코 창사 첫 전면파업 기로",
+      "link": "https://biz.heraldcorp.com/article/10844008?ref=naver",
+      "date": "2026-08-18 12:13",
+      "press": "헤럴드경제",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-08-18T03:16:40.536851",
+      "hash_id": "5c0d603ef54035b9"
+    },
+    "http://www.newsprime.co.kr/news/article.html?no=744158": {
+      "title": "BS한양 \"매출 52%↑ · 영업익 2배↑\" 선별 수주로 수익성 견인",
+      "link": "http://www.newsprime.co.kr/news/article.html?no=744158",
+      "date": "2026-08-18 12:10",
+      "press": "",
+      "keyword": "광양 LNG",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-08-18T03:16:40.536857",
+      "hash_id": "2194a658ab50c1a1"
     }
   },
-  "last_updated": "2026-08-18 03:11:13",
-  "count": 756
+  "last_updated": "2026-08-18 03:17:09",
+  "count": 759
 }

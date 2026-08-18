@@ -8543,11 +8543,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-08-18T09:27:16.387252",
+      "retry_count": 5,
+      "last_attempt": "2026-08-18T09:30:46.977911",
       "hash_id": "0316f13725aaa907"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000329303?division=NAVER": {
+      "title": "포스코 58년 무파업 깨지나…노조 파업권 확보",
+      "link": "https://biz.sbs.co.kr/article_hub/20000329303?division=NAVER",
+      "date": "2026-08-18 18:27",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-18T09:30:47.885203",
+      "hash_id": "4eff5984e56e94f8"
     }
   },
-  "last_updated": "2026-08-18 09:27:25",
-  "count": 777
+  "last_updated": "2026-08-18 09:30:48",
+  "count": 778
 }

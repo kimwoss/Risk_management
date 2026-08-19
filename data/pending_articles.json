@@ -8752,8 +8752,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-08-19T08:24:35.460418",
+      "retry_count": 5,
+      "last_attempt": "2026-08-19T08:28:07.239626",
       "hash_id": "65b1e2f65418c27f"
     },
     "https://biz.chosun.com/industry/company/2026/08/19/MKH25EMYTJDCVA6LIOCOKOIQYA/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -8763,11 +8763,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-08-19T08:24:38.708539",
+      "retry_count": 3,
+      "last_attempt": "2026-08-19T08:28:07.998237",
       "hash_id": "9deb76efae122c61"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000329540?division=NAVER": {
+      "title": "포스코그룹, 中롱바이와 협력…이차전지 소재 맞손",
+      "link": "https://biz.sbs.co.kr/article_hub/20000329540?division=NAVER",
+      "date": "2026-08-19 17:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-19T08:28:11.301932",
+      "hash_id": "c11dbae980425c8a"
     }
   },
-  "last_updated": "2026-08-19 08:24:41",
-  "count": 797
+  "last_updated": "2026-08-19 08:28:14",
+  "count": 798
 }

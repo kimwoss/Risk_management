@@ -1727,15 +1727,58 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
             safe_print(f"[WARNING] 로컬 파일 로드 실패: {e}")
             return None
 
+    def _github_token() -> str:
+        """비공개 저장소 접근용 토큰 (secrets 우선 → 환경변수)."""
+        for name in ("GH_PAT", "GH_TOKEN", "GH_DATA_TOKEN"):
+            try:
+                v = st.secrets.get(name, "")
+            except Exception:
+                v = ""
+            v = (v or os.getenv(name, "")).strip()
+            if v:
+                return v
+        return ""
+
     def _read_github() -> pd.DataFrame | None:
-        """GitHub raw URL에서 읽기. 실패 시 None 반환."""
+        """GitHub에서 뉴스 DB 읽기. 실패 시 None 반환.
+
+        저장소를 Private으로 전환하면 raw URL이 404가 되므로(인증 불가),
+        토큰이 있으면 Contents API(인증)로 먼저 시도하고 없을 때만 raw로 폴백한다."""
+        from io import StringIO
+        cache_buster = int(time.time()) if force_refresh else int(time.time() // 30)
+
+        # 1) 인증 경로 — Private 저장소에서 유일하게 동작
+        token = _github_token()
+        if token:
+            try:
+                api = ("https://api.github.com/repos/kimwoss/Risk_management"
+                       "/contents/data/news_monitor.csv")
+                r = requests.get(
+                    api,
+                    headers={"Authorization": f"Bearer {token}",
+                             "Accept": "application/vnd.github.raw",
+                             "X-GitHub-Api-Version": "2022-11-28"},
+                    params={"ref": "main"}, timeout=12,
+                )
+                if r.status_code == 200:
+                    df = pd.read_csv(StringIO(r.text), encoding="utf-8")
+                    r.close()
+                    if "sentiment" not in df.columns:
+                        df["sentiment"] = "pos"
+                    if not df.empty and "날짜" in df.columns:
+                        safe_print(f"[DEBUG] GitHub(API) 로드: {len(df)}건, 최신: {df['날짜'].iloc[0]}")
+                    return df
+                safe_print(f"[WARNING] GitHub API 로드 실패: {r.status_code}")
+                r.close()
+            except Exception as e:
+                safe_print(f"[WARNING] GitHub API 로드 예외: {e}")
+
+        # 2) raw 폴백 — 저장소가 공개일 때만 성공
         try:
-            cache_buster = int(time.time()) if force_refresh else int(time.time() // 30)
             url = f"{GITHUB_RAW_URL}?t={cache_buster}"
             safe_print(f"[DEBUG] GitHub 폴백 로드: {url}")
             resp = requests.get(url, timeout=10)
             resp.raise_for_status()
-            from io import StringIO
             df = pd.read_csv(StringIO(resp.text), encoding="utf-8")
             resp.close()
             if "sentiment" not in df.columns:

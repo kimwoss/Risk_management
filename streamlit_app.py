@@ -48,6 +48,19 @@ from components.news_dashboard import render_news_dashboard
 SUPPORTS_FRAGMENT = hasattr(st, "fragment")
 # from llm_manager import LLMManager  # 사용하지 않아 주석처리 (원하면 복구)
 
+# ── 콘솔 인코딩 안전화 (Windows cp949 대응) ──────────────────────
+# 로컬 Windows 콘솔은 기본 cp949라 print에 이모지(✅ 등)가 섞이면 UnicodeEncodeError가 난다.
+# 이 예외가 데이터 로딩 함수의 except에 잡히면 정상 데이터까지 버려지므로(로컬 뉴스 0건 현상),
+# 시작 시점에 stdout/stderr를 UTF-8 + 대체문자 모드로 재설정해 원천 차단한다.
+try:
+    import sys as _sys
+    for _stream in (_sys.stdout, _sys.stderr):
+        if hasattr(_stream, "reconfigure"):
+            _stream.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
+
 # 안전한 print 함수 정의
 def safe_print(*args, **kwargs):
     try:
@@ -1650,10 +1663,10 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
                 df["sentiment"] = "pos"
             if not df.empty and "날짜" in df.columns:
                 latest_date = df["날짜"].iloc[0]
-                print(f"[DEBUG] ✅ 로컬 파일 로드: {len(df)}건, 최신: {latest_date}")
+                safe_print(f"[DEBUG] 로컬 파일 로드: {len(df)}건, 최신: {latest_date}")
             return df
         except Exception as e:
-            print(f"[WARNING] 로컬 파일 로드 실패: {e}")
+            safe_print(f"[WARNING] 로컬 파일 로드 실패: {e}")
             return None
 
     def _read_github() -> pd.DataFrame | None:
@@ -1661,7 +1674,7 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
         try:
             cache_buster = int(time.time()) if force_refresh else int(time.time() // 30)
             url = f"{GITHUB_RAW_URL}?t={cache_buster}"
-            print(f"[DEBUG] GitHub 폴백 로드: {url}")
+            safe_print(f"[DEBUG] GitHub 폴백 로드: {url}")
             resp = requests.get(url, timeout=10)
             resp.raise_for_status()
             from io import StringIO
@@ -1670,10 +1683,10 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
             if "sentiment" not in df.columns:
                 df["sentiment"] = "pos"
             if not df.empty and "날짜" in df.columns:
-                print(f"[DEBUG] ✅ GitHub 로드: {len(df)}건, 최신: {df['날짜'].iloc[0]}")
+                safe_print(f"[DEBUG] GitHub 로드: {len(df)}건, 최신: {df['날짜'].iloc[0]}")
             return df
         except Exception as e:
-            print(f"[WARNING] GitHub 로드 실패: {e}")
+            safe_print(f"[WARNING] GitHub 로드 실패: {e}")
             return None
 
     def _latest_ts(d: pd.DataFrame | None) -> str:
@@ -1710,7 +1723,7 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
     if df is not None:
         return df
 
-    print("[ERROR] 모든 로드 시도 실패")
+    safe_print("[ERROR] 모든 로드 시도 실패")
     return pd.DataFrame(columns=["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL","sentiment"])
 
 def save_news_db(df: pd.DataFrame):
@@ -1834,6 +1847,78 @@ def _to_people_df(lines, tag: str) -> pd.DataFrame:
     return df
 
 # ----------------------------- 텔레그램 알림 -----------------------------
+def _split_for_telegram(text: str, limit: int = 3800):
+    """텔레그램 4096자 제한 대비 — 문단(빈 줄) 경계 우선으로 분할."""
+    text = (text or "").strip()
+    if len(text) <= limit:
+        return [text] if text else []
+    chunks, cur = [], ""
+    for para in text.split("\n\n"):
+        piece = (para + "\n\n")
+        if len(cur) + len(piece) > limit and cur:
+            chunks.append(cur.rstrip())
+            cur = ""
+        # 한 문단이 통째로 limit 초과면 강제 슬라이스
+        while len(piece) > limit:
+            chunks.append(piece[:limit])
+            piece = piece[limit:]
+        cur += piece
+    if cur.strip():
+        chunks.append(cur.rstrip())
+    return chunks
+
+
+def _get_telegram_config():
+    """봇 토큰 + 대상 Chat ID 조회. 보고 공유용 별도 방(TELEGRAM_REPORT_CHAT_ID)이 있으면 우선."""
+    def _pick(*names):
+        for n in names:
+            v = os.getenv(n, "")
+            if v:
+                return v.strip()
+        try:
+            for n in names:
+                v = st.secrets.get(n, "")
+                if v:
+                    return str(v).strip()
+        except Exception:
+            pass
+        return ""
+    token = _pick("TELEGRAM_BOT_TOKEN")
+    chat = _pick("TELEGRAM_REPORT_CHAT_ID", "TELEGRAM_CHAT_ID")
+    return token, chat
+
+
+def send_telegram_text(text: str):
+    """임의 보고문 1건을 텔레그램으로 발송(수동 큐레이션 공유용).
+    성공 (True, None) / 실패 (False, 사유). 4096자 초과 시 문단 단위 분할 전송.
+    보고문 특수문자(·, - 등)가 깨지지 않도록 parse_mode 없이 평문 전송."""
+    token, chat_id = _get_telegram_config()
+    if not token or not chat_id:
+        return False, "텔레그램 토큰/Chat ID 미설정 (.env 또는 Secrets 확인)"
+    chunks = _split_for_telegram(text, 3800)
+    if not chunks:
+        return False, "빈 메시지"
+    api = f"https://api.telegram.org/bot{token}/sendMessage"
+    for idx, chunk in enumerate(chunks):
+        r = None
+        try:
+            r = requests.post(api, json={
+                "chat_id": chat_id,
+                "text": chunk,
+                "disable_web_page_preview": True,
+            }, timeout=10)
+            if r.status_code != 200:
+                return False, f"HTTP {r.status_code}: {(r.text or '')[:120]}"
+        except Exception as e:
+            return False, str(e)
+        finally:
+            if r is not None:
+                r.close()
+        if len(chunks) > 1:
+            time.sleep(0.05)
+    return True, None
+
+
 def send_telegram_notification(new_articles: list):
     """
     새로운 기사가 발견되면 텔레그램으로 알림 전송 (기사별 개별 메시지)
@@ -3628,6 +3713,19 @@ def page_news_monitor():
             use_container_width=True,
         )
 
+    # ── 텔레그램 공유 머리말(선택): 한 번 입력하면 세션 내 모든 공유에 적용 ──
+    _tg_token, _tg_chat = _get_telegram_config()
+    with st.expander("📤 텔레그램 공유 설정 (선택)", expanded=False):
+        if not (_tg_token and _tg_chat):
+            st.caption("⚠️ 텔레그램 토큰/Chat ID 미설정 — 공유하려면 .env 또는 Secrets에 "
+                       "TELEGRAM_BOT_TOKEN·TELEGRAM_CHAT_ID(또는 TELEGRAM_REPORT_CHAT_ID)를 설정하세요.")
+        st.text_input(
+            "보고자 머리말 (기사 요약 앞에 붙여 함께 발송)",
+            key="tg_reporter_prefix",
+            placeholder="예: [홍보그룹 이인규 차장] 아래 기사 보고 드립니다.",
+            help="비워두면 요약 본문만 발송됩니다. 텔레그램은 발신 시간을 자동 표시합니다.",
+        )
+
     if view == "카드형 뷰":
         st.markdown("""
 <style>
@@ -3842,12 +3940,29 @@ def page_news_monitor():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # 보고서가 생성된 경우 하단에 표시
+            # 보고서가 생성된 경우: 편집 → 텔레그램 공유
             if st.session_state[report_state_key]["generated"]:
-                st.code(
-                    st.session_state[report_state_key]["content"],
-                    language=None
+                _content = st.session_state[report_state_key]["content"]
+                edit_key = f"report_edit_{i}"
+                edited = st.text_area(
+                    "보고문 (공유 전 수정 가능)", value=_content,
+                    key=edit_key, height=260,
                 )
+                _c_share, _c_copy = st.columns([1, 3])
+                with _c_share:
+                    if st.button("📤 텔레그램 공유", key=f"tg_share_{i}", type="secondary"):
+                        prefix = st.session_state.get("tg_reporter_prefix", "").strip()
+                        msg = (prefix + "\n\n" + edited) if prefix else edited
+                        with st.spinner("텔레그램으로 공유 중..."):
+                            ok, err = send_telegram_text(msg)
+                        if ok:
+                            st.session_state[f"tg_shared_{i}"] = True
+                            st.toast("텔레그램으로 공유했습니다.", icon="✅")
+                        else:
+                            st.error(f"공유 실패: {err}")
+                with _c_copy:
+                    if st.session_state.get(f"tg_shared_{i}"):
+                        st.caption("✅ 공유 완료")
 
     else:
         df_table = df_show[["날짜","매체명","검색키워드","기사제목","주요기사 요약","URL"]].rename(columns={

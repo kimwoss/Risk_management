@@ -9456,11 +9456,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-08-25T07:35:26.185951",
+      "retry_count": 4,
+      "last_attempt": "2026-08-25T07:39:10.328605",
       "hash_id": "988f6c7face17972"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005907990": {
+      "title": "10억 이상 고액자산가 포트폴리오…삼전닉스 중심으로 재편",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005907990",
+      "date": "2026-08-25 16:34",
+      "press": "MBN",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-08-25T07:39:11.108883",
+      "hash_id": "e813477bbb964d7c"
     }
   },
-  "last_updated": "2026-08-25 07:35:45",
-  "count": 860
+  "last_updated": "2026-08-25 07:39:11",
+  "count": 861
 }

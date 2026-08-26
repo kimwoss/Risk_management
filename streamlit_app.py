@@ -645,10 +645,16 @@ def show_login_page():
 
 DATA_FOLDER = os.path.abspath("data")
 MASTER_DATA_FILE = os.path.join(DATA_FOLDER, "master_data.json")
-# 민감 데이터(연락처 포함)는 비공개 저장소에서 부트스트랩 (공개 저장소 분리 대비)
+# 민감 데이터(기자 연락처·언론대응 이력)는 코드 저장소에서 분리해 비공개 저장소에 보관한다.
+# 앱 시작 시 로컬에 없으면 토큰 인증으로 내려받아 기존 경로에 복원하므로,
+# 이 파일들을 읽는 코드는 경로 수정 없이 그대로 동작한다.
 try:
-    from modules.private_data import ensure_master_data
-    ensure_master_data(MASTER_DATA_FILE)
+    from modules.private_data import ensure_private_data
+    _pd_result = ensure_private_data(DATA_FOLDER)
+    _pd_missing = [p for p, ok in _pd_result.items() if not ok]
+    if _pd_missing:
+        print(f"[WARNING] 비공개 데이터 복원 실패: {_pd_missing} "
+              f"(GH_DATA_TOKEN 설정 필요 — 해당 메뉴가 비어 보일 수 있음)")
 except Exception as _e:
     print(f"[WARNING] private_data 부트스트랩 실패: {_e}")
 MEDIA_RESPONSE_FILE = os.path.join(DATA_FOLDER, "언론대응내역.csv")
@@ -2823,14 +2829,15 @@ def _du_preview_history(data: bytes):
         except Exception as e:
             st.error(f"로컬 저장 실패: {e}")
             return
+        # 대응이력은 사내 업무 이력(대외비성)이라 코드 저장소가 아닌 비공개 데이터 저장소에 보관한다.
         ok, info = rw.commit_file(
-            "public", "data/언론대응내역.csv", content,
+            "private", "data/언론대응내역.csv", content,
             f"data: 대응이력 {n}건 업로드 반영 (앱 업로드)")
         if ok:
-            st.success(f"✅ 반영·배포 완료 — 곧 재배포됩니다. [{info}]")
+            st.success(f"✅ 반영·저장 완료 — 다음 앱 시작 시 반영됩니다. [{info}]")
         else:
-            st.warning(f"로컬엔 반영됐지만 배포는 생략/실패: {info}\n"
-                       "(GH_PAT 토큰이 없으면 재배포 시 되돌아갈 수 있어요. 관리자에게 문의)")
+            st.warning(f"로컬엔 반영됐지만 저장소 반영은 생략/실패: {info}\n"
+                       "(GH_DATA_TOKEN 토큰이 없으면 재시작 시 되돌아갈 수 있어요. 관리자에게 문의)")
 
 
 def _du_preview_journalist(data: bytes):

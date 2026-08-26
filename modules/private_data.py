@@ -65,3 +65,32 @@ def ensure_master_data(local_path: str) -> bool:
     if os.path.exists(local_path):
         return True
     return fetch_private_file("data/master_data.json", local_path)
+
+
+# 코드 저장소에서 분리해 비공개 저장소로 이관한 민감 데이터 목록.
+#   - 출입기자_리스트.csv : 기자 개인 연락처·이메일 (개인정보)
+#   - 언론대응내역.csv    : 사내 언론대응 이력 (대외비성 업무 데이터)
+# 앱 시작 시 로컬에 없으면 토큰 인증으로 내려받아 기존 경로에 복원하므로,
+# 이를 읽는 코드(data_based_llm, journalist_db 등)는 수정 없이 그대로 동작한다.
+PRIVATE_DATA_FILES = (
+    "data/master_data.json",
+    "data/출입기자_리스트.csv",
+    "data/언론대응내역.csv",
+)
+
+
+def ensure_private_data(data_folder: str = "data") -> dict:
+    """비공개 저장소의 민감 데이터를 로컬에 복원한다(이미 있으면 건너뜀).
+
+    반환: {repo_path: True(존재/복원 성공) | False(복원 실패)}
+    토큰이 없거나 네트워크가 막혀 실패해도 예외를 던지지 않는다
+    (로컬에 파일이 이미 있는 개발 PC에서는 애초에 호출 자체가 no-op).
+    """
+    result = {}
+    for repo_path in PRIVATE_DATA_FILES:
+        local_path = os.path.join(data_folder, os.path.basename(repo_path))
+        if os.path.exists(local_path):
+            result[repo_path] = True
+            continue
+        result[repo_path] = fetch_private_file(repo_path, local_path)
+    return result

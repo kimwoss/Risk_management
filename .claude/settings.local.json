@@ -18,7 +18,18 @@
       "Bash(del test_search_accuracy.py)",
       "Bash(gh run list:*)",
       "Bash(done)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\kimwoss\\\\Desktop\\\\NEW_RISK_MANAGEMENT\" | Where-Object { -not $_.PSIsContainer -and $_.Extension -in @\\('.py','.json','.yml','.yaml','.txt','.cfg','.ini','.toml'\\) } | Select-Object Name)",
+      "Read(//mnt/c/Users/kimwoss/Desktop/**)",
+      "Bash(dir \"C:\\\\Users\\\\kimwoss\\\\Desktop\\\\NEW_RISK_MANAGEMENT\")",
+      "Bash(git stash *)",
+      "PowerShell(Test-Path *)",
+      "Bash(del *)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(Get-Content *)",
+      "Bash(gh auth *)"
     ],
     "deny": []
   }

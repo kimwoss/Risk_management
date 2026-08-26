@@ -3,9 +3,9 @@ name: System Health Check
 on:
   schedule:
     # 매일 09:00 KST (00:00 UTC)에 실행
-    - cron: '0 0 * * *'
-    # 추가: 매일 21:00 KST (12:00 UTC)에도 실행 (하루 2회)
-    - cron: '0 12 * * *'
+    # [2026-08-25] 하루 2회 → 1회 (Private 전환에 따른 Actions 분 절약)
+    - cron: '0 0 * * *'   # 09:00 KST
+    # (구) '0 12 * * *' — 21:00 KST 2회차. 분 절약을 위해 제거
   workflow_dispatch:
 
 permissions:

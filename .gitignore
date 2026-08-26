@@ -33,3 +33,8 @@ data/monitor.lock
 # 민감 데이터 - 비공개 저장소(Risk_management_data)에서만 관리, 커밋 금지
 data/master_data*.json
 data/backups/master_data_*.json
+
+# 민감 데이터 — 비공개 저장소(Risk_management_data)에서 런타임 부트스트랩
+# (기자 개인 연락처·사내 언론대응 이력. 코드 저장소에 포함하지 않는다)
+data/출입기자_리스트*.csv
+data/언론대응내역*.csv

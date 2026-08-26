@@ -6,8 +6,11 @@ name: News Monitor (backup)
 
 on:
   schedule:
-    - cron: '0 * * * *'  # [2026-08-07] 시간당 1회로 축소. cron-job.org(15분)+heartbeat가 주력이라
-                         # 백업은 깊은 예비로 충분. 잦은 백업이 concurrency 큐에서 취소 런을 양산하던 것 방지
+    # [2026-08-25] Private 전환에 따른 Actions 분 절약 — 시간당 1회 → 하루 2회 안전망으로 축소.
+    # heartbeat(30분 주기)가 주력이며, 이 워크플로는 heartbeat 장애 시 백스톱 역할만 한다.
+    - cron: '0 23 * * *'   # KST 08:00
+    - cron: '0 8 * * *'    # KST 17:00
+    # (구) '0 * * * *' — 시간당 1회. 잦은 백업이 concurrency 큐에서 취소 런을 양산하던 것도 함께 해소
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

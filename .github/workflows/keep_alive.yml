@@ -5,10 +5,11 @@ name: Keep Workflows Alive
 
 on:
   schedule:
-    # 매일 00:00 UTC (09:00 KST)에 실행 - 더 자주 실행하여 비활성화 방지
-    - cron: '0 0 * * *'
-    # 백업 스케줄: 매일 12:00 UTC (21:00 KST)
-    - cron: '0 12 * * *'
+    # [2026-08-25] 하루 2회 → 주 1회로 축소 (Private 전환에 따른 Actions 분 절약).
+    # heartbeat가 30분마다 커밋을 남겨 저장소 활동이 끊이지 않으므로
+    # '60일 무활동에 의한 스케줄 자동 비활성화'는 사실상 발생하지 않는다.
+    # 이 워크플로는 heartbeat가 장기 중단된 경우를 대비한 보험으로만 남긴다.
+    - cron: '0 0 * * 1'   # 매주 월요일 09:00 KST
   workflow_dispatch:
 
 permissions:

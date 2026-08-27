@@ -5,12 +5,11 @@ name: News Monitor (backup)
 # 중복 발송은 sent_articles_cache.json(URL 캐시)이 차단.
 
 on:
-  schedule:
-    # [2026-08-25] Private 전환에 따른 Actions 분 절약 — 시간당 1회 → 하루 2회 안전망으로 축소.
-    # heartbeat(30분 주기)가 주력이며, 이 워크플로는 heartbeat 장애 시 백스톱 역할만 한다.
-    - cron: '0 23 * * *'   # KST 08:00
-    - cron: '0 8 * * *'    # KST 17:00
-    # (구) '0 * * * *' — 시간당 1회. 잦은 백업이 concurrency 큐에서 취소 런을 양산하던 것도 함께 해소
+  # [2026-08-26] 스케줄 제거 — 수동 실행 전용.
+  #   heartbeat가 이미 2중 트리거(외부 cron-job.org 30분 + GitHub cron 6시간)를 갖췄고,
+  #   같은 concurrency 그룹이라 이 워크플로가 겹쳐 돌면 취소 런만 늘고 분만 소모된다.
+  #   필요할 때 Actions 탭에서 수동 실행하면 된다.
+  #   (구) '0 23 * * *' / '0 8 * * *' — 하루 2회 백스톱
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

@@ -3821,19 +3821,6 @@ def page_news_monitor():
             use_container_width=True,
         )
 
-    # ── 텔레그램 공유 머리말(선택): 한 번 입력하면 세션 내 모든 공유에 적용 ──
-    _tg_token, _tg_chat = _get_telegram_config()
-    with st.expander("📤 텔레그램 공유 설정 (선택)", expanded=False):
-        if not (_tg_token and _tg_chat):
-            st.caption("⚠️ 텔레그램 토큰/Chat ID 미설정 — 공유하려면 .env 또는 Secrets에 "
-                       "TELEGRAM_BOT_TOKEN·TELEGRAM_CHAT_ID(또는 TELEGRAM_REPORT_CHAT_ID)를 설정하세요.")
-        st.text_input(
-            "보고자 머리말 (기사 요약 앞에 붙여 함께 발송)",
-            key="tg_reporter_prefix",
-            placeholder="예: [홍보그룹 이인규 차장] 아래 기사 보고 드립니다.",
-            help="비워두면 요약 본문만 발송됩니다. 텔레그램은 발신 시간을 자동 표시합니다.",
-        )
-
     if view == "카드형 뷰":
         st.markdown("""
 <style>
@@ -4059,10 +4046,9 @@ def page_news_monitor():
                 _c_share, _c_copy = st.columns([1, 3])
                 with _c_share:
                     if st.button("📤 텔레그램 공유", key=f"tg_share_{i}", type="secondary"):
-                        prefix = st.session_state.get("tg_reporter_prefix", "").strip()
-                        msg = (prefix + "\n\n" + edited) if prefix else edited
+                        # 편집한 보고문을 그대로 발송 (머리말은 텍스트에 직접 쓰면 됨)
                         with st.spinner("텔레그램으로 공유 중..."):
-                            ok, err = send_telegram_text(msg)
+                            ok, err = send_telegram_text(edited)
                         if ok:
                             st.session_state[f"tg_shared_{i}"] = True
                             st.toast("텔레그램으로 공유했습니다.", icon="✅")

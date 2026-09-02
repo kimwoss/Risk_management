@@ -5,11 +5,11 @@ name: News Monitor (backup)
 # 중복 발송은 sent_articles_cache.json(URL 캐시)이 차단.
 
 on:
-  # [2026-08-26] 스케줄 제거 — 수동 실행 전용.
-  #   heartbeat가 이미 2중 트리거(외부 cron-job.org 30분 + GitHub cron 6시간)를 갖췄고,
-  #   같은 concurrency 그룹이라 이 워크플로가 겹쳐 돌면 취소 런만 늘고 분만 소모된다.
-  #   필요할 때 Actions 탭에서 수동 실행하면 된다.
-  #   (구) '0 23 * * *' / '0 8 * * *' — 하루 2회 백스톱
+  schedule:
+    # [2026-08-26] Public 복귀로 Actions 분이 무제한이 되어 백스톱 역할 원복.
+    # heartbeat 상주 루프가 죽었을 때를 대비한 예비(시간당 1회).
+    # 중복 발송은 sent_articles_cache.json이 차단하므로 겹쳐도 안전하다.
+    - cron: '0 * * * *'
 
   # 수동 실행은 유지 (필요 시 테스트용)
   workflow_dispatch:

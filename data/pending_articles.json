@@ -10501,11 +10501,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-03T05:51:00.950097",
+      "retry_count": 5,
+      "last_attempt": "2026-09-03T05:54:45.853190",
       "hash_id": "489f743dd7eeeb27"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000332578?division=NAVER": {
+      "title": "트럼프의 韓 소환 \"韓日, 알래스카로 간다\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000332578?division=NAVER",
+      "date": "2026-09-03 14:44",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-03T05:54:46.718261",
+      "hash_id": "760627a85a6d78a1"
     }
   },
-  "last_updated": "2026-09-03 05:51:25",
-  "count": 955
+  "last_updated": "2026-09-03 05:54:49",
+  "count": 956
 }

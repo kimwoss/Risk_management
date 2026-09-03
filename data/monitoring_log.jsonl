@@ -18409,82 +18409,29 @@
 {"timestamp": "2026-09-03T09:33:03.651068", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 8, "api_calls": 2}}
 {"timestamp": "2026-09-03T09:33:06.530854", "event_type": "telegram", "data": {"success": 1, "failed": 0, "total": 1, "success_rate": 1.0}}
 {"timestamp": "2026-09-03T09:33:06.574757", "event_type": "run_summary", "data": {"total_articles": 339, "new_articles": 1, "telegram_sent": 1, "errors": 0}}
-{"timestamp": "2026-09-03T09:36:12.095569", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:13.501089", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 11, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:14.161578", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:14.832289", "event_type": "collection", "data": {"keyword": "포스코홀딩스", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:15.326422", "event_type": "collection", "data": {"keyword": "포스코이앤씨", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:15.979608", "event_type": "collection", "data": {"keyword": "포스코퓨처엠", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:16.616726", "event_type": "collection", "data": {"keyword": "포스코DX", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:17.121674", "event_type": "collection", "data": {"keyword": "포스코에어솔루션", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:17.668203", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 6, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:18.174570", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:18.821359", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:19.346580", "event_type": "collection", "data": {"keyword": "미얀마 가스전", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:19.866505", "event_type": "collection", "data": {"keyword": "세넥스에너지", "articles_collected": 17, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:20.392534", "event_type": "collection", "data": {"keyword": "리엘리먼트", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:20.906293", "event_type": "collection", "data": {"keyword": "포스코스틸리온", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:21.413179", "event_type": "collection", "data": {"keyword": "포스코엠텍", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:21.938966", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 1, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:22.468001", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:22.972450", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:23.486672", "event_type": "collection", "data": {"keyword": "광양 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:24.009887", "event_type": "collection", "data": {"keyword": "우크라이나 곡물터미널", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:24.668671", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 대우", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:25.205912", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 팜", "articles_collected": 9, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:25.917662", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:26.430425", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:36:31.845777", "event_type": "telegram", "data": {"success": 2, "failed": 0, "total": 2, "success_rate": 1.0}}
-{"timestamp": "2026-09-03T09:36:31.888955", "event_type": "run_summary", "data": {"total_articles": 340, "new_articles": 2, "telegram_sent": 2, "errors": 0}}
-{"timestamp": "2026-09-03T09:39:36.957683", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:38.422528", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 11, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:39.070259", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:39.575153", "event_type": "collection", "data": {"keyword": "포스코홀딩스", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:40.087335", "event_type": "collection", "data": {"keyword": "포스코이앤씨", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:40.585327", "event_type": "collection", "data": {"keyword": "포스코퓨처엠", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:41.227427", "event_type": "collection", "data": {"keyword": "포스코DX", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:41.714502", "event_type": "collection", "data": {"keyword": "포스코에어솔루션", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:42.220412", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 6, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:42.737592", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:43.237336", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:43.726443", "event_type": "collection", "data": {"keyword": "미얀마 가스전", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:44.240375", "event_type": "collection", "data": {"keyword": "세넥스에너지", "articles_collected": 17, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:44.878058", "event_type": "collection", "data": {"keyword": "리엘리먼트", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:45.512524", "event_type": "collection", "data": {"keyword": "포스코스틸리온", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:46.155114", "event_type": "collection", "data": {"keyword": "포스코엠텍", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:46.645687", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 1, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:47.153303", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:47.807291", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:48.462071", "event_type": "collection", "data": {"keyword": "광양 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:49.108729", "event_type": "collection", "data": {"keyword": "우크라이나 곡물터미널", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:49.764051", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 대우", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:50.253289", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 팜", "articles_collected": 9, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:50.892053", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:51.388532", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:39:51.487789", "event_type": "run_summary", "data": {"total_articles": 340, "new_articles": 0, "telegram_sent": 0, "errors": 0}}
-{"timestamp": "2026-09-03T09:42:56.470142", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:42:57.957506", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 11, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:42:58.589842", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:42:59.229880", "event_type": "collection", "data": {"keyword": "포스코홀딩스", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:42:59.732718", "event_type": "collection", "data": {"keyword": "포스코이앤씨", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:00.410507", "event_type": "collection", "data": {"keyword": "포스코퓨처엠", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:01.093547", "event_type": "collection", "data": {"keyword": "포스코DX", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:01.774424", "event_type": "collection", "data": {"keyword": "포스코에어솔루션", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:02.257221", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 6, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:02.755762", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 14, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:03.406148", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:04.164288", "event_type": "collection", "data": {"keyword": "미얀마 가스전", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:04.642958", "event_type": "collection", "data": {"keyword": "세넥스에너지", "articles_collected": 17, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:05.146833", "event_type": "collection", "data": {"keyword": "리엘리먼트", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:05.663650", "event_type": "collection", "data": {"keyword": "포스코스틸리온", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:06.154965", "event_type": "collection", "data": {"keyword": "포스코엠텍", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:06.645343", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 1, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:07.142950", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:07.786349", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:08.285120", "event_type": "collection", "data": {"keyword": "광양 LNG", "articles_collected": 18, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:08.818000", "event_type": "collection", "data": {"keyword": "우크라이나 곡물터미널", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:09.319540", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 대우", "articles_collected": 15, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:09.809412", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 팜", "articles_collected": 9, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:10.462243", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 3, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:10.955928", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 8, "api_calls": 2}}
-{"timestamp": "2026-09-03T09:43:11.053324", "event_type": "run_summary", "data": {"total_articles": 340, "new_articles": 0, "telegram_sent": 0, "errors": 0}}
+{"timestamp": "2026-09-03T09:46:48.321079", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:49.768401", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 11, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:50.318631", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 14, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:51.040430", "event_type": "collection", "data": {"keyword": "포스코홀딩스", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:51.753075", "event_type": "collection", "data": {"keyword": "포스코이앤씨", "articles_collected": 15, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:52.308246", "event_type": "collection", "data": {"keyword": "포스코퓨처엠", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:53.036181", "event_type": "collection", "data": {"keyword": "포스코DX", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:53.761260", "event_type": "collection", "data": {"keyword": "포스코에어솔루션", "articles_collected": 8, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:54.481062", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 6, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:55.037376", "event_type": "collection", "data": {"keyword": "포스코플로우", "articles_collected": 14, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:55.757311", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:56.478703", "event_type": "collection", "data": {"keyword": "미얀마 가스전", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:57.380304", "event_type": "collection", "data": {"keyword": "세넥스에너지", "articles_collected": 17, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:57.926676", "event_type": "collection", "data": {"keyword": "리엘리먼트", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:58.482791", "event_type": "collection", "data": {"keyword": "포스코스틸리온", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:59.020474", "event_type": "collection", "data": {"keyword": "포스코엠텍", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:46:59.732374", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:00.292374", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:00.851521", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:01.408005", "event_type": "collection", "data": {"keyword": "광양 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:01.964184", "event_type": "collection", "data": {"keyword": "우크라이나 곡물터미널", "articles_collected": 3, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:02.522852", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 대우", "articles_collected": 15, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:03.076589", "event_type": "collection", "data": {"keyword": "포스코인터내셔널 팜", "articles_collected": 9, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:03.632493", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 3, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:04.172616", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 7, "api_calls": 2}}
+{"timestamp": "2026-09-03T09:47:04.273197", "event_type": "run_summary", "data": {"total_articles": 339, "new_articles": 0, "telegram_sent": 0, "errors": 0}}

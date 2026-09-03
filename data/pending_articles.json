@@ -10633,11 +10633,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-03T07:46:43.061381",
+      "retry_count": 3,
+      "last_attempt": "2026-09-03T07:50:10.983332",
       "hash_id": "a5883747e1d6f0f2"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000332614?division=NAVER": {
+      "title": "[증시 인사이트] '3중 매도' 맞은 코스피…삼전·닉스 방어도 소용없나",
+      "link": "https://biz.sbs.co.kr/article_hub/20000332614?division=NAVER",
+      "date": "2026-09-03 16:45",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-03T07:50:11.850651",
+      "hash_id": "6bd923f37918a767"
     }
   },
-  "last_updated": "2026-09-03 07:46:48",
-  "count": 967
+  "last_updated": "2026-09-03 07:50:12",
+  "count": 968
 }

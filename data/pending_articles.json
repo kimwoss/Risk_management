@@ -10611,11 +10611,22 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-03T07:36:00.244154",
+      "retry_count": 5,
+      "last_attempt": "2026-09-03T07:39:35.660149",
       "hash_id": "4817573a73888042"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008736398&plink=ORI&cooper=NAVER": {
+      "title": "[자막뉴스] \"한국이 연료와 석유 싣고 알래스카 가고 있다\"…앵? 우리가...",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008736398&plink=ORI&cooper=NAVER",
+      "date": "2026-09-03 16:30",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-03T07:39:36.535359",
+      "hash_id": "34f85fa2e1ad4be7"
     }
   },
-  "last_updated": "2026-09-03 07:36:13",
-  "count": 965
+  "last_updated": "2026-09-03 07:39:42",
+  "count": 966
 }

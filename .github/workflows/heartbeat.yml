@@ -62,6 +62,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          GH_DATA_TOKEN: ${{ secrets.GH_DATA_TOKEN }}
         run: |
           set +e  # 한 라운드가 실패해도 루프는 계속 진행
 
@@ -125,6 +126,12 @@ jobs:
             #   Python 발송 직전 merge_remote_sent_cache가 union 병합하므로 커버리지 유실 없음.
             timeout 60 git fetch origin main -q || echo "fetch timeout/실패 - 로컬로 진행"
             git checkout origin/main -- data/news_monitor.csv 2>/dev/null || echo "csv sync skipped"
+
+            # 담당자가 앱에서 바꾼 키워드를 매 라운드 반영(비공개 저장소에서 조회).
+            # 상주 루프라 시작 시 1회만 받으면 최대 5시간 반영이 지연되므로 여기서 갱신한다.
+            # 실패해도 news_collector가 기본값으로 폴백하므로 수집은 계속된다.
+            timeout 30 python -c "from modules.private_data import fetch_private_file; fetch_private_file('data/keywords.json','data/keywords.json')" \
+              || echo "[HEARTBEAT] 키워드 설정 조회 실패 - 기존/기본값으로 진행"
 
             # 전체 파이프라인: 수집 + 텔레그램 발송 + 로컬 CSV 저장
             # timeout 240초: 한 라운드가 행(hang)에 걸려도 루프 전체가 죽지 않도록 상한

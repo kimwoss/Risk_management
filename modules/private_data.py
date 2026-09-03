@@ -72,10 +72,13 @@ def ensure_master_data(local_path: str) -> bool:
 #   - 언론대응내역.csv    : 사내 언론대응 이력 (대외비성 업무 데이터)
 # 앱 시작 시 로컬에 없으면 토큰 인증으로 내려받아 기존 경로에 복원하므로,
 # 이를 읽는 코드(data_based_llm, journalist_db 등)는 수정 없이 그대로 동작한다.
+#   - keywords.json     : 모니터링 키워드 설정(담당자가 앱에서 편집).
+#                         모니터링 대상은 사내 관심사를 드러낼 수 있어 공개 저장소에 두지 않는다.
 PRIVATE_DATA_FILES = (
     "data/master_data.json",
     "data/출입기자_리스트.csv",
     "data/언론대응내역.csv",
+    "data/keywords.json",
 )
 
 

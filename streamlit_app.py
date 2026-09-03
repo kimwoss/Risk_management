@@ -2922,6 +2922,127 @@ def _data_update_dialog():
     _dlg()
 
 
+# ----------------------------- 모니터링 키워드 설정 -----------------------------
+KEYWORDS_FILE = os.path.join(DATA_FOLDER, "keywords.json")
+# 네이버 API 일일 할당량 대비 1키워드당 예상 호출량 (3분 주기 = 하루 480라운드, 라운드당 약 1회)
+_CALLS_PER_KEYWORD_PER_DAY = 480
+_NAVER_DAILY_QUOTA = 25000
+
+
+def _save_keyword_config(keywords: list, exclude: list, priority: dict):
+    """키워드 설정을 로컬에 쓰고 비공개 저장소에 커밋. (ok, 메시지) 반환."""
+    from modules import repo_writer as rw
+    payload = {
+        "keywords": keywords,
+        "exclude_keywords": exclude,
+        "priority": priority,
+        "updated_at": datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    content = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
+    try:
+        with open(KEYWORDS_FILE, "wb") as f:
+            f.write(content)
+    except Exception as e:
+        return False, f"로컬 저장 실패: {e}"
+    ok, info = rw.commit_file(
+        "private", "data/keywords.json", content,
+        f"config: 모니터링 키워드 {len(keywords)}개로 변경 (앱에서 편집)")
+    if ok:
+        return True, "저장·배포 완료 — 다음 수집 라운드(약 3분 내)부터 반영됩니다."
+    return False, (f"로컬에는 저장했지만 배포 실패: {info}\n"
+                   "(수집기는 기존 키워드로 계속 동작합니다. 관리자에게 문의)")
+
+
+def render_keyword_settings():
+    """뉴스 모니터링 상단 — 담당자가 직접 키워드를 편집하는 패널 (PR 전용)."""
+    from news_collector import (
+        DEFAULT_KEYWORDS, DEFAULT_EXCLUDE_KEYWORDS, load_keyword_config,
+    )
+    cfg = load_keyword_config()
+    current = list(cfg["keywords"])
+
+    # 편집 중인 목록은 세션에 보관 (저장 전까지 실제 설정은 그대로)
+    if "kw_edit_list" not in st.session_state:
+        st.session_state["kw_edit_list"] = list(current)
+    edit = st.session_state["kw_edit_list"]
+
+    src = "설정 파일" if cfg["source"] == "file" else "기본값"
+    upd = f" · 최종 수정 {cfg['updated_at']}" if cfg.get("updated_at") else ""
+    with st.expander(f"🔧 모니터링 키워드 설정 — 현재 {len(current)}개 ({src}{upd})", expanded=False):
+        st.caption("여기서 바꾼 키워드는 뉴스 수집기(24시간 자동 수집)에 그대로 적용됩니다. "
+                   "저장 전까지는 실제 수집에 영향이 없습니다.")
+
+        # ── 칩 목록: 선택 해제로 삭제 ──
+        options = list(dict.fromkeys(edit + current + DEFAULT_KEYWORDS))
+        picked = st.multiselect(
+            "나의 키워드 (× 를 눌러 제거)",
+            options=options, default=edit, key="kw_multiselect",
+        )
+        if picked != edit:
+            st.session_state["kw_edit_list"] = picked
+            edit = picked
+
+        # ── 추가 ──
+        c_in, c_btn = st.columns([4, 1])
+        with c_in:
+            new_kw = st.text_input("키워드 추가", key="kw_new_input",
+                                   placeholder="예: 포스코인터내셔널 배터리소재",
+                                   label_visibility="collapsed")
+        with c_btn:
+            if st.button("➕ 추가", use_container_width=True, key="kw_add_btn"):
+                nk = (new_kw or "").strip()
+                if not nk:
+                    st.warning("키워드를 입력해주세요.")
+                elif nk in edit:
+                    st.info(f"'{nk}' 는 이미 있습니다.")
+                else:
+                    st.session_state["kw_edit_list"] = edit + [nk]
+                    st.rerun()
+
+        # ── 영향도: 담당자가 결과를 예측할 수 있어야 한다 ──
+        n = len(st.session_state["kw_edit_list"])
+        if n:
+            calls = n * _CALLS_PER_KEYWORD_PER_DAY
+            per_kw = MAX_ITEMS_PER_RUN // n
+            pct = calls / _NAVER_DAILY_QUOTA * 100
+            m1, m2, m3 = st.columns(3)
+            m1.metric("키워드 수", f"{n}개", delta=f"{n - len(current):+d}" if n != len(current) else None)
+            m2.metric("예상 API 사용", f"{pct:.0f}%", help=f"하루 약 {calls:,}회 / 한도 {_NAVER_DAILY_QUOTA:,}회")
+            m3.metric("키워드당 수집량", f"{per_kw}건", help="키워드를 늘리면 키워드당 수집 건수가 줄어듭니다")
+            if pct >= 80:
+                st.error(f"⚠️ API 한도의 {pct:.0f}% — 수집이 중단될 수 있습니다. 키워드를 줄여주세요.")
+            elif pct >= 60:
+                st.warning(f"API 한도의 {pct:.0f}%를 사용합니다. 추가 시 주의하세요.")
+            if per_kw < 10:
+                st.warning(f"키워드당 수집량이 {per_kw}건까지 줄었습니다 — 기사 누락 위험이 있습니다.")
+        else:
+            st.error("키워드가 하나도 없습니다. 최소 1개는 남겨야 저장할 수 있습니다.")
+
+        # ── 저장 / 되돌리기 ──
+        b1, b2, b3 = st.columns([1, 1, 3])
+        with b1:
+            if st.button("💾 저장", type="primary", use_container_width=True,
+                         disabled=(n == 0 or st.session_state["kw_edit_list"] == current)):
+                final = st.session_state["kw_edit_list"]
+                # 신규 키워드는 우선순위 3(할당량 부족 시 먼저 양보)으로 지정
+                pr = {k: 3 for k in final if k not in DEFAULT_KEYWORDS}
+                with st.spinner("저장 중..."):
+                    ok, msg = _save_keyword_config(final, list(cfg["exclude_keywords"]), pr)
+                if ok:
+                    load_news_db.clear() if hasattr(load_news_db, "clear") else None
+                    st.success(msg)
+                else:
+                    st.error(msg)
+        with b2:
+            if st.button("↩ 되돌리기", use_container_width=True,
+                         disabled=(st.session_state["kw_edit_list"] == current)):
+                st.session_state["kw_edit_list"] = list(current)
+                st.rerun()
+        with b3:
+            if st.session_state["kw_edit_list"] != current:
+                st.caption("⚠️ 저장하지 않은 변경이 있습니다.")
+
+
 def render_top_nav(active_label: str):
     logo_uri = load_logo_data_uri()
     st.markdown("""
@@ -3615,6 +3736,10 @@ def page_news_monitor():
     else:
         db_for_dashboard = load_news_db()
     render_news_dashboard(db_for_dashboard, show_live=True)
+
+    # 담당자가 모니터링 키워드를 직접 관리 (PR 역할만)
+    if st.session_state.get("role") == "pr":
+        render_keyword_settings()
 
     # ===== [컨트롤 Row] 알림 | 표시방식 | 타이머 | 새로고침 | CSV — 1줄 통합 =====
     # CSS 전역 주입 (타이머·버튼 동일 높이 38px 포함)

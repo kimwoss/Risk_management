@@ -11,6 +11,7 @@ from datetime import datetime
 from news_collector import (
     KEYWORDS,
     EXCLUDE_KEYWORDS,
+    KEYWORD_PRIORITY_OVERRIDE,
     MAX_ITEMS_PER_RUN,
     tag_priority,
     crawl_naver_news,
@@ -39,7 +40,9 @@ from news_collector import (
 )
 
 # 키워드 우선순위 정의 (1=최우선, 숫자가 낮을수록 우선순위 높음)
-KEYWORD_PRIORITY = {
+# ※ data/keywords.json에 priority가 지정된 키워드는 아래 기본값보다 우선한다
+#   (파일 로드 후 _BASE_KEYWORD_PRIORITY에 덮어씌움 — 파일 아래쪽 참조).
+_BASE_KEYWORD_PRIORITY = {
     # 직접 (최우선)
     "포스코인터내셔널": 1,
     "POSCO INTERNATIONAL": 1,
@@ -79,6 +82,10 @@ KEYWORD_PRIORITY = {
     # 범용 (가장 낮은 우선순위)
     "포스코": 4,
 }
+
+# data/keywords.json의 priority가 있으면 기본값 위에 덮어쓴다.
+# (담당자가 앱에서 추가한 키워드의 우선순위를 반영. 미지정 키워드는 기존대로 999)
+KEYWORD_PRIORITY = {**_BASE_KEYWORD_PRIORITY, **(KEYWORD_PRIORITY_OVERRIDE or {})}
 
 # 로거 import
 try:

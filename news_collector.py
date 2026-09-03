@@ -64,7 +64,15 @@ MAX_PENDING_RETRY = 5  # Pending 큐 최대 재시도 횟수
 PENDING_TTL_HOURS = 48  # Pending 큐 TTL (48시간)
 
 # 모니터링 키워드 설정 (단일 진실 공급원)
-KEYWORDS = [
+#
+# [2026-08-26] 담당자가 앱에서 키워드를 직접 편집할 수 있도록 외부 파일(data/keywords.json)을
+#   지원한다. 파일이 있으면 그 값을, 없거나 손상됐으면 아래 하드코딩 기본값을 쓴다.
+#   → 파일을 못 읽어도 수집이 멈추지 않는다(안전한 폴백).
+#   keywords.json은 비공개 데이터 저장소(Risk_management_data)에 보관되며,
+#   앱은 private_data.ensure_private_data()가, Actions는 워크플로 단계가 내려받는다.
+KEYWORDS_FILE = os.path.join(DATA_FOLDER, "keywords.json")
+
+DEFAULT_KEYWORDS = [
     # ── 직접 (T1) ──
     "포스코인터내셔널",
     "POSCO INTERNATIONAL",
@@ -104,11 +112,62 @@ KEYWORDS = [
 # "포스코" 범용 버킷에서는 '포스코인터내셔널' 계열만 제외 → 인터내셔널 태그로 귀속.
 # 그 외 계열사(이앤씨·홀딩스 등)는 '포스코'도 함께 잡고, 중복 시 tag_priority가
 # 태그 우선순위(포스코인터내셔널 > 포스코 > 계열사)에 따라 표시 태그를 결정한다.
-EXCLUDE_KEYWORDS = [
+DEFAULT_EXCLUDE_KEYWORDS = [
     "포스코인터내셔널",
     "POSCO INTERNATIONAL",
     "포스코인터",
 ]
+
+
+def load_keyword_config() -> dict:
+    """키워드 설정 로드. data/keywords.json이 유효하면 그 값을, 아니면 기본값을 쓴다.
+
+    반환: {"keywords": [...], "exclude_keywords": [...], "priority": {kw: int},
+           "source": "file"|"default", "updated_at": str|None}
+    어떤 오류에도 예외를 던지지 않는다 — 설정 파일 문제로 수집이 멈추면 안 되기 때문.
+    """
+    cfg = {
+        "keywords": list(DEFAULT_KEYWORDS),
+        "exclude_keywords": list(DEFAULT_EXCLUDE_KEYWORDS),
+        "priority": {},
+        "source": "default",
+        "updated_at": None,
+    }
+    try:
+        if not os.path.exists(KEYWORDS_FILE):
+            return cfg
+        with open(KEYWORDS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        kws = [str(k).strip() for k in (data.get("keywords") or []) if str(k).strip()]
+        if not kws:                      # 빈 목록이면 전 키워드 수집이 멈춤 → 기본값 유지
+            print("[KEYWORDS] keywords.json의 키워드가 비어 있음 - 기본값 사용")
+            return cfg
+        # 중복 제거(입력 순서 보존)
+        seen, uniq = set(), []
+        for k in kws:
+            if k not in seen:
+                seen.add(k); uniq.append(k)
+        cfg["keywords"] = uniq
+        ex = [str(k).strip() for k in (data.get("exclude_keywords") or []) if str(k).strip()]
+        if ex:
+            cfg["exclude_keywords"] = ex
+        pr = data.get("priority") or {}
+        cfg["priority"] = {str(k): int(v) for k, v in pr.items() if str(v).lstrip("-").isdigit()}
+        cfg["source"] = "file"
+        cfg["updated_at"] = data.get("updated_at")
+        print(f"[KEYWORDS] keywords.json 로드: {len(uniq)}개 (updated_at={cfg['updated_at']})")
+    except Exception as e:
+        print(f"[KEYWORDS] keywords.json 로드 실패 - 기본값 사용: {e}")
+    return cfg
+
+
+_KEYWORD_CONFIG = load_keyword_config()
+
+# 기존 임포터(streamlit_app, standalone_monitor)가 그대로 쓰도록 동일한 이름을 유지한다.
+KEYWORDS = _KEYWORD_CONFIG["keywords"]
+EXCLUDE_KEYWORDS = _KEYWORD_CONFIG["exclude_keywords"]
+# 파일에 우선순위가 지정된 키워드는 standalone_monitor가 이 값을 우선 사용한다.
+KEYWORD_PRIORITY_OVERRIDE = _KEYWORD_CONFIG["priority"]
 
 # 수집 설정
 MAX_ITEMS_PER_RUN = 450  # 키워드 확장(약 33개)에 맞춰 상향 — 키워드당 약 13건

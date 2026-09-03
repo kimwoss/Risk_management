@@ -1522,6 +1522,10 @@ if SUPPORTS_FRAGMENT:
         now = time.time()
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
         st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
+        # 키워드 설정 패널이 열려 있으면 자동 리프레시를 멈춘다.
+        #   5초마다 리런하면 편집 도중 위젯 DOM이 교체돼 입력·클릭이 유실된다(실측 확인).
+        if st.session_state.get("kw_panel_open", False):
+            return
         # 5초 간격으로 리프레시 (성능 최적화)
         st_autorefresh(interval=5000, key="countdown_tick")
         # 0초 되면 트리거 플래그 설정하고 즉시 페이지 리런
@@ -1535,6 +1539,9 @@ else:
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
         st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
 
+        # 키워드 설정 패널이 열려 있으면 자동 리프레시 정지 (편집 중 입력·클릭 유실 방지)
+        if st.session_state.get("kw_panel_open", False):
+            return
         # 보고서 생성 중이 아닐 때만 자동 리프레시 (5초 간격으로 성능 최적화)
         if not any(key.startswith("report_generating_") and st.session_state.get(key, False) for key in st.session_state.keys()):
             st_autorefresh(interval=5000, key="countdown_fallback")
@@ -3012,7 +3019,8 @@ def render_keyword_settings():
 
     if st.session_state.get("kw_panel_open", False):
         st.caption("여기서 바꾼 키워드는 뉴스 수집기(24시간 자동 수집)에 그대로 적용됩니다. "
-                   "저장 전까지는 실제 수집에 영향이 없습니다.")
+                   "저장 전까지는 실제 수집에 영향이 없습니다. "
+                   "· 편집 중에는 화면 자동 새로고침이 일시 정지되며, 패널을 닫으면 재개됩니다.")
 
         # ── 고정 키워드: 전용 필터 로직이 걸려 있어 편집 불가 ──
         _locked_chips = "".join(
@@ -3031,41 +3039,59 @@ def render_keyword_settings():
         st.markdown("")
 
         # ── 칩 목록: 선택 해제로 삭제 ──
+        # 주의: multiselect에 key를 주면 '위젯 자신의 세션값'이 default보다 우선한다.
+        #   그 상태에서 추가 버튼이 kw_edit_list만 갱신하면, 리런 때 위젯이 옛 값을
+        #   되돌려놓아 방금 추가한 키워드가 사라진다(실제 증상).
+        #   key를 빼도 소용없다 — Streamlit은 위젯을 위치 기반으로 내부 식별해 이전 선택을
+        #   계속 기억하므로, 추가 직후 리런에서 옛 목록이 반환돼 아래 동기화 코드가
+        #   새 목록을 덮어써 버린다(실제 증상: 추가한 키워드가 사라짐).
+        #   → 프로그램이 목록을 바꿀 때 nonce를 올려 '새 위젯'으로 만들어 default로 재초기화한다.
         options = list(dict.fromkeys(
             [k for k in edit + current_editable + DEFAULT_KEYWORDS if k not in LOCKED_KEYWORDS]
         ))
         picked = st.multiselect(
             "나의 키워드 (× 를 눌러 제거)",
-            options=options, default=edit, key="kw_multiselect",
+            options=options, default=edit,
+            key=f"kw_ms_{st.session_state.get('kw_ms_nonce', 0)}",
         )
+        # 사용자가 ×로 제거한 경우 편집 목록에 반영 (추가는 아래 버튼이 담당)
         if picked != edit:
-            st.session_state["kw_edit_list"] = picked
-            edit = picked
+            st.session_state["kw_edit_list"] = list(picked)
+            edit = list(picked)
 
         # ── 추가 ──
         _total_now = len(LOCKED_KEYWORDS) + len(edit)
         _room = MAX_KEYWORDS - _total_now
-        c_in, c_btn = st.columns([4, 1])
-        with c_in:
-            new_kw = st.text_input("키워드 추가", key="kw_new_input",
-                                   placeholder=("한도에 도달했습니다 — 추가하려면 기존 키워드를 먼저 제거하세요"
-                                                if _room <= 0 else "예: 포스코인터내셔널 배터리소재"),
-                                   label_visibility="collapsed", disabled=(_room <= 0))
-        with c_btn:
-            if st.button("➕ 추가", use_container_width=True, key="kw_add_btn",
-                         disabled=(_room <= 0)):
-                nk = (new_kw or "").strip()
-                if not nk:
-                    st.warning("키워드를 입력해주세요.")
-                elif nk in LOCKED_KEYWORDS:
-                    st.info(f"'{nk}' 는 이미 고정 키워드로 수집 중입니다.")
-                elif nk in edit:
-                    st.info(f"'{nk}' 는 이미 있습니다.")
-                elif _room <= 0:
-                    st.error(f"최대 {MAX_KEYWORDS}개까지만 등록할 수 있습니다.")
-                else:
-                    st.session_state["kw_edit_list"] = edit + [nk]
-                    st.rerun()
+        # st.form을 쓰는 이유: 텍스트 입력 후 'Enter'로도 추가되게 하기 위함.
+        #   버튼 클릭만 처리하면, 사용자가 Enter를 치는 순간 리런만 일어나고 아무 일도
+        #   생기지 않아 "입력했는데 사라졌다"로 보인다(실제 사용자 신고). 폼은 Enter와
+        #   버튼 클릭을 동일하게 제출로 처리하고, clear_on_submit으로 입력창도 비워준다.
+        with st.form("kw_add_form", clear_on_submit=True):
+            f_in, f_btn = st.columns([4, 1])
+            with f_in:
+                new_kw = st.text_input(
+                    "키워드 추가",
+                    placeholder=("한도에 도달했습니다 — 추가하려면 기존 키워드를 먼저 제거하세요"
+                                 if _room <= 0 else "추가할 키워드 입력 후 Enter (예: 품목관세)"),
+                    label_visibility="collapsed", disabled=(_room <= 0))
+            with f_btn:
+                _submitted = st.form_submit_button("➕ 추가", use_container_width=True,
+                                                   disabled=(_room <= 0))
+        if _submitted:
+            nk = (new_kw or "").strip()
+            if not nk:
+                st.warning("키워드를 입력해주세요.")
+            elif nk in LOCKED_KEYWORDS:
+                st.info(f"'{nk}' 는 이미 고정 키워드로 수집 중입니다.")
+            elif nk in edit:
+                st.info(f"'{nk}' 는 이미 있습니다.")
+            elif _room <= 0:
+                st.error(f"최대 {MAX_KEYWORDS}개까지만 등록할 수 있습니다.")
+            else:
+                st.session_state["kw_edit_list"] = edit + [nk]
+                # 칩 목록은 key를 바꿔 '새 위젯'으로 만들어 default(새 목록)로 재초기화
+                st.session_state["kw_ms_nonce"] = st.session_state.get("kw_ms_nonce", 0) + 1
+                st.rerun()
         if _room <= 0:
             st.error(f"🚫 등록 한도({MAX_KEYWORDS}개)에 도달했습니다. "
                      "더 추가하려면 기존 키워드를 먼저 제거해주세요.")
@@ -3119,6 +3145,7 @@ def render_keyword_settings():
         with b2:
             if st.button("↩ 되돌리기", use_container_width=True, disabled=not _dirty):
                 st.session_state["kw_edit_list"] = list(current_editable)
+                st.session_state["kw_ms_nonce"] = st.session_state.get("kw_ms_nonce", 0) + 1
                 st.rerun()
         with b3:
             if _dirty:

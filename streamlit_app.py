@@ -649,9 +649,11 @@ MASTER_DATA_FILE = os.path.join(DATA_FOLDER, "master_data.json")
 # 앱 시작 시 로컬에 없으면 토큰 인증으로 내려받아 기존 경로에 복원하므로,
 # 이 파일들을 읽는 코드는 경로 수정 없이 그대로 동작한다.
 try:
-    from modules.private_data import ensure_private_data
+    from modules.private_data import ensure_private_data, OPTIONAL_DATA_FILES
     _pd_result = ensure_private_data(DATA_FOLDER)
-    _pd_missing = [p for p, ok in _pd_result.items() if not ok]
+    # 선택 파일(keywords.json 등)은 없는 게 정상이므로 경고하지 않는다.
+    _pd_missing = [p for p, ok in _pd_result.items()
+                   if not ok and p not in OPTIONAL_DATA_FILES]
     if _pd_missing:
         print(f"[WARNING] 비공개 데이터 복원 실패: {_pd_missing} "
               f"(GH_DATA_TOKEN 설정 필요 — 해당 메뉴가 비어 보일 수 있음)")
@@ -2924,14 +2926,42 @@ def _data_update_dialog():
 
 # ----------------------------- 모니터링 키워드 설정 -----------------------------
 KEYWORDS_FILE = os.path.join(DATA_FOLDER, "keywords.json")
-# 네이버 API 일일 할당량 대비 1키워드당 예상 호출량 (3분 주기 = 하루 480라운드, 라운드당 약 1회)
-_CALLS_PER_KEYWORD_PER_DAY = 480
+
+# ── 키워드 등록 한도 (실측 기반 산출) ──────────────────────────────
+# 실측(2026-09-03): 키워드 25개 운용 시 KST 00:00~07:52에 4,500회 → 하루 약 13,700회.
+#   → 키워드당 약 550회/일 (3분 주기 480라운드 × 라운드당 1.14회.
+#      crawl_naver_news의 max_attempts=2라 대부분 1회, 페이지네이션 시 2회)
+_CALLS_PER_KEYWORD_PER_DAY = 550
 _NAVER_DAILY_QUOTA = 25000
+# 하트비트 외에도 로컬 앱 수집(앱 열려 있을 때 100초 주기)·news_monitor 백업이
+# 같은 할당량을 쓰므로 20%를 여유로 남긴다.
+_QUOTA_SAFETY_RATIO = 0.80
+# 키워드당 최소 수집 건수 — 이보다 낮으면 기사 누락 위험이 커진다.
+_MIN_ITEMS_PER_KEYWORD = 10
+
+# 기술적 상한 (두 제약 중 더 빡빡한 쪽)
+#   · API 할당량 : 25,000 × 80% ÷ 550 ≈ 36개
+#   · 수집량     : MAX_ITEMS_PER_RUN(450) ÷ 최소 10건 = 45개
+_TECHNICAL_MAX_KEYWORDS = min(
+    int(_NAVER_DAILY_QUOTA * _QUOTA_SAFETY_RATIO / _CALLS_PER_KEYWORD_PER_DAY),
+    MAX_ITEMS_PER_RUN // _MIN_ITEMS_PER_KEYWORD,
+)
+# 운영 한도: 기술적 상한(36)보다 보수적으로 30개로 운영한다.
+#   30개 기준 → API 약 16,500회/일(할당량의 66%), 키워드당 15건 수집.
+#   실측 호출량이 늘거나 상한 산출이 낮아지면 더 작은 쪽이 자동 적용된다.
+MAX_KEYWORDS = min(30, _TECHNICAL_MAX_KEYWORDS)
 
 
 def _save_keyword_config(keywords: list, exclude: list, priority: dict):
     """키워드 설정을 로컬에 쓰고 비공개 저장소에 커밋. (ok, 메시지) 반환."""
     from modules import repo_writer as rw
+    # UI 차단과 별개로 저장 직전에도 한도를 강제한다.
+    # (한도를 넘기면 네이버 API 할당량이 소진돼 수집 자체가 멈추므로)
+    if len(keywords) > MAX_KEYWORDS:
+        return False, (f"키워드가 한도({MAX_KEYWORDS}개)를 초과했습니다: {len(keywords)}개. "
+                       "일부를 제거한 뒤 다시 저장해주세요.")
+    if not keywords:
+        return False, "키워드가 비어 있어 저장할 수 없습니다."
     payload = {
         "keywords": keywords,
         "exclude_keywords": exclude,
@@ -3013,13 +3043,17 @@ def render_keyword_settings():
             edit = picked
 
         # ── 추가 ──
+        _total_now = len(LOCKED_KEYWORDS) + len(edit)
+        _room = MAX_KEYWORDS - _total_now
         c_in, c_btn = st.columns([4, 1])
         with c_in:
             new_kw = st.text_input("키워드 추가", key="kw_new_input",
-                                   placeholder="예: 포스코인터내셔널 배터리소재",
-                                   label_visibility="collapsed")
+                                   placeholder=("한도에 도달했습니다 — 추가하려면 기존 키워드를 먼저 제거하세요"
+                                                if _room <= 0 else "예: 포스코인터내셔널 배터리소재"),
+                                   label_visibility="collapsed", disabled=(_room <= 0))
         with c_btn:
-            if st.button("➕ 추가", use_container_width=True, key="kw_add_btn"):
+            if st.button("➕ 추가", use_container_width=True, key="kw_add_btn",
+                         disabled=(_room <= 0)):
                 nk = (new_kw or "").strip()
                 if not nk:
                     st.warning("키워드를 입력해주세요.")
@@ -3027,9 +3061,16 @@ def render_keyword_settings():
                     st.info(f"'{nk}' 는 이미 고정 키워드로 수집 중입니다.")
                 elif nk in edit:
                     st.info(f"'{nk}' 는 이미 있습니다.")
+                elif _room <= 0:
+                    st.error(f"최대 {MAX_KEYWORDS}개까지만 등록할 수 있습니다.")
                 else:
                     st.session_state["kw_edit_list"] = edit + [nk]
                     st.rerun()
+        if _room <= 0:
+            st.error(f"🚫 등록 한도({MAX_KEYWORDS}개)에 도달했습니다. "
+                     "더 추가하려면 기존 키워드를 먼저 제거해주세요.")
+        elif _room <= 3:
+            st.warning(f"한도까지 {_room}개 남았습니다. (최대 {MAX_KEYWORDS}개)")
 
         # ── 영향도: 담당자가 결과를 예측할 수 있어야 한다 ──
         # 실제 수집 대상 = 고정 키워드 + 편집 목록
@@ -3039,12 +3080,17 @@ def render_keyword_settings():
             per_kw = MAX_ITEMS_PER_RUN // n
             pct = calls / _NAVER_DAILY_QUOTA * 100
             m1, m2, m3 = st.columns(3)
-            m1.metric("키워드 수", f"{n}개",
+            m1.metric("키워드 수", f"{n} / {MAX_KEYWORDS}개",
                       delta=f"{n - len(current):+d}" if n != len(current) else None,
-                      help=f"고정 {len(LOCKED_KEYWORDS)}개 + 편집 {len(st.session_state['kw_edit_list'])}개")
+                      help=f"고정 {len(LOCKED_KEYWORDS)}개 + 편집 {len(st.session_state['kw_edit_list'])}개 "
+                           f"· 최대 {MAX_KEYWORDS}개")
             m2.metric("예상 API 사용", f"{pct:.0f}%", help=f"하루 약 {calls:,}회 / 한도 {_NAVER_DAILY_QUOTA:,}회")
             m3.metric("키워드당 수집량", f"{per_kw}건", help="키워드를 늘리면 키워드당 수집 건수가 줄어듭니다")
-            if pct >= 80:
+            st.progress(min(n / MAX_KEYWORDS, 1.0),
+                        text=f"등록 한도 사용 {n}/{MAX_KEYWORDS}개")
+            if n > MAX_KEYWORDS:
+                st.error(f"🚫 한도 초과({n}/{MAX_KEYWORDS}개) — {n - MAX_KEYWORDS}개를 제거해야 저장할 수 있습니다.")
+            elif pct >= 80:
                 st.error(f"⚠️ API 한도의 {pct:.0f}% — 수집이 중단될 수 있습니다. 키워드를 줄여주세요.")
             elif pct >= 60:
                 st.warning(f"API 한도의 {pct:.0f}%를 사용합니다. 추가 시 주의하세요.")
@@ -3055,10 +3101,11 @@ def render_keyword_settings():
 
         # ── 저장 / 되돌리기 ──
         _dirty = st.session_state["kw_edit_list"] != current_editable
+        _over = n > MAX_KEYWORDS   # 한도 초과 시 저장 차단 (수집 중단 방지)
         b1, b2, b3 = st.columns([1, 1, 3])
         with b1:
             if st.button("💾 저장", type="primary", use_container_width=True,
-                         disabled=not _dirty):
+                         disabled=(not _dirty or _over)):
                 # 실제 저장 목록 = 고정 키워드 + 담당자 편집분
                 final = list(LOCKED_KEYWORDS) + st.session_state["kw_edit_list"]
                 # 신규 키워드는 우선순위 3(할당량 부족 시 먼저 양보)으로 지정

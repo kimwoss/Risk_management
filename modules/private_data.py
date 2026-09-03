@@ -81,6 +81,11 @@ PRIVATE_DATA_FILES = (
     "data/keywords.json",
 )
 
+# 없어도 앱이 정상 동작하는 파일 (기본값으로 대체됨) — 복원 실패를 경고하지 않는다.
+#   keywords.json: 담당자가 한 번도 저장하지 않았으면 아예 존재하지 않는 게 정상이며,
+#                  news_collector가 DEFAULT_KEYWORDS로 폴백한다.
+OPTIONAL_DATA_FILES = frozenset({"data/keywords.json"})
+
 
 def ensure_private_data(data_folder: str = "data") -> dict:
     """비공개 저장소의 민감 데이터를 로컬에 복원한다(이미 있으면 건너뜀).

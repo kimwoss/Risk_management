@@ -79,21 +79,33 @@ jobs:
           # rebase로 다른 워크플로우(*/15 백업 등)와의 push 충돌 방지,
           # sent_cache / pending_queue JSON은 scripts/merge_cache.py가 Union 병합.
           # 모든 git 네트워크 명령은 timeout으로 상한을 둬 라운드 hang을 원천 차단한다.
+          # [2026-09-03 재작성] rebase → reset 방식으로 교체.
+          #   기존: 로컬 데이터 커밋을 origin/main 위로 rebase.
+          #   문제: news_monitor.csv·sent_articles_cache.json 등 자동 생성 파일은
+          #     원격(다른 워크플로/개발 커밋)과 로컬이 동시에 바뀌어 rebase가 반드시 충돌한다.
+          #     한 번 막히면 라운드마다 로컬 커밋이 쌓여(실측: 29개) 영영 push되지 못하고
+          #     수집 결과가 통째로 유실된다(실측: 약 2시간 정체).
+          #   해결: 데이터 파일은 '가장 최근 수집 상태가 정답'이므로 히스토리를 보존할 이유가 없다.
+          #     원격 기준으로 되감은 뒤(reset --mixed) 현재 작업트리의 데이터를 한 커밋으로 올린다.
+          #     발송이력(sent_cache)·재시도 큐는 merge_cache.py가 원격과 union 병합하므로 유실 없음.
+          #     data/ 만 스테이징하므로 코드 파일은 건드리지 않는다.
           merge_and_push() {
             for i in 1 2 3; do
               echo "Push attempt $i..."
               timeout 60 git fetch origin main || { echo "fetch timeout/실패"; sleep $((i*5)); continue; }
 
-              if ! timeout 60 git rebase origin/main; then
-                echo "Rebase failed (attempt $i), aborting and retrying..."
-                git rebase --abort 2>/dev/null || true
-                sleep $((i * 5))
-                continue
+              # 쌓인 로컬 커밋을 접고 원격을 기준선으로 (작업트리=최신 수집 결과는 보존)
+              if ! git reset --mixed origin/main -q; then
+                echo "reset 실패 (attempt $i)"; sleep $((i*5)); continue
               fi
 
               timeout 60 python3 scripts/merge_cache.py || echo "merge_cache 스킵"
-              git add data/sent_articles_cache.json data/pending_articles.json 2>/dev/null || true
-              git diff --staged --quiet || git commit --amend --no-edit
+              git add data/
+              if git diff --staged --quiet; then
+                echo "[HEARTBEAT] 원격과 동일 - push 생략"
+                return 0
+              fi
+              git commit -q -m "auto(heartbeat): $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || true
 
               if timeout 60 git push; then
                 echo "Push successful!"
@@ -143,7 +155,7 @@ jobs:
             # 변경분이 있을 때만 커밋·push (신규 기사 없으면 히스토리 안 부풀음)
             git add data/
             if ! git diff --staged --quiet; then
-              git commit -m "auto(heartbeat): $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || true
+              # 실제 커밋 생성은 merge_and_push가 원격 기준선 위에서 수행한다
               if merge_and_push; then
                 PUSH_FAILS=0
               else

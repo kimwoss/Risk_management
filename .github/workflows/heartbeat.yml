@@ -111,6 +111,8 @@ jobs:
           LOOP_SECONDS=$((300 * 60))           # 5시간 반복 (in-process 캐시 유지로 중복 차단)
           END=$(( $(date +%s) + LOOP_SECONDS ))
           ITER=0
+          PUSH_FAILS=0                         # 연속 push 실패 횟수
+          MAX_PUSH_FAILS=3
 
           while [ "$(date +%s)" -lt "$END" ]; do
             ITER=$((ITER + 1))
@@ -142,7 +144,21 @@ jobs:
             git add data/
             if ! git diff --staged --quiet; then
               git commit -m "auto(heartbeat): $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || true
-              merge_and_push
+              if merge_and_push; then
+                PUSH_FAILS=0
+              else
+                PUSH_FAILS=$((PUSH_FAILS + 1))
+                echo "[HEARTBEAT] push 실패 누적 ${PUSH_FAILS}/${MAX_PUSH_FAILS}"
+                # [2026-09-03] 좀비 루프 방지.
+                #   저장소 히스토리가 바뀌는 등으로 rebase/push가 계속 실패하면, 예전에는
+                #   루프가 5.5시간 내내 헛돌며 concurrency 슬롯을 점유했다. 그 사이 새 트리거는
+                #   모두 취소되어 수집이 통째로 멈췄다(실측: 약 4시간 공백).
+                #   연속 실패가 임계치를 넘으면 스스로 종료해 다음 트리거에 슬롯을 넘긴다.
+                if [ "$PUSH_FAILS" -ge "$MAX_PUSH_FAILS" ]; then
+                  echo "[HEARTBEAT] push 연속 ${PUSH_FAILS}회 실패 - 루프 종료(다음 트리거가 새 체크아웃으로 인계)"
+                  break
+                fi
+              fi
             else
               echo "[HEARTBEAT] 변경 없음 - 커밋 스킵"
             fi

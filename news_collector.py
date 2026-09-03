@@ -119,6 +119,25 @@ DEFAULT_EXCLUDE_KEYWORDS = [
 ]
 
 
+# ── 고정 키워드 (편집 불가) ──────────────────────────────────────
+# 아래 키워드들은 코드에 전용 필터 로직이 붙어 있어, 목록에서 빠지면 수집 정확도가 깨진다.
+#   · "포스코"                : 제목에 있을 때만 수집 + 계열사(EXCLUDE_KEYWORDS) 제외 + 부동산 노이즈 제외
+#   · "포스코인터내셔널"       : 제목·요약 정확 매칭 (토큰 분해로 인한 오검출 차단)
+#   · "포스코모빌리티솔루션"   : 제목·요약 정확 매칭
+#   · "포스코플로우"          : 제목·요약 정확 매칭
+#   · "POSCO INTERNATIONAL", "포스코인터"
+#                            : EXCLUDE_KEYWORDS와 tag_priority가 이들을 전제로 태그를 결정
+# → 담당자 UI에서는 잠금 표시하고, 설정 파일에서 누락돼도 아래 로직이 항상 복원한다.
+LOCKED_KEYWORDS = [
+    "포스코인터내셔널",
+    "POSCO INTERNATIONAL",
+    "포스코인터",
+    "포스코모빌리티솔루션",
+    "포스코플로우",
+    "포스코",
+]
+
+
 def load_keyword_config() -> dict:
     """키워드 설정 로드. data/keywords.json이 유효하면 그 값을, 아니면 기본값을 쓴다.
 
@@ -147,7 +166,12 @@ def load_keyword_config() -> dict:
         for k in kws:
             if k not in seen:
                 seen.add(k); uniq.append(k)
-        cfg["keywords"] = uniq
+        # 고정 키워드는 파일에서 빠져 있어도 항상 복원한다.
+        # (설정 파일이 잘못 편집돼도 전용 필터 로직이 대상 없이 도는 일을 막는다)
+        restored = [k for k in LOCKED_KEYWORDS if k not in seen]
+        if restored:
+            print(f"[KEYWORDS] 고정 키워드 자동 복원: {restored}")
+        cfg["keywords"] = restored + uniq
         ex = [str(k).strip() for k in (data.get("exclude_keywords") or []) if str(k).strip()]
         if ex:
             cfg["exclude_keywords"] = ex

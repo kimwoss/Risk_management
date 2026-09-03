@@ -2956,24 +2956,54 @@ def _save_keyword_config(keywords: list, exclude: list, priority: dict):
 def render_keyword_settings():
     """뉴스 모니터링 상단 — 담당자가 직접 키워드를 편집하는 패널 (PR 전용)."""
     from news_collector import (
-        DEFAULT_KEYWORDS, DEFAULT_EXCLUDE_KEYWORDS, load_keyword_config,
+        DEFAULT_KEYWORDS, DEFAULT_EXCLUDE_KEYWORDS, LOCKED_KEYWORDS, load_keyword_config,
     )
     cfg = load_keyword_config()
     current = list(cfg["keywords"])
+    # 고정 키워드는 편집 대상에서 제외 (전용 필터 로직이 걸려 있어 삭제 시 수집이 깨짐)
+    current_editable = [k for k in current if k not in LOCKED_KEYWORDS]
 
     # 편집 중인 목록은 세션에 보관 (저장 전까지 실제 설정은 그대로)
     if "kw_edit_list" not in st.session_state:
-        st.session_state["kw_edit_list"] = list(current)
+        st.session_state["kw_edit_list"] = list(current_editable)
     edit = st.session_state["kw_edit_list"]
 
     src = "설정 파일" if cfg["source"] == "file" else "기본값"
     upd = f" · 최종 수정 {cfg['updated_at']}" if cfg.get("updated_at") else ""
-    with st.expander(f"🔧 모니터링 키워드 설정 — 현재 {len(current)}개 ({src}{upd})", expanded=False):
+
+    # st.expander를 쓰지 않는 이유: 이 페이지는 카운트다운 때문에 5초마다 리런되는데,
+    # expander는 리런마다 접힌 상태로 돌아가 편집 도중 패널이 계속 닫힌다.
+    # 세션 상태로 열림/닫힘을 직접 관리해야 편집 중에도 유지된다.
+    _open = st.session_state.get("kw_panel_open", False)
+    if st.button(f"{'▼' if _open else '▶'} 🔧 모니터링 키워드 설정 — 현재 {len(current)}개 ({src}{upd})",
+                 key="kw_panel_toggle", use_container_width=True):
+        st.session_state["kw_panel_open"] = not _open
+        st.rerun()
+
+    if st.session_state.get("kw_panel_open", False):
         st.caption("여기서 바꾼 키워드는 뉴스 수집기(24시간 자동 수집)에 그대로 적용됩니다. "
                    "저장 전까지는 실제 수집에 영향이 없습니다.")
 
+        # ── 고정 키워드: 전용 필터 로직이 걸려 있어 편집 불가 ──
+        _locked_chips = "".join(
+            f'<span style="display:inline-block;padding:3px 10px;margin:3px 4px 3px 0;'
+            f'border-radius:99px;font-size:0.8rem;background:var(--c-surface);'
+            f'border:1px solid var(--c-border);color:var(--c-text-dim);">🔒 {k}</span>'
+            for k in LOCKED_KEYWORDS
+        )
+        st.markdown(
+            f'<div style="margin:4px 0 2px;font-size:0.8rem;color:var(--c-text-dim);">'
+            f'고정 키워드 (수정 불가)</div><div>{_locked_chips}</div>',
+            unsafe_allow_html=True,
+        )
+        st.caption("‘포스코’는 제목 등장 시에만 수집하고 계열사·부동산 노이즈를 걸러내는 등, "
+                   "위 키워드에는 전용 판별 로직이 연결돼 있어 잠금 처리했습니다.")
+        st.markdown("")
+
         # ── 칩 목록: 선택 해제로 삭제 ──
-        options = list(dict.fromkeys(edit + current + DEFAULT_KEYWORDS))
+        options = list(dict.fromkeys(
+            [k for k in edit + current_editable + DEFAULT_KEYWORDS if k not in LOCKED_KEYWORDS]
+        ))
         picked = st.multiselect(
             "나의 키워드 (× 를 눌러 제거)",
             options=options, default=edit, key="kw_multiselect",
@@ -2993,6 +3023,8 @@ def render_keyword_settings():
                 nk = (new_kw or "").strip()
                 if not nk:
                     st.warning("키워드를 입력해주세요.")
+                elif nk in LOCKED_KEYWORDS:
+                    st.info(f"'{nk}' 는 이미 고정 키워드로 수집 중입니다.")
                 elif nk in edit:
                     st.info(f"'{nk}' 는 이미 있습니다.")
                 else:
@@ -3000,13 +3032,16 @@ def render_keyword_settings():
                     st.rerun()
 
         # ── 영향도: 담당자가 결과를 예측할 수 있어야 한다 ──
-        n = len(st.session_state["kw_edit_list"])
+        # 실제 수집 대상 = 고정 키워드 + 편집 목록
+        n = len(LOCKED_KEYWORDS) + len(st.session_state["kw_edit_list"])
         if n:
             calls = n * _CALLS_PER_KEYWORD_PER_DAY
             per_kw = MAX_ITEMS_PER_RUN // n
             pct = calls / _NAVER_DAILY_QUOTA * 100
             m1, m2, m3 = st.columns(3)
-            m1.metric("키워드 수", f"{n}개", delta=f"{n - len(current):+d}" if n != len(current) else None)
+            m1.metric("키워드 수", f"{n}개",
+                      delta=f"{n - len(current):+d}" if n != len(current) else None,
+                      help=f"고정 {len(LOCKED_KEYWORDS)}개 + 편집 {len(st.session_state['kw_edit_list'])}개")
             m2.metric("예상 API 사용", f"{pct:.0f}%", help=f"하루 약 {calls:,}회 / 한도 {_NAVER_DAILY_QUOTA:,}회")
             m3.metric("키워드당 수집량", f"{per_kw}건", help="키워드를 늘리면 키워드당 수집 건수가 줄어듭니다")
             if pct >= 80:
@@ -3019,27 +3054,27 @@ def render_keyword_settings():
             st.error("키워드가 하나도 없습니다. 최소 1개는 남겨야 저장할 수 있습니다.")
 
         # ── 저장 / 되돌리기 ──
+        _dirty = st.session_state["kw_edit_list"] != current_editable
         b1, b2, b3 = st.columns([1, 1, 3])
         with b1:
             if st.button("💾 저장", type="primary", use_container_width=True,
-                         disabled=(n == 0 or st.session_state["kw_edit_list"] == current)):
-                final = st.session_state["kw_edit_list"]
+                         disabled=not _dirty):
+                # 실제 저장 목록 = 고정 키워드 + 담당자 편집분
+                final = list(LOCKED_KEYWORDS) + st.session_state["kw_edit_list"]
                 # 신규 키워드는 우선순위 3(할당량 부족 시 먼저 양보)으로 지정
                 pr = {k: 3 for k in final if k not in DEFAULT_KEYWORDS}
                 with st.spinner("저장 중..."):
                     ok, msg = _save_keyword_config(final, list(cfg["exclude_keywords"]), pr)
                 if ok:
-                    load_news_db.clear() if hasattr(load_news_db, "clear") else None
                     st.success(msg)
                 else:
                     st.error(msg)
         with b2:
-            if st.button("↩ 되돌리기", use_container_width=True,
-                         disabled=(st.session_state["kw_edit_list"] == current)):
-                st.session_state["kw_edit_list"] = list(current)
+            if st.button("↩ 되돌리기", use_container_width=True, disabled=not _dirty):
+                st.session_state["kw_edit_list"] = list(current_editable)
                 st.rerun()
         with b3:
-            if st.session_state["kw_edit_list"] != current:
+            if _dirty:
                 st.caption("⚠️ 저장하지 않은 변경이 있습니다.")
 
 

@@ -3022,6 +3022,18 @@ def render_keyword_settings():
                    "저장 전까지는 실제 수집에 영향이 없습니다. "
                    "· 편집 중에는 화면 자동 새로고침이 일시 정지되며, 패널을 닫으면 재개됩니다.")
 
+        # 저장 가능 여부를 '편집 전에' 알린다.
+        #   저장은 비공개 데이터 저장소에 커밋해야 영속되는데, 토큰이 없으면 컨테이너
+        #   재시작 시 사라져 사실상 저장이 안 된다. 저장 후에야 알면 놓치기 쉽다.
+        from modules import repo_writer as _rw
+        if not _rw.can_commit("private"):
+            st.error(
+                "⚠️ **지금 저장해도 유지되지 않습니다** — 비공개 데이터 저장소 접근 토큰"
+                "(`GH_DATA_TOKEN`)이 이 환경에 설정돼 있지 않습니다.\n\n"
+                "Streamlit Cloud → Manage app → Settings → **Secrets** 에 "
+                "`GH_DATA_TOKEN`(저장소 쓰기 권한)을 추가한 뒤 다시 시도해 주세요."
+            )
+
         # ── 고정 키워드: 전용 필터 로직이 걸려 있어 편집 불가 ──
         _locked_chips = "".join(
             f'<span style="display:inline-block;padding:3px 10px;margin:3px 4px 3px 0;'
@@ -3818,10 +3830,15 @@ def page_history_search():
             st.warning("❌ 검색 조건에 맞는 내역이 없습니다.")
 
 def page_news_monitor():
-    # ===== 기본 파라미터 (news_collector.KEYWORDS를 단일 진실 공급원으로 사용) =====
-    keywords = KEYWORDS
+    # ===== 기본 파라미터 =====
+    # [2026-09-03] 모듈 상수(KEYWORDS)를 쓰면 임포트 시점에 한 번 읽은 값이 고정되어,
+    #   담당자가 키워드를 저장해도 앱을 재시작하기 전까지 목록에 반영되지 않았다.
+    #   매 렌더마다 설정 파일을 다시 읽어 즉시 반영되게 한다(파일 없으면 기본값 폴백).
+    from news_collector import load_keyword_config as _load_kw_cfg
+    _kw_cfg = _load_kw_cfg()
+    keywords = _kw_cfg["keywords"]
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
-    exclude_keywords = EXCLUDE_KEYWORDS
+    exclude_keywords = _kw_cfg["exclude_keywords"]
 
     refresh_interval = 180  # 180초 카운트다운 (3분) - 빠른 업데이트
     max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)

@@ -11260,8 +11260,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-04T09:16:22.871239",
+      "retry_count": 4,
+      "last_attempt": "2026-09-04T09:20:00.017600",
       "hash_id": "99c5238aa36890b8"
     },
     "https://biz.heraldcorp.com/article/10863325?ref=naver": {
@@ -11348,8 +11348,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T09:16:21.002637",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T09:19:58.218924",
       "hash_id": "754e2ebbe24004ff"
     },
     "https://www.nocutnews.co.kr/news/6573431?utm_source=naver&utm_medium=article&utm_campaign=20260904060456": {
@@ -11359,11 +11359,132 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T09:16:21.910115",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T09:19:59.115791",
       "hash_id": "8e8e9075496d83b8"
+    },
+    "https://www.edaily.co.kr/News/Read?newsId=04523126645576840&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
+      "title": "[속보] 李대통령, '집중호우 피해' 경남 통영 특별재난지역 추가 선포",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=04523126645576840&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-09-04 18:19",
+      "press": "이데일리",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596205",
+      "hash_id": "830319cc2879ca25"
+    },
+    "https://www.beminor.com/news/articleView.html?idxno=30379": {
+      "title": "[기사 팩트체크] 오세훈표 청년AI 예산 56억, 전장연 예산으로 갔다? 실...",
+      "link": "https://www.beminor.com/news/articleView.html?idxno=30379",
+      "date": "2026-09-04 18:18",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596216",
+      "hash_id": "656a47b4454e6303"
+    },
+    "https://www.sedaily.com/article/20087392?ref=naver": {
+      "title": "[속보] 초대 중수청장 후보에 김관정·김지용·문홍주·이윤제",
+      "link": "https://www.sedaily.com/article/20087392?ref=naver",
+      "date": "2026-09-04 18:18",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596221",
+      "hash_id": "e6fa2731222b28fd"
+    },
+    "https://www.hankyung.com/article/2026090452497": {
+      "title": "[속보] 李대통령, 통영 '집중호우 피해'에 특별재난지역 선포",
+      "link": "https://www.hankyung.com/article/2026090452497",
+      "date": "2026-09-04 18:18",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596226",
+      "hash_id": "84dd58d2e63cd207"
+    },
+    "https://www.mk.co.kr/article/12144830": {
+      "title": "[단독] 개강해도 술 안먹고, 영화관 대신 넷플릭스…20대 소비시장 이탈",
+      "link": "https://www.mk.co.kr/article/12144830",
+      "date": "2026-09-04 18:17",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596231",
+      "hash_id": "47c9bcfce69c4270"
+    },
+    "https://www.hankyung.com/article/2026090452457": {
+      "title": "[속보] \"중수청장 국민천거 백해룡 포함…논의결과 추천 않기로\"",
+      "link": "https://www.hankyung.com/article/2026090452457",
+      "date": "2026-09-04 18:17",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596236",
+      "hash_id": "aa0454e0318369ed"
+    },
+    "https://www.imaeil.com/page/view/2026090418154192681": {
+      "title": "[속보] 李대통령, '집중호우 피해' 경남 통영 특별재난지역 추가 선포",
+      "link": "https://www.imaeil.com/page/view/2026090418154192681",
+      "date": "2026-09-04 18:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596241",
+      "hash_id": "e1f8f21a0e1d6c13"
+    },
+    "https://www.gukjenews.com/news/articleView.html?idxno=3685261": {
+      "title": "[속보] 초대 중수청장 후보에 김관정·김지용·문홍주·이윤제",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3685261",
+      "date": "2026-09-04 18:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596247",
+      "hash_id": "dd8276fb838cc753"
+    },
+    "https://www.yna.co.kr/view/AKR20260904160500001?input=1195m": {
+      "title": "[속보] 李대통령, '집중호우 피해' 통영 특별재난지역 선포",
+      "link": "https://www.yna.co.kr/view/AKR20260904160500001?input=1195m",
+      "date": "2026-09-04 18:15",
+      "press": "연합뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596253",
+      "hash_id": "78ebd1f89d0f74c1"
+    },
+    "http://www.yonhapnewstv.co.kr/news/AKR202609041813299oH": {
+      "title": "[속보] 이 대통령, 집중호우 통영 특별재난지역 추가선포",
+      "link": "http://www.yonhapnewstv.co.kr/news/AKR202609041813299oH",
+      "date": "2026-09-04 18:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596257",
+      "hash_id": "eb4ed0c82129c30e"
+    },
+    "https://www.kyeonggi.com/article/20260904580300": {
+      "title": "[속보] 초대 중수청장 후보 4명 압축…김관정·김지용·문홍주·이윤제",
+      "link": "https://www.kyeonggi.com/article/20260904580300",
+      "date": "2026-09-04 18:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:19:57.596262",
+      "hash_id": "4f27765a0ba7b20f"
     }
   },
-  "last_updated": "2026-09-04 09:16:37",
-  "count": 1033
+  "last_updated": "2026-09-04 09:20:26",
+  "count": 1044
 }

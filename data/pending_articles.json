@@ -11502,11 +11502,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T09:48:19.408629",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T09:51:54.667852",
       "hash_id": "905257c702075c01"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008738612&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 이 대통령, '집중호우 피해' 통영 특별재난지역 선포",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008738612&plink=ORI&cooper=NAVER",
+      "date": "2026-09-04 18:43",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T09:51:55.566682",
+      "hash_id": "a5e6a6aec0b3ce8d"
     }
   },
-  "last_updated": "2026-09-04 09:48:34",
-  "count": 1046
+  "last_updated": "2026-09-04 09:51:58",
+  "count": 1047
 }

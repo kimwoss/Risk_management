@@ -11183,11 +11183,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T08:10:29.138899",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T08:13:50.089199",
       "hash_id": "d5bc1ba9dc37bf39"
+    },
+    "https://www.newsis.com/view/NISX20260904_0003777096": {
+      "title": "[단독]실종자 찾으면 사진·지문으로 '증빙'…허위종결 재발 막는다",
+      "link": "https://www.newsis.com/view/NISX20260904_0003777096",
+      "date": "2026-09-04 17:04",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T08:13:50.988543",
+      "hash_id": "73c72598631c726c"
     }
   },
-  "last_updated": "2026-09-04 08:10:29",
-  "count": 1017
+  "last_updated": "2026-09-04 08:13:54",
+  "count": 1018
 }

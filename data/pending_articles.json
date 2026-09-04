@@ -11744,8 +11744,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T21:14:33.533541",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T21:18:10.628238",
       "hash_id": "a1d0a88c78d6e533"
     },
     "https://www.chosun.com/economy/industry-company/2026/09/05/HIRSMW2H4RBVRPF2RFFAX3DLSQ/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
@@ -11868,8 +11868,30 @@
       "retry_count": 4,
       "last_attempt": "2026-09-04T21:14:29.308185",
       "hash_id": "80b72339ed0e8508"
+    },
+    "https://www.newsis.com/view/NISX20260904_0003776750": {
+      "title": "[현장]현대제철·포스코, 美 루이지애나에 제철소…\"현대차그룹 현지 공...",
+      "link": "https://www.newsis.com/view/NISX20260904_0003776750",
+      "date": "2026-09-05 06:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T21:18:16.657364",
+      "hash_id": "7f4f522e85b3f52d"
+    },
+    "https://www.etoday.co.kr/news/view/2622167": {
+      "title": "포스코, ‘완결형 현지화’ 가속…해외 조강 1000만t 시대 연다 [HPLS 첫...",
+      "link": "https://www.etoday.co.kr/news/view/2622167",
+      "date": "2026-09-05 06:10",
+      "press": "이투데이",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T21:18:17.509976",
+      "hash_id": "604f7e62ffb510a6"
     }
   },
-  "last_updated": "2026-09-04 21:14:36",
-  "count": 1079
+  "last_updated": "2026-09-04 21:18:23",
+  "count": 1081
 }

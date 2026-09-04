@@ -11227,8 +11227,8 @@
       "press": "",
       "keyword": "종합상사",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-04T09:05:37.465873",
+      "retry_count": 3,
+      "last_attempt": "2026-09-04T09:09:10.746237",
       "hash_id": "e6d3745c03dd7b83"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/04/2026090490199.html": {
@@ -11238,11 +11238,132 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-04T09:05:31.327251",
+      "retry_count": 3,
+      "last_attempt": "2026-09-04T09:08:58.737805",
       "hash_id": "e0438eca9eacba81"
+    },
+    "https://www.fnnews.com/news/202609041805324204": {
+      "title": "[속보] 李대통령, 경남 통영 전역 특별재난지역 추가 선포",
+      "link": "https://www.fnnews.com/news/202609041805324204",
+      "date": "2026-09-04 18:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287004",
+      "hash_id": "0425cfb60c1bbe51"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548738": {
+      "title": "[속보]초대 중수청장 후보 4명 압축…김관정·김지용·문홍주·이윤제",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548738",
+      "date": "2026-09-04 18:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287017",
+      "hash_id": "99c5238aa36890b8"
+    },
+    "https://biz.heraldcorp.com/article/10863325?ref=naver": {
+      "title": "[속보] ‘집중 호우 피해’ 통영, 특별재난지역 선포",
+      "link": "https://biz.heraldcorp.com/article/10863325?ref=naver",
+      "date": "2026-09-04 18:06",
+      "press": "헤럴드경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287024",
+      "hash_id": "1f4a19c7d92c175e"
+    },
+    "https://www.hankyung.com/article/2026090452367": {
+      "title": "[속보] 중수청장 국민천거 23명 중 11명 심사…최종 4명 추천",
+      "link": "https://www.hankyung.com/article/2026090452367",
+      "date": "2026-09-04 18:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287029",
+      "hash_id": "007f564cd45f48fe"
+    },
+    "https://www.ajunews.com/view/20260904180456910": {
+      "title": "[속보] 이대통령, 호우피해 통영 전체 특별재난지역 선포",
+      "link": "https://www.ajunews.com/view/20260904180456910",
+      "date": "2026-09-04 18:06",
+      "press": "아주경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287033",
+      "hash_id": "2eed107e48b2b05b"
+    },
+    "https://news.tf.co.kr/read/life/2362276.htm": {
+      "title": "[속보] 초대 중수청장 후보에 김괸정·김지용·문홍주·이윤제",
+      "link": "https://news.tf.co.kr/read/life/2362276.htm",
+      "date": "2026-09-04 18:06",
+      "press": "더팩트",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287038",
+      "hash_id": "475b9552967d759c"
+    },
+    "https://www.dt.co.kr/article/12082133?ref=naver": {
+      "title": "[속보] “식고문·알몸 기어다니기, 더는 못참아”…계룡대 병사들, 경...",
+      "link": "https://www.dt.co.kr/article/12082133?ref=naver",
+      "date": "2026-09-04 18:06",
+      "press": "디지털타임스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287043",
+      "hash_id": "1e82363d8e83140e"
+    },
+    "https://news.jtbc.co.kr/article/NB12316826?influxDiv=NAVER": {
+      "title": "[속보]초대 중수청장 후보자에 김관정·김지용·문홍주·이윤제",
+      "link": "https://news.jtbc.co.kr/article/NB12316826?influxDiv=NAVER",
+      "date": "2026-09-04 18:05",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287061",
+      "hash_id": "cd49d479868fbc7e"
+    },
+    "https://www.mk.co.kr/article/12144827": {
+      "title": "[속보] 초대 중수청장 후보 4명 압축…김관정·김지용·문홍주·이윤제",
+      "link": "https://www.mk.co.kr/article/12144827",
+      "date": "2026-09-04 18:05",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-04T09:08:58.287066",
+      "hash_id": "c39788eaf23004df"
+    },
+    "https://www.newsis.com/view/NISX20260904_0003777188": {
+      "title": "[속보]이 대통령, '집중호우 피해' 경남 통영 특별재난지역 추가 선포",
+      "link": "https://www.newsis.com/view/NISX20260904_0003777188",
+      "date": "2026-09-04 18:04",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T09:09:11.651550",
+      "hash_id": "754e2ebbe24004ff"
+    },
+    "https://www.nocutnews.co.kr/news/6573431?utm_source=naver&utm_medium=article&utm_campaign=20260904060456": {
+      "title": "[속보]첫 중수청장 후보에 김관정·김지용·문홍주·이윤제 등 4명",
+      "link": "https://www.nocutnews.co.kr/news/6573431?utm_source=naver&utm_medium=article&utm_campaign=20260904060456",
+      "date": "2026-09-04 18:04",
+      "press": "노컷뉴스",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T09:09:21.268599",
+      "hash_id": "8e8e9075496d83b8"
     }
   },
-  "last_updated": "2026-09-04 09:05:38",
-  "count": 1022
+  "last_updated": "2026-09-04 09:09:29",
+  "count": 1033
 }

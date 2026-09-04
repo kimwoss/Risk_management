@@ -11535,11 +11535,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-04T10:25:22.833393",
+      "retry_count": 4,
+      "last_attempt": "2026-09-04T10:28:56.821953",
       "hash_id": "4eb3219ac119f2dd"
+    },
+    "https://www.g-enews.com/view.php?ud=202609041919589740923c501012_1": {
+      "title": "포스코 노사, 현장서 물리적 충돌…노조 간부 부상",
+      "link": "https://www.g-enews.com/view.php?ud=202609041919589740923c501012_1",
+      "date": "2026-09-04 19:22",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T10:28:57.719899",
+      "hash_id": "9f06f6cadc10f0b6"
     }
   },
-  "last_updated": "2026-09-04 10:25:36",
-  "count": 1049
+  "last_updated": "2026-09-04 10:28:58",
+  "count": 1050
 }

@@ -18,9 +18,21 @@ name: News Heartbeat (3-min)
 on:
   schedule:
     # [2026-08-07] 주 트리거는 외부 cron-job.org(15분마다 workflow_dispatch).
-    # GitHub schedule은 cron-job.org가 죽었을 때만 쓰는 예비 → 시간당 1회로 최소화
+    # GitHub schedule은 cron-job.org가 죽었을 때만 쓰는 예비.
     # (GitHub cron은 드랍이 잦아 신뢰 불가. 관측: 5시간 연속 무발화 → 8시간 침묵 사고).
-    - cron: '0 * * * *'
+    #
+    # [2026-09-04] 시간당 1회 → 30분마다로 상향.
+    #   경위: 저장소를 새로 만들며 옛 저장소가 Risk_management_archive로 밀렸고,
+    #     cron-job.org의 디스패치 토큰(piris-heartbeat-dispatch)은 저장소를 '이름'이 아닌
+    #     'ID'로 참조하므로 아카이브를 따라갔다. 그 결과 09-03 04:45Z를 마지막으로
+    #     workflow_dispatch가 완전히 끊기고 이 예비 cron만 남았다.
+    #   피해: 5시간 루프가 끝난 뒤 다음 발화까지 비는 구간이 그대로 수집 공백이 된다.
+    #     실측 09-04 02:37Z~04:07Z, 90분 공백(업무시간 KST 11:37~13:07).
+    #   조치: 예비 트리거를 30분마다로 올려 최악의 공백을 90분 → 30분 이내로 축소.
+    #     concurrency(cancel-in-progress: false)가 대기 런을 1개만 유지하므로
+    #     루프 실행 중 발화는 대기했다가 즉시 인계된다 → 중복 실행 없음.
+    #     저장소가 public이라 Actions 분이 무제한이므로 추가 비용은 없다.
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 # 실행 중인 루프는 보존하고, 다음 트리거는 대기열에서 이어받음 → 끊김 없는 연속 운영

@@ -133,9 +133,10 @@ LOCKED_KEYWORDS = [
     "POSCO INTERNATIONAL",
     "포스코인터",
     "포스코모빌리티솔루션",
-    "포스코플로우",
     "포스코",
 ]
+# [2026-09-04] '포스코플로우'는 담당자 요청으로 고정 해제(편집 가능).
+#   apply_keyword_filters의 전용 정확매칭 분기는 그대로 두므로, 다시 등록하면 동일하게 동작한다.
 
 
 def load_keyword_config() -> dict:
@@ -185,6 +186,50 @@ def load_keyword_config() -> dict:
     return cfg
 
 
+# ── 유입량이 매우 큰 범용 태그 ─────────────────────────────────────
+# [2026-09-04] 담당자가 '[단독]', '[속보]'를 단독 키워드로 등록해 목록이 무너진 사고에서 도입.
+#   증상: 최신 기사 상단이 통일교 특검·SS501 등 포스코와 무관한 기사로 뒤덮이고(상위 50건 중 36건),
+#         정작 포스코 기사는 200행 창에서 밀려났다.
+#   원인: apply_keyword_filters의 기타-키워드 분기는 "키워드 문자열이 제목/요약에 있는가"만 본다.
+#         '[단독]'은 모든 단독 기사 제목에 그대로 들어가므로 100% 통과한다.
+#   실측(네이버 API, 2026-09-04 14:56 KST):
+#         '[단독]' 시간당 약 118건 유입, 최신 100건 중 포스코 언급 0건
+#         '[속보]' 시간당 약  27건 유입, 최신 100건 중 포스코 언급 0건
+#         → 합계 약 145건/시간. 200행 목록이 약 83분이면 무관 기사로 가득 찬다.
+#   [2026-09-04 담당자 결정] 속보·단독 기사도 업무상 파악해야 하므로 '차단'하지 않는다.
+#         → 등록은 허용하되, 추가 시점에 유입량과 부작용을 경고해 담당자가 알고 쓰게 한다.
+#         회사 범위를 주고 싶으면 '포스코 [단독]'처럼 조합하면 된다(토큰 전부 매칭).
+BROAD_KEYWORDS = {
+    "[단독]", "[속보]", "[종합]", "[영상]", "[포토]", "[사진]", "[전문]",
+    "단독", "속보", "종합", "뉴스", "기사", "오늘",
+}
+
+_MIN_KEYWORD_LEN = 2
+
+
+def validate_keyword(keyword: str, existing: list[str] | None = None) -> tuple[bool, str, str]:
+    """등록하려는 키워드를 검사한다. (ok, 오류사유, 경고문) 반환.
+
+    수집기와 UI가 같은 규칙을 쓰도록 여기 한 곳에만 둔다.
+    ok=False는 저장을 막는 오류, warn은 저장은 되지만 알려야 할 부작용이다.
+    """
+    kw = (keyword or "").strip()
+    if not kw:
+        return False, "키워드가 비어 있습니다.", ""
+    if len(kw) < _MIN_KEYWORD_LEN:
+        return False, "키워드는 2자 이상이어야 합니다.", ""
+    if existing and kw in existing:
+        return False, f"'{kw}'는 이미 등록되어 있습니다.", ""
+
+    tokens = [t for t in kw.split() if t]
+    if tokens and all(t in BROAD_KEYWORDS for t in tokens):
+        return True, "", (
+            f"'{kw}'는 포스코와 무관한 기사까지 함께 들어옵니다. "
+            f"회사 범위를 주려면 '포스코 {kw}'처럼 조합할 수 있습니다."
+        )
+    return True, "", ""
+
+
 _KEYWORD_CONFIG = load_keyword_config()
 
 # 기존 임포터(streamlit_app, standalone_monitor)가 그대로 쓰도록 동일한 이름을 유지한다.
@@ -195,6 +240,10 @@ KEYWORD_PRIORITY_OVERRIDE = _KEYWORD_CONFIG["priority"]
 
 # 수집 설정
 MAX_ITEMS_PER_RUN = 450  # 키워드 확장(약 33개)에 맞춰 상향 — 키워드당 약 13건
+
+# 표시 DB 보관 상한 (행당 약 456바이트 실측 → 600행 ≈ 270KB, 3분마다 커밋해도 부담 없음)
+MAX_DB_ROWS = 600            # 전체 상한
+MAX_ROWS_PER_KEYWORD = 40    # 키워드 1개가 목록을 독점하지 못하도록 하는 상한
 
 
 def tag_priority(keyword: str) -> int:
@@ -830,8 +879,20 @@ def save_news_db(df: pd.DataFrame):
             if pd.notna(row["URL"]):
                 df.at[idx, "매체명"] = _publisher_from_link(row["URL"])
 
-    # 상위 200개만 저장
-    out = df.head(200).copy()
+    # ── 저장 상한 ──
+    # [2026-09-04] 단순 head(200) → '키워드별 상한 + 전체 상한'으로 변경.
+    #   경위: 담당자가 '[속보]'·'[단독]'을 등록하자(업무상 필요) 해당 태그가 시간당 약 145건씩
+    #     유입돼 200행을 약 83분이면 가득 채웠다. 그 전까지 200행은 약 22시간을 담았는데,
+    #     유입량이 큰 한 키워드가 나머지 전부를 밀어내 포스코 기사가 당일치도 남지 않게 된다.
+    #   대책: 키워드마다 최신 MAX_ROWS_PER_KEYWORD건까지만 보관해 한 키워드의 점유를 묶고,
+    #     그 뒤 전체를 MAX_DB_ROWS로 자른다. 유입량이 적은 키워드의 기사는 오래 남고,
+    #     유입량이 많은 키워드도 최신분은 항상 보인다.
+    out = df.copy()
+    if "검색키워드" in out.columns and "날짜" in out.columns:
+        out = out.sort_values("날짜", ascending=False, na_position="last")
+        out = out.groupby("검색키워드", sort=False, group_keys=False).head(MAX_ROWS_PER_KEYWORD)
+        out = out.sort_values("날짜", ascending=False, na_position="last").reset_index(drop=True)
+    out = out.head(MAX_DB_ROWS).copy()
 
     # data 폴더 생성
     os.makedirs(DATA_FOLDER, exist_ok=True)

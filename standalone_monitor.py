@@ -550,6 +550,18 @@ def main(send_telegram: bool = None):
             df_new = df_new.loc[~key.duplicated()].reset_index(drop=True)
             df_new = df_new.drop(columns=["_tagpri", "날짜_datetime"])
 
+            # 기존 DB에서 '더 이상 수집하지 않는 키워드'의 행을 제거한다.
+            # [2026-09-04] 담당자가 잘못 등록한 키워드를 지워도, 그 키워드로 이미 쌓인 행이
+            #   DB에 남아 계속 목록 상단을 차지했다(실측: '[단독]'·'[속보]' 유입 약 145건/시간).
+            #   설정을 되돌려도 화면이 안 돌아오면 담당자는 "고쳐지지 않는다"고 판단한다.
+            #   → 표시 DB는 항상 '현재 키워드 설정'만 반영하도록 정리한다.
+            if not existing_db.empty and "검색키워드" in existing_db.columns:
+                _active = set(KEYWORDS)
+                _before = len(existing_db)
+                existing_db = existing_db[existing_db["검색키워드"].isin(_active)].reset_index(drop=True)
+                if len(existing_db) < _before:
+                    safe_print(f"[MONITOR] 비활성 키워드 행 정리: {_before - len(existing_db)}건 제거")
+
             # 기존 DB와 병합 (병합 후에도 태그 우선순위로 중복 해소)
             merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new
             merged["_tagpri"] = merged["검색키워드"].map(tag_priority)

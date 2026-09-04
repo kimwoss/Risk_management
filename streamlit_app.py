@@ -1829,7 +1829,8 @@ def load_news_db(force_refresh: bool = False) -> pd.DataFrame:
         if gh_df is not None and _latest_ts(gh_df) > _latest_ts(local_df):
             df = gh_df
             try:
-                df.head(200).to_csv(NEWS_DB_FILE, index=False, encoding="utf-8")
+                from news_collector import MAX_DB_ROWS as _CAP
+                df.head(_CAP).to_csv(NEWS_DB_FILE, index=False, encoding="utf-8")
                 print(f"[DEBUG] GitHub본이 더 신선({_latest_ts(gh_df)}) → 로컬 캐시 갱신")
             except Exception as e:
                 print(f"[WARNING] 로컬 캐시 갱신 실패: {e}")
@@ -2969,6 +2970,12 @@ def _save_keyword_config(keywords: list, exclude: list, priority: dict):
                        "일부를 제거한 뒤 다시 저장해주세요.")
     if not keywords:
         return False, "키워드가 비어 있어 저장할 수 없습니다."
+    # UI 검증을 우회한 값(구버전 세션·직접 조작)도 저장 단계에서 막는다.
+    from news_collector import validate_keyword
+    for _k in keywords:
+        _ok, _why, _ = validate_keyword(_k)
+        if not _ok:
+            return False, _why
     payload = {
         "keywords": keywords,
         "exclude_keywords": exclude,
@@ -2994,6 +3001,7 @@ def render_keyword_settings():
     """뉴스 모니터링 상단 — 담당자가 직접 키워드를 편집하는 패널 (PR 전용)."""
     from news_collector import (
         DEFAULT_KEYWORDS, DEFAULT_EXCLUDE_KEYWORDS, LOCKED_KEYWORDS, load_keyword_config,
+        validate_keyword as _kw_valid,
     )
     cfg = load_keyword_config()
     current = list(cfg["keywords"])
@@ -3084,6 +3092,10 @@ def render_keyword_settings():
         #   버튼 클릭만 처리하면, 사용자가 Enter를 치는 순간 리런만 일어나고 아무 일도
         #   생기지 않아 "입력했는데 사라졌다"로 보인다(실제 사용자 신고). 폼은 Enter와
         #   버튼 클릭을 동일하게 제출로 처리하고, clear_on_submit으로 입력창도 비워준다.
+        # 직전 추가에서 남긴 경고를 rerun 이후 한 번 보여준다(폼은 제출 즉시 rerun됨)
+        _warn_msg = st.session_state.pop("kw_add_warning", "")
+        if _warn_msg:
+            st.warning("⚠️ " + _warn_msg)
         with st.form("kw_add_form", clear_on_submit=True):
             f_in, f_btn = st.columns([4, 1])
             with f_in:
@@ -3105,7 +3117,13 @@ def render_keyword_settings():
                 st.info(f"'{nk}' 는 이미 있습니다.")
             elif _room <= 0:
                 st.error(f"최대 {MAX_KEYWORDS}개까지만 등록할 수 있습니다.")
+            elif not _kw_valid(nk, edit)[0]:
+                st.error("🚫 " + _kw_valid(nk, edit)[1])
             else:
+                # 범용 태그는 막지 않되(담당자가 속보·단독도 봐야 함) 부작용은 알린다
+                _warn = _kw_valid(nk, edit)[2]
+                if _warn:
+                    st.session_state["kw_add_warning"] = _warn
                 st.session_state["kw_edit_list"] = edit + [nk]
                 # 칩 목록은 key를 바꿔 '새 위젯'으로 만들어 default(새 목록)로 재초기화
                 st.session_state["kw_ms_nonce"] = st.session_state.get("kw_ms_nonce", 0) + 1
@@ -3846,7 +3864,12 @@ def page_news_monitor():
     # 포스코 검색 결과에서 제외할 키워드 (중복 방지)
     exclude_keywords = _kw_cfg["exclude_keywords"]
 
-    refresh_interval = 180  # 180초 카운트다운 (3분) - 빠른 업데이트
+    # [2026-09-04] 180초 → 60초.
+    #   화면 지연은 '수집 라운드(약 3분 20초)' + '앱 폴링(최대 3분)'이 더해져 최대 6분이었다
+    #   (담당자 실측: 14:53 시점에 8분 전 기사가 최신). 이 폴링은 GitHub의 CSV를 읽을 뿐
+    #   네이버 API를 호출하지 않으므로 주기를 줄여도 할당량에 영향이 없다.
+    #   60초로 낮춰 표시 지연을 최대 3분 → 최대 1분으로 줄인다.
+    refresh_interval = 60
     max_items = 100  # 키워드당 약 11개 수집 (필터링 후 충분한 기사 확보)
 
     # ===== 세션 상태 기본값 =====
@@ -3972,7 +3995,22 @@ def page_news_monitor():
             df_latest = load_news_db(force_refresh=False)
             st.session_state.news_display_data = df_latest
             st.session_state.last_news_fetch = time.time()
-            status.success(f"✅ 최신 뉴스 {len(df_latest)}건 표시 중")
+            # 신선도 표기: 건수만 보이면 '새 기사가 없는 것'과 '수집이 멈춘 것'을 구분할 수 없다.
+            _now_kst = datetime.now(timezone(timedelta(hours=9)))
+            _msg = f"✅ 최신 뉴스 {len(df_latest)}건"
+            try:
+                _ts = pd.to_datetime(str(df_latest["날짜"].astype(str).max()), errors="coerce")
+                if pd.notna(_ts):
+                    _age = int((_now_kst.replace(tzinfo=None) - _ts).total_seconds() // 60)
+                    _msg += f" · 최신 기사 {_ts:%H:%M} ({_age}분 전)"
+                    if _age > 30:
+                        status.warning(_msg + " · ⚠️ 30분 이상 신규 기사 없음 — 수집 상태 확인 필요")
+                    else:
+                        status.success(_msg + f" · 확인 {_now_kst:%H:%M:%S}")
+                else:
+                    status.success(_msg)
+            except Exception:
+                status.success(_msg)
         except Exception as e:
             status.error(f"❌ 뉴스 불러오기 오류: {e}")
 

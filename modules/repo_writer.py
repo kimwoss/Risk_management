@@ -41,7 +41,42 @@ def _token(kind: str) -> str | None:
 
 
 def can_commit(kind: str) -> bool:
+    """토큰이 '존재'하는지만 확인 (권한까지는 보지 않음)."""
     return bool(_token(kind))
+
+
+def check_write_access(kind: str) -> tuple[bool, str]:
+    """실제로 쓰기가 가능한지 확인한다. (ok, 사유) 반환.
+
+    토큰이 있어도 권한이 없으면 커밋 시점에야 403이 나서 사용자가 헛수고를 한다
+    (실측: "Resource not accessible by personal access token").
+    저장소 메타데이터의 permissions.push로 저장 전에 미리 판별한다.
+    """
+    token = _token(kind)
+    if not token:
+        return False, f"토큰 없음({'GH_DATA_TOKEN' if kind == 'private' else 'GH_PAT'})"
+    repo = PRIVATE_REPO if kind == "private" else PUBLIC_REPO
+    try:
+        r = requests.get(
+            f"https://api.github.com/repos/{repo}",
+            headers={"Authorization": f"Bearer {token}",
+                     "Accept": "application/vnd.github+json",
+                     "X-GitHub-Api-Version": "2022-11-28"},
+            timeout=15,
+        )
+    except Exception as e:
+        return False, f"저장소 조회 실패: {e}"
+    if r.status_code == 404:
+        return False, f"토큰이 {repo} 저장소에 접근할 수 없음(대상 저장소 미포함)"
+    if r.status_code != 200:
+        return False, f"저장소 조회 오류 HTTP {r.status_code}"
+    try:
+        perms = r.json().get("permissions") or {}
+    except Exception:
+        return True, ""      # 판별 불가 시 막지 않는다(실제 저장 때 확인)
+    if perms.get("push"):
+        return True, ""
+    return False, f"토큰에 {repo} 쓰기(Contents: Read and write) 권한이 없음"
 
 
 def commit_file(kind: str, path: str, content: bytes, message: str,

@@ -3026,12 +3026,18 @@ def render_keyword_settings():
         #   저장은 비공개 데이터 저장소에 커밋해야 영속되는데, 토큰이 없으면 컨테이너
         #   재시작 시 사라져 사실상 저장이 안 된다. 저장 후에야 알면 놓치기 쉽다.
         from modules import repo_writer as _rw
-        if not _rw.can_commit("private"):
+        # 권한 확인은 API 호출이라 세션당 1회만 수행
+        if "_kw_write_ok" not in st.session_state:
+            st.session_state["_kw_write_ok"] = _rw.check_write_access("private")
+        _w_ok, _w_why = st.session_state["_kw_write_ok"]
+        if not _w_ok:
             st.error(
-                "⚠️ **지금 저장해도 유지되지 않습니다** — 비공개 데이터 저장소 접근 토큰"
-                "(`GH_DATA_TOKEN`)이 이 환경에 설정돼 있지 않습니다.\n\n"
-                "Streamlit Cloud → Manage app → Settings → **Secrets** 에 "
-                "`GH_DATA_TOKEN`(저장소 쓰기 권한)을 추가한 뒤 다시 시도해 주세요."
+                f"⚠️ **지금 저장해도 유지되지 않습니다** — {_w_why}\n\n"
+                "GitHub → Settings → Developer settings → Personal access tokens 에서 "
+                "해당 토큰에 **`Risk_management_data` 저장소**를 포함하고 "
+                "**Contents: Read and write** 권한을 부여한 뒤, "
+                "Streamlit Cloud → Manage app → Settings → **Secrets** 의 "
+                "`GH_DATA_TOKEN` 값을 갱신해 주세요."
             )
 
         # ── 고정 키워드: 전용 필터 로직이 걸려 있어 편집 불가 ──

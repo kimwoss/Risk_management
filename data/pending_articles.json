@@ -11546,11 +11546,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-04T10:28:57.719899",
+      "retry_count": 3,
+      "last_attempt": "2026-09-04T10:32:19.480640",
       "hash_id": "9f06f6cadc10f0b6"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548760": {
+      "title": "[단독]용혜인 후원회장에 당 노무비 지급…‘일감 몰아주기’ 의혹",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548760",
+      "date": "2026-09-04 19:28",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T10:32:25.684142",
+      "hash_id": "210b3185f991e2e7"
     }
   },
-  "last_updated": "2026-09-04 10:28:58",
-  "count": 1050
+  "last_updated": "2026-09-04 10:32:26",
+  "count": 1051
 }

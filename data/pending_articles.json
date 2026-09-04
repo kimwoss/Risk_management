@@ -11205,11 +11205,22 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-04T08:24:24.700995",
+      "retry_count": 3,
+      "last_attempt": "2026-09-04T08:27:44.885302",
       "hash_id": "58ee488c7f7930e6"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/04/20260904500321?wlog_tag3=naver": {
+      "title": "[속보] 20대 중국인, 서울 돌아다니며 여성 27명 ‘불법 촬영’…불구속...",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/04/20260904500321?wlog_tag3=naver",
+      "date": "2026-09-04 17:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T08:27:51.023353",
+      "hash_id": "e00874e0483ca64a"
     }
   },
-  "last_updated": "2026-09-04 08:24:25",
-  "count": 1019
+  "last_updated": "2026-09-04 08:27:51",
+  "count": 1020
 }

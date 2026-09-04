@@ -10842,8 +10842,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-04T05:50:42.445514",
+      "retry_count": 4,
+      "last_attempt": "2026-09-04T05:54:30.028343",
       "hash_id": "92bcb16fd55d8bc7"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67672": {
@@ -10853,8 +10853,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-04T05:50:41.669193",
+      "retry_count": 4,
+      "last_attempt": "2026-09-04T05:54:29.252265",
       "hash_id": "06936add264063c2"
     },
     "https://www.seoul.co.kr/news/society/accident/2026/09/04/20260904500180?wlog_tag3=naver": {
@@ -10864,8 +10864,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T05:50:40.886257",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T05:54:28.478714",
       "hash_id": "7fc09eaaa31e89de"
     },
     "https://www.newsis.com/view/NISX20260904_0003776662": {
@@ -10875,8 +10875,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T05:50:40.111237",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T05:54:27.701385",
       "hash_id": "f464626bf6558835"
     },
     "https://www.g-enews.com/view.php?ud=202609041342018561fbbec65dfb_1": {
@@ -10886,11 +10886,33 @@
       "press": "",
       "keyword": "종합상사",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-04T05:50:39.324077",
+      "retry_count": 5,
+      "last_attempt": "2026-09-04T05:54:26.911467",
       "hash_id": "f7ab5903c4eb3c6a"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548701": {
+      "title": "[속보]김건희 특검, 통일교 한학자 1심 징역 2년에 항소",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548701",
+      "date": "2026-09-04 14:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T05:54:49.227958",
+      "hash_id": "1f5a0df4e6355316"
+    },
+    "https://www.newsis.com/view/NISX20260904_0003776761": {
+      "title": "[속보]김건희 특검, 통일교 한학자 총재 1심 징역 2년에 항소",
+      "link": "https://www.newsis.com/view/NISX20260904_0003776761",
+      "date": "2026-09-04 14:43",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-04T05:54:36.038219",
+      "hash_id": "79ae05298c8e9e3f"
     }
   },
-  "last_updated": "2026-09-04 05:51:01",
-  "count": 990
+  "last_updated": "2026-09-04 05:54:54",
+  "count": 992
 }

@@ -12547,11 +12547,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-05T07:34:42.948349",
+      "retry_count": 4,
+      "last_attempt": "2026-09-05T07:38:20.624688",
       "hash_id": "71a45156ad1e14e4"
+    },
+    "https://biz.heraldcorp.com/article/10863612?ref=naver": {
+      "title": "“HPLS는 韓美동맹의 새 상징”…양국 정관계 인사 ‘협력’ 강조 [현대...",
+      "link": "https://biz.heraldcorp.com/article/10863612?ref=naver",
+      "date": "2026-09-05 16:31",
+      "press": "헤럴드경제",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T07:38:21.433484",
+      "hash_id": "b1deb593b8ae0048"
     }
   },
-  "last_updated": "2026-09-05 07:34:59",
-  "count": 1141
+  "last_updated": "2026-09-05 07:38:22",
+  "count": 1142
 }

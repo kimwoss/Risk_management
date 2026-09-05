@@ -12558,11 +12558,22 @@
       "press": "헤럴드경제",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-05T07:38:21.433484",
+      "retry_count": 3,
+      "last_attempt": "2026-09-05T07:41:46.783610",
       "hash_id": "b1deb593b8ae0048"
+    },
+    "https://www.newsis.com/view/NISX20260905_0003777662": {
+      "title": "[속보]\"하르그섬 인근 해역서 이란 유조선, 美미사일에 피격\"",
+      "link": "https://www.newsis.com/view/NISX20260905_0003777662",
+      "date": "2026-09-05 16:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T07:41:47.575999",
+      "hash_id": "06d04a610a44431e"
     }
   },
-  "last_updated": "2026-09-05 07:38:22",
-  "count": 1142
+  "last_updated": "2026-09-05 07:41:50",
+  "count": 1143
 }

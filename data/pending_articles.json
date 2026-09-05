@@ -12613,11 +12613,55 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-05T09:22:53.397968",
+      "retry_count": 5,
+      "last_attempt": "2026-09-05T09:26:31.015059",
       "hash_id": "1ac7a822bc453537"
+    },
+    "https://www.newsis.com/view/NISX20260905_0003777525": {
+      "title": "[속보]불꽃축제 인파 밀집…5호선 여의나루역 무정차 통과",
+      "link": "https://www.newsis.com/view/NISX20260905_0003777525",
+      "date": "2026-09-05 18:22",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T09:26:54.408438",
+      "hash_id": "22babb4c81dd1032"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008739290&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 서울불꽃축제 인파 몰리며 여의나루역 무정차 통과",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008739290&plink=ORI&cooper=NAVER",
+      "date": "2026-09-05 18:20",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T09:26:51.108508",
+      "hash_id": "ef581e00370e3c47"
+    },
+    "https://www.seoul.co.kr/news/international/asia-oceania/2026/09/05/20260905500029?wlog_tag3=naver": {
+      "title": "[속보] “네팔·한국 구조팀, 터널 갇힌 중국인 구조” 실종 한국인 9명...",
+      "link": "https://www.seoul.co.kr/news/international/asia-oceania/2026/09/05/20260905500029?wlog_tag3=naver",
+      "date": "2026-09-05 18:18",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T09:26:42.651048",
+      "hash_id": "d6dfa6a07db70126"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/05/2026090590083.html": {
+      "title": "[속보] 서울불꽃축제 인파에 여의나루역 무정차 통과",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/05/2026090590083.html",
+      "date": "2026-09-05 18:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-05T09:26:31.824205",
+      "hash_id": "b3a7b7145f55af8d"
     }
   },
-  "last_updated": "2026-09-05 09:23:09",
-  "count": 1147
+  "last_updated": "2026-09-05 09:27:00",
+  "count": 1151
 }

@@ -12998,11 +12998,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T05:58:02.684467",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T06:01:37.765046",
       "hash_id": "57a56d4e2e5c09d1"
+    },
+    "https://www.newsis.com/view/NISX20260906_0003778049": {
+      "title": "[속보]배드민턴 안세영, 2개 대회 연속 우승…중국 마스터스 3연패",
+      "link": "https://www.newsis.com/view/NISX20260906_0003778049",
+      "date": "2026-09-06 14:57",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T06:01:41.394469",
+      "hash_id": "3ba6dca56e2f5cd6"
     }
   },
-  "last_updated": "2026-09-06 05:58:17",
-  "count": 1182
+  "last_updated": "2026-09-06 06:01:50",
+  "count": 1183
 }

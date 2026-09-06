@@ -13405,11 +13405,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-06T21:48:02.813454",
+      "retry_count": 4,
+      "last_attempt": "2026-09-06T21:51:38.853723",
       "hash_id": "94c42bd96ed2bb74"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333009?division=NAVER": {
+      "title": "현대제철·포스코 美서 '원팀' 승부수…제철소로 관세폭탄 대응",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333009?division=NAVER",
+      "date": "2026-09-07 06:46",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T21:51:39.710067",
+      "hash_id": "9a4f3b3955e4e3e5"
     }
   },
-  "last_updated": "2026-09-06 21:48:18",
-  "count": 1219
+  "last_updated": "2026-09-06 21:51:45",
+  "count": 1220
 }

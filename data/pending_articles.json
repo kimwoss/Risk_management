@@ -13163,11 +13163,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T10:09:48.910487",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T10:13:23.657975",
       "hash_id": "1ff9c73f7a4739e2"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690079.html": {
+      "title": "[단독] '브로커' 양씨 추가 녹취 \"내 활용 가치 있으니 6억 투자\"…김승...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690079.html",
+      "date": "2026-09-06 19:02",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T10:13:24.634624",
+      "hash_id": "bf6f5a83d999d8eb"
     }
   },
-  "last_updated": "2026-09-06 10:10:04",
-  "count": 1197
+  "last_updated": "2026-09-06 10:13:25",
+  "count": 1198
 }

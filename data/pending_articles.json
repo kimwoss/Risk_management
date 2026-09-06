@@ -12822,11 +12822,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T01:42:09.081465",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T01:45:53.041898",
       "hash_id": "c3cc71253fc64c5c"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690011.html": {
+      "title": "[속보] 李 대통령, 프랑스 국빈 방문 출국…뤼미에르 서밋 참석한다",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690011.html",
+      "date": "2026-09-06 10:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T01:46:01.957220",
+      "hash_id": "62e2a9d2b9de67a6"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690010.html": {
+      "title": "[속보] 국힘 진종오 '당원권 정지 2년' 징계 가처분 신청",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690010.html",
+      "date": "2026-09-06 10:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T01:45:56.283050",
+      "hash_id": "cc7757f787a67372"
     }
   },
-  "last_updated": "2026-09-06 01:42:28",
-  "count": 1166
+  "last_updated": "2026-09-06 01:46:17",
+  "count": 1168
 }

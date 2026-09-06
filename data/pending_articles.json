@@ -12833,8 +12833,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T01:52:45.060843",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T01:56:30.666123",
       "hash_id": "62e2a9d2b9de67a6"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690010.html": {
@@ -12844,11 +12844,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T01:52:44.298640",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T01:56:29.906395",
       "hash_id": "cc7757f787a67372"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690012.html": {
+      "title": "[속보] 李대통령 프랑스 국빈방문 출국…마크롱 대통령과 '호르무즈' 논...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690012.html",
+      "date": "2026-09-06 10:47",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T01:56:33.908718",
+      "hash_id": "5198375410a0cf9f"
     }
   },
-  "last_updated": "2026-09-06 01:53:05",
-  "count": 1168
+  "last_updated": "2026-09-06 01:56:39",
+  "count": 1169
 }

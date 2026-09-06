@@ -12987,11 +12987,22 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T05:47:59.450796",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T05:51:32.549343",
       "hash_id": "9f8a37f3ef988b4c"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690051.html": {
+      "title": "[속보] 이란 혁명수비대 \"미 항모 1척·구축함 1척 공격\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/06/2026090690051.html",
+      "date": "2026-09-06 14:44",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T05:51:33.532882",
+      "hash_id": "57a56d4e2e5c09d1"
     }
   },
-  "last_updated": "2026-09-06 05:48:13",
-  "count": 1181
+  "last_updated": "2026-09-06 05:51:39",
+  "count": 1182
 }

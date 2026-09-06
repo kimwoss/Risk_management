@@ -13009,11 +13009,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T06:08:13.078556",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T06:11:48.453559",
       "hash_id": "3ba6dca56e2f5cd6"
+    },
+    "https://www.seoul.co.kr/news/politics/2026/09/06/20260906500051?wlog_tag3=naver": {
+      "title": "[속보] “李정부 인사, 만사‘현’통 김현지 중심 언더조직이 굴리나”...",
+      "link": "https://www.seoul.co.kr/news/politics/2026/09/06/20260906500051?wlog_tag3=naver",
+      "date": "2026-09-06 15:03",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T06:11:52.083878",
+      "hash_id": "c30659b01e217adf"
     }
   },
-  "last_updated": "2026-09-06 06:08:27",
-  "count": 1183
+  "last_updated": "2026-09-06 06:11:57",
+  "count": 1184
 }

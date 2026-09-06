@@ -13185,11 +13185,22 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-06T11:09:51.159491",
+      "retry_count": 5,
+      "last_attempt": "2026-09-06T11:13:24.402623",
       "hash_id": "97e543ad2b23e012"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008740068&plink=ORI&cooper=NAVER": {
+      "title": "[단독] \"김승원 음주운전 자료, 총선 때 검증위 안 냈다\"",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008740068&plink=ORI&cooper=NAVER",
+      "date": "2026-09-06 20:11",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-06T11:13:28.074635",
+      "hash_id": "29cbb93ec5e18f24"
     }
   },
-  "last_updated": "2026-09-06 11:10:05",
-  "count": 1199
+  "last_updated": "2026-09-06 11:13:28",
+  "count": 1200
 }

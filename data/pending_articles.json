@@ -14241,11 +14241,55 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T05:11:28.839936",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T05:14:57.166017",
       "hash_id": "fbf9044094c36915"
+    },
+    "https://economist.co.kr/article/view/ecn202609070036": {
+      "title": "[속보] '코로나19 치료제' 부정청탁 의혹…김승원 법무장관 후보자 잇단...",
+      "link": "https://economist.co.kr/article/view/ecn202609070036",
+      "date": "2026-09-07 14:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:14:56.861070",
+      "hash_id": "e4e220b0ea509222"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779219": {
+      "title": "[속보] 검찰, 여신도 준강간 혐의 JMS 정명석에 징역 27년 구형",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779219",
+      "date": "2026-09-07 14:13",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:14:56.861091",
+      "hash_id": "18c3d965313e4619"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008741173&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 검찰, '여신도 성폭행' 혐의 JMS 정명석에 징역 27년 구형",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008741173&plink=ORI&cooper=NAVER",
+      "date": "2026-09-07 14:11",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:15:11.138558",
+      "hash_id": "89dde17163c6c916"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67723": {
+      "title": "[속보] \"교도소 가려고 흉기 공격\".. 40대 남성 공소사실 인정",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67723",
+      "date": "2026-09-07 14:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:14:57.930612",
+      "hash_id": "5103cec77723de58"
     }
   },
-  "last_updated": "2026-09-07 05:11:31",
-  "count": 1295
+  "last_updated": "2026-09-07 05:15:24",
+  "count": 1299
 }

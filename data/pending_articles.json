@@ -14142,11 +14142,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T02:06:03.054539",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T02:09:32.062045",
       "hash_id": "599c4976bd9d4d90"
+    },
+    "https://www.seoul.co.kr/news/politics/2026/09/07/20260907500099?wlog_tag3=naver": {
+      "title": "국민의힘 “메가특구법 ‘與위원장 정무위’로 안건 돌리기 상임위 쇼핑...",
+      "link": "https://www.seoul.co.kr/news/politics/2026/09/07/20260907500099?wlog_tag3=naver",
+      "date": "2026-09-07 11:00",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T02:09:32.826988",
+      "hash_id": "a0c62f38c411b492"
     }
   },
-  "last_updated": "2026-09-07 02:06:06",
-  "count": 1286
+  "last_updated": "2026-09-07 02:09:45",
+  "count": 1287
 }

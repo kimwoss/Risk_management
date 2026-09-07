@@ -13592,8 +13592,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T00:40:14.890041",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T00:44:06.309841",
       "hash_id": "b691d2e9342b9cf3"
     },
     "https://www.yna.co.kr/view/AKR20260907043900004?input=1195m": {
@@ -13625,8 +13625,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T00:39:50.772932",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T00:44:07.130437",
       "hash_id": "a906059661136ffe"
     },
     "https://www.sedaily.com/article/20087826?ref=naver": {
@@ -13647,8 +13647,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T00:39:50.772940",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T00:44:07.900391",
       "hash_id": "7c73ddebf65e4556"
     },
     "https://biz.sbs.co.kr/article_hub/20000333070?division=NAVER": {
@@ -13658,11 +13658,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T00:40:04.204715",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T00:44:05.545389",
       "hash_id": "026e17363a02cfc9"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003778648": {
+      "title": "[속보]김승원 \"브로커 양씨, 손님으로 알게 돼…존중하는 친한 후배\"",
+      "link": "https://www.newsis.com/view/NISX20260907_0003778648",
+      "date": "2026-09-07 09:39",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T00:44:13.649888",
+      "hash_id": "56abe13af671ce62"
     }
   },
-  "last_updated": "2026-09-07 00:40:17",
-  "count": 1242
+  "last_updated": "2026-09-07 00:44:29",
+  "count": 1243
 }

@@ -15396,11 +15396,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T08:13:48.858840",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T08:17:30.784950",
       "hash_id": "14fc04d28a1e38bb"
+    },
+    "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=110&CONTENTS_NO=1&bbsGbn=245&bbsSn=245&pNttSn=243873": {
+      "title": "KOINDEX 2026 현장에서 확인한 인도의 K-웨이브 소비",
+      "link": "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=110&CONTENTS_NO=1&bbsGbn=245&bbsSn=245&pNttSn=243873",
+      "date": "2026-09-07 17:08",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:17:31.566203",
+      "hash_id": "f6fdd498aff3b41b"
+    },
+    "https://imnews.imbc.com/news/2026/world/article/6850151_36925.html": {
+      "title": "[속보] 이란 \"한국과의 우호관계 중요‥호르무즈 군사개입 시 심각한 결...",
+      "link": "https://imnews.imbc.com/news/2026/world/article/6850151_36925.html",
+      "date": "2026-09-07 17:04",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:17:25.063325",
+      "hash_id": "082d1b842336d7f1"
     }
   },
-  "last_updated": "2026-09-07 08:13:56",
-  "count": 1400
+  "last_updated": "2026-09-07 08:17:44",
+  "count": 1402
 }

@@ -15693,8 +15693,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T12:21:41.625526",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T12:25:25.175271",
       "hash_id": "54f6805d4ad4bf50"
     },
     "https://www.newsis.com/view/NISI20260907_0021427547": {
@@ -15704,11 +15704,22 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T12:21:42.522067",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T12:25:26.074651",
       "hash_id": "54f6805d4ad4bf50"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790213.html": {
+      "title": "[단독] 김승원, 부인 명의 '1억 6천' 부동산 재산 신고 누락…올해 장모...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790213.html",
+      "date": "2026-09-07 21:11",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T12:25:24.276605",
+      "hash_id": "5cce2ee2fc50c74c"
     }
   },
-  "last_updated": "2026-09-07 12:21:57",
-  "count": 1428
+  "last_updated": "2026-09-07 12:25:32",
+  "count": 1429
 }

@@ -14032,8 +14032,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T01:48:05.116802",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T01:51:46.015013",
       "hash_id": "f5d24555209cc1f7"
     },
     "https://www.mk.co.kr/article/12145847": {
@@ -14109,11 +14109,22 @@
       "press": "",
       "keyword": "팜유",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T01:48:18.268701",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T01:51:46.779830",
       "hash_id": "eb01d6c35139684e"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003778457": {
+      "title": "대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까",
+      "link": "https://www.newsis.com/view/NISX20260907_0003778457",
+      "date": "2026-09-07 10:48",
+      "press": "",
+      "keyword": "대미투자특별법",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T01:51:47.568780",
+      "hash_id": "a5abb768e0f035f2"
     }
   },
-  "last_updated": "2026-09-07 01:48:18",
-  "count": 1283
+  "last_updated": "2026-09-07 01:51:48",
+  "count": 1284
 }

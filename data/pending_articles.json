@@ -16078,11 +16078,33 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T20:53:45.183702",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T20:57:18.640335",
       "hash_id": "07d4549503a0146d"
+    },
+    "https://www.etoday.co.kr/news/view/2622776": {
+      "title": "[단독] 상폐 3년, 3곳 중 1곳 ‘공시 단절’…남겨진 주주는 깜깜이 [상...",
+      "link": "https://www.etoday.co.kr/news/view/2622776",
+      "date": "2026-09-08 05:52",
+      "press": "이투데이",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T20:57:23.192703",
+      "hash_id": "e3ccdc1cb68746ba"
+    },
+    "https://www.etoday.co.kr/news/view/2622624": {
+      "title": "[단독] 증시 강제퇴출 115곳… 개미들 3.7조 물렸다 [상장폐지, 그 후①...",
+      "link": "https://www.etoday.co.kr/news/view/2622624",
+      "date": "2026-09-08 05:50",
+      "press": "이투데이",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T20:57:19.597608",
+      "hash_id": "38f3b39271f5b649"
     }
   },
-  "last_updated": "2026-09-07 20:53:59",
-  "count": 1462
+  "last_updated": "2026-09-07 20:57:23",
+  "count": 1464
 }

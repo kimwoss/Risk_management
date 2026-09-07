@@ -15608,8 +15608,30 @@
       "retry_count": 5,
       "last_attempt": "2026-09-07T11:30:31.125810",
       "hash_id": "dc2f94f5d5888658"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/07/20260907500341?wlog_tag3=naver": {
+      "title": "[속보]대구 도시철도 3호선 단전으로 운행 중단",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/07/20260907500341?wlog_tag3=naver",
+      "date": "2026-09-07 20:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T11:37:33.437484",
+      "hash_id": "632739ba658216ca"
+    },
+    "https://www.hani.co.kr/arti/politics/politics_general/1276686.html": {
+      "title": "대미투자 1호는 ‘30조 가스발전’…원전 8기도 검토",
+      "link": "https://www.hani.co.kr/arti/politics/politics_general/1276686.html",
+      "date": "2026-09-07 20:32",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T11:37:27.242417",
+      "hash_id": "705edd7e21f77362"
     }
   },
-  "last_updated": "2026-09-07 11:34:04",
-  "count": 1419
+  "last_updated": "2026-09-07 11:37:34",
+  "count": 1421
 }

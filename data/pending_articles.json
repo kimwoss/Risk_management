@@ -16155,11 +16155,33 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T21:31:50.208172",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T21:35:23.288724",
       "hash_id": "8809a414e482d0ee"
+    },
+    "https://www.seoul.co.kr/news/society/accident/2026/09/08/20260908500008?wlog_tag3=naver": {
+      "title": "[속보] 주차장 가다 넘어진 30대 여성, 뒤에 오던 차에 치여 숨져… 60대...",
+      "link": "https://www.seoul.co.kr/news/society/accident/2026/09/08/20260908500008?wlog_tag3=naver",
+      "date": "2026-09-08 06:22",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T21:35:22.349811",
+      "hash_id": "6e770bda25941749"
+    },
+    "https://imnews.imbc.com/replay/2026/nwtoday/article/6850238_37012.html": {
+      "title": "[속보] 이 대통령, 김지용 중수청장 후보자 지명",
+      "link": "https://imnews.imbc.com/replay/2026/nwtoday/article/6850238_37012.html",
+      "date": "2026-09-08 06:11",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T21:35:21.396452",
+      "hash_id": "fa436592cbbb487c"
     }
   },
-  "last_updated": "2026-09-07 21:32:01",
-  "count": 1469
+  "last_updated": "2026-09-07 21:35:26",
+  "count": 1471
 }

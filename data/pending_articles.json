@@ -14439,8 +14439,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T05:37:46.447175",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T05:41:33.846790",
       "hash_id": "bab8d736a1f3e3d6"
     },
     "https://dhnews.co.kr/news/view/1065590509196421": {
@@ -14461,8 +14461,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T05:37:45.663875",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T05:41:33.081218",
       "hash_id": "9505c0f5f63635ec"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790113.html": {
@@ -14486,8 +14486,129 @@
       "retry_count": 4,
       "last_attempt": "2026-09-07T05:37:44.130097",
       "hash_id": "b7bf43b999a9ff5c"
+    },
+    "https://biz.heraldcorp.com/article/10865112?ref=naver": {
+      "title": "[속보]경찰, 김병기 의원 구속영장 신청…뇌물수수 혐의",
+      "link": "https://biz.heraldcorp.com/article/10865112?ref=naver",
+      "date": "2026-09-07 14:40",
+      "press": "헤럴드경제",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765285",
+      "hash_id": "ea6af6def447b1dd"
+    },
+    "https://biz.chosun.com/topics/topics_social/2026/09/07/ZXPQIDOKCZAWFMN3G2T3IL5F3Q/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 경찰, ‘13가지 비위 혐의’ 김병기 구속영장 신청 결정",
+      "link": "https://biz.chosun.com/topics/topics_social/2026/09/07/ZXPQIDOKCZAWFMN3G2T3IL5F3Q/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-07 14:40",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765291",
+      "hash_id": "1e499cc7d466941a"
+    },
+    "https://www.cjb.co.kr/home/sub.php?menukey=61&mod=view&P_NO=260907507&PRO_CODE=99": {
+      "title": "[속보] 경찰, 김병기 의원 구속영장 신청…수사 착수 약 1년 만",
+      "link": "https://www.cjb.co.kr/home/sub.php?menukey=61&mod=view&P_NO=260907507&PRO_CODE=99",
+      "date": "2026-09-07 14:40",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765295",
+      "hash_id": "51c2eec6fe094d04"
+    },
+    "https://www.kbsm.net/news/view.php?idx=533176": {
+      "title": "경북도, 포항서 로봇경진대회·과학축제 동시 개최",
+      "link": "https://www.kbsm.net/news/view.php?idx=533176",
+      "date": "2026-09-07 14:40",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765322",
+      "hash_id": "5c26b514b6740965"
+    },
+    "http://www.yonhapnewstv.co.kr/news/MYH20260907143838cRY": {
+      "title": "[속보] 경찰, 김병기 의원 뇌물수수 등 구속영장 신청",
+      "link": "http://www.yonhapnewstv.co.kr/news/MYH20260907143838cRY",
+      "date": "2026-09-07 14:39",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765328",
+      "hash_id": "312d6a8ee22091f2"
+    },
+    "https://www.donga.com/news/Society/article/all/20260907/134619267/1": {
+      "title": "[속보]경찰, 김병기 의원 뇌물 혐의 구속영장 신청",
+      "link": "https://www.donga.com/news/Society/article/all/20260907/134619267/1",
+      "date": "2026-09-07 14:39",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765332",
+      "hash_id": "a4e7df3f6cb01c51"
+    },
+    "https://www.nocutnews.co.kr/news/6574104?utm_source=naver&utm_medium=article&utm_campaign=20260907023730": {
+      "title": "[속보]경찰, 뇌물수수 등 혐의로 김병기 의원 구속영장 신청",
+      "link": "https://www.nocutnews.co.kr/news/6574104?utm_source=naver&utm_medium=article&utm_campaign=20260907023730",
+      "date": "2026-09-07 14:38",
+      "press": "노컷뉴스",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:41:58.499552",
+      "hash_id": "db0f7ddc8cce4bfe"
+    },
+    "http://www.yonhapnewstv.co.kr/news/AKR20260907143708hQE": {
+      "title": "[속보] 경찰, '13개 의혹' 김병기 의원 구속영장 신청…수사 1년만",
+      "link": "http://www.yonhapnewstv.co.kr/news/AKR20260907143708hQE",
+      "date": "2026-09-07 14:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765350",
+      "hash_id": "4d5c6bcd2419e559"
+    },
+    "https://www.mt.co.kr/society/2026/09/07/2026090714175910422": {
+      "title": "[속보]경찰, '13개 의혹' 김병기 의원 구속영장 신청",
+      "link": "https://www.mt.co.kr/society/2026/09/07/2026090714175910422",
+      "date": "2026-09-07 14:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:41:32.765354",
+      "hash_id": "c87794b52838b9d9"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549059": {
+      "title": "[속보]경찰, 김병기 의원 구속영장 신청",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549059",
+      "date": "2026-09-07 14:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:41:42.822736",
+      "hash_id": "a4c155e734a1535d"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779223": {
+      "title": "[속보]경찰, '13개 의혹' 김병기 구속영장 신청…수사 1년 만",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779223",
+      "date": "2026-09-07 14:32",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:41:39.594844",
+      "hash_id": "84779dcaccee28ff"
     }
   },
-  "last_updated": "2026-09-07 05:38:06",
-  "count": 1317
+  "last_updated": "2026-09-07 05:42:01",
+  "count": 1328
 }

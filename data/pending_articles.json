@@ -15495,11 +15495,33 @@
       "press": "MBN",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T09:08:37.778478",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T09:12:18.599209",
       "hash_id": "2b05487255e7ba63"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779529": {
+      "title": "대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779529",
+      "date": "2026-09-07 18:06",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T09:12:24.370738",
+      "hash_id": "c27fa6ea12915339"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779740": {
+      "title": "[속보]이 대통령 \"한·불 뤼미에르 파트너십 출범…영화·영상산업 5년간...",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779740",
+      "date": "2026-09-07 18:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T09:12:25.175445",
+      "hash_id": "21b9857b0c26c675"
     }
   },
-  "last_updated": "2026-09-07 09:08:50",
-  "count": 1409
+  "last_updated": "2026-09-07 09:12:33",
+  "count": 1411
 }

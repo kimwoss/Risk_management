@@ -14758,8 +14758,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T06:36:39.550537",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T06:40:45.813824",
       "hash_id": "a8040ec92b11a62a"
     },
     "https://www.newsis.com/view/NISX20260907_0003779462": {
@@ -14769,8 +14769,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T06:36:39.550544",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T06:40:46.579677",
       "hash_id": "03eb7c836cc6a41a"
     },
     "https://www.newsis.com/view/NISX20260907_0003779458": {
@@ -14780,11 +14780,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T06:36:55.482450",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T06:40:45.050947",
       "hash_id": "b7771c6e5bfcba98"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1276603.html": {
+      "title": "[단독] 무신사, 29CM 고객 정보 유출 이어 ‘입점사 관계자’ 개인정보...",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1276603.html",
+      "date": "2026-09-07 15:36",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T06:40:54.836145",
+      "hash_id": "0077abebed225072"
     }
   },
-  "last_updated": "2026-09-07 06:37:06",
-  "count": 1344
+  "last_updated": "2026-09-07 06:41:02",
+  "count": 1345
 }

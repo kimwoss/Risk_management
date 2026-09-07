@@ -14032,8 +14032,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T01:43:52.964599",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T01:48:05.116802",
       "hash_id": "f5d24555209cc1f7"
     },
     "https://www.mk.co.kr/article/12145847": {
@@ -14101,8 +14101,19 @@
       "retry_count": 0,
       "last_attempt": "2026-09-07T01:43:52.964646",
       "hash_id": "6f62eff1eca11f87"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=446513": {
+      "title": "포스코인터 호주 지속가능항공유 기업에 투자, \"지속가능 에너지 공급망...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=446513",
+      "date": "2026-09-07 10:46",
+      "press": "",
+      "keyword": "팜유",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T01:48:18.268701",
+      "hash_id": "eb01d6c35139684e"
     }
   },
-  "last_updated": "2026-09-07 01:44:17",
-  "count": 1282
+  "last_updated": "2026-09-07 01:48:18",
+  "count": 1283
 }

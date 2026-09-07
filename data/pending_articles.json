@@ -14109,8 +14109,8 @@
       "press": "",
       "keyword": "팜유",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T01:51:46.779830",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T01:55:20.021011",
       "hash_id": "eb01d6c35139684e"
     },
     "https://www.newsis.com/view/NISX20260907_0003778457": {
@@ -14120,11 +14120,22 @@
       "press": "",
       "keyword": "대미투자특별법",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T01:51:47.568780",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T01:55:20.788898",
       "hash_id": "a5abb768e0f035f2"
+    },
+    "https://imnews.imbc.com/news/2026/politics/article/6850057_36911.html": {
+      "title": "[속보] 김민석 \"권력구조 포함 '개헌' 추진‥김영삼 사진 내건 국힘도 선...",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6850057_36911.html",
+      "date": "2026-09-07 10:45",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T01:55:19.240472",
+      "hash_id": "b2f0af7ae022007b"
     }
   },
-  "last_updated": "2026-09-07 01:51:48",
-  "count": 1284
+  "last_updated": "2026-09-07 01:55:26",
+  "count": 1285
 }

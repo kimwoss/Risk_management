@@ -15110,8 +15110,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T07:29:07.581019",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T07:32:40.032772",
       "hash_id": "d4dea00ddba0654d"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790159.html": {
@@ -15121,8 +15121,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T07:29:08.365027",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T07:32:40.795681",
       "hash_id": "1144c6aff4477fa3"
     },
     "https://www.newsis.com/view/NISX20260907_0003779540": {
@@ -15146,8 +15146,129 @@
       "retry_count": 4,
       "last_attempt": "2026-09-07T07:29:06.047703",
       "hash_id": "3ce1cd96156647e3"
+    },
+    "https://www.bloter.net/news/articleView.html?idxno=672966": {
+      "title": "포스코홀딩스, 자회사 지분 '2.5조 현금화' PRS 변수",
+      "link": "https://www.bloter.net/news/articleView.html?idxno=672966",
+      "date": "2026-09-07 16:29",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725194",
+      "hash_id": "05bcb695e05e88ea"
+    },
+    "https://www.kyeonggi.com/article/20260907580430": {
+      "title": "[속보] 이란 정부 “다른 국가 호르무즈 작전 참여, 심각한 결과 초래”",
+      "link": "https://www.kyeonggi.com/article/20260907580430",
+      "date": "2026-09-07 16:31",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725205",
+      "hash_id": "9665998d10274adf"
+    },
+    "https://www.wikitree.co.kr/articles/1157849": {
+      "title": "8조 투자한 현대제철…미국 한복판에 지으려는 '이것'의 정체",
+      "link": "https://www.wikitree.co.kr/articles/1157849",
+      "date": "2026-09-07 16:30",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725210",
+      "hash_id": "ba651288219af383"
+    },
+    "https://www.seoul.co.kr/news/international/2026/09/07/20260907500271?wlog_tag3=naver": {
+      "title": "[속보] 이란 정부 “다른 국가의 호르무즈 작전 참여, 심각한 결과 초래...",
+      "link": "https://www.seoul.co.kr/news/international/2026/09/07/20260907500271?wlog_tag3=naver",
+      "date": "2026-09-07 16:29",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725215",
+      "hash_id": "47ce158f7d3e9aeb"
+    },
+    "https://www.fnnews.com/news/202609071627220237": {
+      "title": "[속보]이란 정부 \"다른 국가의 호르무즈 작전 참여, 심각한 결과 초래\"",
+      "link": "https://www.fnnews.com/news/202609071627220237",
+      "date": "2026-09-07 16:29",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725219",
+      "hash_id": "dde3e7a5011d193d"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549077": {
+      "title": "[속보]이란 “한국 호르무즈 파병, 심각한 결과 초래할 것”",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549077",
+      "date": "2026-09-07 16:29",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725224",
+      "hash_id": "25e8c4d43cad0eae"
+    },
+    "https://www.fnnews.com/news/202609071625578220": {
+      "title": "[속보] 이란 정부 \"다른 국가의 호르무즈 작전 참여, 심각한 결과 초래...",
+      "link": "https://www.fnnews.com/news/202609071625578220",
+      "date": "2026-09-07 16:28",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725228",
+      "hash_id": "808b77098179be08"
+    },
+    "https://www.donga.com/news/Politics/article/all/20260907/134619575/1": {
+      "title": "[속보]초대 중수청장 후보에 김지용 前 광주고검 차장검사",
+      "link": "https://www.donga.com/news/Politics/article/all/20260907/134619575/1",
+      "date": "2026-09-07 16:28",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725235",
+      "hash_id": "9facdd8cf0c65b09"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779549": {
+      "title": "韓·佛 장관급 전략산업대화 신설…기업 애로 해소 요구",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779549",
+      "date": "2026-09-07 16:28",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725241",
+      "hash_id": "2ef6265101e96cfa"
+    },
+    "https://www.edaily.co.kr/News/Read?newsId=03640806645577824&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
+      "title": "[속보]이란 \"한국 호르무즈 작전 참여 땐 심각한 결과 초래\"",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=03640806645577824&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-09-07 16:27",
+      "press": "이데일리",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T07:32:39.725246",
+      "hash_id": "c1eba13f3d9df8ed"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008741512&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 이란 정부 \"다른 국가의 호르무즈 작전 참여, 심각한 결과 초래...",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008741512&plink=ORI&cooper=NAVER",
+      "date": "2026-09-07 16:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T07:32:49.072564",
+      "hash_id": "a14ba43640d4c91f"
     }
   },
-  "last_updated": "2026-09-07 07:29:13",
-  "count": 1377
+  "last_updated": "2026-09-07 07:33:07",
+  "count": 1388
 }

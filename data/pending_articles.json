@@ -16188,11 +16188,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T22:08:58.162202",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T22:12:31.453450",
       "hash_id": "ad15cd7091d6c5fd"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333278?division=NAVER": {
+      "title": "[증시전략] 뉴욕증시, 노동절로 휴장…금리 불안 속 반도체 랠리?",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333278?division=NAVER",
+      "date": "2026-09-08 07:10",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T22:12:43.980785",
+      "hash_id": "c098173d336eb96c"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=446266": {
+      "title": "[Who Is ?] 홍의락 한국가스공사 사장",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=446266",
+      "date": "2026-09-08 07:02",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T22:12:35.057720",
+      "hash_id": "bed4766d889c2c1e"
     }
   },
-  "last_updated": "2026-09-07 22:09:12",
-  "count": 1472
+  "last_updated": "2026-09-07 22:12:44",
+  "count": 1474
 }

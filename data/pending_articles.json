@@ -15187,8 +15187,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T07:36:53.594471",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T07:40:27.316424",
       "hash_id": "47ce158f7d3e9aeb"
     },
     "https://www.fnnews.com/news/202609071627220237": {
@@ -15209,8 +15209,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T07:36:54.373313",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T07:40:28.095270",
       "hash_id": "25e8c4d43cad0eae"
     },
     "https://www.fnnews.com/news/202609071625578220": {
@@ -15242,8 +15242,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T07:36:52.830001",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T07:40:26.553337",
       "hash_id": "2ef6265101e96cfa"
     },
     "https://www.edaily.co.kr/News/Read?newsId=03640806645577824&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
@@ -15264,11 +15264,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T07:36:52.065155",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T07:40:25.784035",
       "hash_id": "a14ba43640d4c91f"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549081": {
+      "title": "[단독]“알고보니 또 불법 재임대”…LH 추가 고발",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549081",
+      "date": "2026-09-07 16:37",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T07:40:33.833882",
+      "hash_id": "7bf82e7f36c86276"
     }
   },
-  "last_updated": "2026-09-07 07:36:57",
-  "count": 1388
+  "last_updated": "2026-09-07 07:40:34",
+  "count": 1389
 }

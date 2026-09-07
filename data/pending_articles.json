@@ -14340,8 +14340,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T05:26:13.142388",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T05:29:59.338380",
       "hash_id": "1ad36f0973502218"
     },
     "https://www.shinailbo.co.kr/news/articleView.html?idxno=5059354": {
@@ -14362,8 +14362,8 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T05:26:13.911144",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T05:30:00.103071",
       "hash_id": "46f6522fde70e486"
     },
     "https://www.wikitree.co.kr/articles/1157804": {
@@ -14376,8 +14376,118 @@
       "retry_count": 0,
       "last_attempt": "2026-09-07T05:18:53.412060",
       "hash_id": "a8a720643714e6bf"
+    },
+    "https://economist.co.kr/article/view/ecn202609070041": {
+      "title": "[속보] '女신도 성폭행 혐의' JMS 정명석에 징역 27년 구형",
+      "link": "https://economist.co.kr/article/view/ecn202609070041",
+      "date": "2026-09-07 14:27",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036011",
+      "hash_id": "f56cc24cd4bf6e23"
+    },
+    "https://www.segye.com/newsView/20260907510387?OutUrl=naver": {
+      "title": "[속보]경찰, 김병기 의원 구속영장 신청… 각종 혐의 수사 11개월만",
+      "link": "https://www.segye.com/newsView/20260907510387?OutUrl=naver",
+      "date": "2026-09-07 14:26",
+      "press": "세계일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036016",
+      "hash_id": "0faaef04703b96fd"
+    },
+    "https://www.kyeonggi.com/article/20260907580227": {
+      "title": "[속보] 검찰, ‘여신도 성폭행’ 혐의 JMS 정명석에 징역 27년 구형",
+      "link": "https://www.kyeonggi.com/article/20260907580227",
+      "date": "2026-09-07 14:25",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036022",
+      "hash_id": "2d95e3ae97657eb3"
+    },
+    "https://www.kyeonggi.com/article/20260907580199": {
+      "title": "[속보] 경찰, '비위 의혹' 김병기 의원 구속영장 신청 결정",
+      "link": "https://www.kyeonggi.com/article/20260907580199",
+      "date": "2026-09-07 14:25",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036026",
+      "hash_id": "f1e02639767c0cfd"
+    },
+    "https://www.busan.com/view/busan/view.php?code=2026090714135555251": {
+      "title": "[속보] 대우건설, 가덕도신공항 기본설계도면 제출…국토부, 적정성 검...",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026090714135555251",
+      "date": "2026-09-07 14:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036030",
+      "hash_id": "455398d017dc7e05"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779259": {
+      "title": "K-산업단지 미래비전 한자리에…'2026 산업단지의 날' 개막",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779259",
+      "date": "2026-09-07 14:24",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036035",
+      "hash_id": "bab8d736a1f3e3d6"
+    },
+    "https://dhnews.co.kr/news/view/1065590509196421": {
+      "title": "영남대 전기공학과, 제23회 I.E. 경진대회 ‘대상’ 수상",
+      "link": "https://dhnews.co.kr/news/view/1065590509196421",
+      "date": "2026-09-07 14:24",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036041",
+      "hash_id": "90ac5a21b747452b"
+    },
+    "https://www.chosun.com/national/regional/chungcheong/2026/09/07/FOEHFJRI4BCEZJ4JLO32ZMDYSE/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "[속보]‘여신도 성폭행 혐의’ JMS 정명석… 검찰, 징역 27년 구형",
+      "link": "https://www.chosun.com/national/regional/chungcheong/2026/09/07/FOEHFJRI4BCEZJ4JLO32ZMDYSE/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-09-07 14:23",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:29:59.036047",
+      "hash_id": "9505c0f5f63635ec"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790113.html": {
+      "title": "[속보] 검찰, '신도 성폭행 혐의' JMS 정명석에 징역 27년 구형",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790113.html",
+      "date": "2026-09-07 14:21",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:30:04.188000",
+      "hash_id": "7961d212ef87c5c6"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549057": {
+      "title": "[속보]검찰, ‘여신도 성폭행’ 혐의 JMS 정명석에 징역 27년 구형",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549057",
+      "date": "2026-09-07 14:20",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T05:30:00.882962",
+      "hash_id": "b7bf43b999a9ff5c"
     }
   },
-  "last_updated": "2026-09-07 05:26:34",
-  "count": 1307
+  "last_updated": "2026-09-07 05:30:27",
+  "count": 1317
 }

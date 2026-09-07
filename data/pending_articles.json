@@ -13526,11 +13526,143 @@
       "press": "세계일보",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T00:36:06.448016",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T00:39:51.079293",
       "hash_id": "564d76ce94320798"
+    },
+    "https://www.mk.co.kr/article/12145776": {
+      "title": "[속보] 달러당 원화값 1330원대로…1년 11개월만",
+      "link": "https://www.mk.co.kr/article/12145776",
+      "date": "2026-09-07 09:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772877",
+      "hash_id": "a3b3f43dcabcfedc"
+    },
+    "https://www.fnnews.com/news/202609070936047053": {
+      "title": "[속보]김승원 \"한동훈, 청문회 증인 나와야…검사들도 증인 요청\"",
+      "link": "https://www.fnnews.com/news/202609070936047053",
+      "date": "2026-09-07 09:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772883",
+      "hash_id": "103d6ab0e8efb0ac"
+    },
+    "https://www.donga.com/news/Politics/article/all/20260907/134617001/1": {
+      "title": "[속보]김승원 “임상승인 민원 전달, 신중하게 했어야”",
+      "link": "https://www.donga.com/news/Politics/article/all/20260907/134617001/1",
+      "date": "2026-09-07 09:38",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772888",
+      "hash_id": "c423f7aa45ad4ee3"
+    },
+    "https://www.chosun.com/national/court_law/2026/09/07/SB4H5IWPAVCAJJPTTUXBSFTKVE/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "[속보] 김승원 “코로나 임상 승인 민원 신중했어야… 한동훈, 청문회 ...",
+      "link": "https://www.chosun.com/national/court_law/2026/09/07/SB4H5IWPAVCAJJPTTUXBSFTKVE/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-09-07 09:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772892",
+      "hash_id": "08635cc51ad91152"
+    },
+    "https://www.inthenews.co.kr/news/article.html?no=91480": {
+      "title": "현대제철, 美 전기로 제철소 첫 삽…8조원 투입해 2029년 양산",
+      "link": "https://www.inthenews.co.kr/news/article.html?no=91480",
+      "date": "2026-09-07 09:38",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772897",
+      "hash_id": "b66af882f6725b69"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003778638": {
+      "title": "[속보]김승원 \"한동훈, 수사자료 흘리며 정치공세…청문회 증인 나와라...",
+      "link": "https://www.newsis.com/view/NISX20260907_0003778638",
+      "date": "2026-09-07 09:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T00:40:14.890041",
+      "hash_id": "b691d2e9342b9cf3"
+    },
+    "https://www.yna.co.kr/view/AKR20260907043900004?input=1195m": {
+      "title": "[속보] 김승원 \"식약처장에 딱 한번 전화…이후 문자 주고받은 게 전부...",
+      "link": "https://www.yna.co.kr/view/AKR20260907043900004?input=1195m",
+      "date": "2026-09-07 09:37",
+      "press": "연합뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772923",
+      "hash_id": "518e9cb097469090"
+    },
+    "https://biz.chosun.com/topics/law_firm/2026/09/07/ZN5LWZO23BCDHLAUHGROT2YSSE/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 김승원 “한동훈, 청문회 증인 나와야… 수사자료 어디서 입수했...",
+      "link": "https://biz.chosun.com/topics/law_firm/2026/09/07/ZN5LWZO23BCDHLAUHGROT2YSSE/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-07 09:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772928",
+      "hash_id": "c134ec0b583e0769"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/07/20260907500036?wlog_tag3=naver": {
+      "title": "[속보] 김승원 “한동훈, 수사자료 적법 취득했나…청문회 증인 나와 책...",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/07/20260907500036?wlog_tag3=naver",
+      "date": "2026-09-07 09:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772932",
+      "hash_id": "a906059661136ffe"
+    },
+    "https://www.sedaily.com/article/20087826?ref=naver": {
+      "title": "[속보] 김승원 “식약처장 민원 전달, 국내 제약사 코로나 신약 개발 방...",
+      "link": "https://www.sedaily.com/article/20087826?ref=naver",
+      "date": "2026-09-07 09:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772936",
+      "hash_id": "69476b095e7807d5"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548997": {
+      "title": "[속보]김승원 “코로나 임상 승인 민원, 신중했어야…무겁게 받아들여”",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000548997",
+      "date": "2026-09-07 09:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T00:39:50.772940",
+      "hash_id": "7c73ddebf65e4556"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333070?division=NAVER": {
+      "title": "[속보] 달러-원 환율 1,330원대로 하락…1년 11개월만",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333070?division=NAVER",
+      "date": "2026-09-07 09:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T00:40:04.204715",
+      "hash_id": "026e17363a02cfc9"
     }
   },
-  "last_updated": "2026-09-07 00:36:27",
-  "count": 1230
+  "last_updated": "2026-09-07 00:40:17",
+  "count": 1242
 }

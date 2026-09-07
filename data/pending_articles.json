@@ -15462,8 +15462,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T08:43:18.591538",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T08:46:51.622367",
       "hash_id": "2ecb550f82955e8f"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790183.html": {
@@ -15473,11 +15473,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T08:43:17.829560",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T08:46:50.860209",
       "hash_id": "8dfdeae5a520510a"
+    },
+    "https://www.seoul.co.kr/news/economy/finance/2026/09/07/20260907500323?wlog_tag3=naver": {
+      "title": "[단독] 증권사 전화 ‘무한대기’ 끝낸다…금감원 “5분 안에 받아라”",
+      "link": "https://www.seoul.co.kr/news/economy/finance/2026/09/07/20260907500323?wlog_tag3=naver",
+      "date": "2026-09-07 17:42",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:46:59.913052",
+      "hash_id": "dacfaecf7944e564"
     }
   },
-  "last_updated": "2026-09-07 08:43:21",
-  "count": 1407
+  "last_updated": "2026-09-07 08:47:03",
+  "count": 1408
 }

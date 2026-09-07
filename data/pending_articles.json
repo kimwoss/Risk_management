@@ -15528,11 +15528,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-07T09:26:25.231823",
+      "retry_count": 4,
+      "last_attempt": "2026-09-07T09:30:10.431949",
       "hash_id": "7ebf786c729994b6"
+    },
+    "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=39538": {
+      "title": "[단독] 법원, ‘수서행 KTX 운행’ 요구 노조 파업 정당…“노란봉투법...",
+      "link": "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=39538",
+      "date": "2026-09-07 18:26",
+      "press": "워크로",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T09:30:11.203119",
+      "hash_id": "754cd07cad82735f"
     }
   },
-  "last_updated": "2026-09-07 09:26:46",
-  "count": 1412
+  "last_updated": "2026-09-07 09:30:11",
+  "count": 1413
 }

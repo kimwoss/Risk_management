@@ -15429,11 +15429,33 @@
       "press": "워크로",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T08:24:54.853852",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T08:28:26.357222",
       "hash_id": "b1e5c07456d7bc0f"
+    },
+    "https://www.seoul.co.kr/news/society/accident/2026/09/07/20260907500302?wlog_tag3=naver": {
+      "title": "[속보] “나체사진 유포한다” 前여친 감금하고 협박한 20대 남성 체포",
+      "link": "https://www.seoul.co.kr/news/society/accident/2026/09/07/20260907500302?wlog_tag3=naver",
+      "date": "2026-09-07 17:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:28:33.095266",
+      "hash_id": "6478c7dc075c0021"
+    },
+    "https://www.newsis.com/view/NISX20260907_0003779732": {
+      "title": "[속보]이 대통령, 佛'뤼미에르 서밋' 장소 도착…곧 개막연설",
+      "link": "https://www.newsis.com/view/NISX20260907_0003779732",
+      "date": "2026-09-07 17:23",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:28:32.315803",
+      "hash_id": "a59de94b2b9053a9"
     }
   },
-  "last_updated": "2026-09-07 08:24:57",
-  "count": 1403
+  "last_updated": "2026-09-07 08:28:36",
+  "count": 1405
 }

@@ -14263,8 +14263,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-07T05:14:56.861091",
+      "retry_count": 2,
+      "last_attempt": "2026-09-07T05:19:00.275842",
       "hash_id": "18c3d965313e4619"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008741173&plink=ORI&cooper=NAVER": {
@@ -14274,8 +14274,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T05:15:11.138558",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T05:18:56.954973",
       "hash_id": "89dde17163c6c916"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67723": {
@@ -14285,11 +14285,99 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T05:14:57.930612",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T05:18:53.715603",
       "hash_id": "5103cec77723de58"
+    },
+    "https://www.busan.com/view/busan/view.php?code=2026090714155161782": {
+      "title": "[속보] 경찰, 비위 의혹 김병기 의원 구속영장 신청 결정",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026090714155161782",
+      "date": "2026-09-07 14:17",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412014",
+      "hash_id": "6ad2c4ff0ecc6a82"
+    },
+    "http://www.yonhapnewstv.co.kr/news/AKR20260907141704OGf": {
+      "title": "[속보] 경찰, 비위 의혹 김병기 의원 구속영장 신청 결정",
+      "link": "http://www.yonhapnewstv.co.kr/news/AKR20260907141704OGf",
+      "date": "2026-09-07 14:17",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412019",
+      "hash_id": "6ad2c4ff0ecc6a82"
+    },
+    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00009&news_seq_no=5217512": {
+      "title": "[속보] 검찰, '여신도 성폭행' 혐의 JMS 정명석에 징역 27년 구형",
+      "link": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00009&news_seq_no=5217512",
+      "date": "2026-09-07 14:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412032",
+      "hash_id": "6057be633ab149d1"
+    },
+    "https://www.kmib.co.kr/article/view.asp?arcid=9000009749&cp=nv": {
+      "title": "[속보] 檢, 신도 성폭행 혐의 정명석에 징역 27년 구형",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000009749&cp=nv",
+      "date": "2026-09-07 14:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412038",
+      "hash_id": "207c587057a0b7d6"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/07/20260907500174?wlog_tag3=naver": {
+      "title": "[속보]경찰, 김병기 의원 구속영장 신청 결정…수사 11개월만",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/07/20260907500174?wlog_tag3=naver",
+      "date": "2026-09-07 14:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412045",
+      "hash_id": "1ad36f0973502218"
+    },
+    "https://www.shinailbo.co.kr/news/articleView.html?idxno=5059354": {
+      "title": "[속보] 경찰, 비위 의혹 김병기 의원 구속영장 신청 결정",
+      "link": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5059354",
+      "date": "2026-09-07 14:16",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412050",
+      "hash_id": "8e1196f6b50842af"
+    },
+    "https://www.nocutnews.co.kr/news/6574077?utm_source=naver&utm_medium=article&utm_campaign=20260907021530": {
+      "title": "[속보]검찰, '신도 성폭행 혐의' JMS 정명석에 징역 27년 구형",
+      "link": "https://www.nocutnews.co.kr/news/6574077?utm_source=naver&utm_medium=article&utm_campaign=20260907021530",
+      "date": "2026-09-07 14:16",
+      "press": "노컷뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412055",
+      "hash_id": "46f6522fde70e486"
+    },
+    "https://www.wikitree.co.kr/articles/1157804": {
+      "title": "로봇과 과학이 만났다…경북도, 포항서 지능로봇경진대회 등 개최",
+      "link": "https://www.wikitree.co.kr/articles/1157804",
+      "date": "2026-09-07 14:16",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-07T05:18:53.412060",
+      "hash_id": "a8a720643714e6bf"
     }
   },
-  "last_updated": "2026-09-07 05:15:24",
-  "count": 1299
+  "last_updated": "2026-09-07 05:19:20",
+  "count": 1307
 }

@@ -15660,8 +15660,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T12:14:53.666912",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T12:18:26.947674",
       "hash_id": "499a025557e84248"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790205.html": {
@@ -15671,8 +15671,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T12:14:47.473122",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T12:18:18.074605",
       "hash_id": "4cbeee7ccdce9cce"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/07/2026090790203.html": {
@@ -15682,11 +15682,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-07T12:14:46.575333",
+      "retry_count": 3,
+      "last_attempt": "2026-09-07T12:18:17.176058",
       "hash_id": "3b0a0f9d99fa05b2"
+    },
+    "https://www.newsis.com/view/NISI20260907_0021427546": {
+      "title": "KOTRA-비즈니스 프랑스 간 MOU 체결식",
+      "link": "https://www.newsis.com/view/NISI20260907_0021427546",
+      "date": "2026-09-07 21:13",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T12:18:33.046083",
+      "hash_id": "54f6805d4ad4bf50"
+    },
+    "https://www.newsis.com/view/NISI20260907_0021427547": {
+      "title": "KOTRA-비즈니스 프랑스 간 MOU 체결식",
+      "link": "https://www.newsis.com/view/NISI20260907_0021427547",
+      "date": "2026-09-07 21:13",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T12:18:33.951285",
+      "hash_id": "54f6805d4ad4bf50"
     }
   },
-  "last_updated": "2026-09-07 12:14:54",
-  "count": 1426
+  "last_updated": "2026-09-07 12:18:34",
+  "count": 1428
 }

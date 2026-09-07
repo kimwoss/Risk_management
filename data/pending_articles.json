@@ -15858,11 +15858,22 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T14:48:03.516267",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T14:51:38.879753",
       "hash_id": "03bcc9c0755394dd"
+    },
+    "https://www.seoul.co.kr/news/politics/north/2026/09/07/20260907500351?wlog_tag3=naver": {
+      "title": "[속보] 北, 한미일 ‘프리덤 에지’ 훈련 반발…“강력·단호하게 대응...",
+      "link": "https://www.seoul.co.kr/news/politics/north/2026/09/07/20260907500351?wlog_tag3=naver",
+      "date": "2026-09-07 23:43",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T14:51:42.389695",
+      "hash_id": "68cd377fc0dbbb8e"
     }
   },
-  "last_updated": "2026-09-07 14:48:18",
-  "count": 1442
+  "last_updated": "2026-09-07 14:51:48",
+  "count": 1443
 }

@@ -15407,8 +15407,8 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T08:21:15.696790",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T08:24:49.093557",
       "hash_id": "f6fdd498aff3b41b"
     },
     "https://imnews.imbc.com/news/2026/world/article/6850151_36925.html": {
@@ -15418,11 +15418,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-07T08:21:14.154567",
+      "retry_count": 5,
+      "last_attempt": "2026-09-07T08:24:48.317620",
       "hash_id": "082d1b842336d7f1"
+    },
+    "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=39537": {
+      "title": "[단독] 법원 “철도노조 준법투쟁, 쟁의행위 아냐”…징계 무효 판결",
+      "link": "http://www.worklaw.co.kr/view/view.asp?accessSite=Naver&accessMethod=Search&accessMenu=News&in_cate=122&in_cate2=0&gopage=1&bi_pidx=39537",
+      "date": "2026-09-07 17:22",
+      "press": "워크로",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-07T08:24:54.853852",
+      "hash_id": "b1e5c07456d7bc0f"
     }
   },
-  "last_updated": "2026-09-07 08:21:18",
-  "count": 1402
+  "last_updated": "2026-09-07 08:24:57",
+  "count": 1403
 }

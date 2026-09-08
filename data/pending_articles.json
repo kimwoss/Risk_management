@@ -19961,11 +19961,33 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T21:15:42.811164",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T21:19:11.106409",
       "hash_id": "d361c3917af7e8ee"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990004.html": {
+      "title": "[속보] 트럼프, 캐나다 관세에 보복…\"다수공급계약서 캐나다산 제외\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990004.html",
+      "date": "2026-09-09 06:11",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T21:19:15.090472",
+      "hash_id": "d7ebda8c7ba799a9"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781682": {
+      "title": "[속보]트럼프 \"다수공급계약서 캐나다산 제외\"",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781682",
+      "date": "2026-09-09 06:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T21:19:11.868057",
+      "hash_id": "c4f4865f15157aef"
     }
   },
-  "last_updated": "2026-09-08 21:15:45",
-  "count": 1815
+  "last_updated": "2026-09-08 21:19:28",
+  "count": 1817
 }

@@ -18454,8 +18454,8 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T06:23:11.192578",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T06:27:47.156291",
       "hash_id": "2b446c68ecb79adc"
     },
     "http://www.techholic.co.kr/news/articleView.html?idxno=222786": {
@@ -18575,8 +18575,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T06:23:12.750526",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T06:27:47.932089",
       "hash_id": "55f7eec9fefaf13b"
     },
     "https://www.startuptoday.co.kr/news/articleView.html?idxno=812302": {
@@ -18641,8 +18641,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-09-08T06:19:40.643759",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T06:27:57.011575",
       "hash_id": "bc62222d8d01e50a"
     },
     "https://www.sedaily.com/article/20088469?ref=naver": {
@@ -18718,8 +18718,8 @@
       "press": "",
       "keyword": "팜유",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-08T06:19:40.643810",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T06:27:48.709530",
       "hash_id": "446e2c1d10702fce"
     },
     "https://www.sportsseoul.com/news/read/1633675?ref=naver": {
@@ -18809,8 +18809,74 @@
       "retry_count": 0,
       "last_attempt": "2026-09-08T06:19:40.643866",
       "hash_id": "f7e152f544fed62f"
+    },
+    "https://www.newsway.co.kr/news/view?ud=2026090814191924347": {
+      "title": "포스코, 4800억 들여 車강판 공장 신설",
+      "link": "https://www.newsway.co.kr/news/view?ud=2026090814191924347",
+      "date": "2026-09-08 15:24",
+      "press": "뉴스웨이",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.825988",
+      "hash_id": "304bcb2e37eb452a"
+    },
+    "http://www.metroseoul.co.kr/article/20260908500296": {
+      "title": "포스코 노조, 48시간 부분파업 D-1…“오늘까지 협상”",
+      "link": "http://www.metroseoul.co.kr/article/20260908500296",
+      "date": "2026-09-08 15:24",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.825999",
+      "hash_id": "d64433174ac9d465"
+    },
+    "https://www.catchnews.kr/news/articleView.html?idxno=128285": {
+      "title": "\"고급·대형화에 4천억투입\" 포스코, 9년만에 강판공장 착공",
+      "link": "https://www.catchnews.kr/news/articleView.html?idxno=128285",
+      "date": "2026-09-08 15:23",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.826005",
+      "hash_id": "0b373fb085dfff8d"
+    },
+    "https://www.m-i.kr/news/articleView.html?idxno=1411426": {
+      "title": "포스코, 광양에 車 도금강판 공장 신설…제조 AX 전면 도입",
+      "link": "https://www.m-i.kr/news/articleView.html?idxno=1411426",
+      "date": "2026-09-08 15:20",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.826010",
+      "hash_id": "2131cf6d2323f7e6"
+    },
+    "https://www.financialpost.co.kr/news/articleView.html?idxno=274542": {
+      "title": "\"미래차 강판 선점\"…포스코, 광양에 45만톤 규모 저탄소 '8CGL' 착공",
+      "link": "https://www.financialpost.co.kr/news/articleView.html?idxno=274542",
+      "date": "2026-09-08 15:16",
+      "press": "파이낸셜포스트",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.826014",
+      "hash_id": "bcec955b12ea907f"
+    },
+    "https://www.cnbnews.com/news/articleView.html?idxno=1014862": {
+      "title": "포스코, 4800억 투자해 자동차강판 공장 신설",
+      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1014862",
+      "date": "2026-09-08 15:16",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T06:27:46.826019",
+      "hash_id": "06e09709a898aaa2"
     }
   },
-  "last_updated": "2026-09-08 06:23:57",
-  "count": 1710
+  "last_updated": "2026-09-08 06:28:15",
+  "count": 1716
 }

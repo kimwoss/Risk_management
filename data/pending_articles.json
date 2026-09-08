@@ -19851,8 +19851,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T20:22:33.939092",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T20:26:20.902780",
       "hash_id": "54b1a5458d550f74"
     },
     "https://www.newsis.com/view/NISX20260909_0003781675": {
@@ -19862,11 +19862,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T20:22:33.114109",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T20:26:20.141442",
       "hash_id": "7af88c236844490c"
+    },
+    "https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027008?wlog_tag3=naver": {
+      "title": "[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로",
+      "link": "https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027008?wlog_tag3=naver",
+      "date": "2026-09-09 05:17",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T20:26:21.668490",
+      "hash_id": "7ce1289046b72337"
     }
   },
-  "last_updated": "2026-09-08 20:22:54",
-  "count": 1806
+  "last_updated": "2026-09-08 20:26:22",
+  "count": 1807
 }

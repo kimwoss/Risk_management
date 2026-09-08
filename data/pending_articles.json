@@ -18091,8 +18091,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T03:31:29.197365",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T03:35:14.589373",
       "hash_id": "159543070273948a"
     },
     "https://www.hani.co.kr/arti/society/society_general/1276756.html": {
@@ -18102,11 +18102,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T03:31:28.424488",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T03:35:13.812157",
       "hash_id": "ab22304bd40ecbc1"
+    },
+    "https://www.g-enews.com/view.php?ud=202609081119153381a9fc143920_1": {
+      "title": "인천공항, AI로 수하물 이상 실시간 탐지…포스코DX와 특허 출원",
+      "link": "https://www.g-enews.com/view.php?ud=202609081119153381a9fc143920_1",
+      "date": "2026-09-08 12:30",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T03:35:15.366515",
+      "hash_id": "71e8b48c4c0dd847"
     }
   },
-  "last_updated": "2026-09-08 03:31:49",
-  "count": 1646
+  "last_updated": "2026-09-08 03:35:18",
+  "count": 1647
 }

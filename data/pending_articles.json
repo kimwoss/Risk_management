@@ -19763,8 +19763,8 @@
       "press": "",
       "keyword": "종합상사",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T20:12:02.310821",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T20:15:43.018138",
       "hash_id": "3a642d310e7ea046"
     },
     "https://www.seoul.co.kr/news/plan/Future-Economy-Forum-2026/2026/09/09/20260909008008?wlog_tag3=naver": {
@@ -19774,8 +19774,8 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T20:12:03.077307",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T20:15:43.784105",
       "hash_id": "30ad609eb00cc436"
     },
     "https://www.etoday.co.kr/news/view/2621091": {
@@ -19785,8 +19785,8 @@
       "press": "이투데이",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T20:11:58.295142",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T20:15:39.010422",
       "hash_id": "41bf3467a2a40936"
     },
     "https://www.hani.co.kr/arti/area/area_general/1276911.html": {
@@ -19796,8 +19796,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T20:12:01.536303",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T20:15:39.774063",
       "hash_id": "42696cb53d983928"
     },
     "https://www.nocutnews.co.kr/news/6575082?utm_source=naver&utm_medium=article&utm_campaign=20260909050051": {
@@ -19807,8 +19807,8 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T20:11:56.743087",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T20:15:37.476863",
       "hash_id": "64577dcae22c42ba"
     },
     "https://www.chosun.com/national/incident/2026/09/09/BLHVMC2KNVH57KYHIOZHJU5M5A/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
@@ -19818,8 +19818,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T20:11:57.529993",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T20:15:38.246910",
       "hash_id": "c99c71329dad60fc"
     },
     "https://www.etoday.co.kr/news/view/2620178": {
@@ -19829,8 +19829,8 @@
       "press": "이투데이",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T20:11:42.840452",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T20:15:33.473890",
       "hash_id": "ec743cbb51c3f3db"
     },
     "https://www.etoday.co.kr/news/view/2622064": {
@@ -19840,11 +19840,33 @@
       "press": "이투데이",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T20:11:48.555748",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T20:15:34.235116",
       "hash_id": "a2f2bc4e1aa6c55d"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333507?division=NAVER": {
+      "title": "[속보] 美증시 하락 마감…다우 -1.18%, S&P500 -0.58%, 나스닥 -0.32%",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333507?division=NAVER",
+      "date": "2026-09-09 05:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T20:15:45.339682",
+      "hash_id": "54b1a5458d550f74"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781675": {
+      "title": "[속보]뉴욕증시, 국제 유가 상승에 하락…다우, 1.18% ↓",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781675",
+      "date": "2026-09-09 05:03",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T20:15:44.567040",
+      "hash_id": "7af88c236844490c"
     }
   },
-  "last_updated": "2026-09-08 20:12:03",
-  "count": 1804
+  "last_updated": "2026-09-08 20:15:55",
+  "count": 1806
 }

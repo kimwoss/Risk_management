@@ -18311,8 +18311,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T05:17:57.853343",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T05:21:30.232429",
       "hash_id": "2f2ff867a5ef86e0"
     },
     "https://www.m-i.kr/news/articleView.html?idxno=1411376": {
@@ -18391,8 +18391,19 @@
       "retry_count": 0,
       "last_attempt": "2026-09-08T05:13:27.765153",
       "hash_id": "d61c565fe242ef90"
+    },
+    "https://www.newsis.com/view/NISX20260908_0003780912": {
+      "title": "[올댓차이나] 8월 중국 수출 25%·수입 28.2%↑…\"AI 수요 확대\"",
+      "link": "https://www.newsis.com/view/NISX20260908_0003780912",
+      "date": "2026-09-08 14:18",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T05:21:36.090945",
+      "hash_id": "6a55f60a85e4dc89"
     }
   },
-  "last_updated": "2026-09-08 05:18:03",
-  "count": 1672
+  "last_updated": "2026-09-08 05:21:39",
+  "count": 1673
 }

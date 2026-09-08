@@ -18245,8 +18245,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T05:05:39.527393",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T05:09:37.441048",
       "hash_id": "847b6da382c214e6"
     },
     "https://www.sedaily.com/article/20088425?ref=naver": {
@@ -18278,8 +18278,8 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T05:05:41.154751",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T05:09:38.990522",
       "hash_id": "f24db53917b5ed6f"
     },
     "https://biz.sbs.co.kr/article_hub/20000333401?division=NAVER": {
@@ -18289,11 +18289,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T05:05:40.380655",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T05:09:38.218367",
       "hash_id": "ecc6eaf9e89ac7a8"
+    },
+    "https://www.thepowernews.co.kr/view.php?ud=202609081354248444de3f0aa1be_7": {
+      "title": "2차 국민참여성장펀드 30일부터 판매…6000억원 규모",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=202609081354248444de3f0aa1be_7",
+      "date": "2026-09-08 13:58",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T05:09:46.408101",
+      "hash_id": "f5c764618dfe168f"
     }
   },
-  "last_updated": "2026-09-08 05:05:45",
-  "count": 1663
+  "last_updated": "2026-09-08 05:10:04",
+  "count": 1664
 }

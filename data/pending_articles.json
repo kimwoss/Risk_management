@@ -20137,11 +20137,33 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T22:50:14.779398",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T22:53:37.726188",
       "hash_id": "3ba8e26a14dc839b"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005918500": {
+      "title": "포스코노조, 창사 56년 만에 첫 파업…48시간 부분파업 돌입",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005918500",
+      "date": "2026-09-09 07:48",
+      "press": "MBN",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T22:53:47.565503",
+      "hash_id": "4d0f6405f5651dd3"
+    },
+    "https://www.seoul.co.kr/news/international/2026/09/09/20260909500012?wlog_tag3=naver": {
+      "title": "[속보] 미군 “이란 유조선 5척 파괴…이란의 美해군함정 공격에 대응”",
+      "link": "https://www.seoul.co.kr/news/international/2026/09/09/20260909500012?wlog_tag3=naver",
+      "date": "2026-09-09 07:45",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T22:53:46.636035",
+      "hash_id": "730ed95c3108c138"
     }
   },
-  "last_updated": "2026-09-08 22:50:18",
-  "count": 1831
+  "last_updated": "2026-09-08 22:54:04",
+  "count": 1833
 }

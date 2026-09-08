@@ -18138,8 +18138,30 @@
       "retry_count": 5,
       "last_attempt": "2026-09-08T03:55:39.237665",
       "hash_id": "bd5c3fad5af3ef40"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005917882": {
+      "title": "포스코노조 \"9일 부분파업\"…창사 이래 첫 파업 위기",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005917882",
+      "date": "2026-09-08 13:00",
+      "press": "MBN",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T04:06:10.276326",
+      "hash_id": "6950d6001dde47c7"
+    },
+    "https://www.newsis.com/view/NISX20260908_0003780767": {
+      "title": "[속보]캐나다, 대미 맞불관세 현실화…15~50% 차등 부과",
+      "link": "https://www.newsis.com/view/NISX20260908_0003780767",
+      "date": "2026-09-08 13:01",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T04:06:11.072626",
+      "hash_id": "654c9a388cb09013"
     }
   },
-  "last_updated": "2026-09-08 04:02:44",
-  "count": 1649
+  "last_updated": "2026-09-08 04:06:11",
+  "count": 1651
 }

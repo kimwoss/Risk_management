@@ -19400,8 +19400,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T11:51:02.002840",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T11:54:31.806743",
       "hash_id": "1780b15723360c22"
     },
     "https://www.g-enews.com/view.php?ud=2026090820242966403d7a510102_1": {
@@ -19411,11 +19411,22 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T11:51:05.299881",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T11:54:33.333514",
       "hash_id": "903ddcce57273227"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890271.html": {
+      "title": "[단독] \"김승원 배우자 운영, 사회적협동조합 건물 '건축법 위반' 의혹\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890271.html",
+      "date": "2026-09-08 20:41",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T11:54:32.570157",
+      "hash_id": "01884bf6da1eb32a"
     }
   },
-  "last_updated": "2026-09-08 11:51:05",
-  "count": 1765
+  "last_updated": "2026-09-08 11:54:33",
+  "count": 1766
 }

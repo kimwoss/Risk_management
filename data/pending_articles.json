@@ -18113,11 +18113,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T03:41:45.542670",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T03:45:27.813102",
       "hash_id": "71e8b48c4c0dd847"
+    },
+    "https://www.fntimes.com/html/view.php?ud=202609081232415831048b718333_18": {
+      "title": "포스코이앤씨, 더샵 32개 단지서 전력 8500kWh 절감…Auto DR 확대",
+      "link": "https://www.fntimes.com/html/view.php?ud=202609081232415831048b718333_18",
+      "date": "2026-09-08 12:38",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T03:45:31.082650",
+      "hash_id": "1c249e87e12b623a"
+    },
+    "https://www.seoul.co.kr/news/society/accident/2026/09/08/20260908500130?wlog_tag3=naver": {
+      "title": "[속보] 해경, 부산 예인선 침몰 사고 선사 등 6곳 압수수색",
+      "link": "https://www.seoul.co.kr/news/society/accident/2026/09/08/20260908500130?wlog_tag3=naver",
+      "date": "2026-09-08 12:38",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T03:45:31.856482",
+      "hash_id": "bd5c3fad5af3ef40"
     }
   },
-  "last_updated": "2026-09-08 03:42:04",
-  "count": 1647
+  "last_updated": "2026-09-08 03:45:42",
+  "count": 1649
 }

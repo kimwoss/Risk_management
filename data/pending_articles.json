@@ -16892,8 +16892,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T01:23:01.980717",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T01:26:32.565115",
       "hash_id": "82ad8e9536583387"
     },
     "https://www.ikbc.co.kr/article/view/kbc202609080025": {
@@ -16961,8 +16961,52 @@
       "retry_count": 0,
       "last_attempt": "2026-09-08T01:15:09.516724",
       "hash_id": "465a2b0fb3caf5df"
+    },
+    "https://www.kyeonggi.com/article/20260908580096": {
+      "title": "[속보] 검찰, '실종사건 허위종결' 제주경찰 전격 압수수색",
+      "link": "https://www.kyeonggi.com/article/20260908580096",
+      "date": "2026-09-08 10:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T01:26:31.712768",
+      "hash_id": "3d6162390d5eaec0"
+    },
+    "https://www.tjb.co.kr/news05/bodo/view/id/103331": {
+      "title": "[속보] 대전 중구 사거리서 차량 정육점 돌진…60대 운전자 병원 이송",
+      "link": "https://www.tjb.co.kr/news05/bodo/view/id/103331",
+      "date": "2026-09-08 10:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T01:26:31.712773",
+      "hash_id": "c8847f7c04e1807b"
+    },
+    "https://www.newsis.com/view/NISX20260908_0003780400": {
+      "title": "[속보]정점식 \"단일종목 레버리지 ETF 도입 압박 윗선 특검으로 밝혀야...",
+      "link": "https://www.newsis.com/view/NISX20260908_0003780400",
+      "date": "2026-09-08 10:20",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T01:26:45.070662",
+      "hash_id": "005cc6c34ccef04e"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/08/20260908500067?wlog_tag3=naver": {
+      "title": "[속보] 檢, 실종 허위종결 제주경찰청·서부서 압수수색",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/08/20260908500067?wlog_tag3=naver",
+      "date": "2026-09-08 10:19",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T01:26:41.458249",
+      "hash_id": "bb4b0a9c567a24c9"
     }
   },
-  "last_updated": "2026-09-08 01:23:10",
-  "count": 1542
+  "last_updated": "2026-09-08 01:27:01",
+  "count": 1546
 }

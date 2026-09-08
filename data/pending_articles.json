@@ -20247,8 +20247,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T23:11:53.027972",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T23:15:33.740291",
       "hash_id": "0122089edde52af8"
     },
     "https://view.asiae.co.kr/article/2026090908022883829": {
@@ -20269,8 +20269,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T23:11:52.083242",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T23:15:32.754268",
       "hash_id": "e876dcb5e1cf7342"
     },
     "https://biz.heraldcorp.com/article/10866996?ref=naver": {
@@ -20324,11 +20324,88 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T23:11:53.973478",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T23:15:34.669901",
       "hash_id": "4e4374fcc98bf0d2"
+    },
+    "https://www.pinpointnews.co.kr/news/articleView.html?idxno=485204": {
+      "title": "포스코 노조, 창사 첫 파업 돌입…전기강판·산세공장 48시간 멈춘다",
+      "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=485204",
+      "date": "2026-09-09 08:14",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289349",
+      "hash_id": "376dae7358f3ba9a"
+    },
+    "https://www.news1.kr/local/daegu-gyeongbuk/6284292": {
+      "title": "포스코 노조 '48시간 부분파업' 돌입…창사 이후 58년 만에 처음",
+      "link": "https://www.news1.kr/local/daegu-gyeongbuk/6284292",
+      "date": "2026-09-09 08:12",
+      "press": "뉴스1",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289360",
+      "hash_id": "4c6a39eb62a4be17"
+    },
+    "https://www.hankookilbo.com/news/article/A2026090907530002523?did=NA": {
+      "title": "포스코노조 48시간 부분파업 돌입…창사 56년 만에 처음",
+      "link": "https://www.hankookilbo.com/news/article/A2026090907530002523?did=NA",
+      "date": "2026-09-09 08:11",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289366",
+      "hash_id": "01ff28506b7a139c"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781776": {
+      "title": "[속보] 둥젠화 초대 홍콩 행정장관 별세",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781776",
+      "date": "2026-09-09 08:13",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289388",
+      "hash_id": "34754bb3342add77"
+    },
+    "https://www.sidae.com/article/2026090908024262320": {
+      "title": "[속보] 미군 \"이란 유조선 5척 파괴…군함 공격 대가\"",
+      "link": "https://www.sidae.com/article/2026090908024262320",
+      "date": "2026-09-09 08:11",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289395",
+      "hash_id": "953176f4c23ce0d1"
+    },
+    "https://www.yna.co.kr/view/AKR20260909024400071?input=1195m": {
+      "title": "[속보] 트럼프, 캐나다산 유제품·주류·오토바이 수입 금지 포고문",
+      "link": "https://www.yna.co.kr/view/AKR20260909024400071?input=1195m",
+      "date": "2026-09-09 08:11",
+      "press": "연합뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289402",
+      "hash_id": "c097990ce834f5c5"
+    },
+    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00003&news_seq_no=5217980": {
+      "title": "[속보] 8월 취업자 수 18만4천명 늘어…5개월 만에 최대폭",
+      "link": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00003&news_seq_no=5217980",
+      "date": "2026-09-09 08:10",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:15:32.289407",
+      "hash_id": "5c50248585fef9f0"
     }
   },
-  "last_updated": "2026-09-08 23:12:08",
-  "count": 1848
+  "last_updated": "2026-09-08 23:16:01",
+  "count": 1855
 }

@@ -19257,11 +19257,22 @@
       "press": "노컷뉴스",
       "keyword": "광양 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T09:04:39.335802",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T09:08:08.445666",
       "hash_id": "d518fac8e8731bd8"
+    },
+    "https://www.g-enews.com/view.php?ud=20260908114034102424debea800_1": {
+      "title": "포스코, 광양제철소 자동차강판 공장 착공…4800억 투입",
+      "link": "https://www.g-enews.com/view.php?ud=20260908114034102424debea800_1",
+      "date": "2026-09-08 18:00",
+      "press": "",
+      "keyword": "구동모터코어",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T09:08:07.611479",
+      "hash_id": "b4875dcd07996233"
     }
   },
-  "last_updated": "2026-09-08 09:04:45",
-  "count": 1751
+  "last_updated": "2026-09-08 09:08:21",
+  "count": 1752
 }

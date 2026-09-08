@@ -18311,8 +18311,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-09-08T05:21:30.232429",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T05:44:05.703657",
       "hash_id": "2f2ff867a5ef86e0"
     },
     "https://www.m-i.kr/news/articleView.html?idxno=1411376": {
@@ -18432,11 +18432,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T05:40:36.857335",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T05:44:06.479189",
       "hash_id": "bf1e4a6925d9febb"
+    },
+    "http://www.koreastocknews.com/news/articleView.html?idxno=121075": {
+      "title": "삼양그룹, 범용 소재서 스페셜티 소재로 사업구조 전환",
+      "link": "http://www.koreastocknews.com/news/articleView.html?idxno=121075",
+      "date": "2026-09-08 14:42",
+      "press": "",
+      "keyword": "팜유",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T05:44:26.026823",
+      "hash_id": "ce91e563d5b7b925"
+    },
+    "https://www.newsis.com/view/NISX20260908_0003780855": {
+      "title": "日정부, 中반도체 원료 반덤핑 결정에 \"부당 영향 없게 적절 대응\"",
+      "link": "https://www.newsis.com/view/NISX20260908_0003780855",
+      "date": "2026-09-08 14:34",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T05:44:26.026833",
+      "hash_id": "2b446c68ecb79adc"
     }
   },
-  "last_updated": "2026-09-08 05:41:01",
-  "count": 1676
+  "last_updated": "2026-09-08 05:44:26",
+  "count": 1678
 }

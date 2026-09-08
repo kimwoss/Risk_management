@@ -19323,8 +19323,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T10:38:16.851794",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T10:41:45.495587",
       "hash_id": "c5d91bdbbb9650a7"
     },
     "http://www.ifs.or.kr/bbs/board.php?bo_table=YTT_board&wr_id=50906": {
@@ -19334,11 +19334,22 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T10:38:20.222761",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T10:41:46.315336",
       "hash_id": "608decc1c88bec29"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549361": {
+      "title": "[단독]신호 무시하고 질주…배달 오토바이 ‘쾅’",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549361",
+      "date": "2026-09-08 19:35",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T10:41:49.725243",
+      "hash_id": "ce5fb992bba37dc5"
     }
   },
-  "last_updated": "2026-09-08 10:38:23",
-  "count": 1758
+  "last_updated": "2026-09-08 10:41:52",
+  "count": 1759
 }

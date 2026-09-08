@@ -17783,8 +17783,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T02:59:43.562372",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T03:03:30.992859",
       "hash_id": "572ecc699ece19fb"
     },
     "https://biz.chosun.com/industry/company/2026/09/08/INTGJZNPDVAIXCBSYL4AXWG2KE/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -17794,8 +17794,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T02:59:42.784356",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T03:03:30.216866",
       "hash_id": "25c428679f3760a2"
     },
     "http://www.yonhapnewstv.co.kr/news/AKR20260908113647MsC": {
@@ -18014,8 +18014,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T02:59:45.115909",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T03:03:32.543899",
       "hash_id": "9fbd14817da0d449"
     },
     "https://www.ajunews.com/view/20260908113349264": {
@@ -18058,11 +18058,22 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T02:59:44.341550",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T03:03:31.767148",
       "hash_id": "9950a75474dd52e0"
+    },
+    "https://biz.chosun.com/industry/company/2026/09/08/N4IA7BE5K5CMLMLPNK5EJXOKC4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "포스코 노조 9일 부분파업 예고… 창사 첫 파업 기로",
+      "link": "https://biz.chosun.com/industry/company/2026/09/08/N4IA7BE5K5CMLMLPNK5EJXOKC4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-08 11:52",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T03:03:33.322513",
+      "hash_id": "d46d62756bacafa3"
     }
   },
-  "last_updated": "2026-09-08 03:00:04",
-  "count": 1642
+  "last_updated": "2026-09-08 03:03:48",
+  "count": 1643
 }

@@ -19433,11 +19433,44 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T12:11:31.595299",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T12:15:15.428391",
       "hash_id": "9defe75f84b86d4d"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890222.html": {
+      "title": "[단독] 배우자 '장애인조합' 옮기자…김승원, 장애인 체육지원법 발의",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890222.html",
+      "date": "2026-09-08 21:09",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T12:15:22.757078",
+      "hash_id": "c08bcc44cd4745d7"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890218.html": {
+      "title": "[단독] \"검찰 없는 죄 만들기\"라던 '로비의혹', 공익신고로 수사 시작",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890218.html",
+      "date": "2026-09-08 21:05",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T12:15:21.980641",
+      "hash_id": "73b4a78642482478"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890216.html": {
+      "title": "[단독] 대검, '김승원 기소의견' 꺾고 '기소유예' 주도…\"무죄면 후폭풍...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/08/2026090890216.html",
+      "date": "2026-09-08 21:03",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T12:15:18.712989",
+      "hash_id": "041d0b8acdf4e2dd"
     }
   },
-  "last_updated": "2026-09-08 12:11:51",
-  "count": 1767
+  "last_updated": "2026-09-08 12:15:23",
+  "count": 1770
 }

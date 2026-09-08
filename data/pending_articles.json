@@ -19235,11 +19235,22 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T08:50:17.616815",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T08:53:46.985385",
       "hash_id": "16e721e73464f0b7"
+    },
+    "https://www.ktv.go.kr/content/view?content_id=760628": {
+      "title": "이 대통령, 프랑스 국빈방문···산업 협력 강화 [외신에 비친 한국]",
+      "link": "https://www.ktv.go.kr/content/view?content_id=760628",
+      "date": "2026-09-08 16:30",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T08:53:46.141434",
+      "hash_id": "b38d4af2807dfac7"
     }
   },
-  "last_updated": "2026-09-08 08:50:23",
-  "count": 1749
+  "last_updated": "2026-09-08 08:54:02",
+  "count": 1750
 }

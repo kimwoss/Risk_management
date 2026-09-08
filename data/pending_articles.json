@@ -20060,11 +20060,22 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T22:28:51.197952",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T22:32:11.918540",
       "hash_id": "723a8d45b6af7ea2"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333541?division=NAVER": {
+      "title": "[속보] 미군 \"이란 유조선 5척 파괴…이란 美해군 함정 공격에 대응\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333541?division=NAVER",
+      "date": "2026-09-09 07:29",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T22:32:36.854220",
+      "hash_id": "138e96f8ab8ac935"
     }
   },
-  "last_updated": "2026-09-08 22:28:51",
-  "count": 1824
+  "last_updated": "2026-09-08 22:32:40",
+  "count": 1825
 }

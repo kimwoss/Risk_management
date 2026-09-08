@@ -18421,11 +18421,22 @@
       "press": "글로벌이코노믹",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T05:36:29.767173",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T05:40:15.314827",
       "hash_id": "f65e09c61e7b8340"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333408?division=NAVER": {
+      "title": "포스코 노조, 내일부터 48시간 부분파업 예고",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333408?division=NAVER",
+      "date": "2026-09-08 14:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T05:40:36.857335",
+      "hash_id": "bf1e4a6925d9febb"
     }
   },
-  "last_updated": "2026-09-08 05:36:50",
-  "count": 1675
+  "last_updated": "2026-09-08 05:41:01",
+  "count": 1676
 }

@@ -19356,11 +19356,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T10:58:33.264963",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T11:02:13.052885",
       "hash_id": "104c05898341e706"
+    },
+    "https://imnews.imbc.com/replay/2026/nwdesk/article/6850453_37004.html": {
+      "title": "[단독] 수사 외압?‥\"수사팀, 계엄 전 24년 9월 김승원 기소유예안 보고...",
+      "link": "https://imnews.imbc.com/replay/2026/nwdesk/article/6850453_37004.html",
+      "date": "2026-09-08 19:49",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T11:02:13.901296",
+      "hash_id": "5707272a2a5e164c"
     }
   },
-  "last_updated": "2026-09-08 10:58:51",
-  "count": 1760
+  "last_updated": "2026-09-08 11:02:17",
+  "count": 1761
 }

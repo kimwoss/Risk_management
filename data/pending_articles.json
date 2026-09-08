@@ -20170,11 +20170,154 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T23:00:47.629893",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T23:04:12.962078",
       "hash_id": "46e5907c36f790d1"
+    },
+    "https://www.viva100.com/article/20260908501141": {
+      "title": "[오늘의 브릿지경제 1면] 포스코 창사 첫 파업 기로··· ‘공급망 위기...",
+      "link": "https://www.viva100.com/article/20260908501141",
+      "date": "2026-09-09 08:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500943",
+      "hash_id": "c36143a9577a4671"
+    },
+    "https://www.nocutnews.co.kr/news/6575184?utm_source=naver&utm_medium=article&utm_campaign=20260909075352": {
+      "title": "포스코 노조 창사 이래 첫 부분파업 시작…150명 참여 전망",
+      "link": "https://www.nocutnews.co.kr/news/6575184?utm_source=naver&utm_medium=article&utm_campaign=20260909075352",
+      "date": "2026-09-09 07:54",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T23:04:13.948325",
+      "hash_id": "65d1036e02e574da"
+    },
+    "https://news.jtbc.co.kr/article/NB12317439?influxDiv=NAVER": {
+      "title": "[속보] 8월 취업자 수 18만4천명 늘어…5개월 만에 최대폭",
+      "link": "https://news.jtbc.co.kr/article/NB12317439?influxDiv=NAVER",
+      "date": "2026-09-09 08:03",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500974",
+      "hash_id": "38b3587572e487a2"
+    },
+    "https://www.hankyung.com/article/2026090926317": {
+      "title": "[속보] 8월 취업자 수 18만4000명 늘어…5개월 만에 최대폭",
+      "link": "https://www.hankyung.com/article/2026090926317",
+      "date": "2026-09-09 08:03",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500979",
+      "hash_id": "013dafd6687a9a69"
+    },
+    "https://biz.newdaily.co.kr/site/data/html/2026/09/09/2026090900015.html": {
+      "title": "[속보] 8월 취업자 18만4000명 증가 … 5개월 만에 최대 상승",
+      "link": "https://biz.newdaily.co.kr/site/data/html/2026/09/09/2026090900015.html",
+      "date": "2026-09-09 08:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500985",
+      "hash_id": "27c4a350af1055db"
+    },
+    "https://www.edaily.co.kr/News/Read?newsId=02689606645578480&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
+      "title": "[속보]8월 취업자, 18.4만명 증가…청년층 46개월째 감소",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=02689606645578480&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-09-09 08:02",
+      "press": "이데일리",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500991",
+      "hash_id": "1ff2408eedf61958"
+    },
+    "https://www.hani.co.kr/arti/economy/economy_general/1276918.html": {
+      "title": "[속보] 8월 취업자 18만4천명↑…청년고용률 28개월 연속 하락",
+      "link": "https://www.hani.co.kr/arti/economy/economy_general/1276918.html",
+      "date": "2026-09-09 08:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.500996",
+      "hash_id": "0122089edde52af8"
+    },
+    "https://view.asiae.co.kr/article/2026090908022883829": {
+      "title": "[속보] 8월 취업자 18.4만명 증가...청년층은 14.3만명↓",
+      "link": "https://view.asiae.co.kr/article/2026090908022883829",
+      "date": "2026-09-09 08:02",
+      "press": "아시아경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.501000",
+      "hash_id": "5ec8c00454e689af"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333551?division=NAVER": {
+      "title": "[속보] 8월 취업자 수 18만4천명 증가…5개월 만에 최대폭",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333551?division=NAVER",
+      "date": "2026-09-09 08:01",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.501008",
+      "hash_id": "e876dcb5e1cf7342"
+    },
+    "https://biz.heraldcorp.com/article/10866996?ref=naver": {
+      "title": "[속보]8월 취업자 18만4000명↑…청년 취업자 14.3만명 감소",
+      "link": "https://biz.heraldcorp.com/article/10866996?ref=naver",
+      "date": "2026-09-09 08:01",
+      "press": "헤럴드경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.501012",
+      "hash_id": "a45c9d5aa28bd0cf"
+    },
+    "https://www.ytn.co.kr/_ln/0102_202609090801393947": {
+      "title": "[속보] 지난달 취업자 18만4천 명 증가...청년층 14만3천 명 감소",
+      "link": "https://www.ytn.co.kr/_ln/0102_202609090801393947",
+      "date": "2026-09-09 08:01",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T23:04:12.501016",
+      "hash_id": "63796900f0bc06b6"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781740": {
+      "title": "[속보]청년 취업자 46개월째 감소…고용률 28개월 연속↓",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781740",
+      "date": "2026-09-09 08:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T23:04:31.063129",
+      "hash_id": "e226483e1aa8e82e"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781742": {
+      "title": "[속보]제조업 26개월, 건설업 28개월째 취업자 감소",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781742",
+      "date": "2026-09-09 08:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T23:04:32.055507",
+      "hash_id": "2dcec99f2a4a42a5"
     }
   },
-  "last_updated": "2026-09-08 23:00:50",
-  "count": 1834
+  "last_updated": "2026-09-08 23:04:43",
+  "count": 1847
 }

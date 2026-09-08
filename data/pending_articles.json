@@ -19686,8 +19686,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T14:51:53.544746",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T14:55:37.833431",
       "hash_id": "2eb0afd1f4879020"
     },
     "https://www.newsis.com/view/NISX20260908_0003781649": {
@@ -19697,11 +19697,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T14:51:35.407096",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T14:55:37.067170",
       "hash_id": "fbad51772495e1e0"
+    },
+    "https://www.newsis.com/view/NISX20260908_0003781648": {
+      "title": "[속보]이 대통령 \"한-프랑스, 호르무즈 해협 항행 자유·글로벌 공급망...",
+      "link": "https://www.newsis.com/view/NISX20260908_0003781648",
+      "date": "2026-09-08 23:52",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T14:55:58.632970",
+      "hash_id": "ec0ab716944b4bc5"
     }
   },
-  "last_updated": "2026-09-08 14:52:01",
-  "count": 1791
+  "last_updated": "2026-09-08 14:56:01",
+  "count": 1792
 }

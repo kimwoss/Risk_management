@@ -16529,8 +16529,8 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T00:35:04.965923",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T00:38:33.129254",
       "hash_id": "fb235fecad862e2a"
     },
     "https://www.hani.co.kr/arti/society/society_general/1276719.html": {
@@ -16540,8 +16540,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T00:35:00.381740",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T00:38:31.218848",
       "hash_id": "d0cb0f66d9422238"
     },
     "https://www.mk.co.kr/article/12146696": {
@@ -16562,8 +16562,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T00:35:01.376781",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T00:38:32.192545",
       "hash_id": "6f91b23e7cd47e02"
     },
     "https://www.kgnews.co.kr/news/article.html?no=910665": {
@@ -16595,8 +16595,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T00:34:59.437373",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T00:38:30.273204",
       "hash_id": "f05a4735cf51f9ef"
     },
     "https://biz.chosun.com/industry/company/2026/09/08/N6AHPC5MORHKDMAT7RSF37NGE4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
@@ -16606,11 +16606,22 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T00:35:05.895892",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T00:38:34.079885",
       "hash_id": "e211cc690d3220dc"
+    },
+    "https://www.investchosun.com/site/data/html_dir/2026/09/08/2026090880022.html": {
+      "title": "[Invest]해외서 웃는 포스코, 국내선 노조 파업 가시화에 촉각",
+      "link": "https://www.investchosun.com/site/data/html_dir/2026/09/08/2026090880022.html",
+      "date": "2026-09-08 09:34",
+      "press": "인베스트조선",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T00:38:35.030947",
+      "hash_id": "23b3d919159f2d41"
     }
   },
-  "last_updated": "2026-09-08 00:35:06",
-  "count": 1510
+  "last_updated": "2026-09-08 00:38:35",
+  "count": 1511
 }

@@ -18399,11 +18399,22 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T05:21:36.090945",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T05:25:21.689884",
       "hash_id": "6a55f60a85e4dc89"
+    },
+    "https://www.etoday.co.kr/news/view/2623117": {
+      "title": "[속보] 경남 합천군 율곡면 야산서 산불 발생",
+      "link": "https://www.etoday.co.kr/news/view/2623117",
+      "date": "2026-09-08 14:24",
+      "press": "이투데이",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T05:25:03.344993",
+      "hash_id": "b3fba698b043afdf"
     }
   },
-  "last_updated": "2026-09-08 05:21:39",
-  "count": 1673
+  "last_updated": "2026-09-08 05:25:33",
+  "count": 1674
 }

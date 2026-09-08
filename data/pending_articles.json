@@ -17530,8 +17530,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 4,
-      "last_attempt": "2026-09-08T02:23:36.680509",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T02:32:38.176385",
       "hash_id": "89f12229cadacf7a"
     },
     "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00009&news_seq_no=5217766": {
@@ -17541,8 +17541,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:29:33.630243",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:34:22.761412",
       "hash_id": "c8401bed6a487637"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=446645": {
@@ -17552,8 +17552,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:29:22.924766",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:34:12.064453",
       "hash_id": "73f734aea70c8da5"
     },
     "https://magazine.hankyung.com/business/article/202609080947b": {
@@ -17563,8 +17563,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:29:11.446271",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:34:03.850783",
       "hash_id": "240146568d5957c1"
     },
     "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609080249&t=NN": {
@@ -17574,8 +17574,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:28:50.052843",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:33:45.135524",
       "hash_id": "55d776f758172999"
     },
     "https://www.e-science.co.kr/news/articleView.html?idxno=134971": {
@@ -17596,8 +17596,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:28:21.941342",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:33:26.456530",
       "hash_id": "7d72c0ce39cb20d5"
     },
     "http://www.4th.kr/news/articleView.html?idxno=2117638": {
@@ -17607,8 +17607,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:27:31.860518",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:32:48.867022",
       "hash_id": "d9d4db0ef80a9299"
     },
     "https://www.newsquest.co.kr/news/articleView.html?idxno=300455": {
@@ -17651,8 +17651,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T02:28:00.539512",
+      "retry_count": 2,
+      "last_attempt": "2026-09-08T02:33:07.721020",
       "hash_id": "b27c2bb3333b6fda"
     },
     "https://www.cbci.co.kr/news/articleView.html?idxno=604819": {
@@ -17665,8 +17665,85 @@
       "retry_count": 1,
       "last_attempt": "2026-09-08T02:28:11.234719",
       "hash_id": "60f3ebdb3dd71a58"
+    },
+    "https://biz.heraldcorp.com/article/10866245?ref=naver": {
+      "title": "대미투자 2000억弗 중 60%가 ‘원전’…韓 시공·제조 역량 주목",
+      "link": "https://biz.heraldcorp.com/article/10866245?ref=naver",
+      "date": "2026-09-08 11:31",
+      "press": "헤럴드경제",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912368",
+      "hash_id": "98e75cc7dae3c060"
+    },
+    "https://www.seoulfn.com/news/articleView.html?idxno=637479": {
+      "title": "'1호 대미투자' 텍사스 엔시날 발전소 유력···원전 8기 건설도 검토",
+      "link": "https://www.seoulfn.com/news/articleView.html?idxno=637479",
+      "date": "2026-09-08 11:31",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912379",
+      "hash_id": "d749e4dda6c0fae1"
+    },
+    "http://www.ktnews.com/news/articleView.html?idxno=148337": {
+      "title": "BNS, 38년 섬유 수출 노하우로 프린트 디자인 경쟁력 강화",
+      "link": "http://www.ktnews.com/news/articleView.html?idxno=148337",
+      "date": "2026-09-08 11:28",
+      "press": "",
+      "keyword": "종합상사",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912391",
+      "hash_id": "0d07d1690ca5fdea"
+    },
+    "http://www.newsfarm.co.kr/news/articleView.html?idxno=102254": {
+      "title": "K-푸드에 소비재까지 '원팀'…도쿄서 6400만달러 수출상담",
+      "link": "http://www.newsfarm.co.kr/news/articleView.html?idxno=102254",
+      "date": "2026-09-08 11:28",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912396",
+      "hash_id": "7621c415e80c96e4"
+    },
+    "https://www.financialpost.co.kr/news/articleView.html?idxno=274460": {
+      "title": "대미 투자 1호, '220억달러 규모' 텍사스 발전소 유력… 대형 원전 8기도...",
+      "link": "https://www.financialpost.co.kr/news/articleView.html?idxno=274460",
+      "date": "2026-09-08 11:24",
+      "press": "파이낸셜포스트",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912401",
+      "hash_id": "d5245a1cbec4aa76"
+    },
+    "https://biz.heraldcorp.com/article/10866196?ref=naver": {
+      "title": "무협, ‘韓-우간다 무역⸱투자 포럼’ 개최…“주요 개발사업 연계 협력...",
+      "link": "https://biz.heraldcorp.com/article/10866196?ref=naver",
+      "date": "2026-09-08 11:23",
+      "press": "헤럴드경제",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912406",
+      "hash_id": "3eebb2fc67c34681"
+    },
+    "https://www.mt.co.kr/industry/2026/09/08/2026090811065045861": {
+      "title": "무협, '한-우간다 무역·투자 포럼 개최'..에너지·광물 협력 모색",
+      "link": "https://www.mt.co.kr/industry/2026/09/08/2026090811065045861",
+      "date": "2026-09-08 11:22",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T02:34:42.912410",
+      "hash_id": "4943bebf40265722"
     }
   },
-  "last_updated": "2026-09-08 02:29:34",
-  "count": 1606
+  "last_updated": "2026-09-08 02:34:42",
+  "count": 1613
 }

@@ -16793,8 +16793,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T01:07:48.616981",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T01:11:35.415670",
       "hash_id": "7b575d7e0d4e8662"
     },
     "https://www.nocutnews.co.kr/news/6574516?utm_source=naver&utm_medium=article&utm_campaign=20260908095840": {
@@ -16804,11 +16804,22 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T01:07:47.658776",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T01:11:34.469704",
       "hash_id": "6a5f0710355c5f50"
+    },
+    "http://www.lawissue.co.kr/view.php?ud=20260908100314805867191f6c6e_12": {
+      "title": "포스코이앤씨, ‘더샵 에너지 절약 챌린지’ 넉달간 8500kWh 전력 절감",
+      "link": "http://www.lawissue.co.kr/view.php?ud=20260908100314805867191f6c6e_12",
+      "date": "2026-09-08 10:04",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T01:11:44.369105",
+      "hash_id": "fa9af8be6ff61f7b"
     }
   },
-  "last_updated": "2026-09-08 01:08:10",
-  "count": 1528
+  "last_updated": "2026-09-08 01:11:47",
+  "count": 1529
 }

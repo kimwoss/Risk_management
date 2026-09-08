@@ -19488,8 +19488,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T12:33:28.388273",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T12:36:57.261413",
       "hash_id": "0771295737185bef"
     },
     "https://www.ytn.co.kr/_ln/0101_202609082123594617": {
@@ -19510,8 +19510,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T12:33:29.172723",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T12:36:58.024649",
       "hash_id": "8318f5791c2648de"
     },
     "https://www.mk.co.kr/article/12147578": {
@@ -19568,8 +19568,19 @@
       "retry_count": 0,
       "last_attempt": "2026-09-08T12:25:53.704959",
       "hash_id": "79a95e50576bfe70"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549412": {
+      "title": "[속보]국방부 “호르무즈 현지 상황파악 위해 조사단 파견”",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549412",
+      "date": "2026-09-08 21:31",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T12:37:08.880623",
+      "hash_id": "46bb2d36fb572130"
     }
   },
-  "last_updated": "2026-09-08 12:33:32",
-  "count": 1779
+  "last_updated": "2026-09-08 12:37:11",
+  "count": 1780
 }

@@ -19389,11 +19389,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T11:43:47.184754",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T11:47:32.347925",
       "hash_id": "e6ca518aa38dd861"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=204458&mode=view": {
+      "title": "포스코 파업 기로…노조, 내일부터 부분파업 예고",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=204458&mode=view",
+      "date": "2026-09-08 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T11:47:35.606181",
+      "hash_id": "1780b15723360c22"
     }
   },
-  "last_updated": "2026-09-08 11:44:07",
-  "count": 1763
+  "last_updated": "2026-09-08 11:47:36",
+  "count": 1764
 }

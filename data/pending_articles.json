@@ -19169,11 +19169,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T08:10:30.378264",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T08:13:58.460199",
       "hash_id": "4f6fd7a08744570e"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67767": {
+      "title": "[속보] '보좌관 명의로 차명 주식거래' 이춘석 의원 불구속 기소",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67767",
+      "date": "2026-09-08 17:10",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T08:14:17.240936",
+      "hash_id": "b5a4a2569b5a98d5"
     }
   },
-  "last_updated": "2026-09-08 08:10:36",
-  "count": 1743
+  "last_updated": "2026-09-08 08:14:20",
+  "count": 1744
 }

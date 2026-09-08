@@ -20148,8 +20148,8 @@
       "press": "MBN",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T22:57:10.029273",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T23:00:46.700490",
       "hash_id": "4d0f6405f5651dd3"
     },
     "https://www.seoul.co.kr/news/international/2026/09/09/20260909500012?wlog_tag3=naver": {
@@ -20159,11 +20159,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T22:57:09.058422",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T23:00:45.490277",
       "hash_id": "730ed95c3108c138"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990019.html": {
+      "title": "[단독] 대검, '김승원 기소의견' 꺾고 '기소유예' 주도…\"무죄면 후폭풍...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990019.html",
+      "date": "2026-09-09 07:52",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T23:00:47.629893",
+      "hash_id": "46e5907c36f790d1"
     }
   },
-  "last_updated": "2026-09-08 22:57:24",
-  "count": 1833
+  "last_updated": "2026-09-08 23:00:50",
+  "count": 1834
 }

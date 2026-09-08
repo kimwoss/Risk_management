@@ -20005,11 +20005,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T21:36:54.399344",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T21:40:21.290913",
       "hash_id": "50d727c5f77dd61b"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781686": {
+      "title": "[속보]영 -프랑스-캐나다 정상들, 팔레스타인 \"2개국 해법\"수호 공동선...",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781686",
+      "date": "2026-09-09 06:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T21:40:22.818012",
+      "hash_id": "adc6db8745a17d82"
+    },
+    "https://imnews.imbc.com/news/2026/world/article/6850538_36925.html": {
+      "title": "[속보] 트럼프, 캐나다 관세에 보복‥\"정부조달 계약서 캐나다산 제외\"",
+      "link": "https://imnews.imbc.com/news/2026/world/article/6850538_36925.html",
+      "date": "2026-09-09 06:30",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T21:40:22.052513",
+      "hash_id": "a48bda617bd14b68"
     }
   },
-  "last_updated": "2026-09-08 21:36:57",
-  "count": 1819
+  "last_updated": "2026-09-08 21:40:25",
+  "count": 1821
 }

@@ -16309,8 +16309,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T00:05:17.076513",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T00:09:04.729813",
       "hash_id": "30bae7ee682bc79f"
     },
     "https://www.newsis.com/view/NISX20260908_0003780213": {
@@ -16320,8 +16320,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T00:05:28.660196",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T00:09:05.664889",
       "hash_id": "eb0b7c3dd304f1fa"
     },
     "https://imnews.imbc.com/news/2026/society/article/6850287_36918.html": {
@@ -16331,8 +16331,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T00:05:12.524508",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T00:09:00.190230",
       "hash_id": "2f5fa68c29f4a8cd"
     },
     "https://www.newsis.com/view/NISX20260908_0003780210": {
@@ -16342,11 +16342,77 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-08T00:05:16.120093",
+      "retry_count": 3,
+      "last_attempt": "2026-09-08T00:09:01.136080",
       "hash_id": "b35b01da2881e2b6"
+    },
+    "https://www.hankyung.com/article/2026090802657": {
+      "title": "[속보] 코스피 상승 출발…'7천피' 탈환",
+      "link": "https://www.hankyung.com/article/2026090802657",
+      "date": "2026-09-08 09:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T00:08:59.700554",
+      "hash_id": "e0f4b795dca1d96a"
+    },
+    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00003&news_seq_no=5217718": {
+      "title": "[속보] 코스피 상승 출발…'7천피' 탈환",
+      "link": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00003&news_seq_no=5217718",
+      "date": "2026-09-08 09:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T00:08:59.700569",
+      "hash_id": "e0f4b795dca1d96a"
+    },
+    "https://www.dailian.co.kr/news/view/1687562/?sc=Naver": {
+      "title": "[속보] 체육단체, 경찰 지원받아 올림픽공원 핸드볼경기장 진입 시도",
+      "link": "https://www.dailian.co.kr/news/view/1687562/?sc=Naver",
+      "date": "2026-09-08 09:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T00:08:59.700575",
+      "hash_id": "12ec59129927606f"
+    },
+    "https://www.news1.kr/society/incident-accident/6283028": {
+      "title": "[속보] 대한체육회, 경찰 협조로 '봉쇄 95일 만' 잠실개표소 진입 시도",
+      "link": "https://www.news1.kr/society/incident-accident/6283028",
+      "date": "2026-09-08 09:07",
+      "press": "뉴스1",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-08T00:08:59.700581",
+      "hash_id": "266105cfa377771e"
+    },
+    "https://www.nocutnews.co.kr/news/6574448?utm_source=naver&utm_medium=article&utm_campaign=20260908090540": {
+      "title": "[속보]코스피 7천선 회복…0.72% 오른 7045.79 개장",
+      "link": "https://www.nocutnews.co.kr/news/6574448?utm_source=naver&utm_medium=article&utm_campaign=20260908090540",
+      "date": "2026-09-08 09:06",
+      "press": "노컷뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T00:09:28.718143",
+      "hash_id": "bfbcc356b98bcebe"
+    },
+    "https://www.nocutnews.co.kr/news/6574446?utm_source=naver&utm_medium=article&utm_campaign=20260908090440": {
+      "title": "[속보]대한체육회, 경찰 지원받아 핸드볼경기장 진입 시도",
+      "link": "https://www.nocutnews.co.kr/news/6574446?utm_source=naver&utm_medium=article&utm_campaign=20260908090440",
+      "date": "2026-09-08 09:05",
+      "press": "노컷뉴스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T00:09:19.845865",
+      "hash_id": "db6660d521a0d57a"
     }
   },
-  "last_updated": "2026-09-08 00:05:37",
-  "count": 1486
+  "last_updated": "2026-09-08 00:09:31",
+  "count": 1492
 }

@@ -18883,8 +18883,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-08T06:47:40.276506",
+      "retry_count": 4,
+      "last_attempt": "2026-09-08T06:51:13.840615",
       "hash_id": "ef3bda5db2390925"
     },
     "http://www.metroseoul.co.kr/article/20260908500322": {
@@ -18960,8 +18960,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T06:47:38.603953",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T06:51:12.196686",
       "hash_id": "692f2f7615375cda"
     },
     "https://www.newsis.com/view/NISX20260908_0003781146": {
@@ -18971,8 +18971,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T06:47:39.441525",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T06:51:13.021115",
       "hash_id": "98b0a3ffd6f0e839"
     },
     "https://www.newsis.com/view/NISX20260908_0003781144": {
@@ -18982,11 +18982,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T06:47:37.779823",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T06:51:11.368021",
       "hash_id": "b784ce6435511cb1"
+    },
+    "https://www.dizzotv.com/site/data/html_dir/2026/09/08/2026090880146.html": {
+      "title": "포스코, 광양에 8CGL 착공…미래車 강판 선점 나선다",
+      "link": "https://www.dizzotv.com/site/data/html_dir/2026/09/08/2026090880146.html",
+      "date": "2026-09-08 15:46",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T06:51:19.818331",
+      "hash_id": "aab3a24d8791c764"
     }
   },
-  "last_updated": "2026-09-08 06:47:45",
-  "count": 1726
+  "last_updated": "2026-09-08 06:51:23",
+  "count": 1727
 }

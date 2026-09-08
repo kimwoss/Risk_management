@@ -20016,8 +20016,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T21:43:54.081077",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T21:47:53.890259",
       "hash_id": "adc6db8745a17d82"
     },
     "https://imnews.imbc.com/news/2026/world/article/6850538_36925.html": {
@@ -20027,11 +20027,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-08T21:43:53.314188",
+      "retry_count": 5,
+      "last_attempt": "2026-09-08T21:47:50.268216",
       "hash_id": "a48bda617bd14b68"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333514?division=NAVER": {
+      "title": "정부, 대미투자 한도 방어 총력…\"어떤 경우에도 2천억달러 넘지 않아\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333514?division=NAVER",
+      "date": "2026-09-09 06:46",
+      "press": "",
+      "keyword": "광양 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-08T21:47:54.844467",
+      "hash_id": "a20a60fa2998151b"
     }
   },
-  "last_updated": "2026-09-08 21:43:57",
-  "count": 1821
+  "last_updated": "2026-09-08 21:47:55",
+  "count": 1822
 }

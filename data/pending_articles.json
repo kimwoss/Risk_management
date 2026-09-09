@@ -25780,11 +25780,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T23:21:07.123515",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T23:24:30.967997",
       "hash_id": "d3bd5abd725eebd3"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/10/2026091090041.html": {
+      "title": "포스코, 58년 만에 첫 파업…장기화 시 공급 차질 우려",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/10/2026091090041.html",
+      "date": "2026-09-10 08:15",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T23:24:34.471909",
+      "hash_id": "cbdd5d684161704e"
     }
   },
-  "last_updated": "2026-09-09 23:21:07",
-  "count": 2344
+  "last_updated": "2026-09-09 23:24:40",
+  "count": 2345
 }

@@ -25175,8 +25175,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T12:35:01.274307",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T12:38:39.179587",
       "hash_id": "ba88e404d3549177"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990238.html": {
@@ -25186,11 +25186,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T12:35:00.311850",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T12:38:35.546057",
       "hash_id": "01d65d8890e3ebf4"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990252.html": {
+      "title": "[단독] 제주서 농사 강신철 부친도 강남 '철거민 특공'…동시 전입 사흘...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990252.html",
+      "date": "2026-09-09 21:32",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T12:38:42.858201",
+      "hash_id": "48c79f3423293a19"
     }
   },
-  "last_updated": "2026-09-09 12:35:15",
-  "count": 2290
+  "last_updated": "2026-09-09 12:38:43",
+  "count": 2291
 }

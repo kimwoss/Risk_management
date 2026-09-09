@@ -25417,11 +25417,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T18:31:41.038024",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T18:35:16.577747",
       "hash_id": "d2b7a801f33a7aaf"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003783408": {
+      "title": "[속보]애플 '아이폰 듀오' 공개…폴더블 시장 진출",
+      "link": "https://www.newsis.com/view/NISX20260910_0003783408",
+      "date": "2026-09-10 03:28",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T18:35:17.493680",
+      "hash_id": "c8badb0f631aa1e8"
     }
   },
-  "last_updated": "2026-09-09 18:31:56",
-  "count": 2311
+  "last_updated": "2026-09-09 18:35:18",
+  "count": 2312
 }

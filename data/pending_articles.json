@@ -21083,11 +21083,121 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T01:12:11.945271",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T01:15:47.381519",
       "hash_id": "8bf9a375e5a47e94"
+    },
+    "https://biz.heraldcorp.com/article/10867337?ref=naver": {
+      "title": "첫 파업에도 쇳물 흐른다…포스코, 비상대응체계 가동 [철강노사 격랑]",
+      "link": "https://biz.heraldcorp.com/article/10867337?ref=naver",
+      "date": "2026-09-09 10:13",
+      "press": "헤럴드경제",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.867974",
+      "hash_id": "8ea9c7cc1a5305d2"
+    },
+    "https://economist.co.kr/article/view/ecn202609090009": {
+      "title": "포스코, 창사 첫 '파업 사태' 맞이한 배경은",
+      "link": "https://economist.co.kr/article/view/ecn202609090009",
+      "date": "2026-09-09 10:12",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.867986",
+      "hash_id": "502fa97d796b2414"
+    },
+    "http://www.4th.kr/news/articleView.html?idxno=2117696": {
+      "title": "58년 무파업 기록 깨졌다…포스코노조, 첫 부분파업 돌입",
+      "link": "http://www.4th.kr/news/articleView.html?idxno=2117696",
+      "date": "2026-09-09 10:10",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.867992",
+      "hash_id": "a69b044d551bee4a"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990076.html": {
+      "title": "포스코 노조, 오늘 아침 7시부터 부분파업…주요 공정은 유지",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990076.html",
+      "date": "2026-09-09 10:08",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T01:16:09.722421",
+      "hash_id": "917eb261c1183e25"
+    },
+    "https://magazine.hankyung.com/business/article/202609093251b": {
+      "title": "[속보]“같이 못 간다” 삼성전자 노조 결국 반도체 중심으로",
+      "link": "https://magazine.hankyung.com/business/article/202609093251b",
+      "date": "2026-09-09 10:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868018",
+      "hash_id": "869c66c8d570aced"
+    },
+    "https://www.hankookilbo.com/news/article/A2026090909310002903?did=NA": {
+      "title": "[속보] 48시간 쇠사슬로 침대에 묶어... '천안 11세 학대 사망' 외할머니...",
+      "link": "https://www.hankookilbo.com/news/article/A2026090909310002903?did=NA",
+      "date": "2026-09-09 10:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868024",
+      "hash_id": "c0eef6266c451316"
+    },
+    "https://www.theguru.co.kr/news/article.html?no=106862": {
+      "title": "[단독] 보스턴다이내믹스, 엔터 로봇 영토 확장…'아틀라스 주역' 뭉쳐...",
+      "link": "https://www.theguru.co.kr/news/article.html?no=106862",
+      "date": "2026-09-09 10:12",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868029",
+      "hash_id": "1d3ecaa61faa274f"
+    },
+    "https://biz.heraldcorp.com/article/10867329?ref=naver": {
+      "title": "[속보] 한동훈 “김민석, 허위사실 유포 형사조치” 전면전",
+      "link": "https://biz.heraldcorp.com/article/10867329?ref=naver",
+      "date": "2026-09-09 10:11",
+      "press": "헤럴드경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868034",
+      "hash_id": "6da514edf59aff04"
+    },
+    "https://www.kado.net/news/articleView.html?idxno=2071508": {
+      "title": "[속보] '8조원대 자산가' 권혁빈 이혼소송 오늘 선고…재산분할 주목",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2071508",
+      "date": "2026-09-09 10:10",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868038",
+      "hash_id": "c471c8e18c54c8fd"
+    },
+    "https://www.cjb.co.kr/home/sub.php?menukey=61&mod=view&P_NO=260909502&PRO_CODE=99": {
+      "title": "[속보] 방송인 이혁재, 인천서 음주사고…면허정지 수치",
+      "link": "https://www.cjb.co.kr/home/sub.php?menukey=61&mod=view&P_NO=260909502&PRO_CODE=99",
+      "date": "2026-09-09 10:09",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:15:46.868043",
+      "hash_id": "2d0c74312e4de6a5"
     }
   },
-  "last_updated": "2026-09-09 01:12:26",
-  "count": 1917
+  "last_updated": "2026-09-09 01:16:15",
+  "count": 1927
 }

@@ -22216,8 +22216,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T05:42:31.116238",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T05:46:24.814779",
       "hash_id": "0a1570c37a359ec5"
     },
     "https://www.tjb.co.kr/news05/bodo/view/id/103396": {
@@ -22249,8 +22249,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T05:42:21.649024",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T05:46:23.066938",
       "hash_id": "a51e07ba6a6e5129"
     },
     "https://www.koreareport.co.kr/news/articleView.html?idxno=52776": {
@@ -22293,11 +22293,22 @@
       "press": "",
       "keyword": "전력수급기본계획",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T05:42:25.113976",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T05:46:23.950589",
       "hash_id": "ff6fb330de2b0965"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782746": {
+      "title": "[단독]냉동살인 일주일전 컨테이너 카페로 이송…CCTV포착(영상)",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782746",
+      "date": "2026-09-09 14:44",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:46:36.030873",
+      "hash_id": "4dce6884632024af"
     }
   },
-  "last_updated": "2026-09-09 05:42:49",
-  "count": 2027
+  "last_updated": "2026-09-09 05:46:36",
+  "count": 2028
 }

@@ -22029,8 +22029,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T05:26:34.958136",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T05:30:46.359001",
       "hash_id": "9a420c44e655622e"
     },
     "https://www.nocutnews.co.kr/news/6575522?utm_source=naver&utm_medium=article&utm_campaign=20260909022456": {
@@ -22040,8 +22040,8 @@
       "press": "노컷뉴스",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T05:26:34.480762",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T05:31:03.525786",
       "hash_id": "827ff0d183d2e2e2"
     },
     "https://www.donga.com/news/Society/article/all/20260909/134634725/1": {
@@ -22128,11 +22128,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T05:26:43.680394",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T05:31:00.039255",
       "hash_id": "a626f2aa06253646"
+    },
+    "https://www.seoul.co.kr/news/society/health-welfare/2026/09/09/20260909500226?wlog_tag3=naver": {
+      "title": "포스코 포항제철소 봉사단, 추석 앞두고 취약계층 주거 환경 개선",
+      "link": "https://www.seoul.co.kr/news/society/health-welfare/2026/09/09/20260909500226?wlog_tag3=naver",
+      "date": "2026-09-09 14:29",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:31:07.082162",
+      "hash_id": "214f5805bad0fc1b"
+    },
+    "https://www.nocutnews.co.kr/news/6575527?utm_source=naver&utm_medium=article&utm_campaign=20260909022955": {
+      "title": "현대차그룹, 아프리카개발은행과 청정에너지 전환 협력",
+      "link": "https://www.nocutnews.co.kr/news/6575527?utm_source=naver&utm_medium=article&utm_campaign=20260909022955",
+      "date": "2026-09-09 14:30",
+      "press": "노컷뉴스",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:31:08.015248",
+      "hash_id": "29b4547276b7133c"
     }
   },
-  "last_updated": "2026-09-09 05:27:02",
-  "count": 2012
+  "last_updated": "2026-09-09 05:31:08",
+  "count": 2014
 }

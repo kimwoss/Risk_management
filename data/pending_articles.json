@@ -21325,8 +21325,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T01:49:29.027146",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T01:53:10.231191",
       "hash_id": "5a55e0af8d1bd8cd"
     },
     "https://www.nocutnews.co.kr/news/6575317?utm_source=naver&utm_medium=article&utm_campaign=20260909104454": {
@@ -21336,8 +21336,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T01:49:28.057352",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T01:53:09.262439",
       "hash_id": "29e541e362398569"
     },
     "https://www.newsis.com/view/NISX20260909_0003781943": {
@@ -21347,8 +21347,8 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T01:49:13.770399",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T01:53:03.059799",
       "hash_id": "f1dabc7ed27e9a28"
     },
     "https://www.newsis.com/view/NISX20260909_0003782274": {
@@ -21358,11 +21358,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T01:49:07.464933",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T01:52:59.416582",
       "hash_id": "bbe0569d6fccf184"
+    },
+    "https://www.gpkorea.com/news/articleView.html?idxno=146526": {
+      "title": "현대차그룹, AfDB와 아프리카 청정에너지·교통 인프라 협력",
+      "link": "https://www.gpkorea.com/news/articleView.html?idxno=146526",
+      "date": "2026-09-09 10:50",
+      "press": "글로벌오토뉴스",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T01:52:58.947740",
+      "hash_id": "37b5e2d0d77ed9e4"
     }
   },
-  "last_updated": "2026-09-09 01:49:35",
-  "count": 1942
+  "last_updated": "2026-09-09 01:53:29",
+  "count": 1943
 }

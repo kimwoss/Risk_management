@@ -23602,11 +23602,66 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:33:47.632820",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:37:30.236611",
       "hash_id": "9e42bacf6fe2d67e"
+    },
+    "https://www.kbmaeil.com/article/20260909500655": {
+      "title": "“포스코 부분파업 장기화 막아라”…포항시·시의회·포항상의 긴급 대...",
+      "link": "https://www.kbmaeil.com/article/20260909500655",
+      "date": "2026-09-09 16:36",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:37:15.892624",
+      "hash_id": "74b42e697050087b"
+    },
+    "https://www.ngetnews.com/news/articleView.html?idxno=553204": {
+      "title": "포스코노조, 창사 이래 첫 파업…48시간 부분파업",
+      "link": "https://www.ngetnews.com/news/articleView.html?idxno=553204",
+      "date": "2026-09-09 16:34",
+      "press": "뉴스저널리즘",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:37:15.892635",
+      "hash_id": "7ddb58d064e8af2c"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003783036": {
+      "title": "포스코 포항제철소, 추석 이웃가정 주거환경 개선 봉사",
+      "link": "https://www.newsis.com/view/NISX20260909_0003783036",
+      "date": "2026-09-09 16:25",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T07:37:16.372919",
+      "hash_id": "f1cdf6c9e16c6db5"
+    },
+    "https://www.munhwa.com/article/11615816?ref=naver": {
+      "title": "[속보]최태원, 노소영 분할액 9440억 가운데 7000억은 수용",
+      "link": "https://www.munhwa.com/article/11615816?ref=naver",
+      "date": "2026-09-09 16:33",
+      "press": "문화일보",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:37:15.892681",
+      "hash_id": "ca0afc87e9042075"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67803": {
+      "title": "[속보] '홍어 무침 원산지 허위표시' 수사 중.. 홈쇼핑 판매도",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67803",
+      "date": "2026-09-09 16:33",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:37:15.892686",
+      "hash_id": "eaad43fdb6083524"
     }
   },
-  "last_updated": "2026-09-09 07:33:48",
-  "count": 2146
+  "last_updated": "2026-09-09 07:37:43",
+  "count": 2151
 }

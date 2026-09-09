@@ -20148,8 +20148,8 @@
       "press": "MBN",
       "keyword": "포스코홀딩스",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T00:05:40.278151",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T00:09:16.107196",
       "hash_id": "4d0f6405f5651dd3"
     },
     "https://www.seoul.co.kr/news/international/2026/09/09/20260909500012?wlog_tag3=naver": {
@@ -20591,8 +20591,118 @@
       "retry_count": 5,
       "last_attempt": "2026-09-09T00:05:41.209520",
       "hash_id": "9384dd358799a43d"
+    },
+    "https://www.tokenpost.kr/news/general/404673": {
+      "title": "포스코 노조 48시간 부분파업 돌입…핵심 공정 유지",
+      "link": "https://www.tokenpost.kr/news/general/404673",
+      "date": "2026-09-09 09:06",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317665",
+      "hash_id": "11bdee9f5d141323"
+    },
+    "https://www.asiatime.co.kr/article/20260909500046": {
+      "title": "포스코 노조 48시간 부분파업…창사 58년만 처음",
+      "link": "https://www.asiatime.co.kr/article/20260909500046",
+      "date": "2026-09-09 09:06",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317676",
+      "hash_id": "d64acdf714135296"
+    },
+    "https://news.tf.co.kr/read/economy/2363603.htm": {
+      "title": "현대제철·포스코, HPLS서 루이지애나 주민 소통 행사",
+      "link": "https://news.tf.co.kr/read/economy/2363603.htm",
+      "date": "2026-09-09 09:05",
+      "press": "더팩트",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317682",
+      "hash_id": "fb6e1ee15c004cfb"
+    },
+    "http://www.hansbiz.co.kr/news/articleView.html?idxno=863435": {
+      "title": "[속보] 코스피, 0.26% 오른 6972.87 출발",
+      "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=863435",
+      "date": "2026-09-09 09:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317697",
+      "hash_id": "84d084de8f8931bc"
+    },
+    "http://www.hansbiz.co.kr/news/articleView.html?idxno=863436": {
+      "title": "[속보] 코스닥, 0.39% 오른 815.06 출발",
+      "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=863436",
+      "date": "2026-09-09 09:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317702",
+      "hash_id": "e559490aa4007d4e"
+    },
+    "http://www.yonhapnewstv.co.kr/news/MYH20260909090436Thl": {
+      "title": "[속보] 코스피 강보합 출발…6,970선 움직임",
+      "link": "http://www.yonhapnewstv.co.kr/news/MYH20260909090436Thl",
+      "date": "2026-09-09 09:05",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317709",
+      "hash_id": "c193a62088fe982d"
+    },
+    "https://www.fnnews.com/news/202609090901266234": {
+      "title": "[속보]코스피, 전일 대비 0.26% 오른 6972.87 출발",
+      "link": "https://www.fnnews.com/news/202609090901266234",
+      "date": "2026-09-09 09:04",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:09:15.317724",
+      "hash_id": "6138d823fd0aa116"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781915": {
+      "title": "[속보]코스닥, 3.18포인트(0.39%) 오른 815.06 개장",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781915",
+      "date": "2026-09-09 09:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T00:09:28.651034",
+      "hash_id": "4c798715295a8498"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781911": {
+      "title": "[속보]코스피, 18.35포인트(0.26%) 오른 6972.87 개장",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781911",
+      "date": "2026-09-09 09:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T00:09:35.090414",
+      "hash_id": "eddaf385f4b47b17"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003781921": {
+      "title": "[속보]이란 혁명수비대 \"요르단 미군기지에 미사일 공격\"",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781921",
+      "date": "2026-09-09 08:57",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T00:09:17.102403",
+      "hash_id": "43615c356e7d369e"
     }
   },
-  "last_updated": "2026-09-09 00:05:55",
-  "count": 1872
+  "last_updated": "2026-09-09 00:09:46",
+  "count": 1882
 }

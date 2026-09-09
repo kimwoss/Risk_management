@@ -24185,8 +24185,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T08:51:56.627168",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T08:55:26.301453",
       "hash_id": "bad5408bbd1a1bdc"
     },
     "https://www.datasom.co.kr/news/articleView.html?idxno=209867": {
@@ -24251,8 +24251,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T08:51:55.693005",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T08:55:25.368209",
       "hash_id": "bba2e7745a62e6a4"
     },
     "https://www.mt.co.kr/industry/2026/09/09/2026090917382981560": {
@@ -24265,8 +24265,349 @@
       "retry_count": 0,
       "last_attempt": "2026-09-09T08:44:05.181874",
       "hash_id": "79109d0d54689277"
+    },
+    "https://www.mhns.co.kr/news/articleView.html?idxno=759649": {
+      "title": "포항시의회, 포스코 노조 창사 이래 첫 파업 돌입에 깊은 우려 표명",
+      "link": "https://www.mhns.co.kr/news/articleView.html?idxno=759649",
+      "date": "2026-09-09 17:52",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828499",
+      "hash_id": "f20bbb44c26af517"
+    },
+    "https://www.mt.co.kr/industry/2026/09/09/2026090917133832688": {
+      "title": "\"그래도 미래는 수소\"…현대차·SK·포스코·한화 고군분투",
+      "link": "https://www.mt.co.kr/industry/2026/09/09/2026090917133832688",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828507",
+      "hash_id": "c608f8cc3cae0ada"
+    },
+    "https://news.mtn.co.kr/news-detail/2026090916254360560": {
+      "title": "포스코, 철강불황·관세장벽에 파업까지 '겹악재'",
+      "link": "https://news.mtn.co.kr/news-detail/2026090916254360560",
+      "date": "2026-09-09 17:50",
+      "press": "MTN",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828511",
+      "hash_id": "cb3f2fe014b84a11"
+    },
+    "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003616": {
+      "title": "포스코 노조, 철강 위기 속 파업 강행…집행부 '연임' 포석?",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003616",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828515",
+      "hash_id": "8ebc6daaf3ac594b"
+    },
+    "https://www.polinews.co.kr/news/articleView.html?idxno=742652": {
+      "title": "[기자수첩] 포스코 노조, 철강 위기에도 '나 몰라라' 파업… 포항시민들...",
+      "link": "https://www.polinews.co.kr/news/articleView.html?idxno=742652",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828519",
+      "hash_id": "a5cf377327774626"
+    },
+    "https://www.imaeil.com/page/view/2026090916144404658": {
+      "title": "포항시의회, 포스코 파업에 깊은 우려…'파업 장기화 막을 책임 대화' 촉...",
+      "link": "https://www.imaeil.com/page/view/2026090916144404658",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828522",
+      "hash_id": "aa2f319879aacd72"
+    },
+    "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4083692": {
+      "title": "포스코, 특수학급 8곳 새 단장…\"아이들이 존중받는 교실 만들었다\"",
+      "link": "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4083692",
+      "date": "2026-09-09 17:48",
+      "press": "경북일보",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828526",
+      "hash_id": "8853f47b021520a7"
+    },
+    "https://www.newsworks.co.kr/news/articleView.html?idxno=853222": {
+      "title": "포항시, 포스코 노사분규 관련 긴급 경제단체 대책회의 개최",
+      "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=853222",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828531",
+      "hash_id": "6dbde17a8da51b98"
+    },
+    "https://www.segye.com/newsView/20260909516865?OutUrl=naver": {
+      "title": "[단독] 서울 0.67% VS 부산 15.62%… 기업 건전성도 ‘양극화’",
+      "link": "https://www.segye.com/newsView/20260909516865?OutUrl=naver",
+      "date": "2026-09-09 17:54",
+      "press": "세계일보",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828543",
+      "hash_id": "e4afe0aede90e487"
+    },
+    "https://www.segye.com/newsView/20260909516890?OutUrl=naver": {
+      "title": "[단독] LH 임직원 3만명 투기 조사 ‘문제 없음’ 종결",
+      "link": "https://www.segye.com/newsView/20260909516890?OutUrl=naver",
+      "date": "2026-09-09 17:54",
+      "press": "세계일보",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828546",
+      "hash_id": "abdaba6b7f1a5392"
+    },
+    "https://biz.chosun.com/it-science/ict/2026/09/09/OR43PVUQLNC6DBB7ZIWFFHQACE/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 이재용 삼성전자 회장, 母홍라희 보유 718만주 1.9조원에 매수",
+      "link": "https://biz.chosun.com/it-science/ict/2026/09/09/OR43PVUQLNC6DBB7ZIWFFHQACE/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-09 17:54",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828550",
+      "hash_id": "2cead1a0b163138f"
+    },
+    "https://www.gukjenews.com/news/articleView.html?idxno=3690161": {
+      "title": "[속보] 이재용 회장, 母 홍라희 보유 삼성전자 주식 718만 주 장외매수",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3690161",
+      "date": "2026-09-09 17:54",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828553",
+      "hash_id": "5791f5e1626c417d"
+    },
+    "https://www.segye.com/newsView/20260909516967?OutUrl=naver": {
+      "title": "[단독] 노동부, 산재 신고 ‘5만원 포상금’ 신설 추진",
+      "link": "https://www.segye.com/newsView/20260909516967?OutUrl=naver",
+      "date": "2026-09-09 17:53",
+      "press": "세계일보",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828556",
+      "hash_id": "3d48bbb2d8f3a5c3"
+    },
+    "https://www.dailian.co.kr/news/view/1688484/?sc=Naver": {
+      "title": "[속보] 이재용, 母 홍라희 보유 삼전 주식 718만주 1.9조 매수",
+      "link": "https://www.dailian.co.kr/news/view/1688484/?sc=Naver",
+      "date": "2026-09-09 17:53",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828559",
+      "hash_id": "4b1bfeda0e2ee707"
+    },
+    "https://www.segye.com/newsView/20260909516987?OutUrl=naver": {
+      "title": "[단독] 태백 지하연구시설 부지 ‘암석 이름 바꿔치기’ 의혹",
+      "link": "https://www.segye.com/newsView/20260909516987?OutUrl=naver",
+      "date": "2026-09-09 17:52",
+      "press": "세계일보",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828562",
+      "hash_id": "868745e94681c617"
+    },
+    "https://www.sentv.co.kr/article/view/sentv202609090222": {
+      "title": "[속보] 이재용 회장, 母홍라희 보유 718만주 1.9조원 매수",
+      "link": "https://www.sentv.co.kr/article/view/sentv202609090222",
+      "date": "2026-09-09 17:52",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828565",
+      "hash_id": "5d911c67fb2ff7ef"
+    },
+    "https://www.segye.com/newsView/20260909517133?OutUrl=naver": {
+      "title": "[단독] “韓 파병은 선전포고 준하는 것으로 해석 여지” [호르무즈 파...",
+      "link": "https://www.segye.com/newsView/20260909517133?OutUrl=naver",
+      "date": "2026-09-09 17:51",
+      "press": "세계일보",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828569",
+      "hash_id": "23229f5ec1078dcc"
+    },
+    "https://www.busan.com/view/busan/view.php?code=2026090917505856958": {
+      "title": "[속보] 이재용 삼성 회장, 홍라희 보유 718만 주 1.9조에 매수",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026090917505856958",
+      "date": "2026-09-09 17:51",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828572",
+      "hash_id": "43b4a7dc651d0e9a"
+    },
+    "https://www.sedaily.com/article/20089080?ref=naver": {
+      "title": "[단독]“코인거래 허용땐 법인 2030년 최대 82조 운용할 것”",
+      "link": "https://www.sedaily.com/article/20089080?ref=naver",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828575",
+      "hash_id": "28dec58851595ec9"
+    },
+    "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005919302": {
+      "title": "[속보] 이재용 삼성전자 회장, 홍라희 여사 삼전 주식 718만주 1.9조 원에...",
+      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005919302",
+      "date": "2026-09-09 17:50",
+      "press": "MBN",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828579",
+      "hash_id": "c72e07361c7961ab"
+    },
+    "https://www.fnnews.com/news/202609091747259983": {
+      "title": "[속보]삼성 이재용 회장, 母홍라희 보유 삼성전자 주식 718만주 1.9조에 ...",
+      "link": "https://www.fnnews.com/news/202609091747259983",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828582",
+      "hash_id": "6f2c77c6dfddb5f7"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333737?division=NAVER": {
+      "title": "[속보] 이재용 회장, 母홍라희 보유 718만주 1.9조원에 매수",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333737?division=NAVER",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828585",
+      "hash_id": "95400d82a801dba4"
+    },
+    "https://view.asiae.co.kr/article/2026090917502584047": {
+      "title": "[속보]이재용, 母홍라희 보유 삼성전자 주식 718만주 1.9조에 매수",
+      "link": "https://view.asiae.co.kr/article/2026090917502584047",
+      "date": "2026-09-09 17:50",
+      "press": "아시아경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828589",
+      "hash_id": "3cac9a7eef027280"
+    },
+    "https://www.imaeil.com/page/view/2026090917175947886": {
+      "title": "[속보] \"두개골이 보일 정도\" 베트남 아내 머리 목검으로 때린 50대 항소...",
+      "link": "https://www.imaeil.com/page/view/2026090917175947886",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828592",
+      "hash_id": "1c33c32d0423d71e"
+    },
+    "https://www.mk.co.kr/article/12148598": {
+      "title": "[속보] 이재용 회장, 모친 홍라희 보유 삼성전자 주식 718만주 1.9조원에...",
+      "link": "https://www.mk.co.kr/article/12148598",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828595",
+      "hash_id": "7e36b57426b0e90a"
+    },
+    "https://www.viva100.com/article/20260909501511": {
+      "title": "AfDB 만난 장재훈 현대차그룹 부회장 ‘정책금융·민간자본 연계해 아프...",
+      "link": "https://www.viva100.com/article/20260909501511",
+      "date": "2026-09-09 17:50",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828598",
+      "hash_id": "55d7188d1c2791d5"
+    },
+    "https://www.veritas-a.com/news/articleView.html?idxno=627065": {
+      "title": "[단독] [2027수시경쟁률] 이화여대(마감전날) 5.65대1.. 학종 사회기여자...",
+      "link": "https://www.veritas-a.com/news/articleView.html?idxno=627065",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828602",
+      "hash_id": "d9981fa94f29e818"
+    },
+    "https://news.mtn.co.kr/news-detail/2026090917471359889": {
+      "title": "[속보] 이재용 회장, 母 홍라희 보유 삼성전자 주식 718만주 1.9조에 매수",
+      "link": "https://news.mtn.co.kr/news-detail/2026090917471359889",
+      "date": "2026-09-09 17:48",
+      "press": "MTN",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828604",
+      "hash_id": "548291d9c2f9c166"
+    },
+    "https://www.donga.com/news/Economy/article/all/20260909/134637489/1": {
+      "title": "[속보]이재용 삼성전자 회장, 母홍라희 보유 718만주 1.9조원에 매수",
+      "link": "https://www.donga.com/news/Economy/article/all/20260909/134637489/1",
+      "date": "2026-09-09 17:48",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828607",
+      "hash_id": "29c19f48ecfe33ee"
+    },
+    "https://www.econovill.com/news/articleView.html?idxno=750338": {
+      "title": "현대차그룹, 아프리카에 전기차·에너지 밸류체인 구축 나선다",
+      "link": "https://www.econovill.com/news/articleView.html?idxno=750338",
+      "date": "2026-09-09 17:48",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:55:24.828610",
+      "hash_id": "94e9cc8f775b2715"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333725?division=NAVER": {
+      "title": "[속보] 정부 \"네팔 해외긴급구조대 2진 파견, 1진 귀국 준비\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333725?division=NAVER",
+      "date": "2026-09-09 17:45",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T08:55:37.936778",
+      "hash_id": "fead903ca52f2006"
     }
   },
-  "last_updated": "2026-09-09 08:52:05",
-  "count": 2206
+  "last_updated": "2026-09-09 08:55:57",
+  "count": 2237
 }

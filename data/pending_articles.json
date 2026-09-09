@@ -25461,8 +25461,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:10.673741",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:46.316026",
       "hash_id": "2475c5afc50af41a"
     },
     "https://www.nocutnews.co.kr/news/6575850?utm_source=naver&utm_medium=article&utm_campaign=20260910050105": {
@@ -25472,8 +25472,8 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:11.571676",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:47.220457",
       "hash_id": "29eebf1bb6b08f39"
     },
     "https://www.seoul.co.kr/news/society/2026/09/10/20260910010006?wlog_tag3=naver": {
@@ -25483,8 +25483,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:12.464820",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:48.121479",
       "hash_id": "d0285f7dce46ae13"
     },
     "https://www.hani.co.kr/arti/economy/economy_general/1277093.html": {
@@ -25494,8 +25494,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:13.364980",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:49.025414",
       "hash_id": "87eeba7d5713629b"
     },
     "https://www.hani.co.kr/arti/society/society_general/1277094.html": {
@@ -25505,8 +25505,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:14.262232",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:49.925172",
       "hash_id": "69b3747342f0749b"
     },
     "https://www.seoul.co.kr/news/society/law/2026/09/10/20260910008001?wlog_tag3=naver": {
@@ -25516,8 +25516,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:15.161835",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:50.826908",
       "hash_id": "135bd4b74cfde682"
     },
     "https://www.seoul.co.kr/news/politics/president/2026/09/10/20260910001006?wlog_tag3=naver": {
@@ -25527,8 +25527,8 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:18.659558",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:51.729541",
       "hash_id": "ee5b1c8b2c39a0cb"
     },
     "https://www.chosun.com/national/education/2026/09/10/MLGS3OB7LBAK7D6V6LWN6RG5GQ/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
@@ -25538,11 +25538,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T20:06:09.772756",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T20:09:45.422740",
       "hash_id": "4006578e02a08749"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/10/20260910010007?wlog_tag3=naver": {
+      "title": "58년 무파업 전통 깬 포스코… 48시간 부분파업",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/10/20260910010007?wlog_tag3=naver",
+      "date": "2026-09-10 05:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T20:09:52.628785",
+      "hash_id": "b36202f0426d2af1"
+    },
+    "https://www.nocutnews.co.kr/news/6575805?utm_source=naver&utm_medium=article&utm_campaign=20260910050104": {
+      "title": "포스코, 노조 요구 모두 떠안으면…올해 영업익 넘어설 판",
+      "link": "https://www.nocutnews.co.kr/news/6575805?utm_source=naver&utm_medium=article&utm_campaign=20260910050104",
+      "date": "2026-09-10 05:02",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T20:09:56.123165",
+      "hash_id": "7df61cce251b9b75"
     }
   },
-  "last_updated": "2026-09-09 20:06:19",
-  "count": 2322
+  "last_updated": "2026-09-09 20:09:56",
+  "count": 2324
 }

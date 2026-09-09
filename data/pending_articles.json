@@ -23778,8 +23778,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T08:08:07.834320",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T08:11:35.771396",
       "hash_id": "3ed6a63b3e37ac60"
     },
     "https://www.newsis.com/view/NISX20260909_0003783097": {
@@ -23789,8 +23789,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T08:08:08.795192",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T08:11:36.746314",
       "hash_id": "a116478530516984"
     },
     "https://news.tf.co.kr/read/economy/2363983.htm": {
@@ -23836,8 +23836,52 @@
       "retry_count": 4,
       "last_attempt": "2026-09-09T08:08:06.905422",
       "hash_id": "52f7df2c21782263"
+    },
+    "https://www.cbci.co.kr/news/articleView.html?idxno=605300": {
+      "title": "[속보] 보로노이, VRN110755 캐나다 임상 1·2상 신청 자진 취하",
+      "link": "https://www.cbci.co.kr/news/articleView.html?idxno=605300",
+      "date": "2026-09-09 17:10",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:11:35.296971",
+      "hash_id": "2276587e471a0d52"
+    },
+    "https://www.ekoreanews.co.kr/news/articleView.html?idxno=88028": {
+      "title": "고려아연, 임시주총서 최윤범 회장 경영권 '수성'...기업가치 제고 속도",
+      "link": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=88028",
+      "date": "2026-09-09 17:10",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:11:35.296994",
+      "hash_id": "024febdb827b001e"
+    },
+    "http://www.jndn.com/article.php?aid=1788941153439304004": {
+      "title": "광주디자인연합회 '대한민국 디자인문화대전' 작품 공모",
+      "link": "http://www.jndn.com/article.php?aid=1788941153439304004",
+      "date": "2026-09-09 17:08",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:11:35.296997",
+      "hash_id": "31332218c8959b95"
+    },
+    "https://www.newsworker.co.kr/news/articleView.html?idxno=503466": {
+      "title": "[뉴스워커_현대차그룹] 아프리카개발은행과 맞손…전기차·그린수소 사...",
+      "link": "https://www.newsworker.co.kr/news/articleView.html?idxno=503466",
+      "date": "2026-09-09 17:08",
+      "press": "뉴스워커",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T08:11:35.297001",
+      "hash_id": "3551993bede6fb3a"
     }
   },
-  "last_updated": "2026-09-09 08:08:14",
-  "count": 2167
+  "last_updated": "2026-09-09 08:12:05",
+  "count": 2171
 }

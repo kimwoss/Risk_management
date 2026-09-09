@@ -25373,11 +25373,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T17:30:26.847898",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T17:34:04.492066",
       "hash_id": "5c7c0a17f4dde3a1"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003783406": {
+      "title": "[속보]존 터너스 CEO \"아이폰 AI에 가장 적합한 기기\"",
+      "link": "https://www.newsis.com/view/NISX20260910_0003783406",
+      "date": "2026-09-10 02:27",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T17:34:05.385613",
+      "hash_id": "becabf81c0e1d37a"
     }
   },
-  "last_updated": "2026-09-09 17:30:42",
-  "count": 2307
+  "last_updated": "2026-09-09 17:34:06",
+  "count": 2308
 }

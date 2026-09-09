@@ -25615,8 +25615,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T21:07:49.459623",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T21:11:30.021457",
       "hash_id": "7f844a660440366c"
     },
     "https://www.newsis.com/view/NISX20260909_0003782895": {
@@ -25626,11 +25626,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T21:07:48.554742",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T21:11:29.121214",
       "hash_id": "3f7fbebcb7552e78"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782011": {
+      "title": "[오늘의 주요일정]경제(9월10일목요일)",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782011",
+      "date": "2026-09-10 06:00",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T21:11:27.330570",
+      "hash_id": "7ffb762afddf6a93"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782354": {
+      "title": "[오늘의 주요일정]산업통상부(9월10일목요일)",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782354",
+      "date": "2026-09-10 06:00",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T21:11:28.224791",
+      "hash_id": "bee7de0637a675f9"
     }
   },
-  "last_updated": "2026-09-09 21:08:03",
-  "count": 2330
+  "last_updated": "2026-09-09 21:11:46",
+  "count": 2332
 }

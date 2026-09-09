@@ -21655,11 +21655,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T03:07:48.929816",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T03:11:16.738218",
       "hash_id": "4f6ea4216a532596"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333626?division=NAVER": {
+      "title": "58년 무파업 깨졌다…포스코 포항, 광양 공장 멈췄다",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333626?division=NAVER",
+      "date": "2026-09-09 12:01",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T03:11:17.630769",
+      "hash_id": "c2c25c81b1315fe9"
     }
   },
-  "last_updated": "2026-09-09 03:07:54",
-  "count": 1969
+  "last_updated": "2026-09-09 03:11:28",
+  "count": 1970
 }

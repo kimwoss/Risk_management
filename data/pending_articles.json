@@ -23536,8 +23536,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T07:30:13.526523",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T07:33:45.902679",
       "hash_id": "93ec4c2f4945fc97"
     },
     "https://www.g-enews.com/view.php?ud=202609091611405566112616b072_1": {
@@ -23547,8 +23547,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T07:30:12.659783",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T07:33:45.015265",
       "hash_id": "c1f517655b6124d3"
     },
     "https://www.cbci.co.kr/news/articleView.html?idxno=605292": {
@@ -23569,8 +23569,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T07:30:16.992137",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T07:33:46.766694",
       "hash_id": "28ed8622b5b794f8"
     },
     "https://daily.hankooki.com/news/articleView.html?idxno=1404444": {
@@ -23594,8 +23594,19 @@
       "retry_count": 0,
       "last_attempt": "2026-09-09T07:25:58.458163",
       "hash_id": "3a0b6e2f53170deb"
+    },
+    "http://www.joseilbo.com/news/news_read.php?uid=575373&class=17&grp=": {
+      "title": "50년간 못 지은 알래스카 가스관...왜 한국이 검토하나? [마켓프리즘]",
+      "link": "http://www.joseilbo.com/news/news_read.php?uid=575373&class=17&grp=",
+      "date": "2026-09-09 16:32",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T07:33:47.632820",
+      "hash_id": "9e42bacf6fe2d67e"
     }
   },
-  "last_updated": "2026-09-09 07:30:17",
-  "count": 2145
+  "last_updated": "2026-09-09 07:33:48",
+  "count": 2146
 }

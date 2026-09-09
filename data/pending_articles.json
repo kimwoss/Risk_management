@@ -21875,8 +21875,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T04:42:40.388255",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T04:46:08.936645",
       "hash_id": "e158a671d229e1f6"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67794": {
@@ -21886,11 +21886,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T04:42:39.502887",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T04:46:05.462514",
       "hash_id": "7ac27c10a33fd2c5"
+    },
+    "https://www.newscj.com/news/articleView.html?idxno=3431279": {
+      "title": "[포토] 양원준 포스코홀딩스 부사장, 국회 경제대도약위원회 출범식 참...",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431279",
+      "date": "2026-09-09 13:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T04:46:04.982572",
+      "hash_id": "a739b5afa4672c92"
     }
   },
-  "last_updated": "2026-09-09 04:42:41",
-  "count": 1990
+  "last_updated": "2026-09-09 04:46:32",
+  "count": 1991
 }

@@ -21501,11 +21501,77 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:30:12.760813",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:33:42.655333",
       "hash_id": "247b5516d51f51c1"
+    },
+    "https://sateconomy.co.kr/news/view/1065579549264176": {
+      "title": "삼성은 AI·한화는 6833억 함정…포스코는 창사 첫 파업",
+      "link": "https://sateconomy.co.kr/news/view/1065579549264176",
+      "date": "2026-09-09 11:30",
+      "press": "시사경제",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:33:42.127807",
+      "hash_id": "8eeb809f821e66ca"
+    },
+    "https://view.asiae.co.kr/article/2026090911293774487": {
+      "title": "포스코, 초등학교 특수학급 8곳 새 단장…내년 중학교로 확대",
+      "link": "https://view.asiae.co.kr/article/2026090911293774487",
+      "date": "2026-09-09 11:29",
+      "press": "아시아경제",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:33:42.127818",
+      "hash_id": "804975e0aee9586f"
+    },
+    "https://biz.heraldcorp.com/article/10867547?ref=naver": {
+      "title": "포스코이앤씨, 4개월간 ‘1000세대 하루치’ 전력량 절감",
+      "link": "https://biz.heraldcorp.com/article/10867547?ref=naver",
+      "date": "2026-09-09 11:28",
+      "press": "헤럴드경제",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:33:42.127853",
+      "hash_id": "ea30f4023b81f86f"
+    },
+    "https://www.ikbc.co.kr/article/view/kbc202609090029": {
+      "title": "[속보]김민석 \"'녹취록 공세' 한동훈, 조선 불량 쪽가위\"…韓 \"허위사실...",
+      "link": "https://www.ikbc.co.kr/article/view/kbc202609090029",
+      "date": "2026-09-09 11:32",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:33:42.127886",
+      "hash_id": "d64f3d3aac77a689"
+    },
+    "http://www.e-platform.net/news/articleView.html?idxno=105199": {
+      "title": "수소환원제철, 1고로 당 연간 10.5TWh 전력 수요…원전 PPA 허용돼야",
+      "link": "http://www.e-platform.net/news/articleView.html?idxno=105199",
+      "date": "2026-09-09 11:28",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:33:42.127890",
+      "hash_id": "3d12f36890624fa7"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67785": {
+      "title": "[속보] 김민석 \"현대차 새만금 투자 속도내게 법안 지원\"",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67785",
+      "date": "2026-09-09 11:24",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:33:48.927885",
+      "hash_id": "5d127f1379f2f0a4"
     }
   },
-  "last_updated": "2026-09-09 02:30:21",
-  "count": 1955
+  "last_updated": "2026-09-09 02:34:10",
+  "count": 1961
 }

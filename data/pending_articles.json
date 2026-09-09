@@ -21468,11 +21468,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:15:37.722010",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:19:15.848730",
       "hash_id": "2ec75deddbeedb9f"
+    },
+    "https://www.nocutnews.co.kr/news/6575371?utm_source=naver&utm_medium=article&utm_campaign=20260909111054": {
+      "title": "[단독]김승원 추가 청탁 정황…\"경기OO재단 이사장이 지역 선배\"",
+      "link": "https://www.nocutnews.co.kr/news/6575371?utm_source=naver&utm_medium=article&utm_campaign=20260909111054",
+      "date": "2026-09-09 11:11",
+      "press": "노컷뉴스",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:19:16.818143",
+      "hash_id": "8e5bde7dc6aea165"
     }
   },
-  "last_updated": "2026-09-09 02:15:54",
-  "count": 1952
+  "last_updated": "2026-09-09 02:19:20",
+  "count": 1953
 }

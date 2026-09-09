@@ -21402,8 +21402,8 @@
       "press": "노컷뉴스",
       "keyword": "전력수급기본계획",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T02:08:12.986960",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T02:11:46.749609",
       "hash_id": "89e446c134c66a65"
     },
     "https://www.dailian.co.kr/news/view/1688043/?sc=Naver": {
@@ -21424,8 +21424,8 @@
       "press": "",
       "keyword": "전력수급기본계획",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:08:06.676348",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:11:43.053212",
       "hash_id": "7862a095fad8bd0d"
     },
     "https://news.tf.co.kr/read/economy/2363635.htm": {
@@ -21438,8 +21438,41 @@
       "retry_count": 0,
       "last_attempt": "2026-09-09T02:04:05.123326",
       "hash_id": "ea912ea39d334a74"
+    },
+    "http://www.yonhapnewstv.co.kr/news/AKR20260909110836zXd": {
+      "title": "'창사 이래 첫 부분파업' 포스코 \"정상 가동…임협 타결 위해 최선\"",
+      "link": "http://www.yonhapnewstv.co.kr/news/AKR20260909110836zXd",
+      "date": "2026-09-09 11:09",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:11:39.892700",
+      "hash_id": "898407f696d350d0"
+    },
+    "https://www.greened.kr/news/articleView.html?idxno=349548": {
+      "title": "대미투자 1호 30조원 텍사스 발전소…원전 8기도 검토",
+      "link": "https://www.greened.kr/news/articleView.html?idxno=349548",
+      "date": "2026-09-09 11:08",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:11:39.892763",
+      "hash_id": "78e20722742186d5"
+    },
+    "https://biz.chosun.com/industry/company/2026/09/09/SPBTS6JCTZE4RKABQCOLNAT7V4/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 고려아연, 임시주총서 ‘분리선출 감사위원 확대’ 안건 가결",
+      "link": "https://biz.chosun.com/industry/company/2026/09/09/SPBTS6JCTZE4RKABQCOLNAT7V4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-09 11:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:11:50.317155",
+      "hash_id": "2ec75deddbeedb9f"
     }
   },
-  "last_updated": "2026-09-09 02:08:18",
-  "count": 1949
+  "last_updated": "2026-09-09 02:12:09",
+  "count": 1952
 }

@@ -21688,8 +21688,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T03:22:05.889971",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T03:25:33.229929",
       "hash_id": "9f99cca5d1536850"
     },
     "https://www.newsis.com/view/NISX20260909_0003782126": {
@@ -21699,8 +21699,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T03:22:02.444231",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T03:25:32.363985",
       "hash_id": "166606a018ec2b36"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67791": {
@@ -21710,11 +21710,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T03:22:00.676939",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T03:25:31.471196",
       "hash_id": "a79f5a3234b8b21a"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/09/20260909500144?wlog_tag3=naver": {
+      "title": "[단독]“조폭·마약 사건은 변호인 참여 제한?”…경찰, 피의자 조사 ‘...",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/09/20260909500144?wlog_tag3=naver",
+      "date": "2026-09-09 12:24",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T03:25:34.094112",
+      "hash_id": "3b47eac292b7d2ab"
     }
   },
-  "last_updated": "2026-09-09 03:22:06",
-  "count": 1974
+  "last_updated": "2026-09-09 03:25:34",
+  "count": 1975
 }

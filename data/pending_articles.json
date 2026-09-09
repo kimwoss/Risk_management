@@ -23602,8 +23602,8 @@
       "press": "",
       "keyword": "포스코인터내셔널",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T07:37:30.236611",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T07:41:20.105741",
       "hash_id": "9e42bacf6fe2d67e"
     },
     "https://www.kbmaeil.com/article/20260909500655": {
@@ -23635,8 +23635,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:37:16.372919",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:41:19.219501",
       "hash_id": "f1cdf6c9e16c6db5"
     },
     "https://www.munhwa.com/article/11615816?ref=naver": {
@@ -23657,11 +23657,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T07:37:15.892686",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T07:41:20.980140",
       "hash_id": "eaad43fdb6083524"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003783050": {
+      "title": "[단독]올해 공정위 퇴직 후 재취업자, 100% 대형 로펌행",
+      "link": "https://www.newsis.com/view/NISX20260909_0003783050",
+      "date": "2026-09-09 16:38",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T07:41:21.846863",
+      "hash_id": "980f00886e137f80"
     }
   },
-  "last_updated": "2026-09-09 07:37:43",
-  "count": 2151
+  "last_updated": "2026-09-09 07:41:25",
+  "count": 2152
 }

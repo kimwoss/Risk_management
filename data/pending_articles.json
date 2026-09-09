@@ -25670,8 +25670,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T21:42:41.205876",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T21:46:03.965867",
       "hash_id": "e0716df068b19530"
     },
     "https://www.g-enews.com/view.php?ud=2026090922252868360c8c1c064d_1": {
@@ -25681,11 +25681,22 @@
       "press": "",
       "keyword": "종합상사",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T21:42:35.056949",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T21:46:02.160317",
       "hash_id": "a10855dc6b48221a"
+    },
+    "https://imnews.imbc.com/replay/2026/nwtoday/article/6850803_37012.html": {
+      "title": "[단독] 도공, \"의원 아니라 요원\" 윤 변호사에 5,400만",
+      "link": "https://imnews.imbc.com/replay/2026/nwtoday/article/6850803_37012.html",
+      "date": "2026-09-10 06:39",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T21:46:03.069004",
+      "hash_id": "928a6c3890e95ebf"
     }
   },
-  "last_updated": "2026-09-09 21:42:41",
-  "count": 2335
+  "last_updated": "2026-09-09 21:46:04",
+  "count": 2336
 }

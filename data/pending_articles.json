@@ -21479,11 +21479,22 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T02:19:16.818143",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T02:22:42.378651",
       "hash_id": "8e5bde7dc6aea165"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782377": {
+      "title": "포스코 첫 파업에도 핵심공정은 '정상가동'…\"문제는 '장기화' 여부\"",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782377",
+      "date": "2026-09-09 11:11",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:22:43.374093",
+      "hash_id": "1e4bffb8c25032dd"
     }
   },
-  "last_updated": "2026-09-09 02:19:20",
-  "count": 1953
+  "last_updated": "2026-09-09 02:23:08",
+  "count": 1954
 }

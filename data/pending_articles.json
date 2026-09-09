@@ -21831,8 +21831,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T04:38:46.015958",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T04:42:38.634517",
       "hash_id": "7571b99f0b790a5a"
     },
     "https://www.todayenergy.kr/news/articleView.html?idxno=302752": {
@@ -21864,11 +21864,33 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T04:38:45.128997",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T04:42:37.770052",
       "hash_id": "6787da7725e3c9c6"
+    },
+    "https://www.seoul.co.kr/news/society/law/2026/09/09/20260909500178?wlog_tag3=naver": {
+      "title": "[속보] “엄마·동생 성폭행당해” 집 알아내 남성 살해한 20대… “공소...",
+      "link": "https://www.seoul.co.kr/news/society/law/2026/09/09/20260909500178?wlog_tag3=naver",
+      "date": "2026-09-09 13:33",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T04:42:40.388255",
+      "hash_id": "e158a671d229e1f6"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67794": {
+      "title": "[속보] 실탄 무단 반출 경찰 간부 집·차량 압수수색",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67794",
+      "date": "2026-09-09 13:32",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T04:42:39.502887",
+      "hash_id": "7ac27c10a33fd2c5"
     }
   },
-  "last_updated": "2026-09-09 04:39:14",
-  "count": 1988
+  "last_updated": "2026-09-09 04:42:41",
+  "count": 1990
 }

@@ -22139,8 +22139,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T05:34:37.706752",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T05:38:21.149203",
       "hash_id": "214f5805bad0fc1b"
     },
     "https://www.nocutnews.co.kr/news/6575527?utm_source=naver&utm_medium=article&utm_campaign=20260909022955": {
@@ -22150,11 +22150,110 @@
       "press": "노컷뉴스",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T05:34:38.565742",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T05:38:22.012252",
       "hash_id": "29b4547276b7133c"
+    },
+    "https://www.donga.com/news/article/all/20260909/134634823/2": {
+      "title": "[속보]법원 “권혁빈, 이혼 아내에 2조5500억 지급해야”",
+      "link": "https://www.donga.com/news/article/all/20260909/134634823/2",
+      "date": "2026-09-09 14:37",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388608",
+      "hash_id": "08c751dacca547e8"
+    },
+    "https://www.kyeonggi.com/article/20260909580264": {
+      "title": "[속보] 스마일게이트 권혁빈, 이혼 재산분할 2조원 넘어…역대 최대 경...",
+      "link": "https://www.kyeonggi.com/article/20260909580264",
+      "date": "2026-09-09 14:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388619",
+      "hash_id": "18cea6464d876c2f"
+    },
+    "https://www.cbci.co.kr/news/articleView.html?idxno=605261": {
+      "title": "[속보] 덕성, 종속회사에 106억5400만원 출자…유상증자 참여",
+      "link": "https://www.cbci.co.kr/news/articleView.html?idxno=605261",
+      "date": "2026-09-09 14:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388627",
+      "hash_id": "bc2d5eea4a6c06f4"
+    },
+    "https://www.imaeil.com/page/view/2026090914331873213": {
+      "title": "[속보] 스마게 권혁빈, 이혼 재산분할 2조원↑…역대 최대",
+      "link": "https://www.imaeil.com/page/view/2026090914331873213",
+      "date": "2026-09-09 14:36",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388632",
+      "hash_id": "ab7ed473269217f2"
+    },
+    "https://zdnet.co.kr/view/?no=20260909143333": {
+      "title": "[속보] 권혁빈 스마일게이트 창업자 이혼 인용…법원 \"주식 35% 재산 분...",
+      "link": "https://zdnet.co.kr/view/?no=20260909143333",
+      "date": "2026-09-09 14:34",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388637",
+      "hash_id": "8750990a1342f386"
+    },
+    "https://www.seoul.co.kr/news/society/2026/09/09/20260909500234?wlog_tag3=naver": {
+      "title": "[속보] 법원, 권혁빈 이혼 인용…“배우자에 주식 35%·650억 지급”",
+      "link": "https://www.seoul.co.kr/news/society/2026/09/09/20260909500234?wlog_tag3=naver",
+      "date": "2026-09-09 14:34",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388641",
+      "hash_id": "0a1570c37a359ec5"
+    },
+    "https://www.tjb.co.kr/news05/bodo/view/id/103396": {
+      "title": "[속보] 권혁빈, 배우자에 이혼 재산분할 2조원 넘어…역대 최대 경신",
+      "link": "https://www.tjb.co.kr/news05/bodo/view/id/103396",
+      "date": "2026-09-09 14:34",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388646",
+      "hash_id": "1a258f12f23d584a"
+    },
+    "http://weekly.chosun.com/news/articleView.html?idxno=55099": {
+      "title": "[속보] 법원, 권혁빈 이혼 인용…2조5500억원 재산분할 판결",
+      "link": "http://weekly.chosun.com/news/articleView.html?idxno=55099",
+      "date": "2026-09-09 14:34",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:38:09.388653",
+      "hash_id": "ac23fbeec28106a0"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008745093&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 권혁빈, 배우자에 이혼 재산 분할 2조 원 넘어…역대 최대 경신",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008745093&plink=ORI&cooper=NAVER",
+      "date": "2026-09-09 14:28",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:38:12.561415",
+      "hash_id": "a51e07ba6a6e5129"
     }
   },
-  "last_updated": "2026-09-09 05:34:44",
-  "count": 2014
+  "last_updated": "2026-09-09 05:38:38",
+  "count": 2023
 }

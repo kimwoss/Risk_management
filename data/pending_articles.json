@@ -21281,8 +21281,8 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T01:34:29.126953",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T01:38:07.209318",
       "hash_id": "e188cd5deb9576cb"
     },
     "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=190&CONTENTS_NO=2&bbsGbn=254&bbsSn=254&pNttSn=243758": {
@@ -21292,11 +21292,22 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T01:34:28.163691",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T01:38:06.241458",
       "hash_id": "4dedd07a5c35167c"
+    },
+    "https://www.chosun.com/politics/assembly/2026/09/09/FKANVNIPYJFJ7MLU3C35QHDR7U/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "[속보] 김민석, 녹취록 공세에 “한동훈은 조선 불량 쪽가위…유출자 의...",
+      "link": "https://www.chosun.com/politics/assembly/2026/09/09/FKANVNIPYJFJ7MLU3C35QHDR7U/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-09-09 10:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T01:38:29.468261",
+      "hash_id": "35d88fa301d3d514"
     }
   },
-  "last_updated": "2026-09-09 01:34:43",
-  "count": 1936
+  "last_updated": "2026-09-09 01:38:30",
+  "count": 1937
 }

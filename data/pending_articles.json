@@ -21666,8 +21666,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T03:14:50.819998",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T03:18:21.274353",
       "hash_id": "c2c25c81b1315fe9"
     },
     "https://www.chosun.com/national/education/2026/09/09/QDBUIDWSMBBTBHWHTBOG2WLAZA/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
@@ -21677,11 +21677,44 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T03:14:56.893698",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T03:18:25.616222",
       "hash_id": "4f3049255527b523"
+    },
+    "https://biz.chosun.com/industry/company/2026/09/09/B5GGMOMGIJAH7BIY7SBQTJZJMU/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 고려아연, 임시주총서 독립이사 4명 중 2명 확보",
+      "link": "https://biz.chosun.com/industry/company/2026/09/09/B5GGMOMGIJAH7BIY7SBQTJZJMU/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-09 12:17",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T03:18:32.554565",
+      "hash_id": "9f99cca5d1536850"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782126": {
+      "title": "[속보] 고려아연, 임시주총서 독립이사 4명 선임…최윤범號 2명 vs MBK·영...",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782126",
+      "date": "2026-09-09 12:14",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T03:18:31.689408",
+      "hash_id": "166606a018ec2b36"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67791": {
+      "title": "[속보] 김민석 \"한동훈 주장, 검찰 협력자 없으면 불가능.. 진상 확인하...",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67791",
+      "date": "2026-09-09 12:09",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T03:18:22.172215",
+      "hash_id": "a79f5a3234b8b21a"
     }
   },
-  "last_updated": "2026-09-09 03:14:57",
-  "count": 1971
+  "last_updated": "2026-09-09 03:18:35",
+  "count": 1974
 }

@@ -25736,8 +25736,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T23:02:59.671140",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T23:06:44.177037",
       "hash_id": "f01b9b098cbab9e7"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/10/2026091090019.html": {
@@ -25747,11 +25747,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T23:02:58.769658",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T23:06:43.279440",
       "hash_id": "b931b1ec9e967e7b"
+    },
+    "https://www.seoul.co.kr/news/economy/2026/09/09/20260909500317?wlog_tag3=naver": {
+      "title": "케이디파인켐 ‘AI EXPRESS’, 국가품질혁신경진대회 사무간접 분야 은상",
+      "link": "https://www.seoul.co.kr/news/economy/2026/09/09/20260909500317?wlog_tag3=naver",
+      "date": "2026-09-10 08:02",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T23:06:59.011464",
+      "hash_id": "c5ab2f6f46128c16"
+    },
+    "https://www.g-enews.com/view.php?ud=2026091007575630110c8c1c064d_1": {
+      "title": "\"中 희토류 족쇄 끊는다\"… 日 혼다, 美 '희토류 프리' 자석 기업 '니론...",
+      "link": "https://www.g-enews.com/view.php?ud=2026091007575630110c8c1c064d_1",
+      "date": "2026-09-10 08:00",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T23:06:52.904295",
+      "hash_id": "0edbcf4e2b05df42"
     }
   },
-  "last_updated": "2026-09-09 23:03:14",
-  "count": 2341
+  "last_updated": "2026-09-09 23:06:59",
+  "count": 2343
 }

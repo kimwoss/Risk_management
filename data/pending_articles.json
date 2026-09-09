@@ -25153,8 +25153,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T12:24:41.625943",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T12:28:16.182082",
       "hash_id": "ceda96dd9533c15e"
     },
     "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990232.html": {
@@ -25164,11 +25164,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T12:24:40.661292",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T12:28:15.252681",
       "hash_id": "0b85ff4af9febe6b"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990244.html": {
+      "title": "[단독] 7월12일 태릉골프장 주변 CCTV보니…신호통제에 경호 차 행렬",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990244.html",
+      "date": "2026-09-09 21:23",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T12:28:26.223368",
+      "hash_id": "ba88e404d3549177"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990238.html": {
+      "title": "[단독] '식약처 청탁'으로 유명 연예기획사 대표도 3.7억 차익…'쌍방울...",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/09/2026090990238.html",
+      "date": "2026-09-09 21:15",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T12:28:17.130054",
+      "hash_id": "01d65d8890e3ebf4"
     }
   },
-  "last_updated": "2026-09-09 12:24:55",
-  "count": 2288
+  "last_updated": "2026-09-09 12:28:34",
+  "count": 2290
 }

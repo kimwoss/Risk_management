@@ -23404,8 +23404,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:14:59.350611",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:18:48.946749",
       "hash_id": "69f6df5e8348313b"
     },
     "https://www.seoul.co.kr/news/economy/industry/2026/09/09/20260909500302?wlog_tag3=naver": {
@@ -23415,8 +23415,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T07:14:32.855345",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T07:18:54.171647",
       "hash_id": "312d8fb9f17ba5c6"
     },
     "https://www.busan.com/view/busan/view.php?code=2026090916081593818": {
@@ -23448,8 +23448,8 @@
       "press": "노컷뉴스",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T07:14:32.855361",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T07:18:49.804961",
       "hash_id": "bc41c8ec49aa3a32"
     },
     "https://m.skyedaily.com/news_view.html?ID=311304": {
@@ -23459,8 +23459,8 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:14:58.463845",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:18:48.081656",
       "hash_id": "50767d20e04e5263"
     },
     "https://www.seoul.co.kr/news/society/law/2026/09/09/20260909500300?wlog_tag3=naver": {
@@ -23470,8 +23470,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:14:44.622745",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:18:47.198721",
       "hash_id": "c0857c2156acb677"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008745353&plink=ORI&cooper=NAVER": {
@@ -23481,11 +23481,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T07:14:38.554784",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T07:18:46.314273",
       "hash_id": "05e657197ca1186c"
+    },
+    "https://www.chosun.com/politics/diplomacy-defense/2026/09/09/ZQVF7FZUGRB4TLMBYTFLOKTSDI/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news": {
+      "title": "[단독]제주서 감귤농사 강신철 父도 ‘철거민 특공’...3代가 서초·분당...",
+      "link": "https://www.chosun.com/politics/diplomacy-defense/2026/09/09/ZQVF7FZUGRB4TLMBYTFLOKTSDI/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "date": "2026-09-09 16:12",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T07:18:53.306542",
+      "hash_id": "0605eb03cd1e08d3"
     }
   },
-  "last_updated": "2026-09-09 07:15:02",
-  "count": 2135
+  "last_updated": "2026-09-09 07:18:57",
+  "count": 2136
 }

@@ -21567,11 +21567,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T02:33:48.927885",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T02:37:46.462499",
       "hash_id": "5d127f1379f2f0a4"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=446756": {
+      "title": "현대차그룹, AfDB와 '아프리카 산업화·청정에너지 전환' 협력의향서 체...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=446756",
+      "date": "2026-09-09 11:34",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:38:01.693285",
+      "hash_id": "3feccafc9518b745"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008744783&plink=ORI&cooper=NAVER": {
+      "title": "위험 크지만 미국이 요구하는 알래스카 LNG…대미투자 포함되나",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008744783&plink=ORI&cooper=NAVER",
+      "date": "2026-09-09 11:33",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:38:00.737676",
+      "hash_id": "50b248cae62b5c8c"
     }
   },
-  "last_updated": "2026-09-09 02:34:10",
-  "count": 1961
+  "last_updated": "2026-09-09 02:38:12",
+  "count": 1963
 }

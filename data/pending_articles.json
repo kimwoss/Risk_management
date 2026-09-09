@@ -21578,8 +21578,8 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:41:43.629233",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:45:08.508340",
       "hash_id": "3feccafc9518b745"
     },
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008744783&plink=ORI&cooper=NAVER": {
@@ -21589,11 +21589,44 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:41:40.032874",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:45:07.513414",
       "hash_id": "50b248cae62b5c8c"
+    },
+    "https://www.pointe.co.kr/news/articleView.html?idxno=84475": {
+      "title": "포스코, 초등 특수학급 8곳 리모델링… '함께 자라는 교실' 결실",
+      "link": "https://www.pointe.co.kr/news/articleView.html?idxno=84475",
+      "date": "2026-09-09 11:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:45:07.039996",
+      "hash_id": "64649d9efb03d32c"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202609091139382438570d99e4c8_23": {
+      "title": "포스코, ‘함께 자라는 교실’로 특수학급 8곳 새 단장",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202609091139382438570d99e4c8_23",
+      "date": "2026-09-09 11:44",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T02:45:07.040002",
+      "hash_id": "93b21e22c2cb6185"
+    },
+    "https://biz.heraldcorp.com/article/10867591?ref=naver": {
+      "title": "대미투자에 무역보험 사상 첫 700조…커지는 국가 보증 리스크 [H-EXCLUSI...",
+      "link": "https://biz.heraldcorp.com/article/10867591?ref=naver",
+      "date": "2026-09-09 11:37",
+      "press": "헤럴드경제",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:45:22.823623",
+      "hash_id": "4318613230970974"
     }
   },
-  "last_updated": "2026-09-09 02:41:44",
-  "count": 1963
+  "last_updated": "2026-09-09 02:45:36",
+  "count": 1966
 }

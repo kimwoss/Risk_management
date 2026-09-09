@@ -25112,8 +25112,30 @@
       "retry_count": 5,
       "last_attempt": "2026-09-09T11:34:01.303391",
       "hash_id": "3ab634ca4b37ad1f"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=204482&mode=view": {
+      "title": "포항시의회, 포스코 파업에 우려 표명",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=204482&mode=view",
+      "date": "2026-09-09 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T11:44:08.155762",
+      "hash_id": "6a49ed1704c6fc3e"
+    },
+    "http://www.phmbc.co.kr/www/news/desk_news?idx=204484&mode=view": {
+      "title": "포스코 창사 이래 첫 파업..48시간 부분 파업 돌입",
+      "link": "http://www.phmbc.co.kr/www/news/desk_news?idx=204484&mode=view",
+      "date": "2026-09-09 20:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T11:44:09.099546",
+      "hash_id": "80f744c0ef768ad5"
     }
   },
-  "last_updated": "2026-09-09 11:40:47",
-  "count": 2283
+  "last_updated": "2026-09-09 11:44:09",
+  "count": 2285
 }

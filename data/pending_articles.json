@@ -24383,8 +24383,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T08:55:24.828550",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T09:07:16.434569",
       "hash_id": "2cead1a0b163138f"
     },
     "https://www.gukjenews.com/news/articleView.html?idxno=3690161": {
@@ -24449,8 +24449,8 @@
       "press": "세계일보",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T09:03:11.552627",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T09:07:15.504517",
       "hash_id": "23229f5ec1078dcc"
     },
     "https://www.busan.com/view/busan/view.php?code=2026090917505856958": {
@@ -24482,8 +24482,8 @@
       "press": "MBN",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T09:02:55.388631",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T09:07:13.623904",
       "hash_id": "c72e07361c7961ab"
     },
     "https://www.fnnews.com/news/202609091747259983": {
@@ -24504,8 +24504,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T09:02:58.969865",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T09:07:14.554816",
       "hash_id": "95400d82a801dba4"
     },
     "https://view.asiae.co.kr/article/2026090917502584047": {
@@ -24603,11 +24603,198 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T09:02:49.137359",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T09:07:12.689886",
       "hash_id": "fead903ca52f2006"
+    },
+    "https://www.edaily.co.kr/News/Read?newsId=04546086645578480&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
+      "title": "포항시의회, 포스코 파업 장기화 우려…지역경제 타격 경고",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=04546086645578480&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-09-09 18:06",
+      "press": "이데일리",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195762",
+      "hash_id": "fc7e67e097b94621"
+    },
+    "https://www.kbmaeil.com/article/20260909500734": {
+      "title": "포스코 첫 파업, 누구를 위한 선택인가...선거 앞둔 강경투쟁에 지역사...",
+      "link": "https://www.kbmaeil.com/article/20260909500734",
+      "date": "2026-09-09 18:04",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195768",
+      "hash_id": "d15dfa77b40d4bd9"
+    },
+    "https://sports.hankooki.com/news/articleView.html?idxno=6939404": {
+      "title": "포스코, '함께 자라는 교실' 리모델링 지원사업 통해 특수학급 8곳 새 단...",
+      "link": "https://sports.hankooki.com/news/articleView.html?idxno=6939404",
+      "date": "2026-09-09 18:04",
+      "press": "한국일보",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195772",
+      "hash_id": "ca3ab7c3f6cd4dcf"
+    },
+    "https://www.hankyung.com/article/2026090946101": {
+      "title": "이익 80% 내놓으라는 노조…포스코, 창사 이후 첫 파업",
+      "link": "https://www.hankyung.com/article/2026090946101",
+      "date": "2026-09-09 18:03",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195774",
+      "hash_id": "4c5dff874c9e02de"
+    },
+    "https://www.mhns.co.kr/news/articleView.html?idxno=759652": {
+      "title": "포항시, 포스코 노사분규 관련 긴급 경제단체 대책회의 개최",
+      "link": "https://www.mhns.co.kr/news/articleView.html?idxno=759652",
+      "date": "2026-09-09 18:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195777",
+      "hash_id": "149f22fb0dd3b1a9"
+    },
+    "https://www.hankyung.com/article/2026090948097": {
+      "title": "[속보] 홍라희, 이재용에 삼성전자 주식 718만주 1.9조 매도",
+      "link": "https://www.hankyung.com/article/2026090948097",
+      "date": "2026-09-09 18:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195782",
+      "hash_id": "16e928d6f858f514"
+    },
+    "http://www.inews24.com/view/2003912": {
+      "title": "[속보] 이재용, 홍라희로부터 삼전 주식 1.9조 매수…주당 29만9500원",
+      "link": "http://www.inews24.com/view/2003912",
+      "date": "2026-09-09 18:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195786",
+      "hash_id": "e6c246759640753b"
+    },
+    "https://www.newdaily.co.kr/site/data/html/2026/09/09/2026090900314.html": {
+      "title": "신구도 춤추고 노래하게 한 연출계 거장 … \"표재순이 가면 새로운 길이...",
+      "link": "https://www.newdaily.co.kr/site/data/html/2026/09/09/2026090900314.html",
+      "date": "2026-09-09 18:06",
+      "press": "",
+      "keyword": "종합상사",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195802",
+      "hash_id": "6d564bbab2f88542"
+    },
+    "https://www.hankyung.com/article/2026090947451": {
+      "title": "[단독] '단행본 1위' 문학동네 최대주주 지분 매물로",
+      "link": "https://www.hankyung.com/article/2026090947451",
+      "date": "2026-09-09 18:04",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195805",
+      "hash_id": "45badb8caffcf52d"
+    },
+    "https://www.interfootball.co.kr/news/articleView.html?idxno=694212": {
+      "title": "[단독] 이동경 유럽행 막차 실패...로코모티브 모스크바행 깜짝 이적 직...",
+      "link": "https://www.interfootball.co.kr/news/articleView.html?idxno=694212",
+      "date": "2026-09-09 18:04",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195808",
+      "hash_id": "5908e837a32d4055"
+    },
+    "https://www.ajunews.com/view/20260909153523849": {
+      "title": "[단독] 현대차그룹 내 노조 정례 회의체 움직임…'성과급·AI·정년' 투쟁...",
+      "link": "https://www.ajunews.com/view/20260909153523849",
+      "date": "2026-09-09 18:02",
+      "press": "아주경제",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195811",
+      "hash_id": "09240e7e54a4d8df"
+    },
+    "https://www.kukinews.com/article/view/kuk202609090209": {
+      "title": "李대통령 부부, 佛 국빈만찬서 최고 훈장…청자 가야금·한강 책으로 화...",
+      "link": "https://www.kukinews.com/article/view/kuk202609090209",
+      "date": "2026-09-09 18:02",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195813",
+      "hash_id": "884908cbfa1e3bd2"
+    },
+    "https://www.hankookilbo.com/news/article/A2026090614430001705?did=NA": {
+      "title": "[단독] 'AI 부정행위 논란' 서울대 컴공… AI 윤리 준칙·검증 위원회 도...",
+      "link": "https://www.hankookilbo.com/news/article/A2026090614430001705?did=NA",
+      "date": "2026-09-09 18:01",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195816",
+      "hash_id": "62135016bec254a9"
+    },
+    "https://www.donga.com/news/Economy/article/all/20260909/134637709/1": {
+      "title": "[속보]이재용 삼성전자 회장, 母홍라희 보유 718만주 1.9조원에 매수",
+      "link": "https://www.donga.com/news/Economy/article/all/20260909/134637709/1",
+      "date": "2026-09-09 18:01",
+      "press": "동아일보",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195818",
+      "hash_id": "cf26f291cdcc7b5c"
+    },
+    "https://news.jtbc.co.kr/article/NB12317608?influxDiv=NAVER": {
+      "title": "[속보]이재용 회장, 모친 홍라희 삼성전자 주식 718만주 1.9조원에 매수",
+      "link": "https://news.jtbc.co.kr/article/NB12317608?influxDiv=NAVER",
+      "date": "2026-09-09 18:01",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195820",
+      "hash_id": "62f8c155ff137d59"
+    },
+    "https://www.m-i.kr/news/articleView.html?idxno=1412104": {
+      "title": "고려아연 임시주총, 주주 표심 경영 연속성에 무게",
+      "link": "https://www.m-i.kr/news/articleView.html?idxno=1412104",
+      "date": "2026-09-09 18:00",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T09:07:12.195839",
+      "hash_id": "59c3d86a2e91e326"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549557": {
+      "title": "[속보]이재용 삼성전자 회장, 홍라희 여사 주식 718만주 1.9조에 매수",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549557",
+      "date": "2026-09-09 17:56",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T09:07:20.025851",
+      "hash_id": "fcbded7282d09e7b"
     }
   },
-  "last_updated": "2026-09-09 09:03:34",
-  "count": 2237
+  "last_updated": "2026-09-09 09:07:45",
+  "count": 2254
 }

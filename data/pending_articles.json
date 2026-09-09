@@ -24988,11 +24988,33 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T10:38:23.088612",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T10:41:48.942504",
       "hash_id": "846a6d652d2d2dfc"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549589": {
+      "title": "[속보]이 대통령 “저의 임기는 헌법상 명확하게 제한돼 있어”",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549589",
+      "date": "2026-09-09 19:34",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T10:41:53.450151",
+      "hash_id": "009a9ad125dbed6b"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549577": {
+      "title": "[단독]카페 냉동창고 살해범 체포 당시 CCTV 보니",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549577",
+      "date": "2026-09-09 19:31",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T10:41:49.884346",
+      "hash_id": "a7b46bd60f7cc0db"
     }
   },
-  "last_updated": "2026-09-09 10:38:23",
-  "count": 2272
+  "last_updated": "2026-09-09 10:42:00",
+  "count": 2274
 }

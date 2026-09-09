@@ -21479,8 +21479,8 @@
       "press": "노컷뉴스",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:22:42.378651",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:26:30.504980",
       "hash_id": "8e5bde7dc6aea165"
     },
     "https://www.newsis.com/view/NISX20260909_0003782377": {
@@ -21490,11 +21490,22 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T02:22:43.374093",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T02:26:31.434360",
       "hash_id": "1e4bffb8c25032dd"
+    },
+    "https://biz.chosun.com/distribution/food/2026/09/09/Q6S25DOEZBHU5E53WFOD4BMW6U/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "코스맥스, 로레알과 차세대 화장품·혁신 원료 공동개발",
+      "link": "https://biz.chosun.com/distribution/food/2026/09/09/Q6S25DOEZBHU5E53WFOD4BMW6U/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-09 11:18",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:26:40.399162",
+      "hash_id": "247b5516d51f51c1"
     }
   },
-  "last_updated": "2026-09-09 02:23:08",
-  "count": 1954
+  "last_updated": "2026-09-09 02:26:49",
+  "count": 1955
 }

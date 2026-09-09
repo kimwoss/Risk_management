@@ -21952,11 +21952,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T05:04:26.747537",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T05:07:59.315392",
       "hash_id": "f168975f411b3966"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782654": {
+      "title": "포항시, 포스코 부분 파업 대책 회의…\"민생 피해 최소화\"",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782654",
+      "date": "2026-09-09 14:03",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:08:13.105435",
+      "hash_id": "ee0ab52f992b3ddb"
     }
   },
-  "last_updated": "2026-09-09 05:04:35",
-  "count": 1996
+  "last_updated": "2026-09-09 05:08:26",
+  "count": 1997
 }

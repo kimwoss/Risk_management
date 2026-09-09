@@ -22216,8 +22216,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-09T05:38:09.388641",
+      "retry_count": 2,
+      "last_attempt": "2026-09-09T05:42:31.116238",
       "hash_id": "0a1570c37a359ec5"
     },
     "https://www.tjb.co.kr/news05/bodo/view/id/103396": {
@@ -22249,11 +22249,55 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-09T05:38:12.561415",
+      "retry_count": 3,
+      "last_attempt": "2026-09-09T05:42:21.649024",
       "hash_id": "a51e07ba6a6e5129"
+    },
+    "https://www.koreareport.co.kr/news/articleView.html?idxno=52776": {
+      "title": "코스맥스-로레알, 한·불 수교 140주년 맞아 차세대 뷰티 혁신 협력",
+      "link": "https://www.koreareport.co.kr/news/articleView.html?idxno=52776",
+      "date": "2026-09-09 14:40",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:42:21.168675",
+      "hash_id": "9ffd9708806de178"
+    },
+    "https://www.theguru.co.kr/news/article.html?no=106861": {
+      "title": "美 관세 우려에 구리 가격 사상 최고치 경신",
+      "link": "https://www.theguru.co.kr/news/article.html?no=106861",
+      "date": "2026-09-09 14:40",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:42:21.168681",
+      "hash_id": "9847e6bdfd859a74"
+    },
+    "https://biz.newdaily.co.kr/site/data/html/2026/09/09/2026090900216.html": {
+      "title": "현대차그룹, 아프리카개발은행과 맞손 … 청정에너지·전기차 생태계 협...",
+      "link": "https://biz.newdaily.co.kr/site/data/html/2026/09/09/2026090900216.html",
+      "date": "2026-09-09 14:40",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T05:42:21.168688",
+      "hash_id": "64793062ca8da19c"
+    },
+    "https://www.newsis.com/view/NISX20260909_0003782573": {
+      "title": "석탄 21기 더 닫을까…2040 '탈석탄' 대체전원 확보가 관건",
+      "link": "https://www.newsis.com/view/NISX20260909_0003782573",
+      "date": "2026-09-09 14:30",
+      "press": "",
+      "keyword": "전력수급기본계획",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T05:42:25.113976",
+      "hash_id": "ff6fb330de2b0965"
     }
   },
-  "last_updated": "2026-09-09 05:38:38",
-  "count": 2023
+  "last_updated": "2026-09-09 05:42:49",
+  "count": 2027
 }

@@ -25549,8 +25549,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T20:13:08.998556",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T20:16:53.799717",
       "hash_id": "b36202f0426d2af1"
     },
     "https://www.nocutnews.co.kr/news/6575805?utm_source=naver&utm_medium=article&utm_campaign=20260910050104": {
@@ -25560,11 +25560,44 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T20:13:09.895656",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T20:16:54.696507",
       "hash_id": "7df61cce251b9b75"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003783414": {
+      "title": "[속보]뉴욕증시, 101달러 돌파 '유가 공포'에 하락 마감…다우 0.77%↓",
+      "link": "https://www.newsis.com/view/NISX20260910_0003783414",
+      "date": "2026-09-10 05:08",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T20:17:05.217667",
+      "hash_id": "601509d9dedd8048"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333759?division=NAVER": {
+      "title": "[속보] 美증시 하락 마감…다우 -0.77%, S&P500 -0.48%, 나스닥 -0.64%",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333759?division=NAVER",
+      "date": "2026-09-10 05:07",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T20:17:01.707554",
+      "hash_id": "cd20142b4336e674"
+    },
+    "https://www.seoul.co.kr/news/economy/industry/2026/09/10/20260910032004?wlog_tag3=naver": {
+      "title": "코스맥스·로레알 K뷰티 업무 협약… 韓佛 기업들 첨단산업 전방위 협력",
+      "link": "https://www.seoul.co.kr/news/economy/industry/2026/09/10/20260910032004?wlog_tag3=naver",
+      "date": "2026-09-10 05:05",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T20:16:58.204850",
+      "hash_id": "6b9cade4beb11933"
     }
   },
-  "last_updated": "2026-09-09 20:13:24",
-  "count": 2324
+  "last_updated": "2026-09-09 20:17:11",
+  "count": 2327
 }

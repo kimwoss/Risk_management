@@ -21611,8 +21611,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T02:53:08.650198",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T02:56:47.671974",
       "hash_id": "93b21e22c2cb6185"
     },
     "https://biz.heraldcorp.com/article/10867591?ref=naver": {
@@ -21625,8 +21625,30 @@
       "retry_count": 4,
       "last_attempt": "2026-09-09T02:53:07.774638",
       "hash_id": "4318613230970974"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333624?division=NAVER": {
+      "title": "3500억 달러 합의했는데…돈 더 내놓으라는 미국",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333624?division=NAVER",
+      "date": "2026-09-09 11:55",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:57:05.010142",
+      "hash_id": "1dde0cccb778fc18"
+    },
+    "https://www.seoul.co.kr/news/society/law/2026/09/09/20260909500140?wlog_tag3=naver": {
+      "title": "[속보] “스트레스 풀렸다” 길고양이에 표백제 먹이고 화장실서 내려친...",
+      "link": "https://www.seoul.co.kr/news/society/law/2026/09/09/20260909500140?wlog_tag3=naver",
+      "date": "2026-09-09 11:53",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T02:57:01.551986",
+      "hash_id": "610eefab1bf53d11"
     }
   },
-  "last_updated": "2026-09-09 02:53:25",
-  "count": 1966
+  "last_updated": "2026-09-09 02:57:05",
+  "count": 1968
 }

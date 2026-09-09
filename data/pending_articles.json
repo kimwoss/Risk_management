@@ -20753,8 +20753,8 @@
       "press": "어패럴뉴스",
       "keyword": "산업통상부 장관",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T00:38:48.707088",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T00:42:32.317600",
       "hash_id": "384886f00950320d"
     },
     "https://www.businesspost.co.kr/BP?command=article_view&num=446724": {
@@ -20764,11 +20764,121 @@
       "press": "",
       "keyword": "전력수급기본계획",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-09T00:38:45.858676",
+      "retry_count": 4,
+      "last_attempt": "2026-09-09T00:42:26.041577",
       "hash_id": "a7328d6ea315ea6e"
+    },
+    "https://www.handmk.com/news/articleView.html?idxno=42993": {
+      "title": "포스코이앤씨, '더샵 에너지 절약 챌린지' 3850세대 참여",
+      "link": "https://www.handmk.com/news/articleView.html?idxno=42993",
+      "date": "2026-09-09 09:40",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585603",
+      "hash_id": "ec0a29dd924a9cfd"
+    },
+    "https://www.yna.co.kr/view/PYH20260909043100053?input=1196m": {
+      "title": "구름 드리워진 포스코",
+      "link": "https://www.yna.co.kr/view/PYH20260909043100053?input=1196m",
+      "date": "2026-09-09 09:40",
+      "press": "연합뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585615",
+      "hash_id": "01cf355f725a31fb"
+    },
+    "https://www.yna.co.kr/view/PYH20260909042700053?input=1196m": {
+      "title": "포스코 포항제철소 출근 차량",
+      "link": "https://www.yna.co.kr/view/PYH20260909042700053?input=1196m",
+      "date": "2026-09-09 09:39",
+      "press": "연합뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585632",
+      "hash_id": "b87fc01fe6997e20"
+    },
+    "https://www.yna.co.kr/view/PYH20260909042400053?input=1196m": {
+      "title": "긴장감 흐르는 포스코노조 사무실",
+      "link": "https://www.yna.co.kr/view/PYH20260909042400053?input=1196m",
+      "date": "2026-09-09 09:39",
+      "press": "연합뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585637",
+      "hash_id": "481f12b7f271df0a"
+    },
+    "https://www.yna.co.kr/view/PYH20260909042800053?input=1196m": {
+      "title": "빨간불 켜진 포스코",
+      "link": "https://www.yna.co.kr/view/PYH20260909042800053?input=1196m",
+      "date": "2026-09-09 09:39",
+      "press": "연합뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585642",
+      "hash_id": "1b140984e792376a"
+    },
+    "https://www.yna.co.kr/view/PYH20260909042300053?input=1196m": {
+      "title": "빨간불 켜진 포스코",
+      "link": "https://www.yna.co.kr/view/PYH20260909042300053?input=1196m",
+      "date": "2026-09-09 09:39",
+      "press": "연합뉴스",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585649",
+      "hash_id": "1b140984e792376a"
+    },
+    "http://www.tvdaily.co.kr/read.php3?aid=17889128751801473002": {
+      "title": "[단독] 한혜진·코드 쿤스트, '연애남매2' MC 출격…뱀뱀만 하차",
+      "link": "http://www.tvdaily.co.kr/read.php3?aid=17889128751801473002",
+      "date": "2026-09-09 09:41",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585677",
+      "hash_id": "446847ec94900786"
+    },
+    "https://www.etnews.com/20260909000050": {
+      "title": "포스텍, 유리 나노기둥에 얇은 옷만 갈아입혀 작동 파장 바꾸는 메타렌...",
+      "link": "https://www.etnews.com/20260909000050",
+      "date": "2026-09-09 09:39",
+      "press": "",
+      "keyword": "포스코홀딩스",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585681",
+      "hash_id": "4f1784f40c67e0b9"
+    },
+    "https://www.ytn.co.kr/_ln/0115_202609090939597152": {
+      "title": "[속보] 해남서 열흘 만에 또 규모 2.3 지진...최근 127차례",
+      "link": "https://www.ytn.co.kr/_ln/0115_202609090939597152",
+      "date": "2026-09-09 09:39",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T00:42:25.585686",
+      "hash_id": "ca3dd77bfa0fd7bd"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333545?division=NAVER": {
+      "title": "[이 시각 시황] 코스피 7천 재돌파…전력·원전·조선株 동반 강세",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333545?division=NAVER",
+      "date": "2026-09-09 09:32",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-09T00:42:35.898188",
+      "hash_id": "f858f3e96a4067fa"
     }
   },
-  "last_updated": "2026-09-09 00:39:03",
-  "count": 1888
+  "last_updated": "2026-09-09 00:42:55",
+  "count": 1898
 }

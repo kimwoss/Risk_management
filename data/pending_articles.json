@@ -23096,8 +23096,8 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-09T06:59:25.586146",
+      "retry_count": 5,
+      "last_attempt": "2026-09-09T07:02:55.211803",
       "hash_id": "41b9f302e32ba8cd"
     },
     "https://www.ekn.kr/web/view.php?key=20260909029572508": {
@@ -23209,8 +23209,162 @@
       "retry_count": 5,
       "last_attempt": "2026-09-09T06:59:22.970834",
       "hash_id": "4329a2f7666700a0"
+    },
+    "https://www.kfenews.co.kr/news/articleView.html?idxno=664195": {
+      "title": "[기획] 포스코노조 창사 첫 파업…생산 차질 현실화하나",
+      "link": "https://www.kfenews.co.kr/news/articleView.html?idxno=664195",
+      "date": "2026-09-09 16:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732467",
+      "hash_id": "a6a5fade5de4432a"
+    },
+    "https://www.newsworker.co.kr/news/articleView.html?idxno=503489": {
+      "title": "박성현 광양시장, '포스코 부분파업'... 지역경제 우선 호소",
+      "link": "https://www.newsworker.co.kr/news/articleView.html?idxno=503489",
+      "date": "2026-09-09 16:00",
+      "press": "뉴스워커",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732503",
+      "hash_id": "a4a8d5a6a9dcdb06"
+    },
+    "http://www.newscape.co.kr/news/articleView.html?idxno=124451": {
+      "title": "포스코, 특수학급 8곳 '함께 자라는 교실' 통해 리모델링",
+      "link": "http://www.newscape.co.kr/news/articleView.html?idxno=124451",
+      "date": "2026-09-09 16:00",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732510",
+      "hash_id": "4e6ee1139168bb68"
+    },
+    "https://www.newscj.com/news/articleView.html?idxno=3431340": {
+      "title": "[속보] 특검, 김건희 '매관매직' 항소심서 징역 7년 구형",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431340",
+      "date": "2026-09-09 16:02",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732553",
+      "hash_id": "f2bf141f07b49d77"
+    },
+    "https://www.ikbc.co.kr/article/view/kbc202609090050": {
+      "title": "李대통령 \"마크롱과 '빵 나누는 친구' 됐다\"…'청자 가야금' 선물",
+      "link": "https://www.ikbc.co.kr/article/view/kbc202609090050",
+      "date": "2026-09-09 16:01",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732558",
+      "hash_id": "3b0bda0e6fc3f319"
+    },
+    "https://www.topstarnews.net/news/articleView.html?idxno=16187869": {
+      "title": "[속보] 대구 달성군 아파트 화재 진화…주민 대피 해제·일상 복귀 안내",
+      "link": "https://www.topstarnews.net/news/articleView.html?idxno=16187869",
+      "date": "2026-09-09 16:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732562",
+      "hash_id": "a543743a2b2db291"
+    },
+    "https://economist.co.kr/article/view/ecn202609090033": {
+      "title": "[속보]李 대통령 \"마크롱과 빵 나누는 친구…프랑스와 AI·반도체·원자...",
+      "link": "https://economist.co.kr/article/view/ecn202609090033",
+      "date": "2026-09-09 16:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732567",
+      "hash_id": "6745962b04e9d3c4"
+    },
+    "https://www.etoday.co.kr/news/view/2623661": {
+      "title": "[속보] 대구 달성군 아파트서 화재 발생",
+      "link": "https://www.etoday.co.kr/news/view/2623661",
+      "date": "2026-09-09 15:58",
+      "press": "이투데이",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732572",
+      "hash_id": "8e0925687d18a0f9"
+    },
+    "https://www.kado.net/news/articleView.html?idxno=2071568": {
+      "title": "[속보] 코스피 33거래일 만에 7000선 탈환…1.4% 오른 7051.64 마감",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2071568",
+      "date": "2026-09-09 15:58",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732576",
+      "hash_id": "dbf41228edf037ed"
+    },
+    "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8658943&ref=A": {
+      "title": "청와대 “대미투자 1호 프로젝트 후보군 미국 측과 긴밀히 협의”",
+      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8658943&ref=A",
+      "date": "2026-09-09 15:58",
+      "press": "KBS",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732581",
+      "hash_id": "5000e6381d3b7b7d"
+    },
+    "https://www.polinews.co.kr/news/articleView.html?idxno=742642": {
+      "title": "李, 韓佛 경제·문화 협력 확대…마크롱과 '꼬뺑' 우정 다져",
+      "link": "https://www.polinews.co.kr/news/articleView.html?idxno=742642",
+      "date": "2026-09-09 15:58",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732585",
+      "hash_id": "951ffd48c95ed431"
+    },
+    "https://www.sportsworldi.com/newsView/20260909512735": {
+      "title": "현대차그룹, 아프리카개발은행과 협력…청정에너지·모빌리티 사업 발굴",
+      "link": "https://www.sportsworldi.com/newsView/20260909512735",
+      "date": "2026-09-09 15:58",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732590",
+      "hash_id": "1174c4405dbb8961"
+    },
+    "https://www.fnnews.com/news/202609091551542644": {
+      "title": "마크롱, 李대통령에 佛 최고훈장 수여",
+      "link": "https://www.fnnews.com/news/202609091551542644",
+      "date": "2026-09-09 15:57",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732595",
+      "hash_id": "8c15c99b9f427a93"
+    },
+    "https://www.etoday.co.kr/news/view/2623656": {
+      "title": "트럼프, 캐나다에 ‘조달 빗장’⋯관세전쟁, 정부 구매시장으로 확전",
+      "link": "https://www.etoday.co.kr/news/view/2623656",
+      "date": "2026-09-09 15:56",
+      "press": "이투데이",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-09T07:02:54.732599",
+      "hash_id": "a965323da74820c9"
     }
   },
-  "last_updated": "2026-09-09 06:59:28",
-  "count": 2110
+  "last_updated": "2026-09-09 07:03:21",
+  "count": 2124
 }

@@ -26759,8 +26759,8 @@
       "press": "",
       "keyword": "종합상사",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:38:47.368254",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:42:16.964509",
       "hash_id": "47fbfed9537d7848"
     },
     "https://www.newsis.com/view/NISX20260910_0003784092": {
@@ -26770,11 +26770,33 @@
       "press": "",
       "keyword": "희토류",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:38:46.470472",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:42:16.065225",
       "hash_id": "cbbbb66a651a1b4b"
+    },
+    "https://www.seoul.co.kr/news/society/law/2026/09/10/20260910500108?wlog_tag3=naver": {
+      "title": "[속보] 대학원 연구실 동료들 얼굴로 딥페이크 성 착취물 1141개 만든 중...",
+      "link": "https://www.seoul.co.kr/news/society/law/2026/09/10/20260910500108?wlog_tag3=naver",
+      "date": "2026-09-10 11:40",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:42:37.116698",
+      "hash_id": "943914453e4688d8"
+    },
+    "https://www.seoul.co.kr/news/international/asia-oceania/2026/09/10/20260910500104?wlog_tag3=naver": {
+      "title": "[속보] “최소 5명 사망·87명 실종” 필리핀 여객선 화재, 42명 구조했지...",
+      "link": "https://www.seoul.co.kr/news/international/asia-oceania/2026/09/10/20260910500104?wlog_tag3=naver",
+      "date": "2026-09-10 11:31",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:42:17.865265",
+      "hash_id": "4d6443a284dfdb6f"
     }
   },
-  "last_updated": "2026-09-10 02:38:53",
-  "count": 2434
+  "last_updated": "2026-09-10 02:42:37",
+  "count": 2436
 }

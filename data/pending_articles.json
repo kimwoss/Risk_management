@@ -26803,11 +26803,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T02:49:44.516260",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T02:53:11.204696",
       "hash_id": "dfea2195d53daa09"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67830": {
+      "title": "[속보] 이 대통령 ‘긍정 평가’ 다시 하락.. 취임 이후 최저 [NBS]",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67830",
+      "date": "2026-09-10 11:52",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:53:19.914608",
+      "hash_id": "80c44fbe467fee59"
     }
   },
-  "last_updated": "2026-09-10 02:49:45",
-  "count": 2437
+  "last_updated": "2026-09-10 02:53:20",
+  "count": 2438
 }

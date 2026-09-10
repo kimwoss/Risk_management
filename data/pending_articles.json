@@ -28046,11 +28046,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T08:29:46.348840",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T08:33:13.447576",
       "hash_id": "e18286ade66cca3c"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784820": {
+      "title": "KOAFEC 2일차…韓 기업 아프리카 진출 확대 방안 모색",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784820",
+      "date": "2026-09-10 17:22",
+      "press": "",
+      "keyword": "포스코인터내셔널",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:33:14.269599",
+      "hash_id": "ea08700811bfa3eb"
+    },
+    "https://www.seoul.co.kr/news/economy/finance/2026/09/10/20260910500285?wlog_tag3=naver": {
+      "title": "[단독] 예보 기금 20조로 불었는데…수익률은 0.5%로 급감",
+      "link": "https://www.seoul.co.kr/news/economy/finance/2026/09/10/20260910500285?wlog_tag3=naver",
+      "date": "2026-09-10 17:32",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T08:33:13.030424",
+      "hash_id": "00d41d3ccce8050c"
     }
   },
-  "last_updated": "2026-09-10 08:29:49",
-  "count": 2550
+  "last_updated": "2026-09-10 08:33:40",
+  "count": 2552
 }

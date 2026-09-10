@@ -27848,11 +27848,33 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T07:24:50.821862",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T07:28:18.612410",
       "hash_id": "8f3b731fb92b2350"
+    },
+    "http://www.metroseoul.co.kr/article/20260910500532": {
+      "title": "포스코기술대학, '포스코철강AI융합대학'으로 개편…AI 인재 키운다",
+      "link": "http://www.metroseoul.co.kr/article/20260910500532",
+      "date": "2026-09-10 16:26",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T07:28:18.191987",
+      "hash_id": "1f4c42c6edba9f29"
+    },
+    "https://www.kwnews.co.kr/article/20260910501171": {
+      "title": "광해광업공단, ‘K-자원안보 플랫폼’으로 새 도약",
+      "link": "https://www.kwnews.co.kr/article/20260910501171",
+      "date": "2026-09-10 16:26",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T07:28:18.192008",
+      "hash_id": "86276cc613cd7d8f"
     }
   },
-  "last_updated": "2026-09-10 07:24:54",
-  "count": 2532
+  "last_updated": "2026-09-10 07:28:44",
+  "count": 2534
 }

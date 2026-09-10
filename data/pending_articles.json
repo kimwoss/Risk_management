@@ -27364,8 +27364,8 @@
       "press": "",
       "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T06:30:04.855876",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T06:33:50.354955",
       "hash_id": "4d4a9850e4047857"
     },
     "https://www.fnnews.com/news/202609101414535136": {
@@ -27694,11 +27694,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T06:30:07.354276",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T06:33:51.215112",
       "hash_id": "195b75ebb1b70b33"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784339": {
+      "title": "반도체 산단·공공주택 오염토 '반출 정화' 허용…용산 공원도 적용되나",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784339",
+      "date": "2026-09-10 15:24",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:33:57.164951",
+      "hash_id": "2c31870dbad652ab"
     }
   },
-  "last_updated": "2026-09-10 06:30:27",
-  "count": 2518
+  "last_updated": "2026-09-10 06:34:10",
+  "count": 2519
 }

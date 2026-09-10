@@ -27705,11 +27705,55 @@
       "press": "",
       "keyword": "산업통상부 장관",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T06:33:57.164951",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T06:37:34.335066",
       "hash_id": "2c31870dbad652ab"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784585": {
+      "title": "[속보]삼성전자 0.19%, SK하이닉스 0.16% 하락 마감",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784585",
+      "date": "2026-09-10 15:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:37:52.973111",
+      "hash_id": "155b6a7842142e75"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784583": {
+      "title": "[속보]코스닥, 6.55포인트(0.79%) 오른 836.92 마감",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784583",
+      "date": "2026-09-10 15:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:37:53.801054",
+      "hash_id": "1c70141093c68e54"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784582": {
+      "title": "[속보]코스피, 7000선 턱걸이…0.25% 내린 7033.92에 거래 마쳐",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784582",
+      "date": "2026-09-10 15:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:37:54.641934",
+      "hash_id": "3a09188b20764f7f"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784578": {
+      "title": "[속보]원·달러 환율, 3.1원 오른 1339.2원 마감",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784578",
+      "date": "2026-09-10 15:35",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:37:55.495184",
+      "hash_id": "df00d8945b75777f"
     }
   },
-  "last_updated": "2026-09-10 06:34:10",
-  "count": 2519
+  "last_updated": "2026-09-10 06:38:03",
+  "count": 2523
 }

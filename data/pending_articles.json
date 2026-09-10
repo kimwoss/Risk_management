@@ -27551,8 +27551,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 0,
-      "last_attempt": "2026-09-10T05:48:49.191795",
+      "retry_count": 2,
+      "last_attempt": "2026-09-10T05:53:34.341622",
       "hash_id": "e40d1dbe202f486a"
     },
     "https://www.kbmaeil.com/article/20260910500433": {
@@ -27573,8 +27573,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T05:49:28.504994",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T05:53:21.525360",
       "hash_id": "8a7d29c6e0eceb00"
     },
     "http://www.thebigdata.co.kr/view.php?ud=202609101431588663570d99e4c8_23": {
@@ -27584,8 +27584,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T05:49:29.381708",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T05:53:22.344374",
       "hash_id": "b138ad7fdb56e228"
     },
     "https://www.econovill.com/news/articleView.html?idxno=750453": {
@@ -27606,11 +27606,55 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T05:49:27.686132",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T05:53:14.359223",
       "hash_id": "b8154772c90767f0"
+    },
+    "https://www.ajunews.com/view/20260910141055005": {
+      "title": "[단독]금감원, OK저축은행 정기검사…SBI도 연내 착수",
+      "link": "https://www.ajunews.com/view/20260910141055005",
+      "date": "2026-09-10 14:52",
+      "press": "아주경제",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T05:53:13.105412",
+      "hash_id": "374445b42850ebe4"
+    },
+    "http://www.tvdaily.co.kr/read.php3?aid=17890191221801714010": {
+      "title": "[속보] '장윤정 모친' 육 씨, 사기 혐의 1심서 징역 10개월 선고",
+      "link": "http://www.tvdaily.co.kr/read.php3?aid=17890191221801714010",
+      "date": "2026-09-10 14:52",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T05:53:13.105416",
+      "hash_id": "bb5db2bb48f50e25"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549742": {
+      "title": "[속보]‘투자 사기’ 장윤정 모친, 1심 징역 10개월…“행위 가볍지 않...",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549742",
+      "date": "2026-09-10 14:48",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T05:53:42.840832",
+      "hash_id": "751381d81af7552f"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67837": {
+      "title": "[속보] 용혜인 \"국회의원·국무위원 겸직은 법률이 허용\"",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67837",
+      "date": "2026-09-10 14:37",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T05:53:13.541196",
+      "hash_id": "bf0ab5eb47158de2"
     }
   },
-  "last_updated": "2026-09-10 05:49:38",
-  "count": 2510
+  "last_updated": "2026-09-10 05:53:53",
+  "count": 2514
 }

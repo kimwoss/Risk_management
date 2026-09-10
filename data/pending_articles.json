@@ -27362,10 +27362,10 @@
       "link": "https://biz.sbs.co.kr/article_hub/20000333911?division=NAVER",
       "date": "2026-09-10 14:08",
       "press": "",
-      "keyword": "포스코",
+      "keyword": "포스코홀딩스",
       "sentiment": "pos",
-      "retry_count": 5,
-      "last_attempt": "2026-09-10T05:18:39.994816",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:26:46.056652",
       "hash_id": "4d4a9850e4047857"
     },
     "https://www.fnnews.com/news/202609101414535136": {
@@ -27686,8 +27686,19 @@
       "retry_count": 0,
       "last_attempt": "2026-09-10T06:22:52.041312",
       "hash_id": "cedf452a2bc5ea55"
+    },
+    "https://www.seoul.co.kr/news/society/law/2026/09/10/20260910500197?wlog_tag3=naver": {
+      "title": "[속보] 제주서 귀가 중이던 여중생 추행하고 납치하려 한 60대 ‘징역 7...",
+      "link": "https://www.seoul.co.kr/news/society/law/2026/09/10/20260910500197?wlog_tag3=naver",
+      "date": "2026-09-10 15:18",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:26:46.878823",
+      "hash_id": "195b75ebb1b70b33"
     }
   },
-  "last_updated": "2026-09-10 06:23:20",
-  "count": 2517
+  "last_updated": "2026-09-10 06:27:00",
+  "count": 2518
 }

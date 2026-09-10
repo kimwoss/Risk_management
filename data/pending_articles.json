@@ -27936,11 +27936,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T07:56:48.236160",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T08:00:31.525576",
       "hash_id": "2e630f0a4f95cadb"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784651": {
+      "title": "WSJ \"한국, '美원전 8기' 등 에너지 투자 2건 발표 임박…이르면 다음 주...",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784651",
+      "date": "2026-09-10 16:53",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:00:37.453653",
+      "hash_id": "2b1629955d4022f8"
     }
   },
-  "last_updated": "2026-09-10 07:57:05",
-  "count": 2540
+  "last_updated": "2026-09-10 08:00:48",
+  "count": 2541
 }

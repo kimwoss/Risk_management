@@ -28068,11 +28068,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T08:40:28.749714",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T08:43:55.328723",
       "hash_id": "00d41d3ccce8050c"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784885": {
+      "title": "영업이익 반토막인데 1.4조 요구…포스코노조 파업 '논란'",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784885",
+      "date": "2026-09-10 17:35",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:44:06.415230",
+      "hash_id": "6cf25d61ec42a81f"
     }
   },
-  "last_updated": "2026-09-10 08:40:31",
-  "count": 2552
+  "last_updated": "2026-09-10 08:44:19",
+  "count": 2553
 }

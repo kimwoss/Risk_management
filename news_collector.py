@@ -8,7 +8,7 @@ import time
 import urllib.parse
 import json
 from datetime import datetime, timezone, timedelta
-from html import unescape
+from html import escape, unescape
 import pandas as pd
 import requests
 import xml.etree.ElementTree as ET
@@ -389,13 +389,102 @@ def _publisher_from_link(u: str) -> str:
             "discoverynews.kr": "디스커버리뉴스", "ccdailynews.com": "충청일보", "bzeronews.com": "불교공뉴스",
             # 추가 언론사 (2026-02-05)
             "tinnews.co.kr": "틴뉴스",
+
+            # [2026-09-10] 대량 보강.
+            #   실측: DB 600건 중 435건(72%)이 매체명 없이 나가고 있었다(미매핑 도메인 191종).
+            #   서울경제·뉴시스·매일경제·한국경제처럼 빈도가 높은 매체가 통째로 빠져 있었고,
+            #   그 결과 텔레그램 알림이 '[매체명] 제목'이 아니라 제목만 덩그러니 나갔다.
+            "sedaily.com": "서울경제", "newsis.com": "뉴시스", "mk.co.kr": "매일경제",
+            "hankyung.com": "한국경제", "mt.co.kr": "머니투데이", "joongang.co.kr": "중앙일보",
+            "chosun.com": "조선일보", "hani.co.kr": "한겨레", "khan.co.kr": "경향신문",
+            "seoul.co.kr": "서울신문", "hankookilbo.com": "한국일보", "kmib.co.kr": "국민일보",
+            "imaeil.com": "매일신문", "naeil.com": "내일신문", "ytn.co.kr": "YTN",
+            "yonhapnewstv.co.kr": "연합뉴스TV", "imbc.com": "MBC", "sbs.co.kr": "SBS",
+            "jtbc.co.kr": "JTBC", "ichannela.com": "채널A", "wowtv.co.kr": "한국경제TV",
+            "fnnews.com": "파이낸셜뉴스", "etnews.com": "전자신문", "inews24.com": "아이뉴스24",
+            "businesspost.co.kr": "비즈니스포스트", "thebell.co.kr": "더벨", "ebn.co.kr": "EBN",
+            "fntimes.com": "한국금융신문", "newsprime.co.kr": "프라임경제", "fetv.co.kr": "FETV",
+            "dailian.co.kr": "데일리안", "newdaily.co.kr": "뉴데일리", "pressian.com": "프레시안",
+            "ohmynews.com": "오마이뉴스", "kukinews.com": "쿠키뉴스", "sisajournal.com": "시사저널",
+            "newstomato.com": "뉴스토마토", "gukjenews.com": "국제뉴스", "theguru.co.kr": "더구루",
+            "g-enews.com": "글로벌이코노믹", "pinpointnews.co.kr": "핀포인트뉴스",
+            "metroseoul.co.kr": "메트로신문", "m-i.kr": "매일일보", "newscj.com": "천지일보",
+            "viva100.com": "브릿지경제", "bloter.net": "블로터", "betanews.net": "베타뉴스",
+            "zdnet.co.kr": "ZDNet코리아", "moneys.co.kr": "머니S", "ilyo.co.kr": "일요신문",
+            "mediatoday.co.kr": "미디어오늘", "topstarnews.net": "톱스타뉴스",
+            "starnewskorea.com": "스타뉴스", "newsinside.kr": "뉴스인사이드",
+            "wolyo.co.kr": "월요신문", "news2day.co.kr": "뉴스투데이",
+            "todayenergy.kr": "투데이에너지", "energy-news.co.kr": "에너지신문",
+            "greened.kr": "그린포스트코리아", "veritas-a.com": "베리타스알파",
+            "kwnews.co.kr": "강원일보", "kyeonggi.com": "경기일보",
+            "einfomax.co.kr": "연합인포맥스", "kotra.or.kr": "KOTRA 해외시장뉴스",
         }
         if base in base_map:
             return base_map[base]
 
-        return ""
+        # ── 폴백: 알 수 없는 도메인도 빈 문자열로 두지 않는다 ──
+        # [2026-09-10] 종전에는 미매핑이면 ""를 반환해 알림에 매체명이 통째로 빠졌다.
+        #   매핑 목록은 아무리 채워도 새 매체가 계속 등장하므로(실측 191종), 최후에는
+        #   도메인 라벨이라도 보여주는 편이 '[매체명] 제목' 형식을 지키는 데 낫다.
+        #   예: pinpointnews.co.kr → pinpointnews / news.einfomax.co.kr → einfomax
+        label = base.split(".")[0]
+        return label if label else ""
     except Exception:
         return ""
+
+
+
+def _hashtag(keyword: str) -> str:
+    """키워드를 텔레그램 해시태그로 변환. '[속보]' → '#속보'.
+
+    [2026-09-10] 대괄호·공백 등 기호를 제거한다. 종전에는 keyword.replace(" ", "")만 해서
+    '#[속보]'가 만들어졌고, 텔레그램 Markdown 파서가 대괄호를 링크 문법으로 보고 지워준
+    덕분에 우연히 '#속보'로 보였다. 파서에 기대지 않고 명시적으로 정리한다.
+    """
+    return re.sub(r"[^0-9A-Za-z가-힣_]", "", keyword or "")
+
+
+def format_news_message(title: str, press: str, date: str, link: str,
+                        keyword: str, sentiment: str = "pos") -> str:
+    """텔레그램 '새 뉴스' 알림 본문(HTML parse_mode 용)을 만든다.
+
+    형식:
+        🟢 <b>새 뉴스</b>
+        #속보
+        <b>[매체명]</b> 기사 제목
+        🕐 날짜
+        🔗 링크
+
+    [2026-09-10] Markdown → HTML 로 교체.
+      증상(실측): '[뉴스1] 속보용혜인 성평등부 장관...' 처럼 제목의 '[속보]'가 대괄호만
+        사라지고 뒷단어에 붙어버렸다. 매체명이 없는 기사는 제목만 덩그러니 나갔다.
+      원인: Markdown parse_mode에서 굵게(*...*) 밖의 '[속보]'는 미완성 링크로 해석돼
+        대괄호가 삭제된다. 굵게 안('*[뉴스1]*')은 보존돼 형식이 들쭉날쭉해 보였다.
+      대책: HTML parse_mode + html.escape 로 본문을 그대로 보존한다.
+    """
+    # 텔레그램 HTML 모드가 요구하는 건 < > & 뿐이다. quote=True로 두면 작은따옴표가
+    # &#x27; 로 바뀌어 제목에 그대로 노출된다(실측). 따옴표는 이스케이프하지 않는다.
+    def esc(v):
+        return escape(str(v), quote=False)
+
+    emoji = "🔴" if sentiment == "neg" else "🟢"
+    lines = [f"{emoji} <b>새 뉴스</b>", ""]
+
+    tag = _hashtag(keyword)
+    if tag:
+        lines.append(f"#{tag}")
+
+    safe_title = esc(str(title or "").strip())
+    if press:
+        lines.append(f"<b>[{esc(press)}]</b> {safe_title}")
+    else:
+        lines.append(f"<b>{safe_title}</b>")
+
+    if date:
+        lines.append(f"🕐 {esc(date)}")
+    if link:
+        lines.append(f"🔗 {esc(link)}")
+    return "\n".join(lines)
 
 
 # ======================== 감성 분석 함수 ========================
@@ -1596,25 +1685,17 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
             except Exception:
                 pass
 
-            # 메시지 구성 (sentiment에 따라 이모지 변경)
-            emoji = "🔴" if sentiment == "neg" else "🟢"
-            message = f"{emoji} *새 뉴스*\n\n"
-            if keyword:
-                hashtag = keyword.replace(" ", "")
-                message += f"#{hashtag}\n"
-            if press:
-                message += f"*[{press}]* {title}\n"
-            else:
-                message += f"*{title}*\n"
-            if date:
-                message += f"🕐 {date}\n"
-            if link:
-                message += f"🔗 {link}"
+            # 매체명이 비어 있으면 링크에서 다시 뽑는다.
+            # (pending 큐에 이미 쌓인 옛 항목은 press가 빈 채로 남아 있다)
+            if not press:
+                press = _publisher_from_link(link)
+
+            message = format_news_message(title, press, date, link, keyword, sentiment)
 
             payload = {
                 "chat_id": chat_id,
                 "text": message,
-                "parse_mode": "Markdown",
+                "parse_mode": "HTML",
                 "disable_web_page_preview": True
             }
 

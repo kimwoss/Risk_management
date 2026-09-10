@@ -2102,29 +2102,17 @@ def send_telegram_notification(new_articles: list):
             sentiment = article.get("sentiment") or get_article_sentiment(title, summary, link)
             emoji = "🔴" if sentiment == "neg" else "🟢"
 
-            message = f"{emoji} *새 뉴스*\n\n"
-
-            # 검색 키워드 해시태그 추가
-            if keyword:
-                hashtag = keyword.replace(" ", "")
-                message += f"#{hashtag}\n"
-
-            # 제목 앞에 [언론사] 추가
-            if press:
-                message += f"*[{press}]* {title}\n"
-            else:
-                message += f"*{title}*\n"
-
-            # 날짜와 링크
-            if date:
-                message += f"🕐 {date}\n"
-            if link:
-                message += f"🔗 {link}"
+            # 알림 본문은 news_collector의 공용 포맷터를 쓴다.
+            # (수집기·앱 두 경로가 같은 형식을 내도록 한 곳에서 관리)
+            from news_collector import format_news_message, _publisher_from_link as _pub
+            if not press:
+                press = _pub(link)
+            message = format_news_message(title, press, date, link, keyword, sentiment)
 
             payload = {
                 "chat_id": chat_id,
                 "text": message,
-                "parse_mode": "Markdown",
+                "parse_mode": "HTML",
                 "disable_web_page_preview": True
             }
 

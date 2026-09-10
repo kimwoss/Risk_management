@@ -27980,11 +27980,66 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T08:18:46.294166",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T08:22:16.115164",
       "hash_id": "2ead5dba7846decb"
+    },
+    "https://www.g-enews.com/view.php?ud=20260910151641829824debea800_1": {
+      "title": "포스코, 사내 기술대학 AI 중심으로 개편…‘포스코철강AI융합대학’ 새...",
+      "link": "https://www.g-enews.com/view.php?ud=20260910151641829824debea800_1",
+      "date": "2026-09-10 17:14",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:22:24.658959",
+      "hash_id": "6c3c346ab1461ea3"
+    },
+    "https://www.hani.co.kr/arti/culture/culture_general/1277218.html": {
+      "title": "[단독] 기혜경·안미희·이영욱 새 국립현대미술관장 최종 후보로",
+      "link": "https://www.hani.co.kr/arti/culture/culture_general/1277218.html",
+      "date": "2026-09-10 17:20",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:22:41.654420",
+      "hash_id": "04ed0193948afc99"
+    },
+    "https://www.asiatoday.co.kr/kn/view.php?key=20260910010004210": {
+      "title": "[조선해양의 날] K-조선 '8년 만에 최대' 320억弗 달성…철강·해운 묶는...",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260910010004210",
+      "date": "2026-09-10 17:20",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T08:22:15.307603",
+      "hash_id": "a567fe29797212f3"
+    },
+    "https://www.ekn.kr/web/view.php?key=20260910028093187": {
+      "title": "[AI시대 세미나] “메가프로젝트, 전력규제 대전환 요구…권역·사업별...",
+      "link": "https://www.ekn.kr/web/view.php?key=20260910028093187",
+      "date": "2026-09-10 17:20",
+      "press": "에너지경제",
+      "keyword": "전력수급기본계획",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T08:22:15.307634",
+      "hash_id": "ecb0872c01248949"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=446900": {
+      "title": "삼양식품 원/달러 환율 하락의 '무풍지대', 김정수 '압도적 해외수요'로...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=446900",
+      "date": "2026-09-10 17:18",
+      "press": "",
+      "keyword": "팜유",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T08:22:33.123628",
+      "hash_id": "e87046b74dda912b"
     }
   },
-  "last_updated": "2026-09-10 08:18:52",
-  "count": 2544
+  "last_updated": "2026-09-10 08:22:44",
+  "count": 2549
 }

@@ -27925,11 +27925,22 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T07:49:59.035633",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T07:53:32.753664",
       "hash_id": "829b868fca01a5e1"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784785": {
+      "title": "[속보]美·中, 40조2360억원 상호 관세 인하 협상…중 상무부",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784785",
+      "date": "2026-09-10 16:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T07:53:33.605006",
+      "hash_id": "2e630f0a4f95cadb"
     }
   },
-  "last_updated": "2026-09-10 07:50:02",
-  "count": 2539
+  "last_updated": "2026-09-10 07:53:41",
+  "count": 2540
 }

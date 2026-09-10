@@ -27518,8 +27518,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T05:45:08.290290",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T05:49:15.880561",
       "hash_id": "36a0c3038efa7332"
     },
     "https://www.seoul.co.kr/news/society/accident/2026/09/10/20260910500165?wlog_tag3=naver": {
@@ -27529,8 +27529,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T05:45:07.446988",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T05:48:50.420250",
       "hash_id": "172257ecedf748c7"
     },
     "https://www.hani.co.kr/arti/politics/politics_general/1277166.html": {
@@ -27540,11 +27540,77 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T05:45:06.619601",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T05:48:49.595993",
       "hash_id": "e234bdd088618a73"
+    },
+    "https://www.dizzotv.com/site/data/html_dir/2026/09/10/2026091080121.html": {
+      "title": "“철강도 AI가 답”…포스코 사내 대학, AI 과목 45%로 채운다",
+      "link": "https://www.dizzotv.com/site/data/html_dir/2026/09/10/2026091080121.html",
+      "date": "2026-09-10 14:48",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T05:48:49.191795",
+      "hash_id": "e40d1dbe202f486a"
+    },
+    "https://www.kbmaeil.com/article/20260910500433": {
+      "title": "철강 AI 인재 키운다...‘포스코철강AI융합대학’ 새출발",
+      "link": "https://www.kbmaeil.com/article/20260910500433",
+      "date": "2026-09-10 14:46",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T05:48:49.191803",
+      "hash_id": "49c7ed8f441949bb"
+    },
+    "https://www.fntimes.com/html/view.php?ud=202609101132035545fa6b69a559_18": {
+      "title": "포스코 노조, 창사 첫 파업 “지난해 영업익 80% 달라”",
+      "link": "https://www.fntimes.com/html/view.php?ud=202609101132035545fa6b69a559_18",
+      "date": "2026-09-10 14:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T05:49:28.504994",
+      "hash_id": "8a7d29c6e0eceb00"
+    },
+    "http://www.thebigdata.co.kr/view.php?ud=202609101431588663570d99e4c8_23": {
+      "title": "포스코기술대학. ‘포스코철강AI융합대학’으로 새출발",
+      "link": "http://www.thebigdata.co.kr/view.php?ud=202609101431588663570d99e4c8_23",
+      "date": "2026-09-10 14:42",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T05:49:29.381708",
+      "hash_id": "b138ad7fdb56e228"
+    },
+    "https://www.econovill.com/news/articleView.html?idxno=750453": {
+      "title": "수은, AfDB와 손잡고 아프리카 AI·핵심광물 금융지원 확대",
+      "link": "https://www.econovill.com/news/articleView.html?idxno=750453",
+      "date": "2026-09-10 14:44",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T05:48:49.191831",
+      "hash_id": "451a81dfc68f651a"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333915?division=NAVER": {
+      "title": "위험 크지만 미국 원하는 알래스카 LNG…대미투자 포함되나?",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333915?division=NAVER",
+      "date": "2026-09-10 14:41",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T05:49:27.686132",
+      "hash_id": "b8154772c90767f0"
     }
   },
-  "last_updated": "2026-09-10 05:45:25",
-  "count": 2504
+  "last_updated": "2026-09-10 05:49:38",
+  "count": 2510
 }

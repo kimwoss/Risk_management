@@ -26836,11 +26836,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T03:07:17.574664",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T03:10:45.777926",
       "hash_id": "d89c6ecb257fd24f"
+    },
+    "https://www.seoul.co.kr/news/politics/2026/09/10/20260910500115?wlog_tag3=naver": {
+      "title": "[단독] 與, 용산 미군반환부지에 청년 주택 최소 1만 3000호 공급 검토",
+      "link": "https://www.seoul.co.kr/news/politics/2026/09/10/20260910500115?wlog_tag3=naver",
+      "date": "2026-09-10 12:06",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T03:10:51.887596",
+      "hash_id": "7ea62cb4e40079d9"
     }
   },
-  "last_updated": "2026-09-10 03:07:23",
-  "count": 2440
+  "last_updated": "2026-09-10 03:10:52",
+  "count": 2441
 }

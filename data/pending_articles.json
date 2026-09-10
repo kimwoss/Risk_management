@@ -27584,8 +27584,8 @@
       "press": "",
       "keyword": "광양 LNG",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T07:03:28.099937",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T07:06:58.993873",
       "hash_id": "9f112afe5fa6e1ab"
     },
     "https://www.econovill.com/news/articleView.html?idxno=750453": {
@@ -27793,8 +27793,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T07:03:29.760958",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T07:07:03.180736",
       "hash_id": "0f1749d1790ffa9d"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67845": {
@@ -27804,11 +27804,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T07:03:28.932777",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T07:06:59.815407",
       "hash_id": "449b618d8ba7ebc3"
+    },
+    "https://www.nocutnews.co.kr/news/6576304?utm_source=naver&utm_medium=article&utm_campaign=20260910040208": {
+      "title": "포스코 포항제철소, 추석 맞이 '선물반송센터' 운영",
+      "link": "https://www.nocutnews.co.kr/news/6576304?utm_source=naver&utm_medium=article&utm_campaign=20260910040208",
+      "date": "2026-09-10 16:03",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T07:07:12.464753",
+      "hash_id": "7b9e5a8d95c24dc1"
+    },
+    "https://www.thepowernews.co.kr/view.php?ud=202609101532013971de3f0aa1be_7": {
+      "title": "교과 31개 중 14개가 AI…포스코기술대학, ‘철강AI융합대학’으로 바뀐...",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=202609101532013971de3f0aa1be_7",
+      "date": "2026-09-10 16:02",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T07:07:06.543589",
+      "hash_id": "c94af29af1552d04"
     }
   },
-  "last_updated": "2026-09-10 07:03:33",
-  "count": 2528
+  "last_updated": "2026-09-10 07:07:13",
+  "count": 2530
 }

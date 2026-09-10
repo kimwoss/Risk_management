@@ -26803,8 +26803,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:53:11.204696",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:56:43.591256",
       "hash_id": "dfea2195d53daa09"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67830": {
@@ -26814,11 +26814,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T02:53:19.914608",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T02:56:44.494595",
       "hash_id": "80c44fbe467fee59"
+    },
+    "https://www.fntimes.com/html/view.php?ud=202609101147158437de3572ddd_18": {
+      "title": "최윤범號, 고려아연 임시주총 승리…'승부처' 감사위원 선임서 외국인 ...",
+      "link": "https://www.fntimes.com/html/view.php?ud=202609101147158437de3572ddd_18",
+      "date": "2026-09-10 11:52",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:56:45.404147",
+      "hash_id": "017c4f1767ad635a"
     }
   },
-  "last_updated": "2026-09-10 02:53:20",
-  "count": 2438
+  "last_updated": "2026-09-10 02:56:46",
+  "count": 2439
 }

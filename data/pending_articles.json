@@ -26869,8 +26869,8 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T04:47:10.428489",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T04:51:13.320241",
       "hash_id": "a744921a1cd2637e"
     },
     "https://biz.sbs.co.kr/article_hub/20000333831?division=NAVER": {
@@ -26880,8 +26880,8 @@
       "press": "",
       "keyword": "알래스카 LNG",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T04:46:58.575892",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T04:51:11.664048",
       "hash_id": "e9edc8c4e0cd6f77"
     },
     "https://www.mk.co.kr/article/12149278": {
@@ -26968,8 +26968,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T04:47:22.282620",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T04:51:14.978077",
       "hash_id": "bb5d8e34b2197497"
     },
     "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549721": {
@@ -26979,8 +26979,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T04:47:11.261491",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T04:51:14.153275",
       "hash_id": "27952eeef4fda554"
     },
     "https://www.seoul.co.kr/news/politics/2026/09/10/20260910500134?wlog_tag3=naver": {
@@ -26990,11 +26990,132 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T04:47:09.592393",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T04:51:12.501842",
       "hash_id": "26ae17d6dcdf0d4c"
+    },
+    "https://www.wikitree.co.kr/articles/1158641": {
+      "title": "[속보] 용혜인 기자회견 \"의원·장관 겸직은 합법이 원칙...억측·악선동...",
+      "link": "https://www.wikitree.co.kr/articles/1158641",
+      "date": "2026-09-10 13:50",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925415",
+      "hash_id": "56f73ba9e99e41c9"
+    },
+    "https://news.tf.co.kr/read/ptoday/2364355.htm": {
+      "title": "[속보] 용혜인 \"민주당도 선동 휩쓸려…청문회 일정 정해져야\"",
+      "link": "https://news.tf.co.kr/read/ptoday/2364355.htm",
+      "date": "2026-09-10 13:49",
+      "press": "더팩트",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925423",
+      "hash_id": "62fa410d1b31e6c6"
+    },
+    "https://www.fnnews.com/news/202609101345341666": {
+      "title": "[속보] 용혜인 \"위성정당 보조금 삭감 동의, 이번에 함께 의논하자\"",
+      "link": "https://www.fnnews.com/news/202609101345341666",
+      "date": "2026-09-10 13:49",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925427",
+      "hash_id": "e919db4f67d18ec0"
+    },
+    "https://www.yna.co.kr/view/AKR20260910091300002?input=1195m": {
+      "title": "수은, 아프리카개발은행과 금융협력 확대 업무협약",
+      "link": "https://www.yna.co.kr/view/AKR20260910091300002?input=1195m",
+      "date": "2026-09-10 13:49",
+      "press": "연합뉴스",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925431",
+      "hash_id": "02a8c9d12cf71b07"
+    },
+    "https://www.dailian.co.kr/news/view/1688816/?sc=Naver": {
+      "title": "삼성·SK 팹 앞당기자 전력 확보 비상…왜 '25조 선납'까지 나왔나",
+      "link": "https://www.dailian.co.kr/news/view/1688816/?sc=Naver",
+      "date": "2026-09-10 13:49",
+      "press": "",
+      "keyword": "전력수급기본계획",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925435",
+      "hash_id": "996cc1e1ac297e5c"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784330": {
+      "title": "[속보] 용혜인 \"개인 영달 위했다면 장관직 지명 수락 안했을 것\"",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784330",
+      "date": "2026-09-10 13:48",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T04:51:26.024327",
+      "hash_id": "d67f6cdc3c2d3cae"
+    },
+    "https://imnews.imbc.com/news/2026/politics/article/6850914_36911.html": {
+      "title": "[속보] 용혜인 \"현역의원 장관으로 지명한 취지 읽어야‥겸직은 법률이...",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6850914_36911.html",
+      "date": "2026-09-10 13:48",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925489",
+      "hash_id": "1d5d9b4271ee159c"
+    },
+    "https://www.hankyung.com/article/202609106488H": {
+      "title": "[속보] 용혜인 \"野, 현역의원 지명한 취지 읽어야…겸직은 법률이 허용...",
+      "link": "https://www.hankyung.com/article/202609106488H",
+      "date": "2026-09-10 13:48",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925492",
+      "hash_id": "3761472ca28473c1"
+    },
+    "https://news.jtbc.co.kr/article/NB12317720?influxDiv=NAVER": {
+      "title": "[속보] 용혜인 \"야당 현역의원 지명한 취지 읽어야…겸직은 법률이 허용...",
+      "link": "https://news.jtbc.co.kr/article/NB12317720?influxDiv=NAVER",
+      "date": "2026-09-10 13:48",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925495",
+      "hash_id": "e2a1c6ca8d59d6f9"
+    },
+    "https://www.seoulfn.com/news/articleView.html?idxno=637671": {
+      "title": "비어가는 지식산업센터 살린다···정부, 공공주택 전환 추진",
+      "link": "https://www.seoulfn.com/news/articleView.html?idxno=637671",
+      "date": "2026-09-10 13:48",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925498",
+      "hash_id": "6c160609ea88f334"
+    },
+    "https://www.newsway.co.kr/news/view?ud=2026091013465210763": {
+      "title": "최윤범號, 고려아연 임시주총 '압승'…외국인·외국기관 98% 몰표",
+      "link": "https://www.newsway.co.kr/news/view?ud=2026091013465210763",
+      "date": "2026-09-10 13:48",
+      "press": "뉴스웨이",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T04:51:10.925520",
+      "hash_id": "f497b10acf0feff7"
     }
   },
-  "last_updated": "2026-09-10 04:47:27",
-  "count": 2454
+  "last_updated": "2026-09-10 04:51:41",
+  "count": 2465
 }

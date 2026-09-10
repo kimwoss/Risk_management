@@ -26638,11 +26638,66 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:05:29.246591",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:08:57.450841",
       "hash_id": "ba68c533db832c2a"
+    },
+    "https://www.fntimes.com/html/view.php?ud=202609101056055820b372994c95_18": {
+      "title": "포스코이앤씨, 리모델링 누적 수주 14.3조원…업계 최다",
+      "link": "https://www.fntimes.com/html/view.php?ud=202609101056055820b372994c95_18",
+      "date": "2026-09-10 11:04",
+      "press": "",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:09:17.476172",
+      "hash_id": "a3764375e03867af"
+    },
+    "https://www.newdaily.co.kr/site/data/html/2026/09/10/2026091000159.html": {
+      "title": "[속보] 트럼프 \"호르무즈 해협, 트럼프 해협으로 부르자\" … 지지자들 환...",
+      "link": "https://www.newdaily.co.kr/site/data/html/2026/09/10/2026091000159.html",
+      "date": "2026-09-10 11:08",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T02:08:56.435076",
+      "hash_id": "913861c7dafe8e41"
+    },
+    "https://www.mk.co.kr/article/12149181": {
+      "title": "[속보] 이 대통령 지지율 43%…직전 조사보다 7%p 하락 [NBS]",
+      "link": "https://www.mk.co.kr/article/12149181",
+      "date": "2026-09-10 11:06",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T02:08:56.435082",
+      "hash_id": "fb67b266b7d6aee7"
+    },
+    "https://www.news1.kr/politics/assembly/6286137": {
+      "title": "[속보]李대통령 지지율 43%, 2주새 7%p↓…민주 39%·국힘 25%[NBS]",
+      "link": "https://www.news1.kr/politics/assembly/6286137",
+      "date": "2026-09-10 11:06",
+      "press": "뉴스1",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-10T02:08:56.435087",
+      "hash_id": "3d36458860faed0a"
+    },
+    "http://www.joseilbo.com/news/news_read.php?uid=575422&class=32&grp=": {
+      "title": "[속보] '1200억대 탈세' 이상운 효성 부회장, 대법서 징역형 집유 확정",
+      "link": "http://www.joseilbo.com/news/news_read.php?uid=575422&class=32&grp=",
+      "date": "2026-09-10 11:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:09:06.164312",
+      "hash_id": "81177db224d5f082"
     }
   },
-  "last_updated": "2026-09-10 02:05:32",
-  "count": 2422
+  "last_updated": "2026-09-10 02:09:25",
+  "count": 2427
 }

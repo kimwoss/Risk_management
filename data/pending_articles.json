@@ -26748,11 +26748,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T02:31:27.598175",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T02:35:01.988047",
       "hash_id": "3c6d055dc669ce80"
+    },
+    "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=190&CONTENTS_NO=2&bbsGbn=254&bbsSn=254&pNttSn=243889": {
+      "title": "일본 웰빙음료 시장동향",
+      "link": "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=190&CONTENTS_NO=2&bbsGbn=254&bbsSn=254&pNttSn=243889",
+      "date": "2026-09-10 11:27",
+      "press": "",
+      "keyword": "종합상사",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:35:06.408964",
+      "hash_id": "47fbfed9537d7848"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003784092": {
+      "title": "\"경영 불확실성 걷어냈다\" 최윤범號 고려아연, 최대실적 토대 '미래 신사...",
+      "link": "https://www.newsis.com/view/NISX20260910_0003784092",
+      "date": "2026-09-10 11:23",
+      "press": "",
+      "keyword": "희토류",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:35:02.888207",
+      "hash_id": "cbbbb66a651a1b4b"
     }
   },
-  "last_updated": "2026-09-10 02:31:38",
-  "count": 2432
+  "last_updated": "2026-09-10 02:35:20",
+  "count": 2434
 }

@@ -26825,11 +26825,22 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T03:00:10.517223",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T03:03:39.083525",
       "hash_id": "017c4f1767ad635a"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333891?division=NAVER": {
+      "title": "[속보] TSMC, 내년 1.4나노 생산…예정보다 6개월 단축",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333891?division=NAVER",
+      "date": "2026-09-10 12:00",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T03:03:45.237175",
+      "hash_id": "d89c6ecb257fd24f"
     }
   },
-  "last_updated": "2026-09-10 03:00:16",
-  "count": 2439
+  "last_updated": "2026-09-10 03:03:48",
+  "count": 2440
 }

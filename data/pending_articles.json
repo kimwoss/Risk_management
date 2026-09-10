@@ -27551,8 +27551,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T05:57:03.547836",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T06:00:54.619082",
       "hash_id": "e40d1dbe202f486a"
     },
     "https://www.kbmaeil.com/article/20260910500433": {
@@ -27639,8 +27639,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T05:57:04.388240",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T06:00:55.439868",
       "hash_id": "751381d81af7552f"
     },
     "http://www.jmbc.co.kr/news/view_breakingnews/67837": {
@@ -27650,11 +27650,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 2,
-      "last_attempt": "2026-09-10T05:56:59.183647",
+      "retry_count": 4,
+      "last_attempt": "2026-09-10T06:00:53.790798",
       "hash_id": "bf0ab5eb47158de2"
+    },
+    "http://www.seouland.com/arti/society/society_general/24328.html": {
+      "title": "[서울&] “햇빛이 복지다”…에너지 전환 실험들",
+      "link": "http://www.seouland.com/arti/society/society_general/24328.html",
+      "date": "2026-09-10 14:58",
+      "press": "",
+      "keyword": "전력수급기본계획",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:01:20.327676",
+      "hash_id": "64a14c2f46d2a886"
+    },
+    "https://www.thepowernews.co.kr/view.php?ud=2026091014485489de3f0aa1be_7": {
+      "title": "K-조선, 8년 만에 수출 320억달러…AI·금융·미국 진출 지원 확대",
+      "link": "https://www.thepowernews.co.kr/view.php?ud=2026091014485489de3f0aa1be_7",
+      "date": "2026-09-10 14:52",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:01:04.103419",
+      "hash_id": "b6c2beb412d3fe44"
     }
   },
-  "last_updated": "2026-09-10 05:57:27",
-  "count": 2514
+  "last_updated": "2026-09-10 06:01:23",
+  "count": 2516
 }

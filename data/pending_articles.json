@@ -26649,8 +26649,8 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T02:09:17.476172",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T02:13:20.780839",
       "hash_id": "a3764375e03867af"
     },
     "https://www.newdaily.co.kr/site/data/html/2026/09/10/2026091000159.html": {
@@ -26693,11 +26693,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T02:09:06.164312",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T02:13:00.564823",
       "hash_id": "81177db224d5f082"
+    },
+    "https://www.businesspost.co.kr/BP?command=article_view&num=446865": {
+      "title": "기후부 '공공주택 오염토' 착공 전 반출정화 허용 추진, 용산 개발 속도...",
+      "link": "https://www.businesspost.co.kr/BP?command=article_view&num=446865",
+      "date": "2026-09-10 11:04",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:13:24.281422",
+      "hash_id": "dc527802cdd79c8b"
+    },
+    "https://www.newsis.com/view/NISX20260910_0003783528": {
+      "title": "\"AI·금융·기자재까지 지원\"…320억弗 수출 K-조선 상생협력 추진",
+      "link": "https://www.newsis.com/view/NISX20260910_0003783528",
+      "date": "2026-09-10 11:00",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:13:01.464835",
+      "hash_id": "22a445f15a1077f0"
     }
   },
-  "last_updated": "2026-09-10 02:09:25",
-  "count": 2427
+  "last_updated": "2026-09-10 02:13:30",
+  "count": 2429
 }

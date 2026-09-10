@@ -26253,11 +26253,22 @@
       "press": "",
       "keyword": "[단독]",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T01:17:02.183631",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T01:20:38.219852",
       "hash_id": "2f9e3cf5c74561e9"
+    },
+    "http://www.jmbc.co.kr/news/view_breakingnews/67821": {
+      "title": "[속보] 장동혁 \"李 '임기 헌법상 제한' 발언은 말 돌리기…연임 안한다...",
+      "link": "http://www.jmbc.co.kr/news/view_breakingnews/67821",
+      "date": "2026-09-10 10:11",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T01:20:39.120530",
+      "hash_id": "71abc347f75aa05a"
     }
   },
-  "last_updated": "2026-09-10 01:17:15",
-  "count": 2387
+  "last_updated": "2026-09-10 01:20:50",
+  "count": 2388
 }

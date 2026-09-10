@@ -26264,11 +26264,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T01:24:14.419306",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T01:27:43.006952",
       "hash_id": "71abc347f75aa05a"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008746466&plink=ORI&cooper=NAVER": {
+      "title": "구윤철 \"1인당 국민소득 4만 달러 달성 가능성 더 커져\"",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008746466&plink=ORI&cooper=NAVER",
+      "date": "2026-09-10 10:20",
+      "press": "",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T01:27:46.519064",
+      "hash_id": "fc0746e5c70696b9"
     }
   },
-  "last_updated": "2026-09-10 01:24:20",
-  "count": 2388
+  "last_updated": "2026-09-10 01:27:57",
+  "count": 2389
 }

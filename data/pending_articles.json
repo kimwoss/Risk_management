@@ -27760,8 +27760,8 @@
       "press": "노컷뉴스",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T06:45:20.572618",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T06:48:54.887379",
       "hash_id": "f957814b6efc2efc"
     },
     "http://www.beyondpost.co.kr/view.php?ud=202609101525267078be44c0aacd_30": {
@@ -27771,11 +27771,22 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 1,
-      "last_attempt": "2026-09-10T06:45:14.646609",
+      "retry_count": 3,
+      "last_attempt": "2026-09-10T06:48:51.483623",
       "hash_id": "a8ea12f863db95ca"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/09/10/2026091090174.html": {
+      "title": "[속보] 한동훈 \"김민석, 허위사실 유포로 경찰에 형사고소\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/09/10/2026091090174.html",
+      "date": "2026-09-10 15:43",
+      "press": "",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:49:00.786377",
+      "hash_id": "d38a6a46280dbcfb"
     }
   },
-  "last_updated": "2026-09-10 06:45:26",
-  "count": 2525
+  "last_updated": "2026-09-10 06:49:03",
+  "count": 2526
 }

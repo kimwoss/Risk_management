@@ -25956,8 +25956,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T00:19:03.296360",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T00:22:40.924510",
       "hash_id": "1c0148aeab92b398"
     },
     "http://www.hansbiz.co.kr/news/articleView.html?idxno=863964": {
@@ -26055,8 +26055,8 @@
       "press": "",
       "keyword": "핵심광물",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T00:18:59.756147",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T00:22:40.024511",
       "hash_id": "aa0e8f67580fff40"
     },
     "https://www.newsis.com/view/NISX20260910_0003783673": {
@@ -26091,8 +26091,19 @@
       "retry_count": 4,
       "last_attempt": "2026-09-10T00:18:57.061233",
       "hash_id": "9d6b79f52c517703"
+    },
+    "https://www.g-enews.com/view.php?ud=202609100812265123bb91c46fcd_1": {
+      "title": "수은, 아프리카개발은행 손잡고 아프리카 시장 공략… AI·핵심광물 금융...",
+      "link": "https://www.g-enews.com/view.php?ud=202609100812265123bb91c46fcd_1",
+      "date": "2026-09-10 09:12",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T00:22:44.440949",
+      "hash_id": "dee464b926ad72ad"
     }
   },
-  "last_updated": "2026-09-10 00:19:14",
-  "count": 2372
+  "last_updated": "2026-09-10 00:22:50",
+  "count": 2373
 }

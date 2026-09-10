@@ -26781,8 +26781,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:46:08.343307",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:49:43.616053",
       "hash_id": "943914453e4688d8"
     },
     "https://www.seoul.co.kr/news/international/asia-oceania/2026/09/10/20260910500104?wlog_tag3=naver": {
@@ -26792,11 +26792,22 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T02:46:02.202329",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T02:49:42.717516",
       "hash_id": "4d6443a284dfdb6f"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333875?division=NAVER": {
+      "title": "[단독] \"현금 더 달라\"에 10%p 늘렸다…SK하닉 재합의",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333875?division=NAVER",
+      "date": "2026-09-10 11:47",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T02:49:44.516260",
+      "hash_id": "dfea2195d53daa09"
     }
   },
-  "last_updated": "2026-09-10 02:46:19",
-  "count": 2436
+  "last_updated": "2026-09-10 02:49:45",
+  "count": 2437
 }

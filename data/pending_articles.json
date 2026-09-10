@@ -27716,8 +27716,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "neg",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T06:41:34.316809",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T06:45:11.319634",
       "hash_id": "155b6a7842142e75"
     },
     "https://www.newsis.com/view/NISX20260910_0003784583": {
@@ -27727,8 +27727,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T06:41:35.157570",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T06:45:12.156161",
       "hash_id": "1c70141093c68e54"
     },
     "https://www.newsis.com/view/NISX20260910_0003784582": {
@@ -27738,8 +27738,8 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T06:41:35.997397",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T06:45:12.991746",
       "hash_id": "3a09188b20764f7f"
     },
     "https://www.newsis.com/view/NISX20260910_0003784578": {
@@ -27749,11 +27749,33 @@
       "press": "",
       "keyword": "[속보]",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T06:41:36.845213",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T06:45:13.824366",
       "hash_id": "df00d8945b75777f"
+    },
+    "https://www.nocutnews.co.kr/news/6576263?utm_source=naver&utm_medium=article&utm_campaign=20260910033808": {
+      "title": "포스코, AI로 철강 혁신 이끌 인재 육성",
+      "link": "https://www.nocutnews.co.kr/news/6576263?utm_source=naver&utm_medium=article&utm_campaign=20260910033808",
+      "date": "2026-09-10 15:39",
+      "press": "노컷뉴스",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:45:20.572618",
+      "hash_id": "f957814b6efc2efc"
+    },
+    "http://www.beyondpost.co.kr/view.php?ud=202609101525267078be44c0aacd_30": {
+      "title": "최윤범號, 고려아연 임시주총 '압승'…감사위원 선임서 외국인 98% 몰표",
+      "link": "http://www.beyondpost.co.kr/view.php?ud=202609101525267078be44c0aacd_30",
+      "date": "2026-09-10 15:36",
+      "press": "",
+      "keyword": "핵심광물",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T06:45:14.646609",
+      "hash_id": "a8ea12f863db95ca"
     }
   },
-  "last_updated": "2026-09-10 06:41:37",
-  "count": 2523
+  "last_updated": "2026-09-10 06:45:26",
+  "count": 2525
 }

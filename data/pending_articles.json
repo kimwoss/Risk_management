@@ -26858,11 +26858,33 @@
       "press": "",
       "keyword": "포스코",
       "sentiment": "pos",
-      "retry_count": 3,
-      "last_attempt": "2026-09-10T04:40:04.881293",
+      "retry_count": 5,
+      "last_attempt": "2026-09-10T04:43:33.213895",
       "hash_id": "6434e9dceaa3f7fd"
+    },
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549705": {
+      "title": "[단독]기차표 불법 대행 버젓이 영업",
+      "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000549705",
+      "date": "2026-09-10 13:39",
+      "press": "",
+      "keyword": "[단독]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T04:43:34.882227",
+      "hash_id": "a744921a1cd2637e"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000333831?division=NAVER": {
+      "title": "[직설] 트럼프, 한국 전방위 압박…이란 파병·대미투자 ‘고차방정식’...",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333831?division=NAVER",
+      "date": "2026-09-10 13:35",
+      "press": "",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-09-10T04:43:34.039197",
+      "hash_id": "e9edc8c4e0cd6f77"
     }
   },
-  "last_updated": "2026-09-10 04:40:10",
-  "count": 2442
+  "last_updated": "2026-09-10 04:43:35",
+  "count": 2444
 }

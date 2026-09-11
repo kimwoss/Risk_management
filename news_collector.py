@@ -7,6 +7,7 @@ import re
 import time
 import urllib.parse
 import json
+import difflib
 from datetime import datetime, timezone, timedelta
 from html import escape, unescape
 import pandas as pd
@@ -61,6 +62,12 @@ MAX_SENT_CACHE = 10000  # 캐시 크기 제한 (약 4-5일분 커버, 기존 500
 MAX_API_CALLS_PER_DAY = 25000  # 네이버 API 일일 할당량
 API_QUOTA_WARNING_THRESHOLD = 20000  # 80% 도달 시 경고 (25000의 80%)
 MAX_PENDING_RETRY = 5  # Pending 큐 최대 재시도 횟수
+
+# 같은 사건 중복 발송 차단 (자세한 경위는 _title_key 참고)
+SENT_TITLES_FILE = os.path.join(DATA_FOLDER, "sent_titles.json")
+DUP_TITLE_WINDOW_HOURS = 6   # 이 시간 안에 비슷한 제목을 보냈으면 중복으로 본다
+DUP_TITLE_RATIO = 0.85       # 정규화 제목 유사도 임계 (실측 튜닝, 아래 참고)
+DUP_TITLE_MIN_LEN = 10       # 너무 짧은 제목은 오탐 위험이 커서 검사하지 않는다
 PENDING_TTL_HOURS = 48  # Pending 큐 TTL (48시간)
 
 # 모니터링 키워드 설정 (단일 진실 공급원)
@@ -1581,6 +1588,89 @@ def merge_remote_sent_cache(sent_cache: set) -> set:
     return sent_cache
 
 
+_TITLE_LEAD_TAG = re.compile(r"^\s*(\[[^\]]{1,12}\]|\([^)]{1,12}\)|【[^】]{1,12}】|<[^>]{1,12}>)\s*")
+_TITLE_ANY_TAG = re.compile(r"[\[\(【<][^\]\)】>]{1,12}[\]\)】>]")
+
+
+def _title_key(title: str) -> str:
+    """같은 사건 판별용 제목 정규화 — 태그·따옴표·기호·공백을 걷어낸다.
+
+    [2026-09-11] 담당자 신고: "텔레그램 뉴스가 일부 시점에 다시 중복돼 온다."
+      실측(루프 00:00~05:11Z): 전송 419건 중 같은 제목이 반복된 발송이 다수.
+      그러나 같은 URL 재발송은 0건이었다. 전부 '다른 매체가 같은 사건을 보도한 기사'였다.
+        예) '[속보] 검찰, 김병기 구속영장 보완수사 요구' — 고유 URL 24개, 매체 24곳
+      기존 차단은 URL과 '제목|날짜' 완전일치 해시뿐이라, 따옴표(“ vs ")·띄어쓰기·
+      분 단위 시각만 달라도 전부 통과했다. 게다가 1회 발송 상한(10건) 때문에 몰린 사본이
+      여러 라운드에 나뉘어 흘러나가 "잠잠하다가 다시 중복"처럼 보였다.
+    """
+    t = unescape(title or "").rstrip(". …")
+    while (m := _TITLE_LEAD_TAG.match(t)):
+        t = t[m.end():]
+    t = _TITLE_ANY_TAG.sub(" ", t)
+    t = t.replace("檢", "검찰").replace("李", "이")
+    return re.sub(r"[^0-9A-Za-z가-힣一-龥]", "", t).lower()
+
+
+def load_sent_titles() -> dict:
+    """최근 발송 제목 키 {key: iso시각}. 창(DUP_TITLE_WINDOW_HOURS) 밖은 버린다."""
+    try:
+        with open(SENT_TITLES_FILE, "r", encoding="utf-8") as f:
+            titles = json.load(f).get("titles", {})
+    except Exception:
+        return {}
+    cutoff = datetime.now() - timedelta(hours=DUP_TITLE_WINDOW_HOURS)
+    kept = {}
+    for k, ts in titles.items():
+        try:
+            if datetime.fromisoformat(ts) >= cutoff:
+                kept[k] = ts
+        except Exception:
+            continue
+    return kept
+
+
+def save_sent_titles(titles: dict):
+    """최근 발송 제목 키 저장. 런이 바뀌어도 이어지도록 파일로 남긴다(merge_cache.py가 병합)."""
+    try:
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+        cutoff = datetime.now() - timedelta(hours=DUP_TITLE_WINDOW_HOURS)
+        kept = {}
+        for k, ts in titles.items():
+            try:
+                if datetime.fromisoformat(ts) >= cutoff:
+                    kept[k] = ts
+            except Exception:
+                continue
+        with open(SENT_TITLES_FILE, "w", encoding="utf-8") as f:
+            json.dump({"titles": kept, "count": len(kept),
+                       "window_hours": DUP_TITLE_WINDOW_HOURS}, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"[WARNING] 발송 제목 기록 저장 실패: {e}")
+
+
+def find_duplicate_title(key: str, sent_titles: dict):
+    """최근 발송 제목 중 같은 사건으로 볼 만큼 비슷한 것이 있으면 그 키를, 없으면 None.
+
+    임계값 0.85 근거(실측, 2026-09-11 발송 419건 재생):
+      - 0.85에서 차단되는 126건(30%) 중 점수 최하위 20쌍을 직접 확인 → 전부 같은 사건
+        (예: '한전기술-포스코이앤씨, 원전 기술개발 협력 확대' ⟸ '한전기술, 포스코이앤씨와
+        차세대 원전기술 협력 확대' 0.86)
+      - '포스코 노조 48시간 부분파업 종료' 뒤의 '…16일 2차 파업 예고'처럼 새 정보가 붙은
+        후속 기사는 약 0.74로 통과한다. PR팀에는 이런 후속 기사를 놓치는 쪽이 더 치명적이라
+        '포함률' 방식(이 쌍을 1.00으로 봄)은 쓰지 않고 전체 유사도만 쓴다.
+    """
+    if len(key) < DUP_TITLE_MIN_LEN:
+        return None
+    if key in sent_titles:
+        return key
+    for k in sent_titles:
+        sm = difflib.SequenceMatcher(None, key, k)
+        if (sm.real_quick_ratio() >= DUP_TITLE_RATIO and sm.quick_ratio() >= DUP_TITLE_RATIO
+                and sm.ratio() >= DUP_TITLE_RATIO):
+            return k
+    return None
+
+
 def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tuple:
     """
     Pending 큐의 기사들을 텔레그램으로 전송 (개선된 버전)
@@ -1619,6 +1709,8 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
 
         # [중복 발송 방지] 발송 직전 원격 캐시 병합 - 다른 발송 주체의 최근 발송분 반영
         sent_cache = merge_remote_sent_cache(sent_cache)
+        sent_titles = load_sent_titles()   # 같은 사건 판별용 최근 발송 제목
+        dup_skipped = 0
 
         # 텔레그램 API URL
         api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -1685,6 +1777,17 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
             except Exception:
                 pass
 
+            # 같은 사건을 다른 매체가 보도한 기사면 보내지 않는다(웹 목록에는 그대로 남는다).
+            # 발송한 것으로 간주해 sent_cache에 넣어야 다음 라운드에 다시 감지되지 않는다.
+            tkey = _title_key(title)
+            if find_duplicate_title(tkey, sent_titles):
+                print(f"[DEBUG] ⏭️ 같은 사건 이미 발송 - 스킵: {title[:50]}...")
+                sent_cache.add(link)
+                sent_cache.add(_normalize_url(link))
+                urls_to_remove.append(url)
+                dup_skipped += 1
+                continue
+
             # 매체명이 비어 있으면 링크에서 다시 뽑는다.
             # (pending 큐에 이미 쌓인 옛 항목은 press가 빈 채로 남아 있다)
             if not press:
@@ -1715,6 +1818,8 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                     # sent_cache에 추가
                     sent_cache.add(link)
                     sent_cache.add(_normalize_url(link))
+                    if tkey:
+                        sent_titles[tkey] = datetime.now().isoformat()
 
                     # pending에서 제거 예약
                     urls_to_remove.append(url)
@@ -1777,6 +1882,10 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                 time.sleep(0.5)  # 실패 시 500ms 대기
             else:
                 time.sleep(2.0)  # 성공 시 2초 대기 (자연스러운 간격)
+
+        save_sent_titles(sent_titles)
+        if dup_skipped:
+            print(f"[DEBUG] 🔁 같은 사건 중복 차단: {dup_skipped}건 (텔레그램 미발송, 웹 목록 유지)")
 
         # Pending 큐에서 제거
         for url in urls_to_remove:

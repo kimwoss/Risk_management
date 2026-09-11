@@ -107,7 +107,7 @@ jobs:
               # → 두 Job이 동시에 수정해도 발송 이력이 유실되지 않음
               timeout 60 python3 scripts/merge_cache.py || echo "merge_cache 스킵"
 
-              git add data/sent_articles_cache.json data/pending_articles.json 2>/dev/null || true
+              git add data/sent_articles_cache.json data/pending_articles.json data/sent_titles.json 2>/dev/null || true
               git diff --staged --quiet || git commit --amend --no-edit
 
               if timeout 60 git push; then

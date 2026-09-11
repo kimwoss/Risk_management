@@ -56,6 +56,8 @@ def merge_dict_key(local_path, top_key):
 def main():
     merge_dict_key(f"{DATA}/sent_articles_cache.json", "url_timestamps")
     merge_dict_key(f"{DATA}/pending_articles.json", "queue")
+    # 같은 사건 중복 차단용 최근 발송 제목 — 런이 바뀌어도 이어져야 사본이 새지 않는다
+    merge_dict_key(f"{DATA}/sent_titles.json", "titles")
 
 
 if __name__ == "__main__":

@@ -30942,8 +30942,173 @@
       "retry_count": 0,
       "last_attempt": "2026-09-14T06:17:19.087738",
       "hash_id": "d05e7b24627dc7f4"
+    },
+    "http://www.hansbiz.co.kr/news/articleView.html?idxno=864999": {
+      "title": "[속보] 코스닥, 1.69% 내린 806.79 마감",
+      "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=864999",
+      "date": "2026-09-14 15:38",
+      "press": "hansbiz",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804933",
+      "hash_id": "89073ae35eb02494"
+    },
+    "https://www.dt.co.kr/article/12083835?ref=naver": {
+      "title": "[속보] 삼전·닉스 또 출렁…코스피, 3.3% 급락해 6684 마감",
+      "link": "https://www.dt.co.kr/article/12083835?ref=naver",
+      "date": "2026-09-14 15:36",
+      "press": "디지털타임스",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804938",
+      "hash_id": "da05e9ab38d93c69"
+    },
+    "https://www.etoday.co.kr/news/view/2625291": {
+      "title": "[속보] 코스피 225.54p(3.26%) 내린 6684.37(마감)",
+      "link": "https://www.etoday.co.kr/news/view/2625291",
+      "date": "2026-09-14 15:36",
+      "press": "이투데이",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804943",
+      "hash_id": "1ab79ee211e1b2b2"
+    },
+    "https://biz.chosun.com/policy/policy_sub/2026/09/14/OJJUMVUGKZA4DAFFKWIJBWPQ7E/?utm_source=naver&utm_medium=original&utm_campaign=biz": {
+      "title": "[속보] 원·달러 환율, 1.4원 오른 1347.3원",
+      "link": "https://biz.chosun.com/policy/policy_sub/2026/09/14/OJJUMVUGKZA4DAFFKWIJBWPQ7E/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "date": "2026-09-14 15:36",
+      "press": "조선일보",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804948",
+      "hash_id": "9718a8baa1ddc358"
+    },
+    "https://www.etoday.co.kr/news/view/2625290": {
+      "title": "[속보] 코스닥 13.85p(1.69%) 내린 806.79(마감)",
+      "link": "https://www.etoday.co.kr/news/view/2625290",
+      "date": "2026-09-14 15:36",
+      "press": "이투데이",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804953",
+      "hash_id": "c3bf1e2df284ced3"
+    },
+    "http://www.hansbiz.co.kr/news/articleView.html?idxno=864998": {
+      "title": "[속보] 코스피, 3.26% 내린 6684.37 마감",
+      "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=864998",
+      "date": "2026-09-14 15:36",
+      "press": "hansbiz",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804961",
+      "hash_id": "06512f5f7cdbfd37"
+    },
+    "https://www.viva100.com/article/20260914501134": {
+      "title": "[속보] 삼전·닉스 또 출렁…코스피, 3.3% 급락해 6,684 마감",
+      "link": "https://www.viva100.com/article/20260914501134",
+      "date": "2026-09-14 15:36",
+      "press": "브릿지경제",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804966",
+      "hash_id": "e40014a28e1bdc0d"
+    },
+    "https://www.ajunews.com/view/20260914152114573": {
+      "title": "기술탈취 1년에 300건... 이소영 중기부 장관 후보자 \"비밀유지계약 의...",
+      "link": "https://www.ajunews.com/view/20260914152114573",
+      "date": "2026-09-14 15:36",
+      "press": "아주경제",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804972",
+      "hash_id": "de2ccdf2a425d4e2"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008752377&plink=ORI&cooper=NAVER": {
+      "title": "[속보] 삼전·닉스 또 출렁…코스피, 3.3% 급락해 6,684 마감",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008752377&plink=ORI&cooper=NAVER",
+      "date": "2026-09-14 15:35",
+      "press": "SBS",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804976",
+      "hash_id": "11b9b635a0b6b6c5"
+    },
+    "https://www.edaily.co.kr/News/Read?newsId=03457126645580120&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article": {
+      "title": "[속보]코스피, 3.26% 내린 6684.37…코스닥은 806.79",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=03457126645580120&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "date": "2026-09-14 15:35",
+      "press": "이데일리",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804981",
+      "hash_id": "b9cae8476333df2d"
+    },
+    "https://www.newsis.com/view/NISX20260914_0003788814": {
+      "title": "[속보]원·달러 환율, 1.4원 오른 1347.3원 마감",
+      "link": "https://www.newsis.com/view/NISX20260914_0003788814",
+      "date": "2026-09-14 15:35",
+      "press": "뉴시스",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804986",
+      "hash_id": "8a3441365e01ca5c"
+    },
+    "https://www.hankyung.com/article/2026091435016": {
+      "title": "[속보] 삼전닉스 또 출렁…코스피, 3.3% 급락해 6684 마감",
+      "link": "https://www.hankyung.com/article/2026091435016",
+      "date": "2026-09-14 15:35",
+      "press": "한국경제",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804990",
+      "hash_id": "62a3e0e56156663e"
+    },
+    "https://www.newsis.com/view/NISX20260914_0003788808": {
+      "title": "[속보]코스닥, 13.85포인트(1.69%) 하락한 806.79 마감",
+      "link": "https://www.newsis.com/view/NISX20260914_0003788808",
+      "date": "2026-09-14 15:34",
+      "press": "뉴시스",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804995",
+      "hash_id": "ca55d460a8d00803"
+    },
+    "https://www.ajunews.com/view/20260914153039607": {
+      "title": "[속보] 코스피, 225.54p(3.26%) 내린 6684.37 마감",
+      "link": "https://www.ajunews.com/view/20260914153039607",
+      "date": "2026-09-14 15:34",
+      "press": "아주경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.804999",
+      "hash_id": "b0a514b0c89758bd"
+    },
+    "http://www.thevaluenews.co.kr/news/view.php?idx=201562": {
+      "title": "[더밸류 브리핑] 오늘의 하나은행 소식…우즈벡 진출·어린이 미술대회",
+      "link": "http://www.thevaluenews.co.kr/news/view.php?idx=201562",
+      "date": "2026-09-14 15:34",
+      "press": "thevaluenews",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-09-14T06:38:55.805003",
+      "hash_id": "b904a79fdf305c4b"
     }
   },
-  "last_updated": "2026-09-14 06:35:32",
-  "count": 2813
+  "last_updated": "2026-09-14 06:39:21",
+  "count": 2828
 }

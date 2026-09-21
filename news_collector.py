@@ -68,6 +68,42 @@ SENT_TITLES_FILE = os.path.join(DATA_FOLDER, "sent_titles.json")
 DUP_TITLE_WINDOW_HOURS = 6   # 이 시간 안에 비슷한 제목을 보냈으면 중복으로 본다
 DUP_TITLE_RATIO = 0.85       # 정규화 제목 유사도 임계 (실측 튜닝, 아래 참고)
 DUP_TITLE_MIN_LEN = 10       # 너무 짧은 제목은 오탐 위험이 커서 검사하지 않는다
+DUP_WORD_RATIO = 0.40        # 포스코 외 기사: 제목 '단어' 겹침 임계 (아래 근거 참고)
+
+# ── 텔레그램 발송에서 제외할 무관 카테고리 ──────────────────────────
+# [2026-09-21] 담당자 요청: "[속보] 등 유사 기사가 계속 와서 모니터링이 피곤하다.
+#   포스코인터내셔널 입장에서 정말 상관없는 연예 카테고리 같은 걸 발라내는 게 의미 있다."
+#   실측(텔레그램 3일치 2,062건): 아래 카테고리가 426건(21%)이고 포스코 언급은 0건이었다.
+#   ※ 웹 뉴스 목록에는 그대로 남는다. 텔레그램 알림만 거른다.
+IRRELEVANT_CATEGORIES = {
+    "스포츠": ["아시안게임", "올림픽", "금메달", "은메달", "동메달", "프로야구", "KBO", "K리그",
+             "선수권", "야구", "축구", "농구", "배구", "골프", "테니스", "정구", "사이클",
+             "유도", "레슬링", "태권도", "국가대표", "대표팀", "선수단", "4강", "8강",
+             "결승전", "예선", "AG "],
+    "연예": ["배우", "가수", "아이돌", "드라마", "예능", "앨범", "컴백", "열애", "이혼", "재혼",
+            "소속사", "연예", "콘서트", "시청률", "넷플릭스", "유튜버", "방송인", "팬미팅", "개그맨"],
+    "사건사고": ["화재", "분신", "사망", "숨져", "숨진", "체포", "검거", "마약", "음주운전",
+               "성추행", "추행", "폭행", "절도", "살해", "흉기", "실종", "붕괴", "추락",
+               "교통사고", "뺑소니", "멧돼지", "성폭행", "보이스피싱", "납치", "방화", "시신", "현행범"],
+    "증시단타": ["VI 발동", "상한가", "하한가", "장초반", "특징주", "코스피", "코스닥", "나스닥",
+               "다우", "52주", "상승 출발", "하락 출발", "개장", "공모주", "주가 급등", "주가 급락"],
+    "정치일반": ["지지율", "기자회견", "인사청문", "청문회", "특검", "탄핵", "여야", "국민의힘",
+               "민주당", "최고위", "원내대표", "의원총회", "당대표", "사의 표명", "자진사퇴",
+               "사퇴", "임명", "의원", "청와대", "후보자", "개각", "비서실장", "대변인",
+               "국정감사", "국감", "내란", "공천", "검찰총장", "법무장관", "대법관", "헌재",
+               "구속기소", "권한쟁의"],
+    "부동산": ["청약", "분양", "입주", "재건축", "재개발", "아파트값", "집값", "전셋값"],
+}
+
+# 이 단어가 제목에 하나라도 있으면 카테고리와 무관하게 발송한다(누락 방지 장치).
+# 실측 예: '포스코 노조 위원장 골프 논란에 파업 보상안 30만원?' 은 '골프'로 스포츠에 걸리지만
+#   '포스코'·'노조'·'파업' 덕분에 살아남는다.
+CATEGORY_EXEMPT_TERMS = [
+    "포스코", "POSCO", "제철", "스틸러스", "드래곤즈", "철강", "이차전지", "리튬", "니켈",
+    "희토류", "광물", "중대재해", "산업재해", "노조", "파업", "LNG", "가스", "석유",
+    "통상", "관세", "수출", "수입", "무역", "종합상사", "공급망", "에너지", "원전", "전력",
+    "반도체", "배터리", "조선", "방산", "협정", "FTA",
+]
 PENDING_TTL_HOURS = 48  # Pending 큐 TTL (48시간)
 
 # 모니터링 키워드 설정 (단일 진실 공급원)
@@ -1611,8 +1647,58 @@ def _title_key(title: str) -> str:
     return re.sub(r"[^0-9A-Za-z가-힣一-龥]", "", t).lower()
 
 
+_TITLE_STOPWORDS = {
+    "대통령", "오늘", "내일", "관련", "대한", "위해", "밝혀", "밝혔다", "나서", "예정",
+    "계획", "전망", "재차", "속보", "단독", "종합",
+}
+# 매체마다 한자 약칭을 섞어 써서 같은 사건이 다르게 보인다(실측: '李대통령' vs '이 대통령').
+_HANJA_MAP = {"李": "이", "尹": "윤", "朴": "박", "檢": "검찰", "靑": "청와대",
+              "與": "여당", "野": "야당", "韓": "한국", "美": "미국", "中": "중국",
+              "日": "일본", "北": "북한"}
+
+
+def _title_words(title: str) -> set:
+    """같은 사건 판별용 제목 단어 집합. 괄호 태그·기호·조사성 불용어를 걷어낸다."""
+    t = unescape(title or "")
+    for a, b in _HANJA_MAP.items():
+        t = t.replace(a, b)
+    t = re.sub(r"\[[^\]]{1,12}\]", " ", t)
+    t = re.sub(r"[^0-9A-Za-z가-힣]", " ", t)
+    return {w for w in t.split() if len(w) >= 2 and w not in _TITLE_STOPWORDS}
+
+
+def _word_overlap(a: set, b: set) -> float:
+    """두 단어 집합의 자카드 유사도."""
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def is_core_article(title: str) -> bool:
+    """포스코를 직접 다룬 기사인가. 참이면 어떤 필터도 세게 걸지 않는다."""
+    t = (title or "").upper()
+    return "포스코" in t or "POSCO" in t
+
+
+def is_irrelevant_category(title: str):
+    """포스코인터내셔널 업무와 무관한 카테고리면 그 이름을, 아니면 None.
+
+    면제어(CATEGORY_EXEMPT_TERMS)가 하나라도 걸리면 무조건 None을 돌려준다.
+    """
+    t = (title or "").upper()
+    if any(w.upper() in t for w in CATEGORY_EXEMPT_TERMS):
+        return None
+    for cat, words in IRRELEVANT_CATEGORIES.items():
+        if any(w.upper() in t for w in words):
+            return cat
+    return None
+
+
 def load_sent_titles() -> dict:
-    """최근 발송 제목 키 {key: iso시각}. 창(DUP_TITLE_WINDOW_HOURS) 밖은 버린다."""
+    """최근 발송 제목 {key: {"ts": iso, "w": 단어집합}}. 창 밖은 버린다.
+
+    옛 형식({key: iso문자열})도 읽는다 — 그 항목은 단어가 없어 글자 유사도로만 비교된다.
+    """
     try:
         with open(SENT_TITLES_FILE, "r", encoding="utf-8") as f:
             titles = json.load(f).get("titles", {})
@@ -1620,10 +1706,12 @@ def load_sent_titles() -> dict:
         return {}
     cutoff = datetime.now() - timedelta(hours=DUP_TITLE_WINDOW_HOURS)
     kept = {}
-    for k, ts in titles.items():
+    for k, v in titles.items():
+        ts = v if isinstance(v, str) else (v or {}).get("ts", "")
+        words = set() if isinstance(v, str) else set((v or {}).get("w") or [])
         try:
             if datetime.fromisoformat(ts) >= cutoff:
-                kept[k] = ts
+                kept[k] = {"ts": ts, "w": words}
         except Exception:
             continue
     return kept
@@ -1635,10 +1723,12 @@ def save_sent_titles(titles: dict):
         os.makedirs(DATA_FOLDER, exist_ok=True)
         cutoff = datetime.now() - timedelta(hours=DUP_TITLE_WINDOW_HOURS)
         kept = {}
-        for k, ts in titles.items():
+        for k, v in titles.items():
+            ts = v if isinstance(v, str) else (v or {}).get("ts", "")
+            words = set() if isinstance(v, str) else ((v or {}).get("w") or set())
             try:
                 if datetime.fromisoformat(ts) >= cutoff:
-                    kept[k] = ts
+                    kept[k] = {"ts": ts, "w": sorted(words)}
             except Exception:
                 continue
         with open(SENT_TITLES_FILE, "w", encoding="utf-8") as f:
@@ -1648,8 +1738,18 @@ def save_sent_titles(titles: dict):
         print(f"[WARNING] 발송 제목 기록 저장 실패: {e}")
 
 
-def find_duplicate_title(key: str, sent_titles: dict):
+def find_duplicate_title(key: str, sent_titles: dict, words: set = None, core: bool = False):
     """최근 발송 제목 중 같은 사건으로 볼 만큼 비슷한 것이 있으면 그 키를, 없으면 None.
+
+    포스코 기사(core=True)와 그 밖의 기사에 서로 다른 잣대를 쓴다.
+      - 포스코 기사: 글자 유사도 0.85. 후속 기사를 놓치는 쪽이 훨씬 치명적이라 엄격하게 둔다.
+      - 그 밖(속보·단독 등): 제목 '단어' 겹침 0.40. 글자 기준으로는 같은 사건도 잘 안 걸린다.
+        [2026-09-21 실측] '강훈식 사의' 12건이 글자 0.85로는 12건 그대로 통과했다.
+          · 강훈식 대통령 비서실장 사의 표명 / 강훈식, 李대통령에 사의 표명 / 靑 "강훈식…"
+          단어 겹침 0.40이면 3건으로 묶인다. 같은 방식으로 DMZ 폭발 22→13건, 김승원 101→62건.
+        [알려진 한계] 종목명만 다른 틀 기사는 같은 사건으로 볼 수 있다
+          (예: '금호전기 VI 발동, 주가 급등' ⟸ '가온전선 VI 발동, 주가 급등').
+          둘 다 증시단타 카테고리로 이미 빠지고, 포스코 기사는 잣대가 달라 영향이 없다.
 
     임계값 0.85 근거(실측, 2026-09-11 발송 419건 재생):
       - 0.85에서 차단되는 126건(30%) 중 점수 최하위 20쌍을 직접 확인 → 전부 같은 사건
@@ -1663,7 +1763,12 @@ def find_duplicate_title(key: str, sent_titles: dict):
         return None
     if key in sent_titles:
         return key
-    for k in sent_titles:
+    for k, meta in sent_titles.items():
+        prev_words = meta.get("w") if isinstance(meta, dict) else None
+        if not core and words and prev_words:
+            if _word_overlap(words, set(prev_words)) >= DUP_WORD_RATIO:
+                return k
+            continue
         sm = difflib.SequenceMatcher(None, key, k)
         if (sm.real_quick_ratio() >= DUP_TITLE_RATIO and sm.quick_ratio() >= DUP_TITLE_RATIO
                 and sm.ratio() >= DUP_TITLE_RATIO):
@@ -1711,6 +1816,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         sent_cache = merge_remote_sent_cache(sent_cache)
         sent_titles = load_sent_titles()   # 같은 사건 판별용 최근 발송 제목
         dup_skipped = 0
+        cat_skipped = 0
 
         # 텔레그램 API URL
         api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -1779,8 +1885,23 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
 
             # 같은 사건을 다른 매체가 보도한 기사면 보내지 않는다(웹 목록에는 그대로 남는다).
             # 발송한 것으로 간주해 sent_cache에 넣어야 다음 라운드에 다시 감지되지 않는다.
+            # 포스코를 직접 다룬 기사는 어떤 필터도 세게 걸지 않는다.
+            core = is_core_article(title)
+
+            # 업무와 무관한 카테고리(스포츠·연예·사건사고·증시단타·정치일반·부동산)는 보내지 않는다.
+            # 웹 뉴스 목록에는 그대로 남으므로, 필요하면 거기서 확인할 수 있다.
+            cat = None if core else is_irrelevant_category(title)
+            if cat:
+                print(f"[DEBUG] ⏭️ 무관 카테고리({cat}) - 스킵: {title[:50]}...")
+                sent_cache.add(link)
+                sent_cache.add(_normalize_url(link))
+                urls_to_remove.append(url)
+                cat_skipped += 1
+                continue
+
             tkey = _title_key(title)
-            if find_duplicate_title(tkey, sent_titles):
+            twords = _title_words(title)
+            if find_duplicate_title(tkey, sent_titles, twords, core):
                 print(f"[DEBUG] ⏭️ 같은 사건 이미 발송 - 스킵: {title[:50]}...")
                 sent_cache.add(link)
                 sent_cache.add(_normalize_url(link))
@@ -1819,7 +1940,7 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
                     sent_cache.add(link)
                     sent_cache.add(_normalize_url(link))
                     if tkey:
-                        sent_titles[tkey] = datetime.now().isoformat()
+                        sent_titles[tkey] = {"ts": datetime.now().isoformat(), "w": twords}
 
                     # pending에서 제거 예약
                     urls_to_remove.append(url)
@@ -1886,6 +2007,8 @@ def process_pending_queue_and_send(pending_queue: dict, sent_cache: set) -> tupl
         save_sent_titles(sent_titles)
         if dup_skipped:
             print(f"[DEBUG] 🔁 같은 사건 중복 차단: {dup_skipped}건 (텔레그램 미발송, 웹 목록 유지)")
+        if cat_skipped:
+            print(f"[DEBUG] 🚫 무관 카테고리 차단: {cat_skipped}건 (텔레그램 미발송, 웹 목록 유지)")
 
         # Pending 큐에서 제거
         for url in urls_to_remove:

@@ -18437,3 +18437,29 @@
 {"timestamp": "2026-09-30T06:03:45.622949", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 2, "api_calls": 2}}
 {"timestamp": "2026-09-30T06:03:55.985969", "event_type": "telegram", "data": {"success": 4, "failed": 15, "total": 19, "success_rate": 0.21052631578947367}}
 {"timestamp": "2026-09-30T06:03:56.085097", "event_type": "run_summary", "data": {"total_articles": 293, "new_articles": 19, "telegram_sent": 4, "errors": 0}}
+{"timestamp": "2026-09-30T06:07:01.301090", "event_type": "collection", "data": {"keyword": "포스코인터내셔널", "articles_collected": 13, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:02.758492", "event_type": "collection", "data": {"keyword": "POSCO INTERNATIONAL", "articles_collected": 8, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:03.558330", "event_type": "collection", "data": {"keyword": "포스코인터", "articles_collected": 17, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:04.335789", "event_type": "collection", "data": {"keyword": "포스코홀딩스", "articles_collected": 14, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:05.160076", "event_type": "collection", "data": {"keyword": "포스코모빌리티솔루션", "articles_collected": 5, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:05.963166", "event_type": "collection", "data": {"keyword": "삼척블루파워", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:06.751163", "event_type": "collection", "data": {"keyword": "미얀마 가스전", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:07.376909", "event_type": "collection", "data": {"keyword": "세넥스에너지", "articles_collected": 12, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:08.194915", "event_type": "collection", "data": {"keyword": "리엘리먼트", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:09.008318", "event_type": "collection", "data": {"keyword": "구동모터코어", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:09.904166", "event_type": "collection", "data": {"keyword": "미얀마 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:10.705172", "event_type": "collection", "data": {"keyword": "알래스카 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:11.517441", "event_type": "collection", "data": {"keyword": "광양 LNG", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:12.351594", "event_type": "collection", "data": {"keyword": "우크라이나 곡물터미널", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:13.205320", "event_type": "collection", "data": {"keyword": "대미투자특별법", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:13.992071", "event_type": "collection", "data": {"keyword": "[단독]", "articles_collected": 1, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:14.611862", "event_type": "collection", "data": {"keyword": "[속보]", "articles_collected": 16, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:15.479383", "event_type": "collection", "data": {"keyword": "종합상사", "articles_collected": 16, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:16.123332", "event_type": "collection", "data": {"keyword": "산업통상부 장관", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:16.748716", "event_type": "collection", "data": {"keyword": "희토류", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:17.342124", "event_type": "collection", "data": {"keyword": "핵심광물", "articles_collected": 7, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:18.760373", "event_type": "collection", "data": {"keyword": "전력수급기본계획", "articles_collected": 17, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:19.376636", "event_type": "collection", "data": {"keyword": "팜유", "articles_collected": 18, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:19.996047", "event_type": "collection", "data": {"keyword": "포스코", "articles_collected": 2, "api_calls": 2}}
+{"timestamp": "2026-09-30T06:07:40.208505", "event_type": "telegram", "data": {"success": 8, "failed": 5, "total": 13, "success_rate": 0.6153846153846154}}
+{"timestamp": "2026-09-30T06:07:40.307652", "event_type": "run_summary", "data": {"total_articles": 293, "new_articles": 13, "telegram_sent": 8, "errors": 0}}

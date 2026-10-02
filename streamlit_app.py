@@ -1503,7 +1503,8 @@ def make_kakao_report_from_url(url: str, fallback_media="", fallback_title="", f
     return f"{media} : {title}\n\n{bullets_formatted}\n\n{url}"
 
 # --- 카운트다운 전용 프래그먼트(지원 시) + 폴백 ---
-def _countdown_badge_html(secs_left: int) -> str:
+def _countdown_badge_html(secs_left: int, paused: bool = False) -> str:
+    label = "⏸ 일시정지" if paused else f"⏱ {secs_left}s"
     return f"""
     <div style="
         display:flex; align-items:center; justify-content:center;
@@ -1513,23 +1514,55 @@ def _countdown_badge_html(secs_left: int) -> str:
         border-radius:8px;
         color:#e8b84b; font-weight:700; font-size:0.82rem;
         width:100%; white-space:nowrap;">
-        ⏱ {secs_left}s
+        {label}
     </div>"""
+
+# 키워드 설정 패널을 연 채 자리를 비우면 자동 새로고침이 계속 멈춰 있게 된다
+# (담당자 제보: 화면을 켜 두어도 '새로고침'을 눌러야만 갱신). 마지막 조작 후 이 시간이 지나면
+# 패널을 닫고 자동 새로고침을 재개한다. 편집 중인 목록(kw_edit_list)은 세션에 그대로 남는다.
+KW_PANEL_IDLE_SEC = 300
+
+
+def _kw_panel_paused(now: float) -> bool:
+    """패널이 열려 있으면 True. 단, 유휴 시간이 지났으면 패널을 닫고 False."""
+    if not st.session_state.get("kw_panel_open", False):
+        return False
+    if now - st.session_state.get("kw_last_activity", now) >= KW_PANEL_IDLE_SEC:
+        st.session_state["kw_panel_open"] = False
+        st.rerun()  # 전체 리런 → 패널 닫힘 + 마감 지난 갱신 즉시 수행
+    return True
+
+
+def _auto_refresh_due(now: float) -> bool:
+    """자동 갱신 시각 도래 여부.
+    '플래그가 꺼져 있을 때만' 트리거하면 직전 리런이 중간에 끊겨 플래그가 남았을 때
+    다시는 트리거되지 않는다 → 마감 시각 기준 + 짧은 디바운스로 스스로 복구되게 한다."""
+    if now < st.session_state.next_refresh_at:
+        return False
+    if now - st.session_state.get("_last_auto_trigger", 0.0) < 30:
+        return False
+    st.session_state["_last_auto_trigger"] = now
+    return True
+
 
 if SUPPORTS_FRAGMENT:
     @st.fragment
     def countdown_fragment(refresh_interval: int):
         now = time.time()
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
-        st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
         # 키워드 설정 패널이 열려 있으면 자동 리프레시를 멈춘다.
         #   5초마다 리런하면 편집 도중 위젯 DOM이 교체돼 입력·클릭이 유실된다(실측 확인).
+        #   대신 30초마다 이 프래그먼트만 깨어나 유휴 여부를 확인한다(패널 위젯은 건드리지 않음).
         if st.session_state.get("kw_panel_open", False):
+            st.markdown(_countdown_badge_html(secs_left, paused=True), unsafe_allow_html=True)
+            st_autorefresh(interval=30000, key="kw_idle_tick")
+            _kw_panel_paused(now)
             return
+        st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
         # 5초 간격으로 리프레시 (성능 최적화)
         st_autorefresh(interval=5000, key="countdown_tick")
-        # 0초 되면 트리거 플래그 설정하고 즉시 페이지 리런
-        if secs_left == 0 and not st.session_state.get("trigger_news_update", False):
+        # 갱신 시각이 되면 트리거 플래그 설정하고 즉시 페이지 리런
+        if _auto_refresh_due(now):
             st.session_state.trigger_news_update = True
             st.rerun()
 else:
@@ -1537,17 +1570,18 @@ else:
     def countdown_fragment(refresh_interval: int):
         now = time.time()
         secs_left = max(0, int(st.session_state.next_refresh_at - now))
-        st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
-
         # 키워드 설정 패널이 열려 있으면 자동 리프레시 정지 (편집 중 입력·클릭 유실 방지)
         if st.session_state.get("kw_panel_open", False):
+            st.markdown(_countdown_badge_html(secs_left, paused=True), unsafe_allow_html=True)
+            _kw_panel_paused(now)
             return
+        st.markdown(_countdown_badge_html(secs_left), unsafe_allow_html=True)
         # 보고서 생성 중이 아닐 때만 자동 리프레시 (5초 간격으로 성능 최적화)
         if not any(key.startswith("report_generating_") and st.session_state.get(key, False) for key in st.session_state.keys()):
             st_autorefresh(interval=5000, key="countdown_fallback")
 
-        # 0초 되면 트리거 플래그 설정하고 즉시 페이지 리런
-        if secs_left == 0 and not st.session_state.get("trigger_news_update", False):
+        # 갱신 시각이 되면 트리거 플래그 설정하고 즉시 페이지 리런
+        if _auto_refresh_due(now):
             st.session_state.trigger_news_update = True
             st.rerun()
 
@@ -3014,9 +3048,12 @@ def render_keyword_settings():
         st.rerun()
 
     if st.session_state.get("kw_panel_open", False):
+        # 패널이 열린 동안의 전체 리런은 담당자 조작으로만 일어난다 → 마지막 조작 시각으로 기록
+        st.session_state["kw_last_activity"] = time.time()
         st.caption("여기서 바꾼 키워드는 뉴스 수집기(24시간 자동 수집)에 그대로 적용됩니다. "
                    "저장 전까지는 실제 수집에 영향이 없습니다. "
-                   "· 편집 중에는 화면 자동 새로고침이 일시 정지되며, 패널을 닫으면 재개됩니다.")
+                   f"· 편집 중에는 화면 자동 새로고침이 일시 정지되며, 패널을 닫거나 "
+                   f"{KW_PANEL_IDLE_SEC // 60}분간 조작이 없으면 재개됩니다.")
 
         # 저장 가능 여부를 '편집 전에' 알린다.
         #   저장은 비공개 데이터 저장소에 커밋해야 영속되는데, 토큰이 없으면 컨테이너
@@ -3961,7 +3998,10 @@ def page_news_monitor():
         st.session_state.next_refresh_at = time.time() + refresh_interval
     else:
         # 자동 새로고침 또는 초기 로드: Naver API 호출
-        should_fetch = st.session_state.trigger_news_update or (not st.session_state.initial_loaded)
+        # 갱신 시각이 지났으면 트리거가 유실됐어도 이번 런에서 갱신 (자가 복구)
+        should_fetch = (st.session_state.trigger_news_update
+                        or (not st.session_state.initial_loaded)
+                        or time.time() >= st.session_state.next_refresh_at)
 
         # 자동 새로고침 시 보고서 초기화
         if st.session_state.trigger_news_update:

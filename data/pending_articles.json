@@ -49818,8 +49818,30 @@
       "retry_count": 0,
       "last_attempt": "2026-10-02T21:09:00.728004",
       "hash_id": "a79bb1e8a92decbc"
+    },
+    "https://www.dailian.co.kr/news/view/1697627/?sc=Naver": {
+      "title": "[속보] 합참 \"北, 동해상으로 미상 발사체 발사\"",
+      "link": "https://www.dailian.co.kr/news/view/1697627/?sc=Naver",
+      "date": "2026-10-03 07:08",
+      "press": "데일리안",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T22:10:47.467912",
+      "hash_id": "4e481a13d00bd77c"
+    },
+    "https://www.segye.com/newsView/20261003501615?OutUrl=naver": {
+      "title": "[속보] 북한, 동해상 미상 발사체 발사…서부전선 지뢰 폭발 12일 만",
+      "link": "https://www.segye.com/newsView/20261003501615?OutUrl=naver",
+      "date": "2026-10-03 07:06",
+      "press": "세계일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T22:10:47.467935",
+      "hash_id": "68eeac1406e7697e"
     }
   },
-  "last_updated": "2026-10-02 22:07:25",
-  "count": 4529
+  "last_updated": "2026-10-02 22:11:13",
+  "count": 4531
 }

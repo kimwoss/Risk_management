@@ -49400,8 +49400,184 @@
       "retry_count": 0,
       "last_attempt": "2026-10-02T01:45:59.761339",
       "hash_id": "3a6ded291a1d1766"
+    },
+    "https://www.news2day.co.kr/article/20261002500132": {
+      "title": "[공시 Pick] 팬오션, 포스코플로우와 958억 장기운송계약…주가 3%대 강...",
+      "link": "https://www.news2day.co.kr/article/20261002500132",
+      "date": "2026-10-02 10:52",
+      "press": "뉴스투데이",
+      "keyword": "포스코",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479566",
+      "hash_id": "a8ef5154d4b4b6ba"
+    },
+    "https://weekly.khan.co.kr/article/202610021054001": {
+      "title": "[속보] 이 대통령 “우크라, 남북 군사충돌 임박 운운…공개사과 거부하...",
+      "link": "https://weekly.khan.co.kr/article/202610021054001",
+      "date": "2026-10-02 10:54",
+      "press": "경향신문",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479577",
+      "hash_id": "e566ce38b48d96c0"
+    },
+    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00006&news_seq_no=5222690": {
+      "title": "[속보] 이 대통령 \"우크라, 공개사과 거부하면 추가조치…묵과 못 해\"",
+      "link": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00006&news_seq_no=5222690",
+      "date": "2026-10-02 10:54",
+      "press": "매일경제",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479582",
+      "hash_id": "beca712879a2e98f"
+    },
+    "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8676506&ref=A": {
+      "title": "로이터 “알래스카 LNG 사업비, 멕시코만 연안의 두 배 이상”",
+      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8676506&ref=A",
+      "date": "2026-10-02 10:53",
+      "press": "KBS",
+      "keyword": "알래스카 LNG",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479587",
+      "hash_id": "43b39f8a30acd36b"
+    },
+    "https://www.jnilbo.com/news/articleView.html?idxno=90000070422": {
+      "title": "[속보] 李대통령 \"우크라, 南北군사충돌 임박 운운…한반도전쟁 발발 기...",
+      "link": "https://www.jnilbo.com/news/articleView.html?idxno=90000070422",
+      "date": "2026-10-02 10:53",
+      "press": "jnilbo",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479592",
+      "hash_id": "6707bdd7d0475fce"
+    },
+    "http://www.mdilbo.com/detail/0kIA7d/759281": {
+      "title": "제조업 AI 전환부터 청년 정착까지···전남광주, 통합 인센티브 20조 ...",
+      "link": "http://www.mdilbo.com/detail/0kIA7d/759281",
+      "date": "2026-10-02 10:52",
+      "press": "mdilbo",
+      "keyword": "광양 LNG",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479597",
+      "hash_id": "918a19a541b43cbc"
+    },
+    "https://www.daejonilbo.com/news/articleView.html?idxno=2304743": {
+      "title": "[속보] 李대통령 \"우크라, 南北군사충돌 임박 운운…한반도전쟁 발발 기...",
+      "link": "https://www.daejonilbo.com/news/articleView.html?idxno=2304743",
+      "date": "2026-10-02 10:52",
+      "press": "daejonilbo",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479601",
+      "hash_id": "7bb66cf32d9b0607"
+    },
+    "https://www.kmib.co.kr/article/view.asp?arcid=9000019298&cp=nv": {
+      "title": "이 대통령 대미협상 이끈 김정관에 “유능·충직한 국민의 공복”",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000019298&cp=nv",
+      "date": "2026-10-02 10:52",
+      "press": "국민일보",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479608",
+      "hash_id": "f5aed788b3525ad2"
+    },
+    "https://news.tvchosun.com/site/data/html_dir/2026/10/02/2026100290102.html": {
+      "title": "[속보] 李대통령 \"우크라, 상대국 국가원수 거짓말쟁이 만들어\"",
+      "link": "https://news.tvchosun.com/site/data/html_dir/2026/10/02/2026100290102.html",
+      "date": "2026-10-02 10:51",
+      "press": "tvchosun",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479614",
+      "hash_id": "59145855ea4e76b3"
+    },
+    "https://www.fnnews.com/news/202610021049499294": {
+      "title": "[속보]李대통령 \"우크라, 南北군사충돌 임박 운운…한반도전쟁 발발 기...",
+      "link": "https://www.fnnews.com/news/202610021049499294",
+      "date": "2026-10-02 10:51",
+      "press": "파이낸셜뉴스",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479619",
+      "hash_id": "022855798db7925b"
+    },
+    "https://www.news1.kr/society/court-prosecution/6308739": {
+      "title": "[속보] 검찰총장 대행 \"공소청으로 명칭 달라져도 소추·인권옹호 책무...",
+      "link": "https://www.news1.kr/society/court-prosecution/6308739",
+      "date": "2026-10-02 10:51",
+      "press": "뉴스1",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479623",
+      "hash_id": "db7ef6c32dc9c475"
+    },
+    "https://www.spotvnews.co.kr/news/articleView.html?idxno=1010925": {
+      "title": "[속보] '대충격' 한국 양궁 또 金사냥 실패! 추락의 추락 '7연속 金' 여자...",
+      "link": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1010925",
+      "date": "2026-10-02 10:51",
+      "press": "spotvnews",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479627",
+      "hash_id": "3ff518d638f2f60e"
+    },
+    "https://biz.sbs.co.kr/article_hub/20000338058?division=NAVER": {
+      "title": "[속보] 李대통령 \"우크라 공개사과 거부 시 추가조치…묵과 못 한다\"",
+      "link": "https://biz.sbs.co.kr/article_hub/20000338058?division=NAVER",
+      "date": "2026-10-02 10:51",
+      "press": "SBS",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479633",
+      "hash_id": "40f481905a3f9366"
+    },
+    "https://www.busan.com/view/busan/view.php?code=2026100210501953124": {
+      "title": "[속보] 이 대통령 \"우크라, 공개사과 거부하면 추가조치… 국가원수 거...",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026100210501953124",
+      "date": "2026-10-02 10:51",
+      "press": "busan",
+      "keyword": "[속보]",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479665",
+      "hash_id": "70bf42a8344b9b9d"
+    },
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008780381&plink=ORI&cooper=NAVER": {
+      "title": "이 대통령, 김정관에 \"유능·충직한 국민의 공복\"…대미협상 격려",
+      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008780381&plink=ORI&cooper=NAVER",
+      "date": "2026-10-02 10:51",
+      "press": "SBS",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479671",
+      "hash_id": "d0da86dbfc56fd20"
+    },
+    "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003272086&CMPT_CD=P0010&utm_source=naver&utm_medium=newsearch&utm_campaign=naver_news": {
+      "title": "교실에서 화학 안전 배운 어린이들, 법을 바꾸다",
+      "link": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003272086&CMPT_CD=P0010&utm_source=naver&utm_medium=newsearch&utm_campaign=naver_news",
+      "date": "2026-10-02 10:51",
+      "press": "오마이뉴스",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 0,
+      "last_attempt": "2026-10-02T01:56:40.479675",
+      "hash_id": "815b199fa179ad26"
     }
   },
-  "last_updated": "2026-10-02 01:53:15",
-  "count": 4491
+  "last_updated": "2026-10-02 01:57:05",
+  "count": 4507
 }

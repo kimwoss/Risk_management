@@ -12,6 +12,7 @@ from news_collector import (
     KEYWORDS,
     EXCLUDE_KEYWORDS,
     KEYWORD_PRIORITY_OVERRIDE,
+    keyword_in_title_only,
     MAX_ITEMS_PER_RUN,
     tag_priority,
     crawl_naver_news,
@@ -183,6 +184,8 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
     else:
         exclude_words = ["분양", "청약", "입주", "재건축", "정비구역"]
         kw_tokens = [t for t in keyword.split() if t]
+        # 인물 이름 등 제목 매칭 전용 키워드는 요약 언급을 인정하지 않는다 (명단 나열 기사 노이즈 차단)
+        title_only = keyword_in_title_only(keyword)
 
         def should_include(row):
             title = str(row.get("기사제목", ""))
@@ -193,7 +196,7 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
             # 키워드(모든 토큰)가 제목 또는 요약에 연속 문자열로 실제 등장해야 함
             # (예: '포스코인터'는 붙어 있을 때만 매칭 — '포스코 … 인터' 분리 매칭은 배제)
             for tok in kw_tokens:
-                if tok not in title and tok not in description:
+                if tok not in title and (title_only or tok not in description):
                     return False
             return True
 
@@ -561,6 +564,18 @@ def main(send_telegram: bool = None):
                 existing_db = existing_db[existing_db["검색키워드"].isin(_active)].reset_index(drop=True)
                 if len(existing_db) < _before:
                     safe_print(f"[MONITOR] 비활성 키워드 행 정리: {_before - len(existing_db)}건 제거")
+
+                # 제목 매칭 전용 키워드로 이미 쌓인 '요약에만 언급된' 행도 같은 기준으로 정리
+                _kw = existing_db["검색키워드"].astype(str)
+                _t_only = _kw.map(keyword_in_title_only)
+                if _t_only.any():
+                    _titles = existing_db["기사제목"].astype(str)
+                    _miss = _t_only & ~pd.Series(
+                        [all(tok in t for tok in k.split()) for k, t in zip(_kw, _titles)],
+                        index=existing_db.index)
+                    if _miss.any():
+                        existing_db = existing_db[~_miss].reset_index(drop=True)
+                        safe_print(f"[MONITOR] 제목 매칭 전용 키워드 행 정리: {int(_miss.sum())}건 제거")
 
             # 기존 DB와 병합 (병합 후에도 태그 우선순위로 중복 해소)
             merged = pd.concat([df_new, existing_db], ignore_index=True) if not existing_db.empty else df_new

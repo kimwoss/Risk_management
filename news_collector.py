@@ -250,6 +250,19 @@ BROAD_KEYWORDS = {
 _MIN_KEYWORD_LEN = 2
 
 
+# ── 제목 매칭 전용 키워드 (인물 이름 등) ─────────────────────────────
+# [2026-10-07] '장인화' 등록 후 담당자 제보: "장인화 기사가 잘 안 보인다".
+#   실측(DB 600행): '장인화' 태그 40건 중 제목에 이름이 있는 기사는 9건뿐이고, 31건은 요약에만
+#   이름이 나오는 기사였다(예: 'CEO 브랜드평판 TOP30' 명단 나열). 인물 이름은 다른 기사 본문에
+#   스치듯 자주 등장하므로, 요약 매칭을 허용하면 정작 그 인물이 주인공인 기사가 묻힌다.
+#   → 여기 등록된 키워드는 '제목'에 있을 때만 수집한다(담당자 결정).
+TITLE_ONLY_KEYWORDS = {"장인화"}
+
+
+def keyword_in_title_only(keyword: str) -> bool:
+    return str(keyword).strip() in TITLE_ONLY_KEYWORDS
+
+
 def validate_keyword(keyword: str, existing: list[str] | None = None) -> tuple[bool, str, str]:
     """등록하려는 키워드를 검사한다. (ok, 오류사유, 경고문) 반환.
 

@@ -51028,8 +51028,41 @@
       "retry_count": 0,
       "last_attempt": "2026-10-08T21:03:40.485516",
       "hash_id": "49cfdae768169fbe"
+    },
+    "https://www.donga.com/news/Economy/article/all/20261009/134814182/1": {
+      "title": "국제 곡물값 1년 새 17.2% 급등…먹거리 물가 ‘비상’",
+      "link": "https://www.donga.com/news/Economy/article/all/20261009/134814182/1",
+      "date": "2026-10-09 13:51",
+      "press": "동아일보",
+      "keyword": "팜유",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-10-09T04:52:58.733489",
+      "hash_id": "4fd0c0cebe054013"
+    },
+    "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202610090048&t=NN": {
+      "title": "\"한미동맹 심상찮다\"…잇따르는 불협화음에 정치권 '술렁'",
+      "link": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202610090048&t=NN",
+      "date": "2026-10-09 13:50",
+      "press": "한국경제TV",
+      "keyword": "산업통상부 장관",
+      "sentiment": "pos",
+      "retry_count": 1,
+      "last_attempt": "2026-10-09T04:52:55.227273",
+      "hash_id": "50cabd3faaa6f03f"
+    },
+    "https://www.kyeonggi.com/article/20261009580053": {
+      "title": "[속보] 안철수 “정청래 美비자 지연, 동맹국 미국이 정부 입국 거부한...",
+      "link": "https://www.kyeonggi.com/article/20261009580053",
+      "date": "2026-10-09 13:49",
+      "press": "경기일보",
+      "keyword": "[속보]",
+      "sentiment": "neg",
+      "retry_count": 1,
+      "last_attempt": "2026-10-09T04:52:51.720898",
+      "hash_id": "d973fd477775f0c8"
     }
   },
-  "last_updated": "2026-10-09 04:49:25",
-  "count": 4639
+  "last_updated": "2026-10-09 04:52:59",
+  "count": 4642
 }

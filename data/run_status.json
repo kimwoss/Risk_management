@@ -1,16 +1,16 @@
 {
   "consecutive_failures": 0,
-  "last_success_time": "2026-10-12T06:15:59.959546",
-  "total_runs": 32968,
+  "last_success_time": "2026-10-12T06:19:35.546489",
+  "total_runs": 32969,
   "total_failures": 0,
-  "last_run_time": "2026-10-12T06:15:59.959546",
+  "last_run_time": "2026-10-12T06:19:35.546489",
   "last_success_stats": {
-    "articles_collected": 301,
-    "new_articles": 11,
-    "telegram_sent": 9
+    "articles_collected": 297,
+    "new_articles": 7,
+    "telegram_sent": 5
   },
   "yesterday_date": "2026-10-11",
   "yesterday_runs": 416,
   "today_date": "2026-10-12",
-  "today_runs": 106
+  "today_runs": 107
 }

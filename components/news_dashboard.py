@@ -130,8 +130,66 @@ _CSS = """
 .ic-kw-5 .ic-kw-label { font-size: 0.67rem; color: #c084fc; opacity: 0.72; }
 .ic-kw-5 .ic-kw-num   { font-size: 0.95rem; opacity: 0.72; }
 .ic-kw-5 .ic-kw-pct   { font-size: 0.62rem; }
+
+/* ── 카드 클릭 필터 ──
+   카드는 HTML 그대로 두고, 같은 칸에 투명 버튼을 겹쳐 클릭을 받는다.
+   (HTML 링크로 만들면 페이지가 새로 로드돼 세션·로그인이 끊긴다) */
+.st-key-ic_kw_grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 6px !important;
+}
+[class*="st-key-ic_card_"] { position: relative; gap: 0 !important; }
+[class*="st-key-ic_card_"] [data-testid="stMarkdownContainer"] { margin: 0 !important; }
+[class*="st-key-ic_card_"] .ic-kw-card { cursor: pointer; height: 100%; box-sizing: border-box; }
+[class*="st-key-ic_btn_"] {
+    position: absolute !important; inset: 0; z-index: 2;
+    width: 100% !important; height: 100% !important; margin: 0 !important;
+}
+[class*="st-key-ic_btn_"] .stButton,
+[class*="st-key-ic_btn_"] button {
+    width: 100% !important; height: 100% !important; min-height: 0 !important;
+    opacity: 0 !important; cursor: pointer; padding: 0 !important; margin: 0 !important;
+}
+.ic-kw-card.ic-kw-active { box-shadow: 0 0 0 2px currentColor inset; }
+.ic-kw-card.ic-kw-active .ic-kw-label::after { content: " ✓"; }
+.ic-kw-card.ic-kw-dim { opacity: 0.4; }
 </style>
 """
+
+
+# 대시보드 카드 정의: (분류 코드, 표시 라벨, 스타일 단계, 카운트 애니메이션 id 접두어)
+CATEGORIES = [
+    ("intl",     "#포스코인터내셔널",     1, "posco-intl"),
+    ("posco",    "#포스코",              2, "posco"),
+    ("mobility", "#포스코모빌리티솔루션", 3, "mobility"),
+    ("samcheok", "#삼척블루파워",         4, "samcheok"),
+    ("others",   "#기타",               5, "others"),
+]
+CATEGORY_LABELS = {c[0]: c[1] for c in CATEGORIES}
+
+# 선택한 카드(분류 코드)를 보관하는 세션 키 — 아래 기사 목록이 이 값으로 필터링된다
+FILTER_STATE_KEY = "news_cat_filter"
+
+
+def classify_category(keyword: str, title: str) -> str:
+    """기사 1건을 대시보드 카드 분류로 매핑. 카드 건수와 목록 필터가 같은 기준을 쓰도록 한 곳에 둔다."""
+    keyword, title = str(keyword), str(title)
+    if any(kw in keyword or kw in title for kw in ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]):
+        return "intl"
+    if "포스코모빌리티솔루션" in keyword or "포스코모빌리티솔루션" in title:
+        return "mobility"
+    if "삼척블루파워" in keyword or "삼척블루파워" in title:
+        return "samcheok"
+    if "포스코" in keyword or "포스코" in title or "POSCO" in keyword.upper() or "POSCO" in title.upper():
+        return "posco"
+    return "others"
+
+
+def _toggle_filter(cat: str):
+    # 같은 카드를 다시 누르면 해제(전체 보기)
+    cur = st.session_state.get(FILTER_STATE_KEY)
+    st.session_state[FILTER_STATE_KEY] = None if cur == cat else cat
 
 
 def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
@@ -159,53 +217,14 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
     total_today = len(today_news)
 
     # 카테고리별 카운트
-    total_pos = total_neg = 0
-    posco_intl_count = posco_intl_pos = posco_intl_neg = 0
-    posco_mobility_count = posco_mobility_pos = posco_mobility_neg = 0
-    samcheok_count = samcheok_pos = samcheok_neg = 0
-    posco_count = posco_pos = posco_neg = 0
-    others_count = others_pos = others_neg = 0
+    total_neg = 0
+    counts = {c[0]: 0 for c in CATEGORIES}
 
     if not today_news.empty and "검색키워드" in today_news.columns:
         for _, row in today_news.iterrows():
-            keyword = str(row.get("검색키워드", ""))
-            title = str(row.get("기사제목", ""))
-            sentiment = str(row.get("sentiment", "pos"))
-
-            is_pos = sentiment == "pos"
-            is_neg = sentiment == "neg"
-
-            if is_pos:
-                total_pos += 1
-            elif is_neg:
+            if str(row.get("sentiment", "pos")) == "neg":
                 total_neg += 1
-
-            if any(kw in keyword or kw in title for kw in ["포스코인터내셔널", "POSCO INTERNATIONAL", "포스코인터"]):
-                posco_intl_count += 1
-                if is_pos: posco_intl_pos += 1
-                elif is_neg: posco_intl_neg += 1
-            elif "포스코모빌리티솔루션" in keyword or "포스코모빌리티솔루션" in title:
-                posco_mobility_count += 1
-                if is_pos: posco_mobility_pos += 1
-                elif is_neg: posco_mobility_neg += 1
-            elif "삼척블루파워" in keyword or "삼척블루파워" in title:
-                samcheok_count += 1
-                if is_pos: samcheok_pos += 1
-                elif is_neg: samcheok_neg += 1
-            elif "포스코" in keyword or "포스코" in title or "POSCO" in keyword.upper() or "POSCO" in title.upper():
-                posco_count += 1
-                if is_pos: posco_pos += 1
-                elif is_neg: posco_neg += 1
-            else:
-                others_count += 1
-                if is_pos: others_pos += 1
-                elif is_neg: others_neg += 1
-
-    posco_intl_pct     = (posco_intl_count     / total_today * 100) if total_today > 0 else 0
-    posco_mobility_pct = (posco_mobility_count  / total_today * 100) if total_today > 0 else 0
-    samcheok_pct       = (samcheok_count        / total_today * 100) if total_today > 0 else 0
-    posco_pct          = (posco_count           / total_today * 100) if total_today > 0 else 0
-    others_pct         = (others_count          / total_today * 100) if total_today > 0 else 0
+            counts[classify_category(row.get("검색키워드", ""), row.get("기사제목", ""))] += 1
 
     display_date = now_kst.strftime('%Y.%m.%d')
 
@@ -227,36 +246,24 @@ def render_news_dashboard(news_df: pd.DataFrame, show_live: bool = True):
 </div>
 ''', unsafe_allow_html=True)
 
-    # ── 하단: 키워드 카드 5개 ────────────────────────────────
-    st.markdown(f'''
-<div class="ic-kw-grid">
-  <div class="ic-kw-card ic-kw-1">
-    <div class="ic-kw-label">#포스코인터내셔널</div>
-    <div class="ic-kw-num" id="posco-intl-{unique_id}" data-target="{posco_intl_count}">0</div>
-    <div class="ic-kw-pct">{posco_intl_pct:.1f}%</div>
-  </div>
-  <div class="ic-kw-card ic-kw-2">
-    <div class="ic-kw-label">#포스코</div>
-    <div class="ic-kw-num" id="posco-{unique_id}" data-target="{posco_count}">0</div>
-    <div class="ic-kw-pct">{posco_pct:.1f}%</div>
-  </div>
-  <div class="ic-kw-card ic-kw-3">
-    <div class="ic-kw-label">#포스코모빌리티솔루션</div>
-    <div class="ic-kw-num" id="mobility-{unique_id}" data-target="{posco_mobility_count}">0</div>
-    <div class="ic-kw-pct">{posco_mobility_pct:.1f}%</div>
-  </div>
-  <div class="ic-kw-card ic-kw-4">
-    <div class="ic-kw-label">#삼척블루파워</div>
-    <div class="ic-kw-num" id="samcheok-{unique_id}" data-target="{samcheok_count}">0</div>
-    <div class="ic-kw-pct">{samcheok_pct:.1f}%</div>
-  </div>
-  <div class="ic-kw-card ic-kw-5">
-    <div class="ic-kw-label">#기타</div>
-    <div class="ic-kw-num" id="others-{unique_id}" data-target="{others_count}">0</div>
-    <div class="ic-kw-pct">{others_pct:.1f}%</div>
-  </div>
+    # ── 하단: 키워드 카드 5개 (누르면 아래 기사 목록을 그 분류로 필터링) ──
+    selected = st.session_state.get(FILTER_STATE_KEY)
+    with st.container(key="ic_kw_grid"):
+        for cat, label, tier, id_prefix in CATEGORIES:
+            cnt = counts[cat]
+            pct = (cnt / total_today * 100) if total_today > 0 else 0
+            state = "" if not selected else (" ic-kw-active" if selected == cat else " ic-kw-dim")
+            with st.container(key=f"ic_card_{cat}"):
+                st.markdown(f'''
+<div class="ic-kw-card ic-kw-{tier}{state}">
+  <div class="ic-kw-label">{label}</div>
+  <div class="ic-kw-num" id="{id_prefix}-{unique_id}" data-target="{cnt}">0</div>
+  <div class="ic-kw-pct">{pct:.1f}%</div>
 </div>
 ''', unsafe_allow_html=True)
+                st.button(f"{label} 기사만 보기", key=f"ic_btn_{cat}",
+                          on_click=_toggle_filter, args=(cat,),
+                          help=f"{label} 기사만 보기 (다시 누르면 전체)")
 
     # 카운트 애니메이션
     components.html(f'''

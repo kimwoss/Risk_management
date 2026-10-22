@@ -42,7 +42,10 @@ from bs4 import BeautifulSoup  # NEW
 from data_based_llm import DataBasedLLM
 from components.status_dashboard import render_status_dashboard
 from components.publisher_dashboard import render_publisher_dashboard
-from components.news_dashboard import render_news_dashboard
+from components.news_dashboard import (
+    render_news_dashboard, classify_category,
+    CATEGORY_LABELS as DASH_CATEGORY_LABELS, FILTER_STATE_KEY as DASH_FILTER_KEY,
+)
 
 # 지원 여부 플래그
 SUPPORTS_FRAGMENT = hasattr(st, "fragment")
@@ -4110,8 +4113,15 @@ def page_news_monitor():
             label_visibility="collapsed"
         )
 
-    # 감성 필터는 head(50) 이전에 적용 — "부정만 보기"가 상단 50건에 갇히지 않도록
+    # 대시보드 카드 필터 (카드를 누르면 그 분류 기사만) — 감성 필터와 마찬가지로 head(50) 이전에 적용
     total_before_filter = len(df_show)
+    cat_filter = st.session_state.get(DASH_FILTER_KEY)
+    if cat_filter:
+        _cats = [classify_category(k, t) for k, t in
+                 zip(df_show["검색키워드"].astype(str), df_show["기사제목"].astype(str))]
+        df_show = df_show[[c == cat_filter for c in _cats]]
+
+    # 감성 필터는 head(50) 이전에 적용 — "부정만 보기"가 상단 50건에 갇히지 않도록
     if "sentiment" in df_show.columns and sent_filter != "전체":
         sent_series = df_show["sentiment"].astype(str)
         if sent_filter == "부정만 보기":
@@ -4121,7 +4131,15 @@ def page_news_monitor():
     filtered_count = len(df_show)
     df_show = df_show.head(50)
 
-    if sent_filter != "전체":
+    if cat_filter:
+        c_cap, c_all = st.columns([8, 2])
+        with c_cap:
+            st.caption(f"🔎 {DASH_CATEGORY_LABELS.get(cat_filter, '')} 기사만 표시 중 — "
+                       f"전체 {total_before_filter:,}건 중 {filtered_count:,}건 (최신 {len(df_show)}건 표시)")
+        with c_all:
+            st.button("전체 보기", key="dash_filter_clear", use_container_width=True,
+                      on_click=lambda: st.session_state.update({DASH_FILTER_KEY: None}))
+    elif sent_filter != "전체":
         st.caption(f"전체 {total_before_filter:,}건 중 {filtered_count:,}건 (최신 {len(df_show)}건 표시)")
 
     if df_show.empty:

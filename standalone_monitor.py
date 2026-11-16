@@ -68,6 +68,8 @@ _BASE_KEYWORD_PRIORITY = {
     "구동모터코아": 3,
     "구동모터코어": 3,
     "광양 LNG": 3,
+    "광양": 2,
+    "포항": 2,
     "우크라이나 곡물터미널": 3,
     "포스코인터내셔널 대우": 3,
     "포스코인터내셔널 팜": 3,
@@ -177,6 +179,32 @@ def apply_keyword_filters(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
         df = df[mask].reset_index(drop=True)
         if not df.empty:
             safe_print(f"[MONITOR] '포스코' 필터링 완료: {len(df)}건")
+
+    # "광양" 키워드 — "사고" + "공장" 교집합만 통과
+    elif keyword == "광양":
+        def should_include(row):
+            title = str(row.get("기사제목", ""))
+            description = str(row.get("주요기사 요약", ""))
+            text = title + " " + description
+            return "광양" in text and "사고" in text and "공장" in text
+
+        mask = df.apply(should_include, axis=1)
+        df = df[mask].reset_index(drop=True)
+        if not df.empty:
+            safe_print(f"[MONITOR] '광양' 사고+공장 교집합 필터링: {len(df)}건")
+
+    # "포항" 키워드 — "사고" + "공장" 교집합만 통과
+    elif keyword == "포항":
+        def should_include(row):
+            title = str(row.get("기사제목", ""))
+            description = str(row.get("주요기사 요약", ""))
+            text = title + " " + description
+            return "포항" in text and "사고" in text and "공장" in text
+
+        mask = df.apply(should_include, axis=1)
+        df = df[mask].reset_index(drop=True)
+        if not df.empty:
+            safe_print(f"[MONITOR] '포항' 사고+공장 교집합 필터링: {len(df)}건")
 
     # 기타 키워드 - 키워드가 기사에 실제로 '연속 문자열'로 등장할 때만 통과 (+ 부동산 제외)
     # 네이버 검색은 '포스코인터'를 '포스코'+'인터'로 토큰 분해해 무관 기사(예: 포스코 … 인터뷰)를

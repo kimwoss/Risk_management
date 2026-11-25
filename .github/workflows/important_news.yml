@@ -54,6 +54,6 @@ jobs:
           OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          IMPORTANT_TELEGRAM_CHAT_ID: ${{ secrets.IMPORTANT_TELEGRAM_CHAT_ID }}
           GH_DATA_TOKEN: ${{ secrets.GH_DATA_TOKEN }}
         run: python daily_briefing.py --important

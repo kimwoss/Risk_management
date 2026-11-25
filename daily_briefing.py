@@ -610,16 +610,37 @@ def important_main():
     key = os.getenv("OPEN_API_KEY") or os.getenv("OPENAI_API_KEY")
     token, chat_id = os.getenv("TELEGRAM_BOT_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
     state_token = os.getenv("GH_DATA_TOKEN")
-    if not all((key, token, chat_id, state_token)):
-        print("[important] Missing required Actions secrets; no send")
+    missing = [name for name, value in (("OPEN_API_KEY or OPENAI_API_KEY", key),
+               ("TELEGRAM_BOT_TOKEN", token), ("TELEGRAM_CHAT_ID", chat_id),
+               ("GH_DATA_TOKEN", state_token)) if not value]
+    if missing:
+        print("[important] Missing required Actions secrets:", ", ".join(missing))
         raise SystemExit(2)
     state, save = _important_state_api(state_token)
     now = datetime.now(KST).replace(tzinfo=None)
     if state is None:
-        # First production run is a baseline, not a historical mass send.
-        state = {"start": now.isoformat(), "articles": {}}
+        # Persist baseline before delivery: no historical mass send.
+        state = {"start": now.isoformat(), "articles": {}, "setup_test": "pending"}
         save(state)
         print("[important] Baseline initialized; no historical reports sent")
+    if state.get("setup_test") in ("pending", "retry"):
+        probe = _important_llm(key, 'Return only {"ok":true} as a JSON object.', {"test": True})
+        if probe.get("ok") is not True:
+            raise ValueError("AI connection test failed")
+        print("[important] AI connection verified")
+        state["setup_test"] = "sending"
+        save(state)
+        outcome = _important_deliver(
+            "[테스트] P-IRIS AI 중요기사 자동보고 시스템의 연결 확인 메시지입니다. 실제 기사 보고는 아닙니다.\n\n"
+            "- OpenAI 분석 연결 및 비공개 보고 이력 저장 확인\n\n"
+            "- 기존 뉴스 모니터링 알림 유지, 중요기사 별도 선별 보고 적용\n\n"
+            "- 보고 대상 기사가 없는 경우 별도 알림 미발송",
+            token, chat_id)
+        state["setup_test"] = outcome
+        save(state)
+        print("[important] Setup Telegram test:", outcome)
+        if outcome != "sent":
+            raise RuntimeError("Telegram test not confirmed")
         return
     start = datetime.fromisoformat(state["start"])
     records = state["articles"]
@@ -661,8 +682,8 @@ def important_main():
         chosen = {item["id"]: item["priority"] for item in candidates
                   if isinstance(item, dict) and item.get("id") in batch and item.get("priority") in ("urgent", "major")}
         for aid, item in batch.items():
-            records[aid] = {**item, "status": "candidate" if aid in chosen else "excluded",
-                            "priority": chosen.get(aid, "")}
+            records[aid] = ({**item, "status": "candidate", "priority": chosen[aid]}
+                            if aid in chosen else {"at": item["at"], "status": "excluded"})
         save(state)
     recent = [{"title": r["title"], "event": r.get("event", ""), "intro": r.get("intro", "")}
               for r in records.values() if r["status"] in ("sent", "ready", "sending", "unknown")][-35:]
@@ -685,7 +706,7 @@ def important_main():
                                     {"article": item, "source_title": title, "body": body,
                                      "verified": verified, "recent_reports": recent})
             if result.get("report") is False:
-                item["status"] = "excluded"
+                records[aid] = {"at": item["at"], "status": "excluded"}
                 save(state)
                 continue
             if result.get("report") is not True:
@@ -713,6 +734,7 @@ def important_main():
         if outcome == "sent":
             recent.append({"title": item["title"], "event": item["event"], "intro": item["intro"]})
             item.pop("message", None)
+            item.pop("summary", None)
         save(state)
         print("[important] Delivery:", item["status"])
         if outcome != "sent":
@@ -735,12 +757,17 @@ def important_self_test():
         pass
     with patch.dict(os.environ, {"OPEN_API_KEY": "test", "TELEGRAM_BOT_TOKEN": "test",
                                  "TELEGRAM_CHAT_ID": "test", "GH_DATA_TOKEN": "test"}):
-        with patch(__name__ + "._important_state_api") as api, patch(__name__ + "._important_deliver") as send:
+        with patch(__name__ + "._important_state_api") as api, patch(__name__ + "._important_deliver") as send, patch(__name__ + "._important_llm") as llm:
+            import copy
             saved = []
-            api.return_value = (None, saved.append)
+            api.return_value = (None, lambda state: saved.append(copy.deepcopy(state)))
+            llm.return_value = {"ok": True}
+            send.return_value = "sent"
             important_main()
-            assert len(saved) == 1 and saved[0]["articles"] == {}
-            send.assert_not_called()
+            assert [x["setup_test"] for x in saved] == ["pending", "sending", "sent"]
+            assert all(x["articles"] == {} for x in saved)
+            send.assert_called_once()
+            assert "[테스트]" in send.call_args.args[0]
     print("[important] Offline self-test passed")
 
 

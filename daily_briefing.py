@@ -606,23 +606,48 @@ def _important_deliver(text, token, chat_id):
     return "unknown"
 
 
+def _important_private_chat(token, chat_id):
+    # Fail closed: do not send AI reports to a group, channel, or shared destination.
+    if not chat_id or not chat_id.isascii() or not chat_id.isdecimal() or int(chat_id) <= 0:
+        return False
+    try:
+        with requests.post(f"https://api.telegram.org/bot{token}/getChat",
+                           json={"chat_id": chat_id}, timeout=(3, 10)) as response:
+            data = response.json()
+            chat = data.get("result") or {}
+            return (response.status_code == 200 and data.get("ok") is True
+                    and chat.get("type") == "private" and str(chat.get("id")) == chat_id)
+    except Exception:
+        return False
+
+
 def important_main():
     key = os.getenv("OPEN_API_KEY") or os.getenv("OPENAI_API_KEY")
-    token, chat_id = os.getenv("TELEGRAM_BOT_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = (os.getenv("IMPORTANT_TELEGRAM_CHAT_ID") or "").strip()
+    if not chat_id:
+        print("[important] Private destination not configured; delivery paused")
+        return
     state_token = os.getenv("GH_DATA_TOKEN")
     missing = [name for name, value in (("OPEN_API_KEY or OPENAI_API_KEY", key),
-               ("TELEGRAM_BOT_TOKEN", token), ("TELEGRAM_CHAT_ID", chat_id),
+               ("TELEGRAM_BOT_TOKEN", token), ("IMPORTANT_TELEGRAM_CHAT_ID", chat_id),
                ("GH_DATA_TOKEN", state_token)) if not value]
     if missing:
         print("[important] Missing required Actions secrets:", ", ".join(missing))
         raise SystemExit(2)
+    if not _important_private_chat(token, chat_id):
+        print("[important] Private chat verification failed; start the bot in a private chat and check the ID")
+        raise SystemExit(2)
+    import hashlib
+    destination = hashlib.sha256(("private:" + chat_id).encode()).hexdigest()
     state, save = _important_state_api(state_token)
     now = datetime.now(KST).replace(tzinfo=None)
-    if state is None:
-        # Persist baseline before delivery: no historical mass send.
-        state = {"start": now.isoformat(), "articles": {}, "setup_test": "pending"}
+    if state is None or state.get("destination") != destination:
+        # New private recipient: do not replay reports previously intended for a shared chat.
+        state = {"start": now.isoformat(), "articles": {}, "setup_test": "pending",
+                 "destination": destination}
         save(state)
-        print("[important] Baseline initialized; no historical reports sent")
+        print("[important] Private baseline initialized; no historical reports sent")
     if state.get("setup_test") in ("pending", "retry"):
         probe = _important_llm(key, 'Return only {"ok":true} as a JSON object.', {"test": True})
         if probe.get("ok") is not True:
@@ -631,7 +656,7 @@ def important_main():
         state["setup_test"] = "sending"
         save(state)
         outcome = _important_deliver(
-            "[테스트] P-IRIS AI 중요기사 자동보고 시스템의 연결 확인 메시지입니다. 실제 기사 보고는 아닙니다.\n\n"
+            "[테스트] P-IRIS AI 중요기사 개인 자동보고 시스템의 연결 확인 메시지입니다. 실제 기사 보고는 아닙니다.\n\n"
             "- OpenAI 분석 연결 및 비공개 보고 이력 저장 확인\n\n"
             "- 기존 뉴스 모니터링 알림 유지, 중요기사 별도 선별 보고 적용\n\n"
             "- 보고 대상 기사가 없는 경우 별도 알림 미발송",
@@ -755,9 +780,14 @@ def important_self_test():
         raise AssertionError("private address accepted")
     except ValueError:
         pass
+    assert not _important_private_chat("test", "-100123")
+    with patch.dict(os.environ, {"IMPORTANT_TELEGRAM_CHAT_ID": "", "TELEGRAM_CHAT_ID": "-100123"}):
+        with patch(__name__ + "._important_deliver") as send:
+            important_main()
+            send.assert_not_called()
     with patch.dict(os.environ, {"OPEN_API_KEY": "test", "TELEGRAM_BOT_TOKEN": "test",
-                                 "TELEGRAM_CHAT_ID": "test", "GH_DATA_TOKEN": "test"}):
-        with patch(__name__ + "._important_state_api") as api, patch(__name__ + "._important_deliver") as send, patch(__name__ + "._important_llm") as llm:
+                                 "IMPORTANT_TELEGRAM_CHAT_ID": "123456", "GH_DATA_TOKEN": "test"}):
+        with patch(__name__ + "._important_private_chat", return_value=True), patch(__name__ + "._important_state_api") as api, patch(__name__ + "._important_deliver") as send, patch(__name__ + "._important_llm") as llm:
             import copy
             saved = []
             api.return_value = (None, lambda state: saved.append(copy.deepcopy(state)))

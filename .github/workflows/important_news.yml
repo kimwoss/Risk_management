@@ -5,6 +5,11 @@ on:
     paths:
       - daily_briefing.py
       - .github/workflows/important_news.yml
+  push:
+    branches: [main]
+    paths:
+      - daily_briefing.py
+      - .github/workflows/important_news.yml
   schedule:
     - cron: '*/10 * * * *'
   workflow_dispatch:

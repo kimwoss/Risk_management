@@ -1,0 +1,54 @@
+name: Important News Reports
+
+on:
+  pull_request:
+    paths:
+      - daily_briefing.py
+      - .github/workflows/important_news.yml
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: important-news-report
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install requests pandas python-dotenv beautifulsoup4 openai==1.99.1
+      - run: python -m py_compile daily_briefing.py && python daily_briefing.py --important-self-test
+  report:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install requests pandas python-dotenv beautifulsoup4 openai==1.99.1
+      - name: Refresh existing news data
+        run: |
+          git fetch origin main
+          git checkout origin/main -- data/news_monitor.csv
+      - name: Select and deliver reports
+        env:
+          OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GH_DATA_TOKEN: ${{ secrets.GH_DATA_TOKEN }}
+        run: python daily_briefing.py --important

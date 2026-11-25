@@ -621,6 +621,78 @@ def _important_private_chat(token, chat_id):
         return False
 
 
+def _important_sample_request():
+    # Explicit push marker only; scheduled runs never enter sample mode.
+    if os.getenv("GITHUB_EVENT_NAME") != "push":
+        return ""
+    try:
+        with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as f:
+            event = json.load(f)
+        message = (event.get("head_commit") or {}).get("message", "")
+        if "[important-sample]" in message:
+            return os.getenv("GITHUB_RUN_ID", "")
+    except (OSError, KeyError, ValueError):
+        pass
+    return ""
+
+
+def _important_sample(key, token, chat_id, state, save, request_id, now):
+    tests = state.setdefault("sample_tests", {})
+    if tests.get(request_id) in ("sending", "sent", "unknown"):
+        print("[important] Sample already attempted; no duplicate send")
+        return
+    df = load_news_db()
+    rows = []
+    required = ["날짜", "매체명", "검색키워드", "기사제목", "주요기사 요약", "URL"]
+    if not df.empty and all(c in df.columns for c in required):
+        for row in df[required].fillna("").astype(str).to_dict("records"):
+            dt = pd.to_datetime(row["날짜"], errors="coerce")
+            title = row["기사제목"]
+            if pd.isna(dt) or not now - timedelta(hours=24) <= dt <= now + timedelta(minutes=5):
+                continue
+            if not row["URL"].startswith(("http://", "https://")):
+                continue
+            if not any(k in title.lower() for k in ("포스코인터", "posco international", "삼척블루파워")):
+                continue
+            rows.append({"id": _important_id(row), "title": title, "summary": row["주요기사 요약"][:1000],
+                         "media": row["매체명"], "keyword": row["검색키워드"], "url": row["URL"],
+                         "at": dt.isoformat()})
+    rows = sorted(rows, key=lambda row: row["at"], reverse=True)[:12]
+    if not rows:
+        raise RuntimeError("No recent direct articles for sample")
+    screen = _important_llm(key, IMPORTANT_SCREEN,
+                            [{k: v for k, v in row.items() if k != "url"} for row in rows])
+    selected = screen.get("candidates")
+    if not isinstance(selected, list):
+        raise ValueError("invalid sample screening")
+    chosen = {x.get("id") for x in selected if isinstance(x, dict) and x.get("priority") in ("urgent", "major")}
+    candidates = [row for row in rows if row["id"] in chosen][:4]
+    if not candidates:
+        raise RuntimeError("No report-worthy recent article for sample")
+    for item in candidates:
+        title, body, url = _important_extract(item["url"])
+        if not body:
+            continue
+        result = _important_llm(key, IMPORTANT_REPORT,
+                                {"article": item, "source_title": title, "body": body,
+                                 "verified": True, "recent_reports": []})
+        if result.get("report") is not True:
+            continue
+        message = _important_format(item["media"], title or item["title"], url, result, True)
+        if not message or len(message.encode("utf-16-le")) // 2 > 3950:
+            continue
+        tests[request_id] = "sending"
+        save(state)
+        outcome = _important_deliver("[테스트 보고]\n\n" + message, token, chat_id)
+        tests[request_id] = outcome
+        save(state)
+        print("[important] Actual article sample:", outcome)
+        if outcome != "sent":
+            raise RuntimeError("Sample delivery not confirmed")
+        return
+    raise RuntimeError("No verified report could be generated for sample")
+
+
 def important_main():
     key = os.getenv("OPEN_API_KEY") or os.getenv("OPENAI_API_KEY")
     token = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -666,6 +738,10 @@ def important_main():
         print("[important] Setup Telegram test:", outcome)
         if outcome != "sent":
             raise RuntimeError("Telegram test not confirmed")
+        return
+    sample_request = _important_sample_request()
+    if sample_request:
+        _important_sample(key, token, chat_id, state, save, sample_request, now)
         return
     start = datetime.fromisoformat(state["start"])
     records = state["articles"]
@@ -798,6 +874,30 @@ def important_self_test():
             assert all(x["articles"] == {} for x in saved)
             send.assert_called_once()
             assert "[테스트]" in send.call_args.args[0]
+    import tempfile
+    from unittest.mock import MagicMock
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8") as event_file:
+        json.dump({"head_commit": {"message": "test [important-sample]"}}, event_file)
+        event_file.flush()
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "push", "GITHUB_EVENT_PATH": event_file.name, "GITHUB_RUN_ID": "123"}):
+            assert _important_sample_request() == "123"
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "schedule"}):
+            assert not _important_sample_request()
+    sample_now = datetime.now(KST).replace(tzinfo=None)
+    sample_row = {"날짜": sample_now.strftime("%Y-%m-%d %H:%M"), "매체명": "테스트 매체",
+                  "검색키워드": "포스코인터내셔널", "기사제목": "포스코인터내셔널 테스트 기사",
+                  "주요기사 요약": "예시 요약", "URL": "https://example.com/news"}
+    sample_state = {}
+    with patch(__name__ + ".load_news_db", return_value=pd.DataFrame([sample_row])), \
+         patch(__name__ + "._important_extract", return_value=("원문 제목", "원문 " * 200, sample_row["URL"])), \
+         patch(__name__ + "._important_llm", side_effect=[{"candidates": [{"id": _important_id(sample_row), "priority": "major"}]}, {"report": True, "intro": "테스트 기사입니다", "bullets": ["확인된 사실"]}]), \
+         patch(__name__ + "._important_deliver", return_value="sent") as send:
+        save_sample = MagicMock()
+        _important_sample("key", "token", "123", sample_state, save_sample, "sample1", sample_now)
+        assert sample_state["sample_tests"]["sample1"] == "sent"
+        assert send.call_args.args[0].startswith("[테스트 보고]\n\n")
+        _important_sample("key", "token", "123", sample_state, save_sample, "sample1", sample_now)
+        send.assert_called_once()
     print("[important] Offline self-test passed")
 
 
